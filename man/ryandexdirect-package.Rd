@@ -16,7 +16,9 @@ The DESCRIPTION file:
 ~~ An overview of how to use the package, including the most important functions ~~
 }
 \author{
-\packageAuthor{Alexey Seleznev}
+\packageAuthor{ryandexdirect}
+
+Maintainer: \packageMaintainer{ryandexdirect}
 }
 \references{
 ~~ Literature or other references for background information ~~
