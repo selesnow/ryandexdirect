@@ -1,0 +1,8 @@
+export(yadirGetCampaignList)
+export(yadirGetClientList)
+export(yadirGetSummaryStat)
+export(yadirGetToken)
+importFrom(utils,browseURL)
+import(httr,POST)
+import(httr,stop_for_status)
+import(httr,content)
