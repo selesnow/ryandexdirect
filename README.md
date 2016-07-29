@@ -37,3 +37,16 @@
 
 
 ## Пример работы с пакетом ryandexdirect.
+
+#Подключаем пакет ryandexdirect
+library(ryandexdirect)
+
+#Получаем токен для доступа к API
+myToken <- yadirGetToken()
+
+После запуска функции автоматически будет открыт браузер, на странице с выданным вам токеном, скопируйте его и вставьте в консоль R.
+img src="http://picsee.net/upload/2016-07-29/5d6a84ad44f8.png" data-canonical-src="http://picsee.net/upload/2016-07-29/5d6a84ad44f8.png" style="max-width:100%;">
+
+img src="http://picsee.net/upload/2016-07-29/acfa15376aa6.png" data-canonical-src="http://picsee.net/upload/2016-07-29/acfa15376aa6.png" style="max-width:100%;">
+
+После чего в рабочей области появится объект myToken, который вы будете использовать в остальных функциях.
