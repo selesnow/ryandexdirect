@@ -69,10 +69,10 @@
         <td><center>Поле</center></td><td><center>Тип данных</center></td><td><center>Описание</center></td>
     </tr>
     <tr>
-        <td>ManagerName</td><td>chr</td><td>Имя персонального менеджера в Яндексе.</td>
+        <td>ManagerName</td><td>Factor</td><td>Имя персонального менеджера в Яндексе.</td>
     </tr>
     <tr>
-        <td>SumAvailableForTransfer</td><td>chr</td><td>Сумма, доступная для перевода с помощью метода TransferMoney.</td>
+        <td>SumAvailableForTransfer</td><td>Factor</td><td>Сумма, доступная для перевода с помощью метода TransferMoney.</td>
     </tr>
     <tr>
         <td>Login</td><td>Factor</td><td>Логин владельца кампании (логин пользователя Яндекса, в пользу которого ведется рекламная кампания).</td>
