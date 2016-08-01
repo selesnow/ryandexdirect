@@ -62,7 +62,7 @@ myToken <- yadirGetToken()
 Следующий шаг получить список рекламных кампаний клиентов, для этого в функции `yadirGetCampaignList` необходимо задать вектор со списком логинов тех аккаунтов по которым вы хотите получить статистику.
 <table>
     <tr>
-        <td><center>Поле</center></td><td>Тип данных</td><td>Описание</td>
+        <td><center>Поле</center></td><td><center>Тип данных</center></td><td><center>Описание</center></td>
     </tr>
     <tr>
         <td>Login</td><td>chr</td><td>Логин пользователя на Яндексе</td>
