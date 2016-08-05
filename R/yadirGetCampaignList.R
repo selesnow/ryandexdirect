@@ -42,7 +42,8 @@ if(is.null(logins)){
                            Type = character(),
                            Status = character(),
                            State = character(),
-                           DailyBudget = double(),
+                           DailyBudgetAmount = double(),
+                           DailyBudgetMode = character(),
                            Currency = character(),
                            StartDate = as.Date(character()),
                            Impressions = integer(),
@@ -57,14 +58,13 @@ if(is.null(logins)){
     resultData[i,3] <- dataRaw$result$Campaigns[[i]]$Type
     resultData[i,4] <- dataRaw$result$Campaigns[[i]]$Status
     resultData[i,5] <- dataRaw$result$Campaigns[[i]]$State
-    resultData[i,6] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$DailyBudget), NA, dataRaw$result$Campaigns[[i]]$DailyBudget)
-    resultData[i,7] <- dataRaw$result$Campaigns[[i]]$Currency
-    resultData[i,8] <- dataRaw$result$Campaigns[[i]]$StartDate
-    resultData[i,9] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$Statistics$Impressions), NA,dataRaw$result$Campaigns[[i]]$Statistics$Impressions)
-    resultData[i,10] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$Statistics$Clicks), NA,dataRaw$result$Campaigns[[i]]$Statistics$Clicks)
-    resultData[i,11] <- dataRaw$result$Campaigns[[i]]$ClientInfo}
-  
-  resultData$DailyBudget[!is.na(as.integer(resultData$DailyBudget))] <- try(lapply(X = resultData$DailyBudget[!is.na(as.integer(resultData$DailyBudget))], FUN = function(x) {as.integer(x)/1000000}), silent = TRUE)
+    resultData[i,6] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$DailyBudget$Amount), NA, as.integer(dataRaw$result$Campaigns[[i]]$DailyBudget$Amount) / 1000000)
+    resultData[i,7] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$DailyBudget$Mode), NA, dataRaw$result$Campaigns[[i]]$DailyBudget$Mode)
+    resultData[i,8] <- dataRaw$result$Campaigns[[i]]$Currency
+    resultData[i,9] <- dataRaw$result$Campaigns[[i]]$StartDate
+    resultData[i,10] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$Statistics$Impressions), NA,dataRaw$result$Campaigns[[i]]$Statistics$Impressions)
+    resultData[i,11] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$Statistics$Clicks), NA,dataRaw$result$Campaigns[[i]]$Statistics$Clicks)
+    resultData[i,12] <- dataRaw$result$Campaigns[[i]]$ClientInfo}
   
   } else {
   #Для агентских аккаунтов
@@ -73,7 +73,8 @@ if(is.null(logins)){
                              Type = character(),
                              Status = character(),
                              State = character(),
-                             DailyBudget = double(),
+                             DailyBudgetAmount = double(),
+                             DailyBudgetMode = character(),
                              Currency = character(),
                              StartDate = as.Date(character()),
                              Impressions = integer(),
@@ -94,7 +95,8 @@ if(is.null(logins)){
                                Type = character(),
                                Status = character(),
                                State = character(),
-                               DailyBudget = double(),
+                               DailyBudgetAmount = double(),
+                               DailyBudgetMode = character(),
                                Currency = character(),
                                StartDate = as.Date(character()),
                                Impressions = integer(),
@@ -109,19 +111,24 @@ if(is.null(logins)){
         try(tempResultData[i,3] <- dataRaw$result$Campaigns[[i]]$Type, silent = TRUE)
         try(tempResultData[i,4] <- dataRaw$result$Campaigns[[i]]$Status, silent = TRUE)
         try(tempResultData[i,5] <- dataRaw$result$Campaigns[[i]]$State, silent = TRUE)
-        try(tempResultData[i,6] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$DailyBudget), NA, dataRaw$result$Campaigns[[i]]$DailyBudget), silent = TRUE)
-        try(tempResultData[i,7] <- dataRaw$result$Campaigns[[i]]$Currency, silent = TRUE)
-        try(tempResultData[i,8] <- dataRaw$result$Campaigns[[i]]$StartDate, silent = TRUE)
-        try(tempResultData[i,9] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$Statistics$Impressions), NA,dataRaw$result$Campaigns[[i]]$Statistics$Impressions), silent = TRUE)
-        try(tempResultData[i,10] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$Statistics$Clicks), NA,dataRaw$result$Campaigns[[i]]$Statistics$Clicks), silent = TRUE)
-        try(tempResultData[i,11] <- dataRaw$result$Campaigns[[i]]$ClientInfo, silent = TRUE)
-        try(tempResultData[i,12] <- logins[l], silent = TRUE)}
-      
-      resultData$DailyBudget[!is.na(as.integer(resultData$DailyBudget))] <- try(lapply(X = resultData$DailyBudget[!is.na(as.integer(resultData$DailyBudget))], FUN = function(x) {as.integer(x)/1000000}), silent = TRUE)
+        try(tempResultData[i,6] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$DailyBudget$Amount), NA, as.integer(dataRaw$result$Campaigns[[i]]$DailyBudget$Amount) / 1000000), silent = TRUE)
+        try(tempResultData[i,7] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$DailyBudget$Mode), NA, dataRaw$result$Campaigns[[i]]$DailyBudget$Mode), silent = TRUE)
+        try(tempResultData[i,8] <- dataRaw$result$Campaigns[[i]]$Currency, silent = TRUE)
+        try(tempResultData[i,9] <- dataRaw$result$Campaigns[[i]]$StartDate, silent = TRUE)
+        try(tempResultData[i,10] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$Statistics$Impressions), NA,dataRaw$result$Campaigns[[i]]$Statistics$Impressions), silent = TRUE)
+        try(tempResultData[i,11] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$Statistics$Clicks), NA,dataRaw$result$Campaigns[[i]]$Statistics$Clicks), silent = TRUE)
+        try(tempResultData[i,12] <- dataRaw$result$Campaigns[[i]]$ClientInfo, silent = TRUE)
+        try(tempResultData[i,13] <- logins[l], silent = TRUE)}
       
       try(resultData <- rbind(resultData, tempResultData))
       if(exists("tempResultData")) {rm(tempResultData)} 
     }
   }
+
+#Преобразовываем некоторые поля результирующего дата фрейма в фактор
+resultData$Type <- as.factor(resultData$Type)
+resultData$Status <- as.factor(resultData$Status)
+resultData$State <- as.factor(resultData$State)
+resultData$Currency <- as.factor(resultData$Currency)
 return(resultData)
 }
