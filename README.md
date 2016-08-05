@@ -200,3 +200,15 @@ STANDARD — дневной бюджет может исчерпаться, а �
                             dateEnd = "2016-06-30",
                             currency = "USD",
                             token = myToken)`
+
+
+##Образец кода для работы с пакетом ryandexdirect
+`library(ryandexdirect)`
+`myToken <- yadirGetToken()`
+`clientList <- yadirGetClientList(myToken)`
+`campaignList <- yadirGetCampaignList(logins = clientList$Login, token = myToken)`
+`stat <- yadirGetSummaryStat(campaignIDS = campaigns$CampaignID],
+                            dateStart = "2016-01-01",
+                            dateEnd = "2016-06-30",
+                            currency = "USD",
+                            token = myToken)`
