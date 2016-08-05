@@ -1,75 +1,127 @@
 yadirGetCampaignList <-
 function (logins = NULL, token = NULL) {
-  #Create result data frame
-  #Создаём дата фрейм
-  data <- data.frame()
-  
-  #Check login number, if less 100 send simply query
-  #Проверяем количество логинов, если менее 100 то запускаем упрощённую процедуру
-  if(length(logins) < 101){
-    #Create login list in string
-    #Создаём список логинов в виде строки
-    loginsList <- paste0(paste0("\"",logins,"\""), collapse = ",")
-    answer <- POST("https://api.direct.yandex.ru/v4/json/", body = paste0("{\"method\": \"GetCampaignsList\"",ifelse(is.null(logins),"",paste0(",\"param\": [",loginsList,"]")),", \"locale\": \"ru\", \"token\": \"",token,"\"}"))
-    #Send POST request
-    #Отправка POST запроса
-    stop_for_status(answer)
-    dataRaw <- content(answer, "parsed", "application/json")
-    #Create result data frame
-    #Наполняем результирующий дата фрейм
-    data <- data.frame()
-    for (i in 1:length(dataRaw$data)){
-      dataRaw$data[[i]][sapply(dataRaw$data[[i]], is.null)] <- NA
-      dataTemp <- data.frame(t(as.data.frame(unlist(dataRaw$data[[i]],recursive = T))),row.names = NULL)
-      data <- rbind(data, dataTemp)
+#РџСЂРѕРІРµСЂРєР° Р·Р°РїРѕР»РЅРµРЅРёСЏ С‚РѕРєРµРЅР°
+if(is.null(token)) {
+  warning("Enter your API token!")
+  return()
+}
+
+#Р¤РѕСЂРјРёСЂСѓРµРј С‚РµР»Рѕ POST Р·Р°РїСЂРѕСЃР°
+queryBody <- paste0("{
+  \"method\": \"get\",
+  \"params\": { 
+    \"SelectionCriteria\": {},
+    \"FieldNames\": [
+                    \"Id\",
+                    \"Name\",
+                    \"Type\",
+                    \"StartDate\",
+                    \"Status\",
+                    \"State\",
+                    \"Statistics\",
+                    \"Currency\",
+                    \"DailyBudget\",
+                    \"ClientInfo\"],
+    \"Page\": {  
+      \"Limit\": 1000
     }
-    
-    return(data)
-    
-  } else {
-    
-    #If logins more than 100 run cicle by 100 logins
-    #В случае если введено более 100 логинов неоходимо обойти ограничение API и отправлять запросы отдельно по 100 логинов
-    loginsList <- NULL
-    start <- 1
-    step <- 99
-    finish <- length(logins)
-    while (start < (finish - 100)){
-      
-      startLim <- start+step
-      loginstxt <- logins[start:startLim]
-      loginsList <- paste0(paste0("\"",loginstxt,"\""), collapse = ",")
-      answer <- POST("https://api.direct.yandex.ru/v4/json/", body = paste0("{\"method\": \"GetCampaignsList\"",ifelse(is.null(logins),"",paste0(",\"param\": [",loginsList,"]")),", \"locale\": \"ru\", \"token\": \"",token,"\"}"))
-      #Send POST request
-      #Отправляем POST запрос
-      stop_for_status(answer)
-      
-      dataRaw <- content(answer, "parsed", "application/json")
-      for (i in 1:length(dataRaw$data)){
-        dataRaw$data[[i]][sapply(dataRaw$data[[i]], is.null)] <- NA
-        dataTemp <- data.frame(t(as.data.frame(unlist(dataRaw$data[[i]],recursive = T))),row.names = NULL)
-        data <- rbind(data, dataTemp)
-      }
-      #Step on next 100 logins
-      #Переходим на следующие 100 логинов
-      start <- start + step + 1
-      #If this last part of logins do this
-      #Если это последняя партия логинов то переходим к следующей процедуре
-      if(start > (finish - 100)) {
-        loginstxt <- logins[start:finish]
-        loginsList <- paste0(paste0("\"",loginstxt,"\""), collapse = ",")
-        answer <- POST("https://api.direct.yandex.ru/v4/json/", body = paste0("{\"method\": \"GetCampaignsList\"",ifelse(is.null(logins),"",paste0(",\"param\": [",loginsList,"]")),", \"locale\": \"ru\", \"token\": \"",token,"\"}"))
-        #Send POST request
-        #Отправка POST запроса
-        stop_for_status(answer)
-        dataRaw <- content(answer, "parsed", "application/json")
-        for (i in 1:length(dataRaw$data)){
-          dataRaw$data[[i]][sapply(dataRaw$data[[i]], is.null)] <- NA
-          dataTemp <- data.frame(t(as.data.frame(unlist(dataRaw$data[[i]],recursive = T))),row.names = NULL)
-          data <- rbind(data, dataTemp)
-        }
-      }
-    }
-    return(data)
   }
+}")
+
+#РћС‚РїСЂР°РІРєР° Р·Р°РїСЂРѕСЃР°
+if(is.null(logins)){
+  #Р”Р»СЏ РѕР±С‹С‡РЅС‹С… Р°РєРєР°СѓРЅС‚РѕРІ
+  answer <- POST("https://api.direct.yandex.com/json/v5/campaigns", body = queryBody, add_headers(Authorization = paste0("Bearer ",token), 'Accept-Language' = "ru"))
+  #РћР±СЂР°Р±РѕС‚РєР° РѕС‚РІРµС‚Р°
+  stop_for_status(answer)
+  dataRaw <- content(answer, "parsed", "application/json")
+  
+  #РџР°СЂСЃРёРЅРі РѕС‚РІРµС‚Р°
+  resultData <- data.frame(Id = character(),
+                           Name = character(),
+                           Type = character(),
+                           Status = character(),
+                           State = character(),
+                           DailyBudget = double(),
+                           Currency = character(),
+                           StartDate = as.Date(character()),
+                           Impressions = integer(),
+                           Clicks = integer(),
+                           ClientInfo = character(),
+                           stringsAsFactors=FALSE)
+  
+  #Р—Р°РїРѕР»РЅСЏРµРј С‚Р°Р±Р»РёС†Сѓ РґР°РЅРЅС‹РјРё РїРѕ РєР°РјРїР°РЅРёСЏРј
+  for (i in 1:length(dataRaw$result$Campaigns)){
+    resultData[i,1] <- dataRaw$result$Campaigns[[i]]$Id
+    resultData[i,2] <- dataRaw$result$Campaigns[[i]]$Name
+    resultData[i,3] <- dataRaw$result$Campaigns[[i]]$Type
+    resultData[i,4] <- dataRaw$result$Campaigns[[i]]$Status
+    resultData[i,5] <- dataRaw$result$Campaigns[[i]]$State
+    resultData[i,6] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$DailyBudget), NA, dataRaw$result$Campaigns[[i]]$DailyBudget)
+    resultData[i,7] <- dataRaw$result$Campaigns[[i]]$Currency
+    resultData[i,8] <- dataRaw$result$Campaigns[[i]]$StartDate
+    resultData[i,9] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$Statistics$Impressions), NA,dataRaw$result$Campaigns[[i]]$Statistics$Impressions)
+    resultData[i,10] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$Statistics$Clicks), NA,dataRaw$result$Campaigns[[i]]$Statistics$Clicks)
+    resultData[i,11] <- dataRaw$result$Campaigns[[i]]$ClientInfo}
+  
+  resultData$DailyBudget[!is.na(as.integer(resultData$DailyBudget))] <- try(lapply(X = resultData$DailyBudget[!is.na(as.integer(resultData$DailyBudget))], FUN = function(x) {as.integer(x)/1000000}), silent = TRUE)
+  
+  } else {
+  #Р”Р»СЏ Р°РіРµРЅС‚СЃРєРёС… Р°РєРєР°СѓРЅС‚РѕРІ
+    resultData <- data.frame(Id = character(),
+                             Name = character(),
+                             Type = character(),
+                             Status = character(),
+                             State = character(),
+                             DailyBudget = double(),
+                             Currency = character(),
+                             StartDate = as.Date(character()),
+                             Impressions = integer(),
+                             Clicks = integer(),
+                             ClientInfo = character(),
+                             login = character(),
+                             stringsAsFactors=FALSE)
+    
+    for(l in 1:length(logins)){
+      answer <- POST("https://api.direct.yandex.com/json/v5/campaigns", body = queryBody, add_headers(Authorization = paste0("Bearer ",token), 'Accept-Language' = "ru","Client-Login" = logins[l]))
+      #РћР±СЂР°Р±РѕС‚РєР° РѕС‚РІРµС‚Р°
+      stop_for_status(answer)
+      dataRaw <- content(answer, "parsed", "application/json")
+      
+      #
+      tempResultData <- data.frame(Id = character(),
+                               Name = character(),
+                               Type = character(),
+                               Status = character(),
+                               State = character(),
+                               DailyBudget = double(),
+                               Currency = character(),
+                               StartDate = as.Date(character()),
+                               Impressions = integer(),
+                               Clicks = integer(),
+                               ClientInfo = character(),
+                               login = character(),
+                               stringsAsFactors=FALSE)      
+      
+      for (i in 1:length(dataRaw$result$Campaigns)){
+        try(tempResultData[i,1] <- dataRaw$result$Campaigns[[i]]$Id, silent = TRUE)
+        try(tempResultData[i,2] <- dataRaw$result$Campaigns[[i]]$Name, silent = TRUE)
+        try(tempResultData[i,3] <- dataRaw$result$Campaigns[[i]]$Type, silent = TRUE)
+        try(tempResultData[i,4] <- dataRaw$result$Campaigns[[i]]$Status, silent = TRUE)
+        try(tempResultData[i,5] <- dataRaw$result$Campaigns[[i]]$State, silent = TRUE)
+        try(tempResultData[i,6] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$DailyBudget), NA, dataRaw$result$Campaigns[[i]]$DailyBudget), silent = TRUE)
+        try(tempResultData[i,7] <- dataRaw$result$Campaigns[[i]]$Currency, silent = TRUE)
+        try(tempResultData[i,8] <- dataRaw$result$Campaigns[[i]]$StartDate, silent = TRUE)
+        try(tempResultData[i,9] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$Statistics$Impressions), NA,dataRaw$result$Campaigns[[i]]$Statistics$Impressions), silent = TRUE)
+        try(tempResultData[i,10] <- ifelse(is.null(dataRaw$result$Campaigns[[i]]$Statistics$Clicks), NA,dataRaw$result$Campaigns[[i]]$Statistics$Clicks), silent = TRUE)
+        try(tempResultData[i,11] <- dataRaw$result$Campaigns[[i]]$ClientInfo, silent = TRUE)
+        try(tempResultData[i,12] <- logins[l], silent = TRUE)}
+      
+      resultData$DailyBudget[!is.na(as.integer(resultData$DailyBudget))] <- try(lapply(X = resultData$DailyBudget[!is.na(as.integer(resultData$DailyBudget))], FUN = function(x) {as.integer(x)/1000000}), silent = TRUE)
+      
+      try(resultData <- rbind(resultData, tempResultData))
+      if(exists("tempResultData")) {rm(tempResultData)} 
+    }
+  }
+return(resultData)
 }
