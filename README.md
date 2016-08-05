@@ -69,68 +69,49 @@
         <td><center>Поле</center></td><td><center>Тип данных</center></td><td><center>Описание</center></td>
     </tr>
     <tr>
-        <td>ManagerName</td><td>Factor</td><td>Имя персонального менеджера в Яндексе.</td>
+        <td>Id</td><td>chr</td><td>Идентификатор кампании.</td>
     </tr>
     <tr>
-        <td>SumAvailableForTransfer</td><td>Factor</td><td>Сумма, доступная для перевода с помощью метода TransferMoney.</td>
+        <td>Name</td><td>chr</td><td>Название кампании.</td>
     </tr>
     <tr>
-        <td>Login</td><td>Factor</td><td>Логин владельца кампании (логин пользователя Яндекса, в пользу которого ведется рекламная кампания).</td>
+        <td>Type</td><td>Factor</td><td>Тип кампании ("TEXT_CAMPAIGN" | "MOBILE_APP_CAMPAIGN" |  "DYNAMIC_TEXT_CAMPAIGN" | "UNKNOWN").</td>
     </tr>
     <tr>
-        <td>Name</td><td>Factor</td><td>Название кампании.</td>
+        <td>Status</td><td>Factor</td><td>Статус кампании ( "ACCEPTED" | "DRAFT" | "MODERATION" | "REJECTED" | "UNKNOWN" ).</td>
     </tr>
     <tr>
-        <td>Clicks</td><td>Factor</td><td>Количество кликов за время существования кампании.</td>
+        <td>State</td><td>Factor</td><td>Состояние кампании ( "ARCHIVED" | "CONVERTED" | "ENDED" | "OFF" | "ON" | "SUSPENDED" | "UNKNOWN" ).</td>
     </tr>
     <tr>
-        <td>CampaignID</td><td>Factor</td><td>Идентификатор кампании.</td>
+        <td>DailyBudgetAmount</td><td>num</td><td>Дневной бюджет кампании в валюте рекламодателя.</td>
     </tr>
     <tr>
-        <td>Status</td><td>Factor</td><td>Статус кампании, например: «Идут показы», «Ожидает оплаты», «На модерации», «Остановлена».</td>
+        <td>DailyBudgetMode</td><td>chr</td><td>DISTRIBUTED — распределять дневной бюджет равномерно на весь день.
+STANDARD — дневной бюджет может исчерпаться, а показы завершиться ранее окончания дня.</td>
     </tr>
     <tr>
-        <td>StatusActivating</td><td>Factor</td><td>Состояние активизации кампании:
-Yes — активизирована;
-Pending — ожидается активизация.</td>
+        <td>Currency</td><td>Factor</td><td>Валюта кампании. Совпадает с валютой рекламодателя для всех кампаний.</td>
     </tr>
     <tr>
-        <td>Shows</td><td>Factor</td><td>Количество показов за время существования кампании.</td>
+        <td>StartDate</td><td>Date</td><td>Дата начала показов объявлений.</td>
     </tr>
     <tr>
-        <td>StatusModerate</td><td>Factor</td><td>Результат проверки модератором:
-Yes — модератор одобрил хотя бы одно объявление;
-No — модератор отклонил все объявления;
-New — объявления не отправлялись на проверку (статус кампании «Черновик»);
-Pending — проводится проверка.</td>
+        <tdImpressions</td><td>int</td><td>Количество показов за время существования кампании..</td>
     </tr>
     <tr>
-        <td>StatusShow</td><td>Factor</td><td>Показ объявлений кампании включен — Yes/No.</td>
+        <td>Clicks</td><td>int</td><td>Количество кликов за время существования кампании.</td>
     </tr>
     <tr>
-        <td>Sum</td><td>Factor</td><td>Если у клиента подключен общий счет — сумма израсходованных средств за все время существования кампании.
-                                    Если общий счет не подключен — сумма средств, зачисленных на баланс кампании за время ее существования.</td>
+        <td>ClientInfo</td><td>chr</td><td>Название клиента. Значение по умолчанию — наименование из настроек рекламодателя.</td>
     </tr>
     <tr>
-        <td>IsActive</td><td>Factor</td><td>Кампания активна, объявления показываются — Yes/No.</td>
-    </tr>
-    <tr>
-        <td>StartDate</td><td>Factor</td><td>Начало показа объявлений, YYYY-MM-DD.</td>
-    </tr>
-    <tr>
-        <td>Rest</td><td>Factor</td><td>Текущий баланс общего счета + сумма возврата на кампанию (если у рекламодателя подключен общий счет) или текущий баланс кампании (если общий счет не подключен).</td>
-    </tr>
-    <tr>
-        <td>AgencyName</td><td>Factor</td><td>Название рекламного агентства.</td>
-    </tr>
-    <tr>
-        <td>StatusArchive</td><td>Factor</td><td>Состояние архивации кампании:
-            Yes — кампания помещена в архив;
-            No — кампания не в архиве;
-            Pending — происходит перенос кампании в архив либо возврат из архива;
-            CurrencyConverted — кампания автоматически заархивирована при переходе клиента на работу в валюте и не может быть разархивирована</td>
+        <td>login</td><td>chr</td><td>Логин пользователя на Яндексе.</td>
     </tr>
 </table>
+
+###`yadirGetCampaignListOld(logins = NULL, token = NULL)`
+Устаревшая функцая для получения списка рекламных кампаний, список функций запрашивался с помощью метода GetCampaignList из версии API 4, с августе 2016 года этот метод стал недоступен, для того что бы получить список кампаний используйте новую  функцию`yadirGetCampaignList(logins = NULL, token = NULL)`.
 
 ###`yadirGetSummaryStat(campaignIDS = NULL, dateStart = Sys.Date() - 10, dateEnd = Sys.Date(), currency = "USD", token = NULL)`
 Основная функция пакета, возвращает дата фрейм со статистикой в разрезе кампаний и дат.
@@ -183,6 +164,8 @@ Pending — проводится проверка.</td>
         <td>SessionDepthContext</td><td>num</td><td>Глубина просмотра сайта при переходе из Рекламной сети Яндекса.</td>
     </tr>
 </table>
+
+
 
 ## Пример работы с пакетом ryandexdirect.
 
