@@ -1,22 +1,22 @@
-yadirGetCampaignList <-
+yadirGetCampaignListOld <-
 function (logins = NULL, token = NULL) {
   #Create result data frame
-  #Ñîçäà¸ì äàòà ôðåéì
+  #Ã‘Ã®Ã§Ã¤Ã Â¸Ã¬ Ã¤Ã Ã²Ã  Ã´Ã°Ã¥Ã©Ã¬
   data <- data.frame()
   
   #Check login number, if less 100 send simply query
-  #Ïðîâåðÿåì êîëè÷åñòâî ëîãèíîâ, åñëè ìåíåå 100 òî çàïóñêàåì óïðîù¸ííóþ ïðîöåäóðó
+  #ÃÃ°Ã®Ã¢Ã¥Ã°Ã¿Ã¥Ã¬ ÃªÃ®Ã«Ã¨Ã·Ã¥Ã±Ã²Ã¢Ã® Ã«Ã®Ã£Ã¨Ã­Ã®Ã¢, Ã¥Ã±Ã«Ã¨ Ã¬Ã¥Ã­Ã¥Ã¥ 100 Ã²Ã® Ã§Ã Ã¯Ã³Ã±ÃªÃ Ã¥Ã¬ Ã³Ã¯Ã°Ã®Ã¹Â¸Ã­Ã­Ã³Ã¾ Ã¯Ã°Ã®Ã¶Ã¥Ã¤Ã³Ã°Ã³
   if(length(logins) < 101){
     #Create login list in string
-    #Ñîçäà¸ì ñïèñîê ëîãèíîâ â âèäå ñòðîêè
+    #Ã‘Ã®Ã§Ã¤Ã Â¸Ã¬ Ã±Ã¯Ã¨Ã±Ã®Ãª Ã«Ã®Ã£Ã¨Ã­Ã®Ã¢ Ã¢ Ã¢Ã¨Ã¤Ã¥ Ã±Ã²Ã°Ã®ÃªÃ¨
     loginsList <- paste0(paste0("\"",logins,"\""), collapse = ",")
     answer <- POST("https://api.direct.yandex.ru/v4/json/", body = paste0("{\"method\": \"GetCampaignsList\"",ifelse(is.null(logins),"",paste0(",\"param\": [",loginsList,"]")),", \"locale\": \"ru\", \"token\": \"",token,"\"}"))
     #Send POST request
-    #Îòïðàâêà POST çàïðîñà
+    #ÃŽÃ²Ã¯Ã°Ã Ã¢ÃªÃ  POST Ã§Ã Ã¯Ã°Ã®Ã±Ã 
     stop_for_status(answer)
     dataRaw <- content(answer, "parsed", "application/json")
     #Create result data frame
-    #Íàïîëíÿåì ðåçóëüòèðóþùèé äàòà ôðåéì
+    #ÃÃ Ã¯Ã®Ã«Ã­Ã¿Ã¥Ã¬ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã¨Ã°Ã³Ã¾Ã¹Ã¨Ã© Ã¤Ã Ã²Ã  Ã´Ã°Ã¥Ã©Ã¬
     data <- data.frame()
     for (i in 1:length(dataRaw$data)){
       dataRaw$data[[i]][sapply(dataRaw$data[[i]], is.null)] <- NA
@@ -29,7 +29,7 @@ function (logins = NULL, token = NULL) {
   } else {
     
     #If logins more than 100 run cicle by 100 logins
-    #Â ñëó÷àå åñëè ââåäåíî áîëåå 100 ëîãèíîâ íåîõîäèìî îáîéòè îãðàíè÷åíèå API è îòïðàâëÿòü çàïðîñû îòäåëüíî ïî 100 ëîãèíîâ
+    #Ã‚ Ã±Ã«Ã³Ã·Ã Ã¥ Ã¥Ã±Ã«Ã¨ Ã¢Ã¢Ã¥Ã¤Ã¥Ã­Ã® Ã¡Ã®Ã«Ã¥Ã¥ 100 Ã«Ã®Ã£Ã¨Ã­Ã®Ã¢ Ã­Ã¥Ã®ÃµÃ®Ã¤Ã¨Ã¬Ã® Ã®Ã¡Ã®Ã©Ã²Ã¨ Ã®Ã£Ã°Ã Ã­Ã¨Ã·Ã¥Ã­Ã¨Ã¥ API Ã¨ Ã®Ã²Ã¯Ã°Ã Ã¢Ã«Ã¿Ã²Ã¼ Ã§Ã Ã¯Ã°Ã®Ã±Ã» Ã®Ã²Ã¤Ã¥Ã«Ã¼Ã­Ã® Ã¯Ã® 100 Ã«Ã®Ã£Ã¨Ã­Ã®Ã¢
     loginsList <- NULL
     start <- 1
     step <- 99
@@ -41,7 +41,7 @@ function (logins = NULL, token = NULL) {
       loginsList <- paste0(paste0("\"",loginstxt,"\""), collapse = ",")
       answer <- POST("https://api.direct.yandex.ru/v4/json/", body = paste0("{\"method\": \"GetCampaignsList\"",ifelse(is.null(logins),"",paste0(",\"param\": [",loginsList,"]")),", \"locale\": \"ru\", \"token\": \"",token,"\"}"))
       #Send POST request
-      #Îòïðàâëÿåì POST çàïðîñ
+      #ÃŽÃ²Ã¯Ã°Ã Ã¢Ã«Ã¿Ã¥Ã¬ POST Ã§Ã Ã¯Ã°Ã®Ã±
       stop_for_status(answer)
       
       dataRaw <- content(answer, "parsed", "application/json")
@@ -51,16 +51,16 @@ function (logins = NULL, token = NULL) {
         data <- rbind(data, dataTemp)
       }
       #Step on next 100 logins
-      #Ïåðåõîäèì íà ñëåäóþùèå 100 ëîãèíîâ
+      #ÃÃ¥Ã°Ã¥ÃµÃ®Ã¤Ã¨Ã¬ Ã­Ã  Ã±Ã«Ã¥Ã¤Ã³Ã¾Ã¹Ã¨Ã¥ 100 Ã«Ã®Ã£Ã¨Ã­Ã®Ã¢
       start <- start + step + 1
       #If this last part of logins do this
-      #Åñëè ýòî ïîñëåäíÿÿ ïàðòèÿ ëîãèíîâ òî ïåðåõîäèì ê ñëåäóþùåé ïðîöåäóðå
+      #Ã…Ã±Ã«Ã¨ Ã½Ã²Ã® Ã¯Ã®Ã±Ã«Ã¥Ã¤Ã­Ã¿Ã¿ Ã¯Ã Ã°Ã²Ã¨Ã¿ Ã«Ã®Ã£Ã¨Ã­Ã®Ã¢ Ã²Ã® Ã¯Ã¥Ã°Ã¥ÃµÃ®Ã¤Ã¨Ã¬ Ãª Ã±Ã«Ã¥Ã¤Ã³Ã¾Ã¹Ã¥Ã© Ã¯Ã°Ã®Ã¶Ã¥Ã¤Ã³Ã°Ã¥
       if(start > (finish - 100)) {
         loginstxt <- logins[start:finish]
         loginsList <- paste0(paste0("\"",loginstxt,"\""), collapse = ",")
         answer <- POST("https://api.direct.yandex.ru/v4/json/", body = paste0("{\"method\": \"GetCampaignsList\"",ifelse(is.null(logins),"",paste0(",\"param\": [",loginsList,"]")),", \"locale\": \"ru\", \"token\": \"",token,"\"}"))
         #Send POST request
-        #Îòïðàâêà POST çàïðîñà
+        #ÃŽÃ²Ã¯Ã°Ã Ã¢ÃªÃ  POST Ã§Ã Ã¯Ã°Ã®Ã±Ã 
         stop_for_status(answer)
         dataRaw <- content(answer, "parsed", "application/json")
         for (i in 1:length(dataRaw$data)){
