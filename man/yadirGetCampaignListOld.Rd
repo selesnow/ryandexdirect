@@ -1,5 +1,5 @@
-\name{yadirGetCampaignListOldOld}
-\alias{yadirGetCampaignListOldOld}
+\name{yadirGetCampaignListOld}
+\alias{yadirGetCampaignListOld}
 \title{Get campaign list from yandex direct account}
 \description{yadirGetCampaignListOld get campaings names and parameters by API version 4}
 \usage{
