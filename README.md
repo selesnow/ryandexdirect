@@ -199,9 +199,9 @@ STANDARD — дневной бюджет может исчерпаться, а �
 <p align="center">
 <img src="http://picsee.net/upload/2016-07-29/5d6a84ad44f8.png" data-canonical-src="http://picsee.net/upload/2016-07-29/5d6a84ad44f8.png" style="max-width:100%;">
 </p>
-<center>
+<p align="center">
 <img src="http://picsee.net/upload/2016-07-29/acfa15376aa6.png" data-canonical-src="http://picsee.net/upload/2016-07-29/acfa15376aa6.png" style="max-width:100%;">
-</center>
+</p>
 После чего в рабочей области появится объект myToken, который вы будете использовать в остальных функциях.
 
 Далее в случае если у вас агетский аккаунт получаем список всех клиентов:
