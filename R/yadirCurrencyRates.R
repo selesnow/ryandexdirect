@@ -12,7 +12,7 @@ function(login = NULL, token = NULL){
 }"
 
 answer <- POST("https://api.direct.yandex.com/json/v5/dictionaries", body = queryBody, add_headers(Authorization = paste0("Bearer ",token), 'Accept-Language' = "ru","Client-Login" = login[1]))
-#Îáðàáîòêà îòâåòà
+#ÃŽÃ¡Ã°Ã Ã¡Ã®Ã²ÃªÃ  Ã®Ã²Ã¢Ã¥Ã²Ã 
 stop_for_status(answer)
 dataRaw <- content(answer, "parsed", "application/json")
 
@@ -25,8 +25,8 @@ cur <- data.frame(curName = character(),
 for(i in 1:length(dataRaw$result$Currencies)){
   cur[i,1] <-  dataRaw$result$Currencies[[i]]$Currency[1]
   cur[i,2] <-  dataRaw$result$Currencies[[i]]$Properties[[2]]$Value
-  cur[i,3] <-  dataRaw$result$Currencies[[i]]$Properties[[12]]$Value
-  cur[i,4] <- dataRaw$result$Currencies[[i]]$Properties[[11]]$Value
+  cur[i,3] <-  as.numeric(dataRaw$result$Currencies[[i]]$Properties[[12]]$Value)
+  cur[i,4] <-  as.numeric(dataRaw$result$Currencies[[i]]$Properties[[11]]$Value)
 	}
 return(cur)
 }
