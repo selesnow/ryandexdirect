@@ -2,32 +2,38 @@ yadirGetSummaryStat <-
 function(campaignIDS = NULL, dateStart = Sys.Date()-10, dateEnd = Sys.Date(), currency = "USD", token = NULL){
   if(is.null(token)|is.null(campaignIDS)){
     warning("You must add argument campaignIDS and token! ");
-    break
+    return()
   }
+  
+  if(as.integer(as.Date(dateEnd) - as.Date(dateStart)) > 1000) {
+    warning("You can send query less 1000 days period!");
+    return()
+    }
+  
   #Check currency value, and replace him if is nit in provide currency refference
-  #Проверяем значение валюты и если оно не входит в справочник доступных валют устанавливаем USD
+  #ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ Г§Г­Г Г·ГҐГ­ГЁГҐ ГўГ Г«ГѕГІГ» ГЁ ГҐГ±Г«ГЁ Г®Г­Г® Г­ГҐ ГўГµГ®Г¤ГЁГІ Гў Г±ГЇГ°Г ГўГ®Г·Г­ГЁГЄ Г¤Г®Г±ГІГіГЇГ­Г»Гµ ГўГ Г«ГѕГІ ГіГ±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГ¬ USD
   ifelse((!(currency %in% c("RUB", "CHF", "EUR", "KZT", "TRY", "UAH", "USD"))), currency <- "USD", currency <- currency)
   
   #Create result data frame
-  #Создаём результирующий дата фрейм
+  #Г‘Г®Г§Г¤Г ВёГ¬ Г°ГҐГ§ГіГ«ГјГІГЁГ°ГіГѕГ№ГЁГ© Г¤Г ГІГ  ГґГ°ГҐГ©Г¬
   data <- data.frame()
   
   #bypassing limitation and run api request by one campaign
-  #Обходим ограничение в количество строк в 1000 путём поочерёдного запроса по кампаниям
+  #ГЋГЎГµГ®Г¤ГЁГ¬ Г®ГЈГ°Г Г­ГЁГ·ГҐГ­ГЁГҐ Гў ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г±ГІГ°Г®ГЄ Гў 1000 ГЇГіГІВёГ¬ ГЇГ®Г®Г·ГҐГ°ВёГ¤Г­Г®ГЈГ® Г§Г ГЇГ°Г®Г±Г  ГЇГ® ГЄГ Г¬ГЇГ Г­ГЁГїГ¬
   for (iids in 1:length(campaignIDS)){
     #Create POST request
-    #Создаём POST запрос
+    #Г‘Г®Г§Г¤Г ВёГ¬ POST Г§Г ГЇГ°Г®Г±
     answer <- POST("https://api.direct.yandex.ru/v4/json/", body = paste0("{\"method\": \"GetSummaryStat\", \"param\":{\"CampaignIDS\": [\"",campaignIDS[iids],"\"], \"StartDate\" : \"",dateStart,"\", \"EndDate\": \"",dateEnd,"\", \"Currency\": \"",currency,"\"}, \"locale\": \"ru\", \"token\": \"",token,"\"}"))
     #Send POST request
-    #Отправка POST запроса к API Директа
+    #ГЋГІГЇГ°Г ГўГЄГ  POST Г§Г ГЇГ°Г®Г±Г  ГЄ API Г„ГЁГ°ГҐГЄГІГ 
     stop_for_status(answer)
     dataRaw <- content(answer, "parsed", "application/json")
     
     #Run cicle which parse result by current campaign and add this data to result data frame
-    #Запускаем цикл который парсит текущую кампанию и добавляет полученные данные в итоговый дата фрейм
+    #Г‡Г ГЇГіГ±ГЄГ ГҐГ¬ Г¶ГЁГЄГ« ГЄГ®ГІГ®Г°Г»Г© ГЇГ Г°Г±ГЁГІ ГІГҐГЄГіГ№ГіГѕ ГЄГ Г¬ГЇГ Г­ГЁГѕ ГЁ Г¤Г®ГЎГ ГўГ«ГїГҐГІ ГЇГ®Г«ГіГ·ГҐГ­Г­Г»ГҐ Г¤Г Г­Г­Г»ГҐ Гў ГЁГІГ®ГЈГ®ГўГ»Г© Г¤Г ГІГ  ГґГ°ГҐГ©Г¬
     for (i in 1:length(dataRaw$data)){
       #Replace NULL to NA
-      #Заменяем пропущенные значение на NA
+      #Г‡Г Г¬ГҐГ­ГїГҐГ¬ ГЇГ°Г®ГЇГіГ№ГҐГ­Г­Г»ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ Г­Г  NA
       try(dataRaw$data[[i]][sapply(dataRaw$data[[i]], is.null)] <- NA, silent = TRUE)
       try(dataTemp <- data.frame(t(as.data.frame(unlist(dataRaw$data[[i]],recursive = T))),row.names = NULL), silent = TRUE)
       try(data <- rbind(data, dataTemp), silent = TRUE)
