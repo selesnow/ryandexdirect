@@ -35,7 +35,20 @@ function(campaignIDS = NULL, dateStart = Sys.Date()-10, dateEnd = Sys.Date(), cu
       #Replace NULL to NA
       #Çàìåíÿåì ïðîïóùåííûå çíà÷åíèå íà NA
       try(dataRaw$data[[i]][sapply(dataRaw$data[[i]], is.null)] <- NA, silent = TRUE)
-      try(dataTemp <- data.frame(t(as.data.frame(unlist(dataRaw$data[[i]],recursive = T))),row.names = NULL), silent = TRUE)
+      try(dataTemp <- data.frame(StatDate           = dataRaw$data[[i]]$StatDate,
+                             CampaignID             = dataRaw$data[[i]]$CampaignID,
+                             SumSearch              = dataRaw$data[[i]]$SumSearch,
+                             GoalConversionSearch   = dataRaw$data[[i]]$GoalConversionSearch,
+                             GoalCostSearch         = dataRaw$data[[i]]$GoalCostSearch,
+                             ClickSearch            = dataRaw$data[[i]]$ClicksSearch,
+                             ShowsSearch            = dataRaw$data[[i]]$ShowsSearch,
+                             SessionDepthSearch     = dataRaw$data[[i]]$SessionDepthSearch,
+                             SumContext             = dataRaw$data[[i]]$SumContext,
+                             GoalConversionContext  = dataRaw$data[[i]]$GoalConversionContext,
+                             GoalCostContext        = dataRaw$data[[i]]$GoalCostContext,
+                             ClicksContext          = dataRaw$data[[i]]$ClicksContext,
+                             ShowsContext           = dataRaw$data[[i]]$ShowsContext,
+                             SessionDepthContext    = dataRaw$data[[i]]$SessionDepthContext), silent = T)
       try(data <- rbind(data, dataTemp), silent = TRUE)
       if(exists("dataTemp")) {rm(dataTemp)} 
     }
