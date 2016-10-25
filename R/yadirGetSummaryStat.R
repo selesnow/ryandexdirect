@@ -59,7 +59,7 @@ function(campaignIDS = NULL, dateStart = Sys.Date()-10, dateEnd = Sys.Date(), cu
         SumSearch             = as.numeric(as.character(data$SumSearch)),
         GoalConversionSearch  = as.numeric(as.character(data$GoalConversionSearch)),
         GoalCostSearch        = as.numeric(as.character(data$GoalCostSearch)),
-        ClickSearch           = as.integer(data$ClicksSearch),
+        ClickSearch           = as.integer(data$ClickSearch),
         ShowsSearch           = as.integer(data$ShowsSearch),
         SessionDepthSearch    = as.numeric(as.character(data$SessionDepthSearch)),
         SumContext            = as.numeric(as.character(data$SumContext)),
