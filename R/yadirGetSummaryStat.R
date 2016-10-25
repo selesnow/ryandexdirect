@@ -40,7 +40,7 @@ function(campaignIDS = NULL, dateStart = Sys.Date()-10, dateEnd = Sys.Date(), cu
                              SumSearch              = dataRaw$data[[i]]$SumSearch,
                              GoalConversionSearch   = dataRaw$data[[i]]$GoalConversionSearch,
                              GoalCostSearch         = dataRaw$data[[i]]$GoalCostSearch,
-                             ClickSearch            = dataRaw$data[[i]]$ClicksSearch,
+                             ClickSearch            = dataRaw$data[[i]]$ClickSearch,
                              ShowsSearch            = dataRaw$data[[i]]$ShowsSearch,
                              SessionDepthSearch     = dataRaw$data[[i]]$SessionDepthSearch,
                              SumContext             = dataRaw$data[[i]]$SumContext,
@@ -54,20 +54,20 @@ function(campaignIDS = NULL, dateStart = Sys.Date()-10, dateEnd = Sys.Date(), cu
     }
   }
   try(dataTotal <- data.frame(
-        Date =  as.POSIXlt(data$StatDate),
-        CampaignID = as.factor(data$CampaignID),
-        SumSearch = as.numeric(as.character(data$SumSearch)),
-        GoalConversionSearch = as.numeric(as.character(data$GoalConversionSearch)),
-        GoalCostSearch = as.numeric(as.character(data$GoalCostSearch)),
-        ClickSearch = as.integer(data$ClicksSearch),
-        ShowsSearch = as.integer(data$ShowsSearch),
-        SessionDepthSearch = as.numeric(as.character(data$SessionDepthSearch)),
-        SumContext = as.numeric(as.character(data$SumContext)),
+        Date                  =  as.POSIXlt(data$StatDate),
+        CampaignID            = as.factor(data$CampaignID),
+        SumSearch             = as.numeric(as.character(data$SumSearch)),
+        GoalConversionSearch  = as.numeric(as.character(data$GoalConversionSearch)),
+        GoalCostSearch        = as.numeric(as.character(data$GoalCostSearch)),
+        ClickSearch           = as.integer(data$ClicksSearch),
+        ShowsSearch           = as.integer(data$ShowsSearch),
+        SessionDepthSearch    = as.numeric(as.character(data$SessionDepthSearch)),
+        SumContext            = as.numeric(as.character(data$SumContext)),
         GoalConversionContext = as.numeric(as.character(data$GoalConversionContext)),
-        GoalCostContext = as.numeric(as.character(data$GoalCostContext)),
-        ClicksContext = as.integer(data$ClicksContext),
-        ShowsContext = as.integer(data$ShowsContext),
-        SessionDepthContext = as.numeric(as.character(data$SessionDepthSearch))
+        GoalCostContext       = as.numeric(as.character(data$GoalCostContext)),
+        ClicksContext         = as.integer(data$ClicksContext),
+        ShowsContext          = as.integer(data$ShowsContext),
+        SessionDepthContext   = as.numeric(as.character(data$SessionDepthSearch))
   ), silent = T)
   if(exists("dataTotal")){return(dataTotal)} else {return(data.frame())}
 }
