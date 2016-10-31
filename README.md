@@ -234,6 +234,8 @@ stat <- yadirGetSummaryStat(campaignIDS = campaigns$CampaignID,
                             currency = "USD",
                             token = myToken)
 ```
+
+ *Автор пакета: Алексей Селезнёв, Head of Analytics Dept. at Netpeak*
 <p align="center">
 <img src="http://s017.radikal.ru/i444/1608/b7/989edcf88741.png" data-canonical-src="http://s017.radikal.ru/i444/1608/b7/989edcf88741.png" style="max-width:100%;">
 </p>
