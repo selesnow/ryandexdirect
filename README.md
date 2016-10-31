@@ -236,11 +236,12 @@ stat <- yadirGetSummaryStat(campaignIDS = campaigns$CampaignID,
 ```
 
  *Автор пакета: Алексей Селезнёв, Head of Analytics Dept. at Netpeak*
- [GitHub](https://github.com/selesnow/ "Заголовок ссылки")
- [VK](https://vk.com/selesnow "Заголовок ссылки")
- [Facebook](https://www.facebook.com/selesnow "Заголовок ссылки")
- [Linkedin](https://ua.linkedin.com/in/selesnow "Заголовок ссылки")
- [Stepik](https://stepik.org/users/792428 "Заголовок ссылки")
+ 
+ [GitHub](https://github.com/selesnow/)
+ [VK](https://vk.com/selesnow)
+ [Facebook](https://www.facebook.com/selesnow)
+ [Linkedin](https://ua.linkedin.com/in/selesnow)
+ [Stepik](https://stepik.org/users/792428)
   
 <p align="center">
 <img src="http://s017.radikal.ru/i444/1608/b7/989edcf88741.png" data-canonical-src="http://s017.radikal.ru/i444/1608/b7/989edcf88741.png" style="max-width:100%;">
