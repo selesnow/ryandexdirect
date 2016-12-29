@@ -34,7 +34,7 @@ function(counter = NULL, date_from = Sys.Date() - 10, date_to = Sys.Date(), fiel
     #Если лог готов забираем его отдельно по частям
     if(request_status == "processed"){
       #Выводим сообщение о том что процессинг завершен
-      packageStartupMessage(paste0(" processing time ",Sys.time() - start_time), appendLF = TRUE)
+      packageStartupMessage(paste0(" processing time ",round(Sys.time() - start_time,2)), appendLF = TRUE)
       
       #Создаём дата фрейм для загрузки данных
       result <- data.frame()
@@ -51,7 +51,7 @@ function(counter = NULL, date_from = Sys.Date() - 10, date_to = Sys.Date(), fiel
         result <- rbind(result, df_temp)
       }
       #Возвращаем итоговый результат
-      packageStartupMessage(paste0(" done! ", "loading time ",Sys.time() - start_load_time))
+      packageStartupMessage(paste0(" done! ", "loading time ",round(Sys.time() - start_load_time,2)))
       
       #Удаляем запрос с сервера
       req_delite <- POST(paste0("https://api-metrika.yandex.ru/management/v1/counter/",counter,"/logrequest/",request_id,"/clean?oauth_token=",token))
@@ -60,8 +60,8 @@ function(counter = NULL, date_from = Sys.Date() - 10, date_to = Sys.Date(), fiel
       packageStartupMessage("Information: ")
       packageStartupMessage(paste0("Request id: ", request_id))
       packageStartupMessage(paste0("Request status: ", req_delite$log_request$status))
-      packageStartupMessage(paste0("Total time: ", Sys.time() - fun_start))
-      packageStartupMessage(paste0("Data size: ",req_delite$log_request$size * 1e-6, " Mb"))
+      packageStartupMessage(paste0("Total time: ", round(Sys.time() - fun_start,2)))
+      packageStartupMessage(paste0("Data size: ",round(req_delite$log_request$size * 1e-6,2), " Mb"))
       packageStartupMessage(paste0("Return rows: ",nrow(result)))                   
       if(exists("result")){
         packageStartupMessage("Data load successful!")
