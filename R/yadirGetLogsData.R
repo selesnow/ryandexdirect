@@ -1,83 +1,90 @@
 yadirGetLogsData <- 
 function(counter = NULL, date_from = Sys.Date() - 10, date_to = Sys.Date(), fields = NULL, source = "visits", token = NULL){
   fun_start <- Sys.time()
-  #Îòïðàâèòü çàïðîñ
+  #ÐžÑ‚Ð¿Ñ€Ð°Ð²Ð¸Ñ‚ÑŒ Ð·Ð°Ð¿Ñ€Ð¾Ñ
   fields <- gsub(" ","",fields)
   logapi <- POST(paste0("https://api-metrika.yandex.ru/management/v1/counter/",counter,"/logrequests?date1=",date_from,"&date2=",date_to,"&fields=",fields,"&source=",source,"&oauth_token=",token))
   queryparam <- content(logapi, "parsed", "application/json")
   
-  #Ñîõðàíÿåì id çàïðîñà è åãî ñòàòóñ â ïåðåìåííóþ
+  #Ð¡Ð¾Ñ…Ñ€Ð°Ð½ÑÐµÐ¼ id Ð·Ð°Ð¿Ñ€Ð¾ÑÐ° Ð¸ ÐµÐ³Ð¾ ÑÑ‚Ð°Ñ‚ÑƒÑ Ð² Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½ÑƒÑŽ
   request_id <- queryparam$log_request$request_id
   request_status <- queryparam$log_request$status
   
-  #Çàïóñêàåì ñ÷¸ò÷èê âðåìåíè
+  #Ð—Ð°Ð¿ÑƒÑÐºÐ°ÐµÐ¼ ÑÑ‡Ñ‘Ñ‚Ñ‡Ð¸Ðº Ð²Ñ€ÐµÐ¼ÐµÐ½Ð¸
   start_time <- Sys.time()
   
+  #ÐžÑÑ‚Ð°Ð½Ð¾Ð²ÐºÐ° ÑÐ¸ÑÑ‚ÐµÐ¼Ñ‹ Ð½Ð° 7 ÑÐµÐºÑƒÐ½Ð´ Ð´Ð»Ñ Ð¾Ð¶Ð¸Ð´Ð°Ð½Ð¸Ñ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐ¸ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ°
+  Sys.sleep(7)
+  
+  #Ð’Ñ‹Ð²Ð¾Ð´Ð¸Ð¼ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ Ð¾ Ñ‚Ð¾Ð¼ Ñ‡Ñ‚Ð¾ Ð½Ð°Ñ‡Ð°Ñ‚ Ð¿Ñ€Ð¾Ñ†ÐµÑÑÐ¸Ð½Ð³
   packageStartupMessage("Processing ", appendLF = FALSE)
-  #Ïðîâåðêà ñòàòóñà çàïðîñà
+  
+  #ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° ÑÑ‚Ð°Ñ‚ÑƒÑÐ° Ð·Ð°Ð¿Ñ€Ð¾ÑÐ°
   while(request_status != "processed"){
     logapistatus <- GET(paste0("https://api-metrika.yandex.ru/management/v1/counter/",counter,"/logrequest/",request_id,"?oauth_token=",token))
     request_status <- content(logapistatus, "parsed", "application/json")$log_request$status
     
-    #Âûâîäèì ñîîáùåíèå ñ èíôîðìàöèåé î ñòàòóñå çàïðîñà è âðåìåíè âûïîëíåíèÿ çàïðîñà
+    #Ð’Ñ‹Ð²Ð¾Ð´Ð¸Ð¼ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ Ñ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸ÐµÐ¹ Ð¾ ÑÑ‚Ð°Ñ‚ÑƒÑÐµ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ° Ð¸ Ð²Ñ€ÐµÐ¼ÐµÐ½Ð¸ Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ñ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ°
     #message(paste0("Query status: ", request_status," Query time: ", Sys.time() - start_time))
     packageStartupMessage(".", appendLF = FALSE)
     
-    #Ïîëó÷àåì ê-âî ÷àñòåé çàïðîñà
+    #ÐŸÐ¾Ð»ÑƒÑ‡Ð°ÐµÐ¼ Ðº-Ð²Ð¾ Ñ‡Ð°ÑÑ‚ÐµÐ¹ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ°
     partsnun <- length(content(logapistatus, "parsed", "application/json")$log_request$parts)
     
-    #Åñëè ëîã ãîòîâ çàáèðàåì åãî îòäåëüíî ïî ÷àñòÿì
+    #Ð•ÑÐ»Ð¸ Ð»Ð¾Ð³ Ð³Ð¾Ñ‚Ð¾Ð² Ð·Ð°Ð±Ð¸Ñ€Ð°ÐµÐ¼ ÐµÐ³Ð¾ Ð¾Ñ‚Ð´ÐµÐ»ÑŒÐ½Ð¾ Ð¿Ð¾ Ñ‡Ð°ÑÑ‚ÑÐ¼
     if(request_status == "processed"){
-      #Âûâîäèì ñîîáùåíèå î òîì ÷òî ïðîöåññèíã çàâåðøåí
+      #Ð’Ñ‹Ð²Ð¾Ð´Ð¸Ð¼ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ Ð¾ Ñ‚Ð¾Ð¼ Ñ‡Ñ‚Ð¾ Ð¿Ñ€Ð¾Ñ†ÐµÑÑÐ¸Ð½Ð³ Ð·Ð°Ð²ÐµÑ€ÑˆÐµÐ½
       packageStartupMessage(paste0(" processing time ",Sys.time() - start_time), appendLF = TRUE)
       
-      #Ñîçäà¸ì äàòà ôðåéì äëÿ çàãðóçêè äàííûõ
+      #Ð¡Ð¾Ð·Ð´Ð°Ñ‘Ð¼ Ð´Ð°Ñ‚Ð° Ñ„Ñ€ÐµÐ¹Ð¼ Ð´Ð»Ñ Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ¸ Ð´Ð°Ð½Ð½Ñ‹Ñ…
       result <- data.frame()
       
-      #Âûâîäèì ñîîáùåíèå î òîì ÷òî íà÷àòà çàãðóçêà äàííûõ
+      #Ð’Ñ‹Ð²Ð¾Ð´Ð¸Ð¼ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ðµ Ð¾ Ñ‚Ð¾Ð¼ Ñ‡Ñ‚Ð¾ Ð½Ð°Ñ‡Ð°Ñ‚Ð° Ð·Ð°Ð³Ñ€ÑƒÐ·ÐºÐ° Ð´Ð°Ð½Ð½Ñ‹Ñ…
       packageStartupMessage("Loading ", appendLF = FALSE)
       start_load_time <- Sys.time()
       for(parts in 0:partsnun-1){
         packageStartupMessage(".", appendLF = FALSE)
-        #Ïîëó÷èòü äàííûå
+        #ÐŸÐ¾Ð»ÑƒÑ‡Ð¸Ñ‚ÑŒ Ð´Ð°Ð½Ð½Ñ‹Ðµ
         logapidata <- GET(paste0("https://api-metrika.yandex.ru/management/v1/counter/",counter,"/logrequest/",request_id,"/part/",parts,"/download?oauth_token=",token))
         rawdata <- try(content(logapidata,"text","application/json",encoding = "UTF-8"), silent = T)
         df_temp <- try(read.delim(textConnection(rawdata)), silent = T)
         result <- rbind(result, df_temp)
       }
-      #Âîçâðàùàåì èòîãîâûé ðåçóëüòàò
+      #Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÐ¼ Ð¸Ñ‚Ð¾Ð³Ð¾Ð²Ñ‹Ð¹ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚
       packageStartupMessage(paste0(" done! ", "loading time ",Sys.time() - start_load_time))
       
-      #Óäàëÿåì çàïðîñ ñ ñåðâåðà
+      #Ð£Ð´Ð°Ð»ÑÐµÐ¼ Ð·Ð°Ð¿Ñ€Ð¾Ñ Ñ ÑÐµÑ€Ð²ÐµÑ€Ð°
       req_delite <- POST(paste0("https://api-metrika.yandex.ru/management/v1/counter/",counter,"/logrequest/",request_id,"/clean?oauth_token=",token))
       req_delite <- content(req_delite, "parsed", "application/json")
-      #Âûâîäèì îáùóþ èíôîðìàöèþ î ðàáîòå ôóíêöèè
+      #Ð’Ñ‹Ð²Ð¾Ð´Ð¸Ð¼ Ð¾Ð±Ñ‰ÑƒÑŽ Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸ÑŽ Ð¾ Ñ€Ð°Ð±Ð¾Ñ‚Ðµ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¸
       packageStartupMessage("Information: ")
       packageStartupMessage(paste0("Request id: ", request_id))
       packageStartupMessage(paste0("Request status: ", req_delite$log_request$status))
       packageStartupMessage(paste0("Total time: ", Sys.time() - fun_start))
+      packageStartupMessage(paste0("Data size: ",req_delite$log_request$size * 1e-6, " Mb"))
+      packageStartupMessage(paste0("Return rows: ",nrow(result))                   
       if(exists("result")){
         packageStartupMessage("Data load successful!")
       }
       return(result)
     }
     
-    #Åñëè ïîÿâèëàñü îøèáêà ïðè îáðàáîòêå îñòàíàâëèâàåì ôóíêöèþ
+    #Ð•ÑÐ»Ð¸ Ð¿Ð¾ÑÐ²Ð¸Ð»Ð°ÑÑŒ Ð¾ÑˆÐ¸Ð±ÐºÐ° Ð¿Ñ€Ð¸ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐµ Ð¾ÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÐ¼ Ñ„ÑƒÐ½ÐºÑ†Ð¸ÑŽ
     if(request_status == "processing_failed"){
-      stop("Îøèáêà ïðè îáðàáîòêå çàïðîñà")
+      stop("ÐžÑˆÐ¸Ð±ÐºÐ° Ð¿Ñ€Ð¸ Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚ÐºÐµ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ°")
     }
     
-    #Åñëè îòìåí¸í
+    #Ð•ÑÐ»Ð¸ Ð¾Ñ‚Ð¼ÐµÐ½Ñ‘Ð½
     if(request_status == "canceled"){
-      stop("Çàïðîñ áûë îòìåí¸í")
+      stop("Ð—Ð°Ð¿Ñ€Ð¾Ñ Ð±Ñ‹Ð» Ð¾Ñ‚Ð¼ÐµÐ½Ñ‘Ð½")
     }
     
-    #Åñëè îòìåí¸í
+    #Ð•ÑÐ»Ð¸ Ð¾Ñ‚Ð¼ÐµÐ½Ñ‘Ð½
     if(request_status == "cleaned_by_user"|request_status == "cleaned_automatically_as_too_old"){
-      stop("Çàïðîñ áûë óäàë¸í ñ ñåðâåðà")
+      stop("Ð—Ð°Ð¿Ñ€Ð¾Ñ Ð±Ñ‹Ð» ÑƒÐ´Ð°Ð»Ñ‘Ð½ Ñ ÑÐµÑ€Ð²ÐµÑ€Ð°")
     }
     
-    #5 ñåêóíä îæèäàíèÿ ïåðåä ïîâòîðíîé îòïðàâêîé
+    #5 ÑÐµÐºÑƒÐ½Ð´ Ð¾Ð¶Ð¸Ð´Ð°Ð½Ð¸Ñ Ð¿ÐµÑ€ÐµÐ´ Ð¿Ð¾Ð²Ñ‚Ð¾Ñ€Ð½Ð¾Ð¹ Ð¾Ñ‚Ð¿Ñ€Ð°Ð²ÐºÐ¾Ð¹
     Sys.sleep(5)
   }
 }
