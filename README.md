@@ -1,5 +1,7 @@
 # ryandexdirect - пакет для работы с API Яндекс.Директ версии 4, Live 4 и 5 на языке R.
 
+##Содержание
+
 
 ## Краткое описание.
 
@@ -187,6 +189,18 @@ STANDARD — дневной бюджет может исчерпаться, а �
     </tr>
 </table>
 
+###`yadirGetLogsData(counter = NULL, date_from = Sys.Date() - 10, date_to = Sys.Date(), fields = NULL, source = "visits", token = NULL)`
+Функция для работы с Logs API Яндекс Метрики, которое позволяет выгрузить сырые данные.
+
+####Аргументы:
+counter - номер счётчика Яндекс Метрики
+date_from - начальная дата отчёта
+date_to - конечная дата отчёта
+fields - список полей которые вы отите получить, для visits актуальный список доступных полей можно получить [тут](https://tech.yandex.ru/metrika/doc/api2/logs/fields/visits-docpage/), для hits актуальный список полей можно получить [тут](https://tech.yandex.ru/metrika/doc/api2/logs/fields/hits-docpage/).
+source - Источник логов, возможные значения hits — просмотры или visits — визиты
+
+Подробное описание аргументов можно посмотреть [тут](https://tech.yandex.ru/metrika/doc/api2/logs/queries/class_logrequest-docpage/).
+
 ## Пример работы с пакетом ryandexdirect.
 
 ###Подключаем пакет ryandexdirect
@@ -233,6 +247,18 @@ stat <- yadirGetSummaryStat(campaignIDS = campaigns$CampaignID,
                             dateEnd = "2016-06-30",
                             currency = "USD",
                             token = myToken)
+```
+
+#Пример работы с Logs API Яндекс Метрики.
+```
+library(ryandexdirect)
+myToken <- yadirGetToken()
+rawmetrikdata <- yadirGetLogsData(counter = "00000000",
+                                  date_from = "2016-12-01",
+                                  date_to = "2016-12-20",
+                                  fields = "ym:s:visitID,ym:s:date,ym:s:bounce,ym:s:clientID,ym:s:networkType",
+                                  source = "visits",
+                                  token = myToken)
 ```
 
  *Автор пакета: Алексей Селезнёв, Head of Analytics Dept. at Netpeak*
