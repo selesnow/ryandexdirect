@@ -62,7 +62,7 @@ function(counter = NULL, date_from = Sys.Date() - 10, date_to = Sys.Date(), fiel
       packageStartupMessage(paste0("Request status: ", req_delite$log_request$status))
       packageStartupMessage(paste0("Total time: ", Sys.time() - fun_start))
       packageStartupMessage(paste0("Data size: ",req_delite$log_request$size * 1e-6, " Mb"))
-      packageStartupMessage(paste0("Return rows: ",nrow(result))                   
+      packageStartupMessage(paste0("Return rows: ",nrow(result)))                   
       if(exists("result")){
         packageStartupMessage("Data load successful!")
       }
