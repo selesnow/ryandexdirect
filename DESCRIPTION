@@ -8,4 +8,4 @@ Maintainer: Alexey Seleznev <selesnow@mail.ru>
 Description: Load data from yandex direct api about your campaign by date into R
 License: not license it free
 Depends: R (>= 3.0.0)
-Imports: utils, httr
+Imports: utils, httr, RCurl
