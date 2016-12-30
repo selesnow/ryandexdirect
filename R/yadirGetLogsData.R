@@ -6,6 +6,11 @@ function(counter = NULL, date_from = Sys.Date() - 10, date_to = Sys.Date(), fiel
   logapi <- POST(paste0("https://api-metrika.yandex.ru/management/v1/counter/",counter,"/logrequests?date1=",date_from,"&date2=",date_to,"&fields=",fields,"&source=",source,"&oauth_token=",token))
   queryparam <- content(logapi, "parsed", "application/json")
   
+  #Проверка на ошибки, если запрос вернул ошибку останавливаем работу функции и выводим сообщение
+  if(!is.null(queryparam$errors)){
+    stop(paste0(queryparam$errors[[1]][[1]]," - ",queryparam$errors[[1]][[2]], , ", error code - ", queryparam$code))
+  }
+  
   #Сохраняем id запроса и его статус в переменную
   request_id <- queryparam$log_request$request_id
   request_status <- queryparam$log_request$status
