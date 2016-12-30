@@ -8,7 +8,7 @@ function(counter = NULL, date_from = Sys.Date() - 10, date_to = Sys.Date(), fiel
   
   #Проверка на ошибки, если запрос вернул ошибку останавливаем работу функции и выводим сообщение
   if(!is.null(queryparam$errors)){
-    stop(paste0(queryparam$errors[[1]][[1]]," - ",queryparam$errors[[1]][[2]], , ", error code - ", queryparam$code))
+    stop(paste0(queryparam$errors[[1]][[1]]," - ",queryparam$errors[[1]][[2]], ", error code - ", queryparam$code))
   }
   
   #Сохраняем id запроса и его статус в переменную
