@@ -2,7 +2,7 @@ yadirGetLogsData <-
 function(counter = NULL, date_from = Sys.Date() - 10, date_to = Sys.Date(), fields = NULL, source = "visits", token = NULL){
   fun_start <- Sys.time()
   #Отправить запрос
-  fields <- gsub(" ","",fields)
+  fields <- gsub("[\\s\\n\\t]","",fields,perl = TRUE) 
   logapi <- POST(paste0("https://api-metrika.yandex.ru/management/v1/counter/",counter,"/logrequests?date1=",date_from,"&date2=",date_to,"&fields=",fields,"&source=",source,"&oauth_token=",token))
   queryparam <- content(logapi, "parsed", "application/json")
   
