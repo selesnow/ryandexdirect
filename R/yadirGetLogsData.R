@@ -52,7 +52,7 @@ function(counter = NULL, date_from = Sys.Date() - 10, date_to = Sys.Date(), fiel
         #Получить данные
         logapidata <- GET(paste0("https://api-metrika.yandex.ru/management/v1/counter/",counter,"/logrequest/",request_id,"/part/",parts,"/download?oauth_token=",token))
         rawdata <- try(content(logapidata,"text","application/json",encoding = "UTF-8"), silent = T)
-        df_temp <- try(read.delim(textConnection(rawdata)), silent = T)
+        df_temp <- try(read.delim(text=rawdata)), silent = T)
         result <- rbind(result, df_temp)
       }
       #Возвращаем итоговый результат
