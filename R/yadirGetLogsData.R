@@ -52,7 +52,7 @@ function(counter = NULL, date_from = Sys.Date() - 10, date_to = Sys.Date(), fiel
         #Получить данные
         logapidata <- GET(paste0("https://api-metrika.yandex.ru/management/v1/counter/",counter,"/logrequest/",request_id,"/part/",parts,"/download?oauth_token=",token))
         rawdata <- try(content(logapidata,"text","application/json",encoding = "UTF-8"), silent = T)
-        df_temp <- try(read.delim(text=rawdata)), silent = T)
+        df_temp <- try(read.delim(text=rawdata), silent = T)
         result <- rbind(result, df_temp)
       }
       #Возвращаем итоговый результат
@@ -69,7 +69,7 @@ function(counter = NULL, date_from = Sys.Date() - 10, date_to = Sys.Date(), fiel
       packageStartupMessage(paste0("Data size: ",round(req_delite$log_request$size * 1e-6,2), " Mb"))
       packageStartupMessage(paste0("Return rows: ",nrow(result)))                   
       if(exists("result")){
-        packageStartupMessage("Data load successful!")
+      packageStartupMessage("Data load successful!")
       }
       return(result)
     }
