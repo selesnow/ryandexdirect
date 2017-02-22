@@ -248,7 +248,7 @@ source - Источник логов, возможные значения hits �
 
 Для того, что бы получить дата фрейм со статиской по кампаниям в разрезе дней осталось воспользоваться функцией `yadirGetSummaryStat`
 
-`stat <- yadirGetSummaryStat(campaignIDS = campaigns$CampaignID],
+`stat <- yadirGetSummaryStat(campaignIDS = campaigns$Id],
                             dateStart = "2016-01-01",
                             dateEnd = "2016-06-30",
                             currency = "USD",
