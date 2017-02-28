@@ -261,7 +261,7 @@ library(ryandexdirect)
 myToken <- yadirGetToken()
 clientList <- yadirGetClientList(myToken)
 campaignList <- yadirGetCampaignList(logins = clientList$Login, token = myToken)
-stat <- yadirGetSummaryStat(campaignIDS = campaignList$CampaignID,
+stat <- yadirGetSummaryStat(campaignIDS = campaignList$Id,
                             dateStart = "2016-01-01",
                             dateEnd = "2016-06-30",
                             currency = "USD",
