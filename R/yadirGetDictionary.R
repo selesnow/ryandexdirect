@@ -1,33 +1,33 @@
 yadirGetDictionary <- function(DictionaryName = "GeoRegions", Language = "ru", login = NULL, token = NULL){
-    #ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ð°Ð»Ð¸Ñ‡Ð¸Ñ Ð»Ð¾Ð³Ð¸Ð½Ð° Ð¸ Ñ‚Ð¾ÐºÐµÐ½Ð°
-    if(is.null(login)|is.null(token)) {
-      stop("You must enter login and API token!")
-    }
-    
-  #ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð²ÐµÑ€Ð½Ð¾ Ð»Ð¸ ÑƒÐºÐ°Ð·Ð°Ð½Ð¾ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ ÑÐ¿Ñ€Ð°Ð²Ð¾Ñ‡Ð½Ð¸ÐºÐ°
+  #Ïðîâåðêà íàëè÷èÿ ëîãèíà è òîêåíà
+  if(is.null(login)|is.null(token)) {
+    stop("You must enter login and API token!")
+  }
+  
+  #Ïðîâåðêà âåðíî ëè óêàçàíî íàçâàíèå ñïðàâî÷íèêà
   if(!DictionaryName %in% c("Currencies",
-                        "MetroStations",
-                        "GeoRegions",
-                        "TimeZones",
-                        "Constants",
-                        "AdCategories",
-                        "OperationSystemVersions",
-                        "ProductivityAssertions",
-                        "SupplySidePlatforms",
-                        "Interests")){
+                            "MetroStations",
+                            "GeoRegions",
+                            "TimeZones",
+                            "Constants",
+                            "AdCategories",
+                            "OperationSystemVersions",
+                            "ProductivityAssertions",
+                            "SupplySidePlatforms",
+                            "Interests")){
     stop("Error in DictionaryName, select one of Currencies, MetroStations, GeoRegions, TimeZones, Constants, AdCategories, OperationSystemVersions, ProductivityAssertions, SupplySidePlatforms, Interests")
   }
-
-queryBody <- paste0("{
-\"method\": \"get\",
-\"params\": {
-\"DictionaryNames\": [ \"",DictionaryName,"\" ]
+  
+  queryBody <- paste0("{
+                      \"method\": \"get\",
+                      \"params\": {
+                      \"DictionaryNames\": [ \"",DictionaryName,"\" ]
 }
 }")
   
-  #ÐžÑ‚Ð¿Ñ€Ð°Ð²ÐºÐ° Ð·Ð°Ð¿Ñ€Ð¾ÑÐ° Ð½Ð° ÑÐµÑ€Ð²ÐµÑ€
+  #Îòïðàâêà çàïðîñà íà ñåðâåð
   answer <- POST("https://api.direct.yandex.com/json/v5/dictionaries", body = queryBody, add_headers(Authorization = paste0("Bearer ",token), 'Accept-Language' = Language, "Client-Login" = login[1]))
-  #ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚Ð° Ð½Ð° Ð¾ÑˆÐ¸Ð±ÐºÐ¸
+  #Ïðîâåðêà ðåçóëüòàòà íà îøèáêè
   stop_for_status(answer)
   
   dataRaw <- content(answer, "parsed", "application/json")
@@ -36,16 +36,16 @@ queryBody <- paste0("{
     stop(paste0(dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
   }
   
-  #ÐŸÑ€ÐµÐ¾Ð±Ñ€Ð°Ð·ÑƒÐµÐ¼ Ð¾Ñ‚Ð²ÐµÑ‚ Ð² data frame
+  #Ïðåîáðàçóåì îòâåò â data frame
   dictionary_df <- do.call(rbind.data.frame, dataRaw$result[[1]])
   
-  packageStartupMessage("Ð¡Ð¿Ñ€Ð°Ð²Ð¾Ñ‡Ð½Ð¸Ðº ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ Ð·Ð°Ð³Ñ€ÑƒÐ¶ÐµÐ½!", appendLF = T)
-  packageStartupMessage(paste0("Ð‘Ñ‹Ð»Ð»Ñ‹ ÑÐ¿Ð¸ÑÐ°Ð½Ñ‹ Ñ : " ,answer$headers$`units-used-login`), appendLF = T)
-  packageStartupMessage(paste0("Ðš-Ð²Ð¾ Ð±Ð°Ð»Ð»Ð¾Ð² Ð¸Ð·Ñ€Ð°ÑÑ…Ð¾Ð´Ð¾Ð²Ð°Ð½Ñ‹Ñ… Ð¿Ñ€Ð¸ Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ð¸ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ°: " ,strsplit(answer$headers$units, "/")[[1]][1]), appendLF = T)
-  packageStartupMessage(paste0("Ð”Ð¾ÑÑ‚ÑƒÐ¿Ð½Ñ‹Ð¹ Ð¾ÑÑ‚Ð°Ñ‚Ð¾Ðº ÑÑƒÑ‚Ð¾Ñ‡Ð½Ð¾Ð³Ð¾ Ð»Ð¸Ð¼Ð¸Ñ‚Ð° Ð±Ð°Ð»Ð»Ð¾Ð²: " ,strsplit(answer$headers$units, "/")[[1]][2]), appendLF = T)
-  packageStartupMessage(paste0("Ð¡ÑƒÑ‚Ð¾Ñ‡Ð½Ñ‹Ð¹ Ð»Ð¸Ð¼Ð¸Ñ‚ Ð±Ð°Ð»Ð»Ð¾Ð²: " ,strsplit(answer$headers$units, "/")[[1]][3]), appendLF = T)
-  packageStartupMessage(paste0("Ð£Ð½Ð¸ÐºÐ°Ð»ÑŒÐ½Ñ‹Ð¹ Ð¸Ð´ÐµÐ½Ñ‚Ð¸Ñ„Ð¸ÐºÐ°Ñ‚Ð¾Ñ€ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ° ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ð¹ Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼Ð¾ ÑƒÐºÐ°Ð·Ñ‹Ð²Ð°Ñ‚ÑŒ Ð¿Ñ€Ð¸ Ð¾Ð±Ñ€Ð°Ñ‰ÐµÐ½Ð¸Ð¸ Ð² ÑÐ»ÑƒÐ¶Ð±Ñƒ Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ¸: ",answer$headers$requestid), appendLF = T)
-
-  #Ð’Ð¾Ð·Ð²Ñ€Ð°Ñ‰Ð°ÐµÐ¼ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚ Ð² Ð²Ð¸Ð´Ðµ Data Frame
+  packageStartupMessage("Ñïðàâî÷íèê óñïåøíî çàãðóæåí!", appendLF = T)
+  packageStartupMessage(paste0("Áûëëû ñïèñàíû ñ : " ,answer$headers$`units-used-login`), appendLF = T)
+  packageStartupMessage(paste0("Ê-âî áàëëîâ èçðàñõîäîâàíûõ ïðè âûïîëíåíèè çàïðîñà: " ,strsplit(answer$headers$units, "/")[[1]][1]), appendLF = T)
+  packageStartupMessage(paste0("Äîñòóïíûé îñòàòîê ñóòî÷íîãî ëèìèòà áàëëîâ: " ,strsplit(answer$headers$units, "/")[[1]][2]), appendLF = T)
+  packageStartupMessage(paste0("Ñóòî÷íûé ëèìèò áàëëîâ: " ,strsplit(answer$headers$units, "/")[[1]][3]), appendLF = T)
+  packageStartupMessage(paste0("Óíèêàëüíûé èäåíòèôèêàòîð çàïðîñà êîòîðûé íåîáõîäèìî óêàçûâàòü ïðè îáðàùåíèè â ñëóæáó ïîääåðæêè: ",answer$headers$requestid), appendLF = T)
+  
+  #Âîçâðàùàåì ðåçóëüòàò â âèäå Data Frame
   return(dictionary_df)
 }
