@@ -157,6 +157,27 @@ ReportType - Тип отчёта, принимает на вход строку 
  </tr>
 </table>
 
+DateRangeType - Тип периода отчёта, принимает на вход строку с одним из следующих значений.
+ 
+ + TODAY — текущий день;
+ + YESTERDAY — вчера;
+ + LAST_3_DAYS, LAST_5_DAYS, LAST_7_DAYS, LAST_14_DAYS, LAST_30_DAYS, LAST_90_DAYS, LAST_365_DAYS — указанное количество предыдущих дней, не включая текущий день;
+ + THIS_WEEK_MON_TODAY — текущая неделя начиная с понедельника, включая текущий день;
+ + THIS_WEEK_SUN_TODAY — текущая неделя начиная с воскресенья, включая текущий день;
+ + LAST_WEEK — прошлая неделя с понедельника по воскресенье;
+ + LAST_BUSINESS_WEEK — прошлая рабочая неделя с понедельника по пятницу;
+На схеме:
+<p align="center">
+<img src="https://yastatic.net/doccenter/images/tech-ru/direct/freeze/LJkDkhq2zaeFuKLmxkjfCg5wEjc.png" data-canonical-src="https://yastatic.net/doccenter/images/tech-ru/direct/freeze/LJkDkhq2zaeFuKLmxkjfCg5wEjc.png" style="max-width:100%;">
+</p>
+
+ + LAST_WEEK_SUN_SAT — прошлая неделя с воскресенья по субботу;
+ + THIS_MONTH — текущий месяц;
+ + LAST_MONTH — предыдущий месяц;
+ + ALL_TIME — вся доступная статистика, включая текущий день;
+ + CUSTOM_DATE — произвольный период. При выборе этого значения необходимо указать даты начала и окончания периода в параметрах DateFrom и DateTo.
+ + AUTO — период, за который статистика могла измениться. Период выбирается автоматически в зависимости от того, произошла ли в предыдущий день корректировка статистики. Подробнее см. в разделе Как получить актуальную статистику.
+
 ### `yadirGetCampaignListOld(logins = NULL, token = NULL)`
 Устаревшая функцая для получения списка рекламных кампаний, список функций запрашивался с помощью метода GetCampaignList из версии API 4, с августе 2016 года этот метод стал недоступен, для того что бы получить список кампаний используйте новую  функцию`yadirGetCampaignList(logins = NULL, token = NULL)`.
 
