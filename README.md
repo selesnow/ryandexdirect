@@ -7,6 +7,8 @@
 + [yadirGetToken](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgettoken) - Получение токена доступа
 + [yadirGetClientList](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetclientlisttoken--null) - Получение списка клиентов для агентского аккаунта
 + [yadirGetCampaignList](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetcampaignlistlogins--null-token--null) - Получения списка рекламных кампаний
++ [yadirGetReport]() - Получение статистики из Report сервиса API v.5.
++ [yadirGetDictionary] - Получение справочной информации из API v.5.
 + [yadirGetCampaignListOld](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetcampaignlistoldlogins--null-token--null) - Получения списка рекламных кампаний (Устаревшая функция из API v.4.)
 + [yadirGetSummaryStat](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetsummarystatcampaignids--null-datestart--sysdate---10-dateend--sysdate-currency--usd-token--null) - Получение общей статистики по рекламным кампаниям
 + [yadirCurrencyRates](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadircurrencyrateslogin--null-token--null) - Получения текущих курсов валют (С 28.03.2017 справочник валют так же можно получить с помощью функции yadirGetDictionary)
@@ -123,11 +125,43 @@ STANDARD — дневной бюджет может исчерпаться, а �
     </tr>
 </table>
 
+### `yadirGetReport((ReportType = "CAMPAIGN_PERFORMANCE_REPORT", DateRangeType = "LAST_MONTH", DateFrom = NULL, DateTo = NULL,    FieldNames = c("CampaignName","Impressions","Clicks","Cost"), FilterList = NULL, IncludeVAT = "NO", IncludeDiscount = "NO",          Login = NULL, Token = NULL))`
+
+#### Аргументы:
+ReportType - Тип отчёта, принимает на вход строку с одним из возможных значений:
+
+<table>
+ <tr>
+    <td>Тип отчета</td><td>Описание</td><td>Добавляется группировка данных</td><td>Не допускаются поля</td>
+ </tr>
+  <tr>
+    <td>ACCOUNT_PERFORMANCE_REPORT</td><td>Статистика по аккаунту рекламодателя</td><td>–</td><td>См. раздел [Допустимые поля](https://tech.yandex.ru/direct/doc/reports/fields-list-docpage/)</td>
+ </tr>
+   <tr>
+    <td></td><td></td><td></td><td></td>
+ </tr>
+   <tr>
+    <td></td><td></td><td></td><td></td>
+ </tr>
+   <tr>
+    <td></td><td></td><td></td><td></td>
+ </tr>
+   <tr>
+    <td></td><td></td><td></td><td></td>
+ </tr>
+   <tr>
+    <td></td><td></td><td></td><td></td>
+ </tr>
+   <tr>
+    <td></td><td></td><td></td><td></td>
+ </tr>
+</table>
+
 ### `yadirGetCampaignListOld(logins = NULL, token = NULL)`
 Устаревшая функцая для получения списка рекламных кампаний, список функций запрашивался с помощью метода GetCampaignList из версии API 4, с августе 2016 года этот метод стал недоступен, для того что бы получить список кампаний используйте новую  функцию`yadirGetCampaignList(logins = NULL, token = NULL)`.
 
 ### `yadirGetSummaryStat(campaignIDS = NULL, dateStart = Sys.Date() - 10, dateEnd = Sys.Date(), currency = "USD", token = NULL)`
-Основная функция пакета, возвращает дата фрейм со статистикой в разрезе кампаний и дат.
+Функция возвращает дата фрейм с общей статистикой в разрезе рекламных кампаний и дат.
 
 #### Структура возвращаемого функцией `yadirGetSummaryStat` дата фрейма:
 <table>
@@ -202,14 +236,6 @@ STANDARD — дневной бюджет может исчерпаться, а �
 
 ### `yadirGetLogsData(counter = NULL, date_from = Sys.Date() - 10, date_to = Sys.Date(), fields = NULL, source = "visits", token = NULL)`
 Функция для работы с Logs API Яндекс Метрики, которое позволяет выгрузить сырые данные.
-
-Иногда возникают проблемы с тем, что функция останавливается если в возвращаемых данных встречается строчная русская буква 'я', решение этой проблемы описано [тут](http://ru.stackoverflow.com/questions/432007/%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B0-%D1%8E%D0%BD%D0%B8%D0%BA%D0%BE%D0%B4%D0%B0-%D0%B2-shiny).
-
-По сути просто необходимо установить одну хитрую локаль.
-
-`Sys.setlocale("LC_ALL","Russian_Russia.20866")`
-
-Далее функция будет работать корректно.
 
 #### Аргументы:
 counter - номер счётчика Яндекс Метрики
