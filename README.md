@@ -138,7 +138,7 @@ ReportType - Тип отчёта, принимает на вход строку 
     <td>ACCOUNT_PERFORMANCE_REPORT</td><td>Статистика по аккаунту рекламодателя</td><td>–</td><td>См. раздел [Допустимые поля](https://tech.yandex.ru/direct/doc/reports/fields-list-docpage/)</td>
  </tr>
    <tr>
-    <td></td><td></td><td></td><td></td>
+    <td>[yadirGetClientList](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetclientlisttoken--null)</td><td></td><td></td><td></td>
  </tr>
    <tr>
     <td></td><td></td><td></td><td></td>
