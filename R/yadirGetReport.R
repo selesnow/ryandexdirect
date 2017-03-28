@@ -8,86 +8,86 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
                            IncludeDiscount = "NO",
                            Login = NULL,
                            Token = NULL){
-
-#Форммируем список полей
-Fields <- paste0("<FieldNames>",FieldNames, "</FieldNames>", collapse = "")
-
-#Формируем фильтр
-if(!is.null(FilterList)){
-fil_list <- NA
-filt <- FilterList
-for(fil in filt){
-  fil_list <- paste0(fil_list[!is.na(fil_list)],
-                      paste0("<Filter>",
-                       paste0("<Field>",strsplit(fil ," ")[[1]][1], "</Field>"),
-                       paste0("<Operator>",strsplit(fil ," ")[[1]][2], "</Operator>"),
-                       paste0("<Values>",strsplit(fil ," ")[[1]][3], "</Values>"),"</Filter>"))
-}}
-
-#Формируем тело запроса
-queryBody <- paste0('
-<ReportDefinition xmlns="http://api.direct.yandex.com/v5/reports">
-<SelectionCriteria>',
-ifelse(DateRangeType == "CUSTOM_DATE",paste0("<DateFrom>",DateFrom,"</DateFrom>","<DateTo>",DateTo,"</DateTo>") ,"" ),
-ifelse(is.null(FilterList),"",fil_list),
-'
-</SelectionCriteria>',
-Fields,'
-<ReportName>',paste0("MyReport ", Sys.time()),'</ReportName>
-<ReportType>',ReportType,'</ReportType>
-<DateRangeType>',DateRangeType ,'</DateRangeType>
-<Format>TSV</Format>
-<IncludeVAT>',IncludeVAT,'</IncludeVAT>
-<IncludeDiscount>',IncludeDiscount,'</IncludeDiscount>
-</ReportDefinition>')
-
-#Отправляем запрос на сервер Яндекса
-answer <- POST("https://api.direct.yandex.com/v5/reports", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru", 'Client-Login' = Login, returnMoneyInMicros = "false", processingMode = "auto"))
-
-if(answer$status_code == 400){
-  stop("Ошибка в параметрах запроса либо превышено ограничение на количество запросов или отчетов в очереди. В этом случае проанализируйте сообщение об ошибке, скорректируйте запрос и отправьте его снова.")
-}
-
-
-if(answer$status_code == 500){
-  stop("При формировании отчета произошла ошибка на сервере. Если для этого отчета ошибка на сервере возникла впервые, попробуйте сформировать отчет заново. Если ошибка повторяется, обратитесь в службу поддержки.")
-}
-
-if(answer$status_code == 201){
-  packageStartupMessage("Отчет успешно поставлен в очередь на формирование в режиме офлайн.", appendLF = F)
-}
-
-if(answer$status_code == 202){
-packageStartupMessage("Формирование отчета еще не завершено.", appendLF = F)
-}
-
-
-while(answer$status_code != 200){
+  
+  #Р¤РѕСЂРјРјРёСЂСѓРµРј СЃРїРёСЃРѕРє РїРѕР»РµР№
+  Fields <- paste0("<FieldNames>",FieldNames, "</FieldNames>", collapse = "")
+  
+  #Р¤РѕСЂРјРёСЂСѓРµРј С„РёР»СЊС‚СЂ
+  if(!is.null(FilterList)){
+    fil_list <- NA
+    filt <- FilterList
+    for(fil in filt){
+      fil_list <- paste0(fil_list[!is.na(fil_list)],
+                         paste0("<Filter>",
+                                paste0("<Field>",strsplit(fil ," ")[[1]][1], "</Field>"),
+                                paste0("<Operator>",strsplit(fil ," ")[[1]][2], "</Operator>"),
+                                paste0("<Values>",strsplit(fil ," ")[[1]][3], "</Values>"),"</Filter>"))
+    }}
+  
+  #Р¤РѕСЂРјРёСЂСѓРµРј С‚РµР»Рѕ Р·Р°РїСЂРѕСЃР°
+  queryBody <- paste0('
+                      <ReportDefinition xmlns="http://api.direct.yandex.com/v5/reports">
+                      <SelectionCriteria>',
+                      ifelse(DateRangeType == "CUSTOM_DATE",paste0("<DateFrom>",DateFrom,"</DateFrom>","<DateTo>",DateTo,"</DateTo>") ,"" ),
+                      ifelse(is.null(FilterList),"",fil_list),
+                      '
+                      </SelectionCriteria>',
+                      Fields,'
+                      <ReportName>',paste0("MyReport ", Sys.time()),'</ReportName>
+                      <ReportType>',ReportType,'</ReportType>
+                      <DateRangeType>',DateRangeType ,'</DateRangeType>
+                      <Format>TSV</Format>
+                      <IncludeVAT>',IncludeVAT,'</IncludeVAT>
+                      <IncludeDiscount>',IncludeDiscount,'</IncludeDiscount>
+                      </ReportDefinition>')
+  
+  #РћС‚РїСЂР°РІР»СЏРµРј Р·Р°РїСЂРѕСЃ РЅР° СЃРµСЂРІРµСЂ РЇРЅРґРµРєСЃР°
   answer <- POST("https://api.direct.yandex.com/v5/reports", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru", 'Client-Login' = Login, returnMoneyInMicros = "false", processingMode = "auto"))
-  packageStartupMessage(".", appendLF = F)
-  if(answer$status_code == 500){
-    stop("При формировании отчета произошла ошибка на сервере. Если для этого отчета ошибка на сервере возникла впервые, попробуйте сформировать отчет заново. Если ошибка повторяется, обратитесь в службу поддержки.")
+  
+  if(answer$status_code == 400){
+    stop("РћС€РёР±РєР° РІ РїР°СЂР°РјРµС‚СЂР°С… Р·Р°РїСЂРѕСЃР° Р»РёР±Рѕ РїСЂРµРІС‹С€РµРЅРѕ РѕРіСЂР°РЅРёС‡РµРЅРёРµ РЅР° РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїСЂРѕСЃРѕРІ РёР»Рё РѕС‚С‡РµС‚РѕРІ РІ РѕС‡РµСЂРµРґРё. Р’ СЌС‚РѕРј СЃР»СѓС‡Р°Рµ РїСЂРѕР°РЅР°Р»РёР·РёСЂСѓР№С‚Рµ СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ, СЃРєРѕСЂСЂРµРєС‚РёСЂСѓР№С‚Рµ Р·Р°РїСЂРѕСЃ Рё РѕС‚РїСЂР°РІСЊС‚Рµ РµРіРѕ СЃРЅРѕРІР°.")
   }
   
-  Sys.sleep(5)
-}
-
-if(answer$status_code == 200){
-  #Получаем список названий полей
-  names_col <- strsplit(read.csv(text = content(answer, "text"), sep = "\n", stringsAsFactors = F)[1,], "\t")[[1]]
-  #получаем данные
-  dataRaw <- read.csv(text = content(answer, "text"), sep = "\n", stringsAsFactors = F)[-1,]
-  #Формируем результирующую таблицу
-  df_new <- data.frame(do.call('rbind', strsplit(as.character(dataRaw),'\t',fixed=TRUE)))
-  #Задаём названия полей
-  names(df_new) <- names_col
-  #Убираем строку итогов
-  df_new <- df_new[-nrow(df_new),]
-  packageStartupMessage("Отчет успешно сформирован и передан в теле ответа.", appendLF = T)
   
-  #Информация о количестве баллов.
-  packageStartupMessage(paste0("Уникальный идентификатор запроса который необходимо указывать при обращении в службу поддержки: ",answer$headers$requestid), appendLF = T)
-  #Возвращаем полученный массив
-  return(df_new)
+  if(answer$status_code == 500){
+    stop("РџСЂРё С„РѕСЂРјРёСЂРѕРІР°РЅРёРё РѕС‚С‡РµС‚Р° РїСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РЅР° СЃРµСЂРІРµСЂРµ. Р•СЃР»Рё РґР»СЏ СЌС‚РѕРіРѕ РѕС‚С‡РµС‚Р° РѕС€РёР±РєР° РЅР° СЃРµСЂРІРµСЂРµ РІРѕР·РЅРёРєР»Р° РІРїРµСЂРІС‹Рµ, РїРѕРїСЂРѕР±СѓР№С‚Рµ СЃС„РѕСЂРјРёСЂРѕРІР°С‚СЊ РѕС‚С‡РµС‚ Р·Р°РЅРѕРІРѕ. Р•СЃР»Рё РѕС€РёР±РєР° РїРѕРІС‚РѕСЂСЏРµС‚СЃСЏ, РѕР±СЂР°С‚РёС‚РµСЃСЊ РІ СЃР»СѓР¶Р±Сѓ РїРѕРґРґРµСЂР¶РєРё.")
+  }
+  
+  if(answer$status_code == 201){
+    packageStartupMessage("РћС‚С‡РµС‚ СѓСЃРїРµС€РЅРѕ РїРѕСЃС‚Р°РІР»РµРЅ РІ РѕС‡РµСЂРµРґСЊ РЅР° С„РѕСЂРјРёСЂРѕРІР°РЅРёРµ РІ СЂРµР¶РёРјРµ РѕС„Р»Р°Р№РЅ.", appendLF = F)
+  }
+  
+  if(answer$status_code == 202){
+    packageStartupMessage("Р¤РѕСЂРјРёСЂРѕРІР°РЅРёРµ РѕС‚С‡РµС‚Р° РµС‰Рµ РЅРµ Р·Р°РІРµСЂС€РµРЅРѕ.", appendLF = F)
+  }
+  
+  
+  while(answer$status_code != 200){
+    answer <- POST("https://api.direct.yandex.com/v5/reports", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru", 'Client-Login' = Login, returnMoneyInMicros = "false", processingMode = "auto"))
+    packageStartupMessage(".", appendLF = F)
+    if(answer$status_code == 500){
+      stop("РџСЂРё С„РѕСЂРјРёСЂРѕРІР°РЅРёРё РѕС‚С‡РµС‚Р° РїСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РЅР° СЃРµСЂРІРµСЂРµ. Р•СЃР»Рё РґР»СЏ СЌС‚РѕРіРѕ РѕС‚С‡РµС‚Р° РѕС€РёР±РєР° РЅР° СЃРµСЂРІРµСЂРµ РІРѕР·РЅРёРєР»Р° РІРїРµСЂРІС‹Рµ, РїРѕРїСЂРѕР±СѓР№С‚Рµ СЃС„РѕСЂРјРёСЂРѕРІР°С‚СЊ РѕС‚С‡РµС‚ Р·Р°РЅРѕРІРѕ. Р•СЃР»Рё РѕС€РёР±РєР° РїРѕРІС‚РѕСЂСЏРµС‚СЃСЏ, РѕР±СЂР°С‚РёС‚РµСЃСЊ РІ СЃР»СѓР¶Р±Сѓ РїРѕРґРґРµСЂР¶РєРё.")
+    }
+    
+    Sys.sleep(5)
+  }
+  
+  if(answer$status_code == 200){
+    #РџРѕР»СѓС‡Р°РµРј СЃРїРёСЃРѕРє РЅР°Р·РІР°РЅРёР№ РїРѕР»РµР№
+    names_col <- strsplit(read.csv(text = content(answer, "text"), sep = "\n", stringsAsFactors = F)[1,], "\t")[[1]]
+    #РїРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ
+    dataRaw <- read.csv(text = content(answer, "text"), sep = "\n", stringsAsFactors = F)[-1,]
+    #Р¤РѕСЂРјРёСЂСѓРµРј СЂРµР·СѓР»СЊС‚РёСЂСѓСЋС‰СѓСЋ С‚Р°Р±Р»РёС†Сѓ
+    df_new <- data.frame(do.call('rbind', strsplit(as.character(dataRaw),'\t',fixed=TRUE)))
+    #Р—Р°РґР°С‘Рј РЅР°Р·РІР°РЅРёСЏ РїРѕР»РµР№
+    names(df_new) <- names_col
+    #РЈР±РёСЂР°РµРј СЃС‚СЂРѕРєСѓ РёС‚РѕРіРѕРІ
+    df_new <- df_new[-nrow(df_new),]
+    packageStartupMessage("РћС‚С‡РµС‚ СѓСЃРїРµС€РЅРѕ СЃС„РѕСЂРјРёСЂРѕРІР°РЅ Рё РїРµСЂРµРґР°РЅ РІ С‚РµР»Рµ РѕС‚РІРµС‚Р°.", appendLF = T)
+    
+    #РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РєРѕР»РёС‡РµСЃС‚РІРµ Р±Р°Р»Р»РѕРІ.
+    packageStartupMessage(paste0("РЈРЅРёРєР°Р»СЊРЅС‹Р№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ Р·Р°РїСЂРѕСЃР° РєРѕС‚РѕСЂС‹Р№ РЅРµРѕР±С…РѕРґРёРјРѕ СѓРєР°Р·С‹РІР°С‚СЊ РїСЂРё РѕР±СЂР°С‰РµРЅРёРё РІ СЃР»СѓР¶Р±Сѓ РїРѕРґРґРµСЂР¶РєРё: ",answer$headers$requestid), appendLF = T)
+    #Р’РѕР·РІСЂР°С‰Р°РµРј РїРѕР»СѓС‡РµРЅРЅС‹Р№ РјР°СЃСЃРёРІ
+    return(df_new)
   }
 }
