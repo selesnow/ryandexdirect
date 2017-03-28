@@ -79,12 +79,12 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
     dataRaw <- read.csv(text = content(answer, "text"), sep = "\n", stringsAsFactors = F)[-1,]
     #Формируем результирующую таблицу
     df_new <- data.frame(do.call('rbind', strsplit(as.character(dataRaw),'\t',fixed=TRUE)))
-    #Задаём названия полей
-    names(df_new) <- names_col
     #Проверка вернулись ли какие то данные
     if(is.null(nrow(df_new[-nrow(df_new),]))){
       stop("Ваш запрос не вернул никаких данных, внимательно проверьте заданный  фильтр и период отчёта, после чего повторите попытку.")
     }
+    #Задаём названия полей
+    names(df_new) <- names_col
     #Убираем строку итогов
     df_new <- df_new[-nrow(df_new),]
     packageStartupMessage("Отчет успешно сформирован и передан в теле ответа.", appendLF = T)
