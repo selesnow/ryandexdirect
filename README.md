@@ -7,7 +7,7 @@
 + [yadirGetToken](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgettoken) - Получение токена доступа
 + [yadirGetClientList](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetclientlisttoken--null) - Получение списка клиентов для агентского аккаунта
 + [yadirGetCampaignList](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetcampaignlistlogins--null-token--null) - Получения списка рекламных кампаний
-+ [yadirGetReport]() - Получение статистики из Report сервиса API v.5.
++ [yadirGetReport](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null-fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no-login--null-token--null) - Получение статистики из Report сервиса API v.5.
 + [yadirGetDictionary] - Получение справочной информации из API v.5.
 + [yadirGetCampaignListOld](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetcampaignlistoldlogins--null-token--null) - Получения списка рекламных кампаний (Устаревшая функция из API v.4.)
 + [yadirGetSummaryStat](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetsummarystatcampaignids--null-datestart--sysdate---10-dateend--sysdate-currency--usd-token--null) - Получение общей статистики по рекламным кампаниям
@@ -184,6 +184,9 @@ STANDARD — дневной бюджет может исчерпаться, а �
 
 Подробное описание всех полей можно посмотреть по [этой ссылке.](https://tech.yandex.ru/direct/doc/reports/report-format-docpage/)
 
+<b>FilterList</b> - Строковый вектор с описанием всех фильтров которые вы хотите применить к своим данным, пример FilterList = c("Clicks GREATER_THAN 99","Impressions LESS_THAN 1000"), в данном случае вы получите таблицу агрегированные значения в которых имеют более 99 кликов и при этом менее 1000 показов, все перечисленные условия имеют между собой логическую связь "И".
+
+<b>IncludeVAT</b> - 
 
 ### `yadirGetCampaignListOld(logins = NULL, token = NULL)`
 Устаревшая функцая для получения списка рекламных кампаний, список функций запрашивался с помощью метода GetCampaignList из версии API 4, с августе 2016 года этот метод стал недоступен, для того что бы получить список кампаний используйте новую  функцию`yadirGetCampaignList(logins = NULL, token = NULL)`.
