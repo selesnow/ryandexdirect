@@ -8,7 +8,7 @@
 + [yadirGetClientList](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetclientlisttoken--null) - Получение списка клиентов для агентского аккаунта
 + [yadirGetCampaignList](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetcampaignlistlogins--null-token--null) - Получения списка рекламных кампаний
 + [yadirGetReport](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null-fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no-login--null-token--null) - Получение статистики из Report сервиса API v.5.
-+ [yadirGetDictionary] - Получение справочной информации из API v.5.
++ [yadirGetDictionary](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetdictionarydictionaryname--georegions-language--ru-login--null-token--null) - Получение справочной информации из API v.5.
 + [yadirGetCampaignListOld](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetcampaignlistoldlogins--null-token--null) - Получения списка рекламных кампаний (Устаревшая функция из API v.4.)
 + [yadirGetSummaryStat](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetsummarystatcampaignids--null-datestart--sysdate---10-dateend--sysdate-currency--usd-token--null) - Получение общей статистики по рекламным кампаниям
 + [yadirCurrencyRates](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadircurrencyrateslogin--null-token--null) - Получения текущих курсов валют (С 28.03.2017 справочник валют так же можно получить с помощью функции yadirGetDictionary)
@@ -126,6 +126,8 @@ STANDARD — дневной бюджет может исчерпаться, а �
 </table>
 
 ### `yadirGetReport(ReportType = "CAMPAIGN_PERFORMANCE_REPORT", DateRangeType = "LAST_MONTH", DateFrom = NULL, DateTo = NULL,    FieldNames = c("CampaignName","Impressions","Clicks","Cost"), FilterList = NULL, IncludeVAT = "NO", IncludeDiscount = "NO",          Login = NULL, Token = NULL)`
+
+Основная функция пакета с помощь которой вы можете выгружать данные из [сервиса Reports](https://tech.yandex.ru/direct/doc/reports/reports-docpage/) Яндекс Директ, ниже приведено подробное описание функции.
 
 #### Аргументы:
 <b>ReportType</b> - Тип отчёта, принимает на вход строку с одним из возможных значений:
@@ -377,6 +379,22 @@ stat <- yadirGetSummaryStat(campaignIDS = campaignList$Id,
                             currency = "USD",
                             token = myToken)
 ```
+# Пример работы с функцией yadirGetReport и загрузки данных из сервиса Reports.
+```
+library(ryandexdirect)
+myToken <- yadirGetToken()
+My_report <- yadirGetReport(ReportType = "CAMPAIGN_PERFORMANCE_REPORT", 
+                            DateRangeType = "CUSTOM_DATE", 
+                            DateFrom = '2017-01-01', 
+                            DateTo = '2017-01-31', 
+                            FieldNames = c("CampaignName","Impressions","Clicks"), 
+                            FilterList = c("Clicks GREATER_THAN 49","Impressions LESS_THAN 1001"), 
+                            Login = <YourLogin>, 
+                            Token = myToken)
+```
+Вместо <b>YourLogin</b> подставьте в виде строки ваш логин на Яндексе, для примеры работы с фильтрами данный запрос вернёт рекламные кампании по которым за выбранный период было более 49 кликов и менее 1001 показа. 
+
+Данные в отчете можно агрегировать по различным периодам. Для этого укажите в аргументе FieldNames одно из значений Date, Week, Month, Quarter или Year.
 
 # Пример работы с Logs API Яндекс Метрики.
 ```
