@@ -396,6 +396,17 @@ My_report <- yadirGetReport(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
 
 Данные в отчете можно агрегировать по различным периодам. Для этого укажите в аргументе FieldNames одно из значений Date, Week, Month, Quarter или Year.
 
+# Пример работы с функцией yadirGetDictionary для загрузки справочников из API v.5. Яндекс Директ.
+```
+library(ryandexdirect)
+myToken <- yadirGetToken()
+Regions <- yadirGetDictionary(DictionaryName = "GeoRegions", 
+                              Language = "ru", 
+                              login = <YourLogin>, 
+                              token = myToken
+```
+Вместо <b>YourLogin</b> подставьте в виде строки ваш логин на Яндексе, данный запрос загрузит в R справочник регионов Яндекс Директ.
+
 # Пример работы с Logs API Яндекс Метрики.
 ```
 library(ryandexdirect)
