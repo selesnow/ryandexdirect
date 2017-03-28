@@ -346,5 +346,5 @@ rawmetrikdata <- yadirGetLogsData(counter = "00000000",
  [Stepik](https://stepik.org/users/792428)
   
 <p align="center">
-<img src="http://s017.radikal.ru/i444/1608/b7/989edcf88741.png" data-canonical-src="http://s017.radikal.ru/i444/1608/b7/989edcf88741.png" style="max-width:100%;">
+<img src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png?w=300" data-canonical-src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png?w=300" style="max-width:100%;">
 </p>
