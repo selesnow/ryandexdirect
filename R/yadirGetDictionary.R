@@ -1,10 +1,10 @@
 yadirGetDictionary <- function(DictionaryName = "GeoRegions", Language = "ru", login = NULL, token = NULL){
-  #ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã­Ã Ã«Ã¨Ã·Ã¨Ã¿ Ã«Ã®Ã£Ã¨Ã­Ã  Ã¨ Ã²Ã®ÃªÃ¥Ã­Ã 
+  #Ïðîâåðêà íàëè÷èÿ ëîãèíà è òîêåíà
   if(is.null(login)|is.null(token)) {
     stop("You must enter login and API token!")
   }
   
-  #ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã¢Ã¥Ã°Ã­Ã® Ã«Ã¨ Ã³ÃªÃ Ã§Ã Ã­Ã® Ã­Ã Ã§Ã¢Ã Ã­Ã¨Ã¥ Ã±Ã¯Ã°Ã Ã¢Ã®Ã·Ã­Ã¨ÃªÃ 
+  #Ïðîâåðêà âåðíî ëè óêàçàíî íàçâàíèå ñïðàâî÷íèêà
   if(!DictionaryName %in% c("Currencies",
                             "MetroStations",
                             "GeoRegions",
@@ -25,9 +25,9 @@ yadirGetDictionary <- function(DictionaryName = "GeoRegions", Language = "ru", l
 }
 }")
   
-  #ÃŽÃ²Ã¯Ã°Ã Ã¢ÃªÃ  Ã§Ã Ã¯Ã°Ã®Ã±Ã  Ã­Ã  Ã±Ã¥Ã°Ã¢Ã¥Ã°
+  #Îòïðàâêà çàïðîñà íà ñåðâåð
   answer <- POST("https://api.direct.yandex.com/json/v5/dictionaries", body = queryBody, add_headers(Authorization = paste0("Bearer ",token), 'Accept-Language' = Language, "Client-Login" = login[1]))
-  #ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã²Ã  Ã­Ã  Ã®Ã¸Ã¨Ã¡ÃªÃ¨
+  #Ïðîâåðêà ðåçóëüòàòà íà îøèáêè
   stop_for_status(answer)
   
   dataRaw <- content(answer, "parsed", "application/json")
@@ -36,30 +36,30 @@ yadirGetDictionary <- function(DictionaryName = "GeoRegions", Language = "ru", l
     stop(paste0(dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
   }
   
-  #ÃÃ°Ã¥Ã®Ã¡Ã°Ã Ã§Ã³Ã¥Ã¬ Ã®Ã²Ã¢Ã¥Ã² Ã¢ data frame
+  #Ïðåîáðàçóåì îòâåò â data frame
   
-  #ÃÃ Ã°Ã±Ã¨Ã­Ã£ Ã±Ã¯Ã°Ã Ã¢Ã®Ã·Ã­Ã¨ÃªÃ  Ã°Ã¥Ã£Ã¨Ã®Ã­Ã®Ã¢
+  #Ïàðñèíã ñïðàâî÷íèêà ðåãèîíîâ
   if(DictionaryName == "GeoRegions"){
-    dictionary_df <- data.frame()
+  dictionary_df <- data.frame()
+
+  for(dr in 1:length(dataRaw$result[[1]])){
+    dictionary_df_temp <- data.frame(GeoRegionId = dataRaw$result[[1]][[dr]]$GeoRegionId,
+                                     ParentId = ifelse(is.null(dataRaw$result[[1]][[dr]]$ParentId),NA , dataRaw$result[[1]][[dr]]$ParentId),
+                                     GeoRegionType = dataRaw$result[[1]][[dr]]$GeoRegionType,
+                                     GeoRegionName = dataRaw$result[[1]][[dr]]$GeoRegionName)
+    dictionary_df <- rbind(dictionary_df, dictionary_df_temp)
     
-    for(dr in 1:length(dataRaw$result[[1]])){
-      dictionary_df_temp <- data.frame(GeoRegionId = dataRaw$result[[1]][[dr]]$GeoRegionId,
-                                       ParentId = ifelse(is.null(dataRaw$result[[1]][[dr]]$ParentId),NA , dataRaw$result[[1]][[dr]]$ParentId),
-                                       GeoRegionType = dataRaw$result[[1]][[dr]]$GeoRegionType,
-                                       GeoRegionName = dataRaw$result[[1]][[dr]]$GeoRegionName)
-      dictionary_df <- rbind(dictionary_df, dictionary_df_temp)
-      
-    }}
-  
-  #ÃÃ Ã°Ã±Ã¨Ã­Ã£ Ã±Ã¯Ã°Ã Ã¢Ã®Ã·Ã­Ã¨ÃªÃ  Ã¢Ã Ã«Ã¾Ã²
+  }}
+
+  #Ïàðñèíã ñïðàâî÷íèêà âàëþò
   if(DictionaryName == "Currencies"){
     dictionary_df <- data.frame()
-    for(dr in 1:length(dataRaw$result[[1]])){
-      dictionary_df_temp <- data.frame(Cur = dataRaw$result[[1]][[dr]]$Currency, as.data.frame(do.call(rbind.data.frame, dataRaw$result[[1]][[dr]]$Properties), row.names = NULL, stringsAsFactors = F))
-      dictionary_df <- rbind(dictionary_df, dictionary_df_temp)
-    }
+  for(dr in 1:length(dataRaw$result[[1]])){
+    dictionary_df_temp <- data.frame(Cur = dataRaw$result[[1]][[dr]]$Currency, as.data.frame(do.call(rbind.data.frame, dataRaw$result[[1]][[dr]]$Properties), row.names = NULL, stringsAsFactors = F))
+    dictionary_df <- rbind(dictionary_df, dictionary_df_temp)
+  }
     dictionary_df_cur <- data.frame()
-    #ÃÃ°Ã¥Ã®Ã¡Ã°Ã Ã§Ã³Ã¥Ã¬ Ã±Ã¯Ã°Ã Ã¢Ã®Ã·Ã­Ã¨Ãª Ã¢Ã Ã«Ã¾Ã²
+    #Ïðåîáðàçóåì ñïðàâî÷íèê âàëþò
     for(curlist in unique(dictionary_df$Cur)){
       dictionary_df_temp <- data.frame(Cur = curlist,
                                        FullName = dictionary_df[dictionary_df$Cur == curlist & dictionary_df$Name == "FullName",3],
@@ -70,7 +70,7 @@ yadirGetDictionary <- function(DictionaryName = "GeoRegions", Language = "ru", l
     dictionary_df <- dictionary_df_cur
   }
   
-  #ÃÃ Ã°Ã±Ã¨Ã­Ã£ Ã±Ã¯Ã°Ã Ã¢Ã®Ã·Ã­Ã¨ÃªÃ  Interests
+  #Ïàðñèíã ñïðàâî÷íèêà Interests
   if(DictionaryName == "Interests"){
     dictionary_df <- data.frame()
     for(dr in 1:length(dataRaw$result[[1]])){
@@ -82,20 +82,20 @@ yadirGetDictionary <- function(DictionaryName = "GeoRegions", Language = "ru", l
     }
   }
   
-  #ÃÃ Ã°Ã±Ã¨Ã­Ã£ Ã®Ã±Ã²Ã Ã«Ã¼Ã­Ã»Ãµ Ã±Ã¯Ã°Ã Ã¢Ã®Ã·Ã­Ã¨ÃªÃ®Ã¢ Ã±Ã® Ã±Ã²Ã Ã­Ã¤Ã Ã°Ã²Ã­Ã®Ã© Ã±Ã²Ã°Ã³ÃªÃ²Ã³Ã°Ã®Ã©
+  #Ïàðñèíã îñòàëüíûõ ñïðàâî÷íèêîâ ñî ñòàíäàðòíîé ñòðóêòóðîé
   if(! DictionaryName %in% c("Currencies","GeoRegions","Interests")){
     dictionary_df <- do.call(rbind.data.frame, dataRaw$result[[1]])
-  }
+    }
   
-  #Ã‚Ã»Ã¢Ã®Ã¤Ã¨Ã¬ Ã¨Ã­Ã´Ã®Ã°Ã¬Ã Ã¶Ã¨Ã¾ Ã® Ã°Ã Ã¡Ã®Ã²Ã¥ Ã§Ã Ã¯Ã°Ã®Ã±Ã  Ã¨ Ã® ÃªÃ®Ã«Ã¨Ã·Ã¥Ã±Ã²Ã¢Ã¥ Ã¡Ã Ã«Ã«Ã®Ã¢
-  packageStartupMessage("Ã‘Ã¯Ã°Ã Ã¢Ã®Ã·Ã­Ã¨Ãª Ã³Ã±Ã¯Ã¥Ã¸Ã­Ã® Ã§Ã Ã£Ã°Ã³Ã¦Ã¥Ã­!", appendLF = T)
-  packageStartupMessage(paste0("ÃÃ»Ã«Ã«Ã» Ã±Ã¯Ã¨Ã±Ã Ã­Ã» Ã± : " ,answer$headers$`units-used-login`), appendLF = T)
-  packageStartupMessage(paste0("ÃŠ-Ã¢Ã® Ã¡Ã Ã«Ã«Ã®Ã¢ Ã¨Ã§Ã°Ã Ã±ÃµÃ®Ã¤Ã®Ã¢Ã Ã­Ã»Ãµ Ã¯Ã°Ã¨ Ã¢Ã»Ã¯Ã®Ã«Ã­Ã¥Ã­Ã¨Ã¨ Ã§Ã Ã¯Ã°Ã®Ã±Ã : " ,strsplit(answer$headers$units, "/")[[1]][1]), appendLF = T)
-  packageStartupMessage(paste0("Ã„Ã®Ã±Ã²Ã³Ã¯Ã­Ã»Ã© Ã®Ã±Ã²Ã Ã²Ã®Ãª Ã±Ã³Ã²Ã®Ã·Ã­Ã®Ã£Ã® Ã«Ã¨Ã¬Ã¨Ã²Ã  Ã¡Ã Ã«Ã«Ã®Ã¢: " ,strsplit(answer$headers$units, "/")[[1]][2]), appendLF = T)
-  packageStartupMessage(paste0("Ã‘Ã³Ã²Ã®Ã·Ã­Ã»Ã© Ã«Ã¨Ã¬Ã¨Ã² Ã¡Ã Ã«Ã«Ã®Ã¢: " ,strsplit(answer$headers$units, "/")[[1]][3]), appendLF = T)
-  packageStartupMessage(paste0("Ã“Ã­Ã¨ÃªÃ Ã«Ã¼Ã­Ã»Ã© Ã¨Ã¤Ã¥Ã­Ã²Ã¨Ã´Ã¨ÃªÃ Ã²Ã®Ã° Ã§Ã Ã¯Ã°Ã®Ã±Ã  ÃªÃ®Ã²Ã®Ã°Ã»Ã© Ã­Ã¥Ã®Ã¡ÃµÃ®Ã¤Ã¨Ã¬Ã® Ã³ÃªÃ Ã§Ã»Ã¢Ã Ã²Ã¼ Ã¯Ã°Ã¨ Ã®Ã¡Ã°Ã Ã¹Ã¥Ã­Ã¨Ã¨ Ã¢ Ã±Ã«Ã³Ã¦Ã¡Ã³ Ã¯Ã®Ã¤Ã¤Ã¥Ã°Ã¦ÃªÃ¨: ",answer$headers$requestid), appendLF = T)
+  #Âûâîäèì èíôîðìàöèþ î ðàáîòå çàïðîñà è î êîëè÷åñòâå áàëëîâ
+  packageStartupMessage("Ñïðàâî÷íèê óñïåøíî çàãðóæåí!", appendLF = T)
+  packageStartupMessage(paste0("Áûëëû ñïèñàíû ñ : " ,answer$headers$`units-used-login`), appendLF = T)
+  packageStartupMessage(paste0("Ê-âî áàëëîâ èçðàñõîäîâàíûõ ïðè âûïîëíåíèè çàïðîñà: " ,strsplit(answer$headers$units, "/")[[1]][1]), appendLF = T)
+  packageStartupMessage(paste0("Äîñòóïíûé îñòàòîê ñóòî÷íîãî ëèìèòà áàëëîâ: " ,strsplit(answer$headers$units, "/")[[1]][2]), appendLF = T)
+  packageStartupMessage(paste0("Ñóòî÷íûé ëèìèò áàëëîâ: " ,strsplit(answer$headers$units, "/")[[1]][3]), appendLF = T)
+  packageStartupMessage(paste0("Óíèêàëüíûé èäåíòèôèêàòîð çàïðîñà êîòîðûé íåîáõîäèìî óêàçûâàòü ïðè îáðàùåíèè â ñëóæáó ïîääåðæêè: ",answer$headers$requestid), appendLF = T)
   
-  #Ã‚Ã®Ã§Ã¢Ã°Ã Ã¹Ã Ã¥Ã¬ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã² Ã¢ Ã¢Ã¨Ã¤Ã¥ Data Frame
+  #Âîçâðàùàåì ðåçóëüòàò â âèäå Data Frame
   return(dictionary_df)
 }
 
