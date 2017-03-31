@@ -6,7 +6,7 @@
 + [Функции входящие в пакет ryandexdirect](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Функции-входящие-в-пакет-ryandexdirect)
 + [yadirGetToken](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgettoken) - Получение токена доступа
 + [yadirGetClientList](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetclientlisttoken--null) - Получение списка клиентов для агентского аккаунта
-+ yadirGetClientParam
++ [yadirGetClientParam](https://github.com/selesnow/ryandexdirect#yadirgetclientparamlanguage--ru-login--null-token--null) - Получение параметров аккаунта Яндекс Директ
 + [yadirGetCampaignList](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetcampaignlistlogins--null-token--null) - Получения списка рекламных кампаний
 + [yadirGetReport](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null-fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no-login--null-token--null) - Получение статистики из Report сервиса API v.5.
 + [yadirGetDictionary](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetdictionarydictionaryname--georegions-language--ru-login--null-token--null) - Получение справочной информации из API v.5.
@@ -85,9 +85,9 @@
 Функция возврщает Data frame с основными параметрами аккаунта Яндекс Директ.
 
 #### Аргументы:
-<b>Language<b/> - Язык ответа
-<b>login<b/> - Логин на Яндексе
-<b>token<b/> - Токен дотупа к API
+<b>Language<\b> - Язык ответа
+<b>login<\b> - Логин на Яндексе
+<b>token<\b> - Токен дотупа к API
 
 #### Структура возвращаемого функцией `yadirGetClientParam` дата фрейма:
 <table>
