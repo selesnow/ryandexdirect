@@ -92,6 +92,10 @@ if(is.null(logins)){
       stop_for_status(answer)
       dataRaw <- content(answer, "parsed", "application/json")
       
+        if(length(dataRaw$error) > 0){
+            stop(paste0(dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
+           }
+      
       #
       tempResultData <- data.frame(Id = character(),
                                Name = character(),
