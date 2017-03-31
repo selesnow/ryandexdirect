@@ -6,6 +6,7 @@
 + [Функции входящие в пакет ryandexdirect](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Функции-входящие-в-пакет-ryandexdirect)
 + [yadirGetToken](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgettoken) - Получение токена доступа
 + [yadirGetClientList](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetclientlisttoken--null) - Получение списка клиентов для агентского аккаунта
++ yadirGetClientParam
 + [yadirGetCampaignList](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetcampaignlistlogins--null-token--null) - Получения списка рекламных кампаний
 + [yadirGetReport](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null-fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no-login--null-token--null) - Получение статистики из Report сервиса API v.5.
 + [yadirGetDictionary](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetdictionarydictionaryname--georegions-language--ru-login--null-token--null) - Получение справочной информации из API v.5.
@@ -80,6 +81,49 @@
     </tr>
 </table>
 
+### `yadirGetClientParam(Language = "ru", login = NULL, token = NULL)`
+Функция возврщает Data frame с основными параметрами аккаунта Яндекс Директ.
+
+#### Аргументы:
+<b>Language<b/> - Язык ответа
+<b>login<b/> - Логин на Яндексе
+<b>token<b/> - Токен дотупа к API
+
+#### Структура возвращаемого функцией `yadirGetClientParam` дата фрейма:
+<table>
+    <tr>
+        <td><center>Поле</center></td><td><center>Тип данных</center></td><td><center>Описание</center></td>
+    </tr>
+    <tr>
+        <td>Login</td><td>chr</td><td>Логин пользователя Директа.</td>
+    </tr>
+    <tr>
+        <td>ClientId</td><td>int</td><td>Идентификатор рекламодателя.</td>
+    </tr>
+    <tr>
+        <td>CountryId</td><td>int</td><td>Идентификатор страны рекламодателя из справочника регионов.
+Справочник регионов можно получить с помощью функции yadirGetDictionary.</td>
+    </tr>
+    <tr>
+        <td>Currency</td><td>chr</td><td>Валюта рекламодателя.
+Справочник валют можно получить с помощью функции yadirGetDictionary.</td>
+    </tr>
+    <tr>
+         <td>CreatedAt</td><td>chr</td><td>Дата регистрации пользователя в Директе, в формате YYYY-MM-DD.</td>
+    </tr>
+     <tr>
+         <td>ClientInfo</td><td>chr</td><td>ФИО пользователя Директа.</td>
+    </tr>
+     <tr>
+         <td>AccountQuality</td><td>num</td><td>Показатель качества аккаунта.</td>
+         <tr>
+         <td>CampaignsTotalPerClient</td><td>int</td><td>Максимальное количество кампаний у рекламодателя.</td>
+    <tr>
+         <td> CampaignsUnarchivePerClient</td><td>int</td><td>максимальное количество кампаний, не находящихся в архиве.</td>
+    </tr>
+    <tr>
+         <td>APIPoints</td><td>int</td><td>Суточный лимит баллов API.</td>
+</table>
 
 ### `yadirGetCampaignList(logins = NULL, token = NULL)`
 Функция возвращает дата фрейм со списком рекламных кампаний и некоторых их параметров по логину.
