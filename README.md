@@ -471,6 +471,12 @@ rawmetrikdata <- yadirGetLogsData(counter = "00000000",
                                   token = myToken)
 ```
 
+## Подборка статей с примерами работы с пакетом ryandexdirect.
++ [Как получить и обработать сырые данные из Яндекс.Метрики](https://netpeak.net/ru/blog/kak-poluchit-i-obrabotat-syrye-dannye-iz-yandeks-metriki/)
++ [Как связать Яндекс.Директ с Microsoft Power BI](https://netpeak.net/ru/blog/kak-svyazat-yandeks-direkt-s-microsoft-power-bi/)
++ [Подключение Power BI к Yandex.Metrika](http://pm-partner.ru/articles/114/591/)
+
+
  *Автор пакета: Алексей Селезнёв, Head of Analytics Dept. at Netpeak*
  
  [GitHub](https://github.com/selesnow/)
