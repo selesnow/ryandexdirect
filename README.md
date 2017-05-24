@@ -18,6 +18,7 @@
 + [Пример работы с функцией yadirGetReport](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Пример-работы-с-функцией-yadirgetreport-и-загрузки-данных-из-сервиса-reports) - Загрузка данных из сервиса Reports
 + [Пример работы с функцией yadirGetDictionary](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Пример-работы-с-функцией-yadirgetdictionary-для-загрузки-справочников-из-api-v5-Яндекс-Директ) - загрузки справочников из API v.5. Яндекс Директ
 + [Пример работы с Logs API Яндекс Метрики](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Пример-работы-с-logs-api-Яндекс-Метрики) - Загрузка сырых данных из Яндекс Метрики
++ [Подборка статей с примерами работы с пакетом ryandexdirect](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Подборка-статей-с-примерами-работы-с-пакетом-ryandexdirect)
 
 ## Краткое описание.
 
