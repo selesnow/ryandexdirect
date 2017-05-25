@@ -471,6 +471,41 @@ rawmetrikdata <- yadirGetLogsData(counter = "00000000",
                                   source = "visits",
                                   token = myToken)
 ```
+## Как обратиться к API сервисов Яндекс.Директ и Яндекс.Метрика с помощью proxy сервера, необходимо в случае блокировки доступа к сервисам.
+Для обхода блокировки API сервиса Яндекс.Директ, и Яндекс.Метрика необходимо сделать следующие действия:
++ Найти любой сервис генерирующий списки доступных прокси например [этот](https://hidemy.name/ru/proxy-list/)
++ Выбрать в фильтре тип прокси поддерживающий HTTPS.
++ Сформировать список доступных прокси серверов.
+<p align="center">
+<img src="http://img.netpeak.ua/alsey/149573200371_kiss_26kb.png" data-canonical-src="http://img.netpeak.ua/alsey/149573200371_kiss_26kb.png" style="max-width:100%;">
+</p>
++ Далее нам понадобятся только IP адрес и порт прокси сервера (я обычно использую сервера с портом  3128):
+<p align="center">
+<img src="http://img.netpeak.ua/alsey/149573210236_kiss_41kb.png" data-canonical-src="http://img.netpeak.ua/alsey/149573210236_kiss_41kb.png" style="max-width:100%;">
+</p>
++ В данном случае в качестве примера возьмём американский сервер который находится в третей строке списка IP 104.37.212.5 порт 3128, далее в код R перед функцией обращения к API необходимо направить интернет соединение через прокси сервер добавив в код строку
+`Sys.setenv(https_proxy="http://104.37.212.5:3128")`
++ После пишем обычный код обращения к API.
++ После чего добавляем строку для отклчения интернет соединения от прокси сервера с помощью строки.
+`Sys.unsetenv("https_proxy")`
++ В случае если прокси сервер требует прохождения аутентификации вы можете указать имя пользователя и пароль:
+`Sys.setenv(https_proxy="http://user:password@proxy_server:port")`
++ Проверить установилась ли необходимая настройка соединения можно с помощью команды:
+`Sys.getenv("https_proxy")`
++ Пример кода для обращения к API Яндекс.Директ через прокси сервер. В данном случае подразумевается что ранее вы уже получили токен доступа.
+```
+library(ryandexdirect)
+Sys.setenv(https_proxy="http://104.37.212.5:3128")
+My_report <- yadirGetReport(ReportType = "CAMPAIGN_PERFORMANCE_REPORT", 
+                            DateRangeType = "CUSTOM_DATE", 
+                            DateFrom = '2017-01-01', 
+                            DateTo = '2017-01-31', 
+                            FieldNames = c("CampaignName","Impressions","Clicks"), 
+                            FilterList = c("Clicks GREATER_THAN 49","Impressions LESS_THAN 1001"), 
+                            Login = <YourLogin>, 
+                            Token = "897rn4jfk3jhfyb9ufjhkjdhks3390uui")
+Sys.unsetenv("https_proxy")           
+```
 
 ## Подборка статей с примерами работы с пакетом ryandexdirect.
 + [Как получить и обработать сырые данные из Яндекс.Метрики](https://netpeak.net/ru/blog/kak-poluchit-i-obrabotat-syrye-dannye-iz-yandeks-metriki/)
