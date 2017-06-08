@@ -9,10 +9,10 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
                            Login = NULL,
                            Token = NULL){
   
-  #Форммируем список полей
+  #Г”Г®Г°Г¬Г¬ГЁГ°ГіГҐГ¬ Г±ГЇГЁГ±Г®ГЄ ГЇГ®Г«ГҐГ©
   Fields <- paste0("<FieldNames>",FieldNames, "</FieldNames>", collapse = "")
   
-  #Формируем фильтр
+  #Г”Г®Г°Г¬ГЁГ°ГіГҐГ¬ ГґГЁГ«ГјГІГ°
   if(!is.null(FilterList)){
     fil_list <- NA
     filt <- FilterList
@@ -24,7 +24,7 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
                                 paste0("<Values>",strsplit(fil ," ")[[1]][3], "</Values>"),"</Filter>"))
     }}
   
-  #Формируем тело запроса
+  #Г”Г®Г°Г¬ГЁГ°ГіГҐГ¬ ГІГҐГ«Г® Г§Г ГЇГ°Г®Г±Г 
   queryBody <- paste0('
                       <ReportDefinition xmlns="http://api.direct.yandex.com/v5/reports">
                       <SelectionCriteria>',
@@ -41,24 +41,24 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
                       <IncludeDiscount>',IncludeDiscount,'</IncludeDiscount>
                       </ReportDefinition>')
   
-  #Отправляем запрос на сервер Яндекса
+  #ГЋГІГЇГ°Г ГўГ«ГїГҐГ¬ Г§Г ГЇГ°Г®Г± Г­Г  Г±ГҐГ°ГўГҐГ° ГџГ­Г¤ГҐГЄГ±Г 
   answer <- POST("https://api.direct.yandex.com/v5/reports", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru", 'Client-Login' = Login, returnMoneyInMicros = "false", processingMode = "auto"))
   
   if(answer$status_code == 400){
-    stop("Ошибка в параметрах запроса либо превышено ограничение на количество запросов или отчетов в очереди. В этом случае проанализируйте сообщение об ошибке, скорректируйте запрос и отправьте его снова.")
+    stop("ГЋГёГЁГЎГЄГ  Гў ГЇГ Г°Г Г¬ГҐГІГ°Г Гµ Г§Г ГЇГ°Г®Г±Г  Г«ГЁГЎГ® ГЇГ°ГҐГўГ»ГёГҐГ­Г® Г®ГЈГ°Г Г­ГЁГ·ГҐГ­ГЁГҐ Г­Г  ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г§Г ГЇГ°Г®Г±Г®Гў ГЁГ«ГЁ Г®ГІГ·ГҐГІГ®Гў Гў Г®Г·ГҐГ°ГҐГ¤ГЁ. Г‚ ГЅГІГ®Г¬ Г±Г«ГіГ·Г ГҐ ГЇГ°Г®Г Г­Г Г«ГЁГ§ГЁГ°ГіГ©ГІГҐ Г±Г®Г®ГЎГ№ГҐГ­ГЁГҐ Г®ГЎ Г®ГёГЁГЎГЄГҐ, Г±ГЄГ®Г°Г°ГҐГЄГІГЁГ°ГіГ©ГІГҐ Г§Г ГЇГ°Г®Г± ГЁ Г®ГІГЇГ°Г ГўГјГІГҐ ГҐГЈГ® Г±Г­Г®ГўГ .")
   }
   
   
   if(answer$status_code == 500){
-    stop("При формировании отчета произошла ошибка на сервере. Если для этого отчета ошибка на сервере возникла впервые, попробуйте сформировать отчет заново. Если ошибка повторяется, обратитесь в службу поддержки.")
+    stop("ГЏГ°ГЁ ГґГ®Г°Г¬ГЁГ°Г®ГўГ Г­ГЁГЁ Г®ГІГ·ГҐГІГ  ГЇГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  Г­Г  Г±ГҐГ°ГўГҐГ°ГҐ. Г…Г±Г«ГЁ Г¤Г«Гї ГЅГІГ®ГЈГ® Г®ГІГ·ГҐГІГ  Г®ГёГЁГЎГЄГ  Г­Г  Г±ГҐГ°ГўГҐГ°ГҐ ГўГ®Г§Г­ГЁГЄГ«Г  ГўГЇГҐГ°ГўГ»ГҐ, ГЇГ®ГЇГ°Г®ГЎГіГ©ГІГҐ Г±ГґГ®Г°Г¬ГЁГ°Г®ГўГ ГІГј Г®ГІГ·ГҐГІ Г§Г Г­Г®ГўГ®. Г…Г±Г«ГЁ Г®ГёГЁГЎГЄГ  ГЇГ®ГўГІГ®Г°ГїГҐГІГ±Гї, Г®ГЎГ°Г ГІГЁГІГҐГ±Гј Гў Г±Г«ГіГ¦ГЎГі ГЇГ®Г¤Г¤ГҐГ°Г¦ГЄГЁ.")
   }
   
   if(answer$status_code == 201){
-    packageStartupMessage("Отчет успешно поставлен в очередь на формирование в режиме офлайн.", appendLF = F)
+    packageStartupMessage("ГЋГІГ·ГҐГІ ГіГ±ГЇГҐГёГ­Г® ГЇГ®Г±ГІГ ГўГ«ГҐГ­ Гў Г®Г·ГҐГ°ГҐГ¤Гј Г­Г  ГґГ®Г°Г¬ГЁГ°Г®ГўГ Г­ГЁГҐ Гў Г°ГҐГ¦ГЁГ¬ГҐ Г®ГґГ«Г Г©Г­.", appendLF = F)
   }
   
   if(answer$status_code == 202){
-    packageStartupMessage("Формирование отчета еще не завершено.", appendLF = F)
+    packageStartupMessage("Г”Г®Г°Г¬ГЁГ°Г®ГўГ Г­ГЁГҐ Г®ГІГ·ГҐГІГ  ГҐГ№ГҐ Г­ГҐ Г§Г ГўГҐГ°ГёГҐГ­Г®.", appendLF = F)
   }
   
   
@@ -66,32 +66,34 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
     answer <- POST("https://api.direct.yandex.com/v5/reports", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru", 'Client-Login' = Login, returnMoneyInMicros = "false", processingMode = "auto"))
     packageStartupMessage(".", appendLF = F)
     if(answer$status_code == 500){
-      stop("При формировании отчета произошла ошибка на сервере. Если для этого отчета ошибка на сервере возникла впервые, попробуйте сформировать отчет заново. Если ошибка повторяется, обратитесь в службу поддержки.")
+      stop("ГЏГ°ГЁ ГґГ®Г°Г¬ГЁГ°Г®ГўГ Г­ГЁГЁ Г®ГІГ·ГҐГІГ  ГЇГ°Г®ГЁГ§Г®ГёГ«Г  Г®ГёГЁГЎГЄГ  Г­Г  Г±ГҐГ°ГўГҐГ°ГҐ. Г…Г±Г«ГЁ Г¤Г«Гї ГЅГІГ®ГЈГ® Г®ГІГ·ГҐГІГ  Г®ГёГЁГЎГЄГ  Г­Г  Г±ГҐГ°ГўГҐГ°ГҐ ГўГ®Г§Г­ГЁГЄГ«Г  ГўГЇГҐГ°ГўГ»ГҐ, ГЇГ®ГЇГ°Г®ГЎГіГ©ГІГҐ Г±ГґГ®Г°Г¬ГЁГ°Г®ГўГ ГІГј Г®ГІГ·ГҐГІ Г§Г Г­Г®ГўГ®. Г…Г±Г«ГЁ Г®ГёГЁГЎГЄГ  ГЇГ®ГўГІГ®Г°ГїГҐГІГ±Гї, Г®ГЎГ°Г ГІГЁГІГҐГ±Гј Гў Г±Г«ГіГ¦ГЎГі ГЇГ®Г¤Г¤ГҐГ°Г¦ГЄГЁ.")
     }
     
     Sys.sleep(5)
   }
   
   if(answer$status_code == 200){
-    #Получаем список названий полей
+    #ГЏГ®Г«ГіГ·Г ГҐГ¬ Г±ГЇГЁГ±Г®ГЄ Г­Г Г§ГўГ Г­ГЁГ© ГЇГ®Г«ГҐГ©
     names_col <- strsplit(read.csv(text = content(answer, "text"), sep = "\n", stringsAsFactors = F)[1,], "\t")[[1]]
-    #получаем данные
+    #ГЇГ®Г«ГіГ·Г ГҐГ¬ Г¤Г Г­Г­Г»ГҐ
     dataRaw <- read.csv(text = content(answer, "text"), sep = "\n", stringsAsFactors = F)[-1,]
-    #Формируем результирующую таблицу
-    df_new <- data.frame(do.call('rbind', strsplit(as.character(dataRaw),'\t',fixed=TRUE)))
-    #Проверка вернулись ли какие то данные
-    if(is.null(nrow(df_new[-nrow(df_new),]))){
-      stop("Ваш запрос не вернул никаких данных, внимательно проверьте заданный  фильтр и период отчёта, после чего повторите попытку.")
-    }
-    #Задаём названия полей
-    names(df_new) <- names_col
-    #Убираем строку итогов
-    df_new <- df_new[-nrow(df_new),]
-    packageStartupMessage("Отчет успешно сформирован и передан в теле ответа.", appendLF = T)
+    #Г”Г®Г°Г¬ГЁГ°ГіГҐГ¬ Г°ГҐГ§ГіГ«ГјГІГЁГ°ГіГѕГ№ГіГѕ ГІГ ГЎГ«ГЁГ¶Гі
+    #df_new <- data.frame(do.call('rbind', strsplit(as.character(dataRaw),'\t',fixed=TRUE)))
+    df_new <- read.csv(textConnection(dataRaw),header = F, "\t", col.names = names_col)
     
-    #Информация о количестве баллов.
-    packageStartupMessage(paste0("Уникальный идентификатор запроса который необходимо указывать при обращении в службу поддержки: ",answer$headers$requestid), appendLF = T)
-    #Возвращаем полученный массив
+    #ГЏГ°Г®ГўГҐГ°ГЄГ  ГўГҐГ°Г­ГіГ«ГЁГ±Гј Г«ГЁ ГЄГ ГЄГЁГҐ ГІГ® Г¤Г Г­Г­Г»ГҐ
+    if(is.null(nrow(df_new[-nrow(df_new),]))){
+      stop("Г‚Г Гё Г§Г ГЇГ°Г®Г± Г­ГҐ ГўГҐГ°Г­ГіГ« Г­ГЁГЄГ ГЄГЁГµ Г¤Г Г­Г­Г»Гµ, ГўГ­ГЁГ¬Г ГІГҐГ«ГјГ­Г® ГЇГ°Г®ГўГҐГ°ГјГІГҐ Г§Г Г¤Г Г­Г­Г»Г©  ГґГЁГ«ГјГІГ° ГЁ ГЇГҐГ°ГЁГ®Г¤ Г®ГІГ·ВёГІГ , ГЇГ®Г±Г«ГҐ Г·ГҐГЈГ® ГЇГ®ГўГІГ®Г°ГЁГІГҐ ГЇГ®ГЇГ»ГІГЄГі.")
+    }
+    #Г‡Г Г¤Г ВёГ¬ Г­Г Г§ГўГ Г­ГЁГї ГЇГ®Г«ГҐГ©
+    #names(df_new) <- names_col
+    #Г“ГЎГЁГ°Г ГҐГ¬ Г±ГІГ°Г®ГЄГі ГЁГІГ®ГЈГ®Гў
+    #df_new <- df_new[-nrow(df_new),]
+    packageStartupMessage("ГЋГІГ·ГҐГІ ГіГ±ГЇГҐГёГ­Г® Г±ГґГ®Г°Г¬ГЁГ°Г®ГўГ Г­ ГЁ ГЇГҐГ°ГҐГ¤Г Г­ Гў ГІГҐГ«ГҐ Г®ГІГўГҐГІГ .", appendLF = T)
+    
+    #Г€Г­ГґГ®Г°Г¬Г Г¶ГЁГї Г® ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГҐ ГЎГ Г«Г«Г®Гў.
+    packageStartupMessage(paste0("Г“Г­ГЁГЄГ Г«ГјГ­Г»Г© ГЁГ¤ГҐГ­ГІГЁГґГЁГЄГ ГІГ®Г° Г§Г ГЇГ°Г®Г±Г  ГЄГ®ГІГ®Г°Г»Г© Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г® ГіГЄГ Г§Г»ГўГ ГІГј ГЇГ°ГЁ Г®ГЎГ°Г Г№ГҐГ­ГЁГЁ Гў Г±Г«ГіГ¦ГЎГі ГЇГ®Г¤Г¤ГҐГ°Г¦ГЄГЁ: ",answer$headers$requestid), appendLF = T)
+    #Г‚Г®Г§ГўГ°Г Г№Г ГҐГ¬ ГЇГ®Г«ГіГ·ГҐГ­Г­Г»Г© Г¬Г Г±Г±ГЁГў
     return(df_new)
   }
 }
