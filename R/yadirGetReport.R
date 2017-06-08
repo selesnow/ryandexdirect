@@ -79,7 +79,7 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
     dataRaw <- read.csv(text = content(answer, "text"), sep = "\n", stringsAsFactors = F)[-1,]
     #Ôîðìèðóåì ðåçóëüòèðóþùóþ òàáëèöó
     #df_new <- data.frame(do.call('rbind', strsplit(as.character(dataRaw),'\t',fixed=TRUE)))
-    df_new <- read.csv(textConnection(dataRaw),header = F, "\t", col.names = names_col)
+    df_new <- read.csv(text = dataRaw,header = F, sep = "\t", col.names = names_col)
     
     #Ïðîâåðêà âåðíóëèñü ëè êàêèå òî äàííûå
     if(is.null(nrow(df_new[-nrow(df_new),]))){
