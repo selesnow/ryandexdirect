@@ -1,5 +1,5 @@
 yadirGetClientParam <- function(Language = "ru", login = NULL, token = NULL){
-  #Ïðîâåðêà íàëè÷èÿ ëîãèíà è òîêåíà
+  #ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã­Ã Ã«Ã¨Ã·Ã¨Ã¿ Ã«Ã®Ã£Ã¨Ã­Ã  Ã¨ Ã²Ã®ÃªÃ¥Ã­Ã 
   if(is.null(login)|is.null(token)) {
     stop("You must enter login and API token!")
   }
@@ -28,9 +28,9 @@ yadirGetClientParam <- function(Language = "ru", login = NULL, token = NULL){
 }
 }")
   
-  #Îòïðàâêà çàïðîñà íà ñåðâåð
+  #ÃŽÃ²Ã¯Ã°Ã Ã¢ÃªÃ  Ã§Ã Ã¯Ã°Ã®Ã±Ã  Ã­Ã  Ã±Ã¥Ã°Ã¢Ã¥Ã°
   answer <- POST("https://api.direct.yandex.com/json/v5/clients", body = queryBody, add_headers(Authorization = paste0("Bearer ",token), 'Accept-Language' = Language, "Client-Login" = login[1]))
-  #Ïðîâåðêà ðåçóëüòàòà íà îøèáêè
+  #ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã²Ã  Ã­Ã  Ã®Ã¸Ã¨Ã¡ÃªÃ¨
   stop_for_status(answer)
   
   dataRaw <- content(answer, "parsed", "application/json")
@@ -39,9 +39,9 @@ yadirGetClientParam <- function(Language = "ru", login = NULL, token = NULL){
     stop(paste0(dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
   }
   
-  #Ïðåîáðàçóåì îòâåò â data frame
+  #ÃÃ°Ã¥Ã®Ã¡Ã°Ã Ã§Ã³Ã¥Ã¬ Ã®Ã²Ã¢Ã¥Ã² Ã¢ data frame
   
-  #Ïàðñèíã ñïðàâî÷íèêà ðåãèîíîâ
+  #ÃÃ Ã°Ã±Ã¨Ã­Ã£ Ã±Ã¯Ã°Ã Ã¢Ã®Ã·Ã­Ã¨ÃªÃ  Ã°Ã¥Ã£Ã¨Ã®Ã­Ã®Ã¢
     dictionary_df <- data.frame()
     
     for(dr in 1:length(dataRaw$result[[1]])){
@@ -60,13 +60,13 @@ yadirGetClientParam <- function(Language = "ru", login = NULL, token = NULL){
       
     }
 
-    #Âûâîäèì èíôîðìàöèþ î ðàáîòå çàïðîñà è î êîëè÷åñòâå áàëëîâ
-    packageStartupMessage("Ñïðàâî÷íèê óñïåøíî çàãðóæåí!", appendLF = T)
-    packageStartupMessage(paste0("Áûëëû ñïèñàíû ñ : " ,answer$headers$`units-used-login`), appendLF = T)
-    packageStartupMessage(paste0("Ê-âî áàëëîâ èçðàñõîäîâàíûõ ïðè âûïîëíåíèè çàïðîñà: " ,strsplit(answer$headers$units, "/")[[1]][1]), appendLF = T)
-    packageStartupMessage(paste0("Äîñòóïíûé îñòàòîê ñóòî÷íîãî ëèìèòà áàëëîâ: " ,strsplit(answer$headers$units, "/")[[1]][2]), appendLF = T)
-    packageStartupMessage(paste0("Ñóòî÷íûé ëèìèò áàëëîâ: " ,strsplit(answer$headers$units, "/")[[1]][3]), appendLF = T)
-    packageStartupMessage(paste0("Óíèêàëüíûé èäåíòèôèêàòîð çàïðîñà êîòîðûé íåîáõîäèìî óêàçûâàòü ïðè îáðàùåíèè â ñëóæáó ïîääåðæêè: ",answer$headers$requestid), appendLF = T)
-    #Âîçâðàùàåì ðåçóëüòàò â âèäå Data Frame
+    #Ã‚Ã»Ã¢Ã®Ã¤Ã¨Ã¬ Ã¨Ã­Ã´Ã®Ã°Ã¬Ã Ã¶Ã¨Ã¾ Ã® Ã°Ã Ã¡Ã®Ã²Ã¥ Ã§Ã Ã¯Ã°Ã®Ã±Ã  Ã¨ Ã® ÃªÃ®Ã«Ã¨Ã·Ã¥Ã±Ã²Ã¢Ã¥ Ã¡Ã Ã«Ã«Ã®Ã¢
+     #packageStartupMessage("Ã‘Ã¯Ã°Ã Ã¢Ã®Ã·Ã­Ã¨Ãª Ã³Ã±Ã¯Ã¥Ã¸Ã­Ã® Ã§Ã Ã£Ã°Ã³Ã¦Ã¥Ã­!", appendLF = T)
+     #packageStartupMessage(paste0("ÃÃ»Ã«Ã«Ã» Ã±Ã¯Ã¨Ã±Ã Ã­Ã» Ã± : " ,answer$headers$`units-used-login`), appendLF = T)
+     #packageStartupMessage(paste0("ÃŠ-Ã¢Ã® Ã¡Ã Ã«Ã«Ã®Ã¢ Ã¨Ã§Ã°Ã Ã±ÃµÃ®Ã¤Ã®Ã¢Ã Ã­Ã»Ãµ Ã¯Ã°Ã¨ Ã¢Ã»Ã¯Ã®Ã«Ã­Ã¥Ã­Ã¨Ã¨ Ã§Ã Ã¯Ã°Ã®Ã±Ã : " ,strsplit(answer$headers$units, "/")[[1]][1]), appendLF = T)
+     #packageStartupMessage(paste0("Ã„Ã®Ã±Ã²Ã³Ã¯Ã­Ã»Ã© Ã®Ã±Ã²Ã Ã²Ã®Ãª Ã±Ã³Ã²Ã®Ã·Ã­Ã®Ã£Ã® Ã«Ã¨Ã¬Ã¨Ã²Ã  Ã¡Ã Ã«Ã«Ã®Ã¢: " ,strsplit(answer$headers$units, "/")[[1]][2]), appendLF = T)
+     #packageStartupMessage(paste0("Ã‘Ã³Ã²Ã®Ã·Ã­Ã»Ã© Ã«Ã¨Ã¬Ã¨Ã² Ã¡Ã Ã«Ã«Ã®Ã¢: " ,strsplit(answer$headers$units, "/")[[1]][3]), appendLF = T)
+     #packageStartupMessage(paste0("Ã“Ã­Ã¨ÃªÃ Ã«Ã¼Ã­Ã»Ã© Ã¨Ã¤Ã¥Ã­Ã²Ã¨Ã´Ã¨ÃªÃ Ã²Ã®Ã° Ã§Ã Ã¯Ã°Ã®Ã±Ã  ÃªÃ®Ã²Ã®Ã°Ã»Ã© Ã­Ã¥Ã®Ã¡ÃµÃ®Ã¤Ã¨Ã¬Ã® Ã³ÃªÃ Ã§Ã»Ã¢Ã Ã²Ã¼ Ã¯Ã°Ã¨ Ã®Ã¡Ã°Ã Ã¹Ã¥Ã­Ã¨Ã¨ Ã¢ Ã±Ã«Ã³Ã¦Ã¡Ã³ Ã¯Ã®Ã¤Ã¤Ã¥Ã°Ã¦ÃªÃ¨: ",answer$headers$requestid), appendLF = T)
+    #Ã‚Ã®Ã§Ã¢Ã°Ã Ã¹Ã Ã¥Ã¬ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã² Ã¢ Ã¢Ã¨Ã¤Ã¥ Data Frame
   return(dictionary_df)
 }
