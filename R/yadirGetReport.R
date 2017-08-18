@@ -92,7 +92,7 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
     packageStartupMessage("Îò÷åò óñïåøíî ñôîðìèðîâàí è ïåðåäàí â òåëå îòâåòà.", appendLF = T)
     
     #Èíôîðìàöèÿ î êîëè÷åñòâå áàëëîâ.
-    packageStartupMessage(paste0("РЈРЅРёРєР°Р»СЊРЅС‹Р№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ Р·Р°РїСЂРѕСЃР° РєРѕС‚РѕСЂС‹Р№ РЅРµРѕР±С…РѕРґРёРјРѕ СѓРєР°Р·С‹РІР°С‚СЊ РїСЂРё РѕР±СЂР°С‰РµРЅРёРё РІ СЃР»СѓР¶Р±Сѓ РїРѕРґРґРµСЂР¶РєРё: ",answer$headers$requestid), appendLF = T)
+    packageStartupMessage(paste0("Уникальный идентификатор запроса который необходимо указывать при обращении в службу поддержки: ",answer$headers$requestid), appendLF = T)
     #Âîçâðàùàåì ïîëó÷åííûé ìàññèâ
     return(df_new)
   }
