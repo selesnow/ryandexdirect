@@ -537,3 +537,5 @@ Sys.unsetenv("https_proxy")
 <p align="center">
 <img src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png?w=300" data-canonical-src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png?w=300" style="max-width:100%;">
 </p>
+
+<iframe width="800" height="600" src="https://app.powerbi.com/view?r=eyJrIjoiM2U1ZDcwMTYtZTdiNS00NTU2LWJmNWYtZDMxY2UzZGI1ZjM0IiwidCI6ImRlNjc1Y2JlLTlkNzMtNDhhMS04NGY3LWRiNDhiODVhYjUxOSIsImMiOjl9" frameborder="0" allowFullScreen="true"></iframe>
