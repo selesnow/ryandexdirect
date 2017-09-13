@@ -1,4 +1,4 @@
-yadirGetCampaignList2 <-
+yadirGetCampaignList <-
 function (logins = NULL, token = NULL) {
 #Проверка заполнения токена
 if(is.null(token)) {
