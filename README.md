@@ -212,7 +212,7 @@ STANDARD — дневной бюджет может исчерпаться, а �
         <td>CampaignId</td><td>int</td><td>Идентификатор кампании.</td>
     </tr>
     <tr>
-        <td>Type</td><td>Factor</td><td>Тип группы объявлений. [См. Тип группы.](https://tech.yandex.ru/direct/doc/dg/objects/adgroup-docpage/#types)</td>
+        <td>Type</td><td>Factor</td><td>Тип группы объявлений. <a href="https://tech.yandex.ru/direct/doc/dg/objects/adgroup-docpage/#types">[См. Тип группы.]</a>(https://tech.yandex.ru/direct/doc/dg/objects/adgroup-docpage/#types)</td>
     </tr>
     <tr>
         <td>Subtype</td><td>Factor</td><td>Подтип группы объявлений. Для групп с типом, отличным от DYNAMIC_TEXT_AD_GROUP, возвращается значение NONE.</td>
