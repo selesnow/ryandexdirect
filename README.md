@@ -8,7 +8,7 @@
 + [yadirGetClientList](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetclientlisttoken--null) - Получение списка клиентов для агентского аккаунта
 + [yadirGetClientParam](https://github.com/selesnow/ryandexdirect#yadirgetclientparamlanguage--ru-login--null-token--null) - Получение параметров аккаунта Яндекс Директ
 + [yadirGetCampaignList](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetcampaignlistlogins--null-token--null) - Получения списка рекламных кампаний
-+ [yadirGetAdGroups]() - Получения списка групп объявлений
++ [yadirGetAdGroups](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetadgroupscampaignids--c123login--null-token--null) - Получения списка групп объявлений
 + [yadirGetKeyWords]() - Получения списка ключевых слов
 + [yadirGetAds]() - Получения списка объявлений
 + [yadirGetReport](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null-fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no-login--null-token--null) - Получение статистики из Report сервиса API v.5.
@@ -310,6 +310,89 @@ my_campaign <- yadirGetCampaignList(login = <ВАШ ЛОГИН>,
                                     token = my_token)
 #Получаем данные по группам объявлений
 my_adgroups <- yadirGetAdGroups(CampaignIds = my_campaign$Id, 
+                                Login = <ВАШ ЛОГИН>, 
+                                Token = my_token)
+```
+
+### `yadirGetKeyWords(CampaignIds = c(1,2,3), WithStats = T, Login = NULL, Token = NULL)`
+Функция возвращает дата фрейм со списком групп объявлений и некоторых их параметров по логину.
+
+#### Аргументы:
+<b>CampaignIds</b> - Вектор с ID рекламных кампаний, по которым необходимо загрузить список групп объявлений
+
+<b>WithStats</b> - Логическое TRUE или FALSE, аргумент отвечает за загрузку статистики по показам и кликам, в случае если вы установите значение TRUE время работы функции будет значительно дольше.
+
+<b>Login</b> - Логин на Яндексе
+
+<b>Token</b> - Токен дотупа к API
+
+#### Структура возвращаемого функцией `yadirGetKeyWords` дата фрейма:
+<table>
+    <tr>
+        <td><center>Поле</center></td><td><center>Тип данных</center></td><td><center>Описание</center></td>
+    </tr>
+    <tr>
+        <td>Id</td><td>num</td><td>Идентификатор ключевой фразы.</td>
+    </tr>
+    <tr>
+        <td>Keyword</td><td>Factor</td><td>Ключевая фраза. Может содержать минус-слова.</td>
+    </tr>
+    <tr>
+        <td>AdGroupId</td><td>num</td><td>Идентификатор группы объявлений, к которой относится ключевая фраза.</td>
+    </tr>
+    <tr>
+        <td>CampaignId</td><td>int</td><td>Идентификатор кампании, к которой относится ключевая фраза.</td>
+    </tr>
+    <tr>
+        <td>ServingStatus</td><td>Factor</td><td>Статус возможности показов группы объявлений. Описание статусов см. в разделе <a href="https://tech.yandex.ru/direct/doc/dg/objects/adgroup-docpage/#serving-status">Статус возможности показов группы.</a></td>
+    </tr>
+    <tr>
+        <td>State</td><td>Factor</td><td>Состояние ключевой фразы. Описание состояний см. в разделе <a href="https://tech.yandex.ru/direct/doc/dg/objects/keyword-docpage/#status">Статус и состояние фразы.</a></td>
+    </tr>
+    <tr>
+        <td>Status</td><td>Factor</td><td>Статус ключевой фразы. Описание статусов см. в разделе <a href="https://tech.yandex.ru/direct/doc/dg/objects/keyword-docpage/#status">Статус и состояние фразы.</a></td>
+    </tr>
+    <tr>
+        <td>StrategyPriority</td><td>Factor</td><td>Приоритет фразы: LOW, NORMAL или HIGH.</td>
+    </tr>
+    <tr>
+        <td>StatisticsSearchImpressions</td><td>int</td><td>Количество показов всех объявлений группы в поиске по данной фразе. Рассчитывается за 28 дней от текущей даты. Для расчета отбираются дни, в течение которых был хотя бы один показ объявления по данной фразе.</td>
+    </tr>
+    <tr>
+        <td>StatisticsSearchClicks </td><td>int</td><td>Количество кликов по всем объявлениям группы в поиске, показанным по данной фразе. Рассчитывается за 28 дней от текущей даты. Для расчета отбираются дни, в течение которых был хотя бы один клик по объявлению.</td>
+    </tr>
+    <tr>
+        <td>StatisticsNetworkImpressions</td><td>int</td><td>Количество показов всех объявлений группы по данной фразе в сетях. Рассчитывается за 28 дней от текущей даты. Для расчета отбираются дни, в течение которых был хотя бы один показ объявления по данной фразе.</td>
+    </tr>
+    <tr>
+        <td>StatisticsNetworkClicks</td><td>int</td><td>Количество кликов по всем объявлениям группы, показанным по данной фразе в сетях. Рассчитывается за 28 дней от текущей даты. Для расчета отбираются дни, в течение которых был хотя бы один клик по объявлению.</td>
+    </tr>
+    <tr>
+        <td>UserParam1</td><td>Factor</td><td>Значение <a href="https://tech.yandex.ru/direct/doc/dg/objects/keyword-docpage/#userparams">подстановочной переменной</a> {param1}. Не более 255 символов.</td>
+    </tr>
+    <tr>
+        <td>UserParam2</td><td>Factor</td><td>Значение <a href="https://tech.yandex.ru/direct/doc/dg/objects/keyword-docpage/#userparams">подстановочной переменной</a> {param2}. Не более 255 символов.</td>
+    </tr>
+    <tr>
+    <td>Bid</td><td>num</td><td>Ставка на поиске.</td>
+    </tr>
+    <tr>
+    <td>ContextBid</td><td>num</td><td>Ставка в сетях.</td>
+    </tr>
+</table>
+
+#### Пример кода для получения списка ключевых слов:
+```
+#Подключаем пакет
+library(ryandexdirect)
+#Получаем API token
+my_token <- yadirGetToken()
+#Получаем список рекламных кампаний
+my_campaign <- yadirGetCampaignList(login = <ВАШ ЛОГИН>, 
+                                    token = my_token)
+#Получаем данные по группам объявлений
+my_keywords <- yadirGetKeyWords(CampaignIds = my_campaign$Id, 
+                                WithStats = F,
                                 Login = <ВАШ ЛОГИН>, 
                                 Token = my_token)
 ```
