@@ -22,7 +22,7 @@
 + [Пример работы с функцией yadirGetReport](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Пример-работы-с-функцией-yadirgetreport-и-загрузки-данных-из-сервиса-reports) - Загрузка данных из сервиса Reports
 + [Пример работы с функцией yadirGetDictionary](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Пример-работы-с-функцией-yadirgetdictionary-для-загрузки-справочников-из-api-v5-Яндекс-Директ) - загрузки справочников из API v.5. Яндекс Директ
 + [Пример работы с Logs API Яндекс Метрики](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Пример-работы-с-logs-api-Яндекс-Метрики) - Загрузка сырых данных из Яндекс Метрики
-+ [Пример работы с API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)]()
++ [Пример работы с API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Пример-работы-с-api-Яндекс-Метрики-совместимым-с-google-analytics-core-reporting-api-v3)
 + [Как обратится к API сервисов Яндекс.Директ и Яндекс.Метрика через прокси сервер](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Как-обратиться-к-api-сервисов-ЯндексДирект-и-ЯндексМетрика-с-помощью-proxy-сервера-необходимо-в-случае-блокировки-доступа-к-сервисам).
 + [Подборка статей с примерами работы с пакетом ryandexdirect](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Подборка-статей-с-примерами-работы-с-пакетом-ryandexdirect)
 
