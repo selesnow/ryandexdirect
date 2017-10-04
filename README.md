@@ -11,6 +11,7 @@
 + [yadirGetAdGroups](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetadgroupscampaignids--c123login--null-token--null) - Получения списка групп объявлений
 + [yadirGetKeyWords](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetkeywordscampaignids--c123-withstats--t-login--null-token--null) - Получения списка ключевых слов
 + [yadirGetAds](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetadscampaignids--c123-login--null-token--null) - Получения списка объявлений
++ [yadirGetBalance]() - Получить остаток средств общего счёта и его различные параметры.
 + [yadirGetReport](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null-fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no-login--null-token--null) - Получение статистики из Report сервиса API v.5.
 + [yadirGetDictionary](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetdictionarydictionaryname--georegions-language--ru-login--null-token--null) - Получение справочной информации из API v.5.
 + [yadirGetCampaignListOld](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetcampaignlistoldlogins--null-token--null) - Получения списка рекламных кампаний (Устаревшая функция из API v.4.)
@@ -478,6 +479,80 @@ my_campaign <- yadirGetCampaignList(login = <ВАШ ЛОГИН>,
 my_ads <- yadirGetAds(CampaignIds = my_campaign$Id, 
                       Login = <ВАШ ЛОГИН>, 
                       Token = my_token)
+```
+
+### `yadirGetBalance(Logins = NULL, Token = NULL)`
+Функция предназначена для загрузки остатка средств из общего счёта аккаунта рекламодателя, либо аккаунта клиента агентства со всеми доступными параметрами общего счёта.
+
+#### Аргументы:
+<b>Logins</b> - Текстовый вектор содердащий Логин аккаунта рекламодателя на Яндексе, либо логин клиента агентсва.
+
+<b>Token</b> - Токен дотупа к API
+
+#### Структура возвращаемого функцией `yadirGetAds` дата фрейма:
+<table>
+    <tr>
+        <td><center>Поле</center></td><td><center>Тип данных</center></td><td><center>Описание</center></td>
+    </tr>
+    <tr>
+        <td>Amount</td><td>chr</td><td>Текущий баланс общего счета (в валюте общего счета, указанной в параметре Currency).</td>
+    </tr>
+    <tr>
+        <td>AccountID</td><td>int</td><td>Идентификатор общего счета.</td>
+    </tr>
+    <tr>
+        <td>Discount/td><td>int</td><td>Текущая скидка рекламодателя (в процентах). В настоящее время не применяется.</td>
+    </tr>
+    <tr>
+        <td>Login</td><td>chr</td><td>Логин рекламодателя — владельца общего счета.</a></td>
+    </tr>
+    <tr>
+        <td>AmountAvailableForTransfer</td><td>chr</td><td>Сумма, доступная для перевода с помощью операции TransferMoney (в валюте, указанной в параметре Currency).</td>
+    </tr>
+    <tr>
+        <td>Currency</td><td>chr</td><td>Валюта общего счета. Возможные значения: RUB, CHF, EUR, KZT, TRY, UAH, USD, BYN. Если параметр отсутствует или равен NULL, подразумеваются условные единицы (у. е.).</td>
+    </tr>
+    <tr>
+        <td>AgencyName</td><td>chr</td><td>Название рекламного агентства, обслуживающего счет. Для счетов, обслуживаемых рекламодателем самостоятельно, параметр отсутствует или равен NULL</td>
+    </tr>
+    <tr>
+        <td>SmsNotification.MoneyInSms</td><td>chr</td><td>Сообщать об зачислении средств на общий счет — Yes/No.</td>
+    </tr>
+    <tr>
+        <td>SmsNotification.SmsTimeTo</td><td>chr</td><td>Время, до которого разрешено отправлять SMS о событиях, связанных с общим счетом. Указывается в формате HH:MM, минуты задают кратно 15 (0, 15, 30, 45).</td>
+    </tr>
+    <tr>
+        <td>SmsNotification.SmsTimeFrom/td><td>chr</td><td>Время, начиная с которого разрешено отправлять SMS о событиях, связанных с общим счетом. Указывается в формате HH:MM, минуты задают кратно 15 (0, 15, 30, 45).</td>
+    </tr>
+    <tr>
+        <td>SmsNotification.MoneyOutSms</td><td>chr</td><td>Сообщать об исчерпании средств на общем счете — Yes/No.</td>
+    </tr>
+    <tr>
+        <td>EmailNotification.MoneyWarningValue</td><td>int</td><td>Минимальный баланс, при уменьшении до которого отправляется уведомление. Задается в процентах от суммы последнего платежа. Предустановленное значение — 20.</td>
+    </tr>
+    <tr>
+        <td>EmailNotification.SendWarn</td><td>logi</td><td>Отправлять оповещение на почту о том что закончились средства на основном счёте.</td>
+    </tr>
+    <tr>
+        <td>EmailNotification.Email</td><td>chr</td><td>Адрес электронной почты для отправки уведомлений, связанных с общим счетом.</td>
+    </tr>
+    <tr>
+</table>
+
+#### Пример кода для получения списка ключевых слов:
+```
+#Подключаем пакет
+library(ryandexdirect)
+#Получаем API token
+my_token <- yadirGetToken()
+
+#Получаем остаток средств общего счёта для аккаунта рекламодателя
+my_balance <- yadirGetBalance(Logins = "vasya",  Token = "abcdef123456")
+
+#Получаем список клиентских аккаунтов
+my_client <- yadirGetClientList(Token = "abcdef123456")
+#Получаем остатки средств на общих счетах всех клиентов агентского аккаунта
+my_clients_balance <- yadirGetBalance(Logins = my_client$Login,  Token = "abcdef123456")
 ```
 
 ### `yadirGetReport(ReportType = "CAMPAIGN_PERFORMANCE_REPORT", DateRangeType = "LAST_MONTH", DateFrom = NULL, DateTo = NULL,    FieldNames = c("CampaignName","Impressions","Clicks","Cost"), FilterList = NULL, IncludeVAT = "NO", IncludeDiscount = "NO",          Login = NULL, Token = NULL)`
