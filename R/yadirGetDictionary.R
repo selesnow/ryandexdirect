@@ -17,6 +17,15 @@ yadirGetDictionary <- function(DictionaryName = "GeoRegions", Language = "ru", l
                             "Interests")){
     stop("Error in DictionaryName, select one of Currencies, MetroStations, GeoRegions, TimeZones, Constants, AdCategories, OperationSystemVersions, ProductivityAssertions, SupplySidePlatforms, Interests")
   }
+
+#check stringAsFactor
+factor_change <- FALSE
+
+#change string is factor if TRUE
+if(getOption("stringsAsFactors")){
+  options(stringsAsFactors = F)
+  factor_change <- TRUE
+}
   
   queryBody <- paste0("{
                       \"method\": \"get\",
@@ -87,6 +96,10 @@ yadirGetDictionary <- function(DictionaryName = "GeoRegions", Language = "ru", l
     dictionary_df <- do.call(rbind.data.frame, dataRaw$result[[1]])
     }
   
+  #back string as factor value
+  if(factor_change){
+  options(stringsAsFactors = T)
+  }
   #Âûâîäèì èíôîðìàöèþ î ðàáîòå çàïðîñà è î êîëè÷åñòâå áàëëîâ
    packageStartupMessage("Ñïðàâî÷íèê óñïåøíî çàãðóæåí!", appendLF = T)
    packageStartupMessage(paste0("Áûëëû ñïèñàíû ñ : " ,answer$headers$`units-used-login`), appendLF = T)
