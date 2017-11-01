@@ -622,7 +622,7 @@ my_clients_balance <- yadirGetBalance(Logins = my_client$Login,  Token = "abcdef
 
 <b>IncludeDiscount</b> - Учитывать ли скидку для денежных сумм в отчете. Если рекламодатель работает в у. е. Директа, допускается только значение NO. Принимает значения "YES" и "NO".
 
-<b>Login</b> - Строковое значение, ваш логин на Яндексе.
+<b>Login</b> - Строковое вектор содержащий логины на Яндексе по которым необходимо получить данные.
 
 <b>Token</b> - Строковое значение, ваш API token.
 
@@ -859,6 +859,21 @@ My_report <- yadirGetReport(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
 Вместо <b>YourLogin</b> подставьте в виде строки ваш логин на Яндексе, для примеры работы с фильтрами данный запрос вернёт рекламные кампании по которым за выбранный период было более 49 кликов и менее 1001 показа. 
 
 Данные в отчете можно агрегировать по различным периодам. Для этого укажите в аргументе FieldNames одно из значений Date, Week, Month, Quarter или Year.
+
+Аргумент Login является векторизирован с версии 2.4.1 и может принимать на вход вектор логинов. Пример работы с векторизированной функцией `yadirGetReport`:
+```
+library(ryandexdirect)
+myToken     <- yadirGetToken()
+clientList  <- yadirGetClientList(myToken)
+
+stat        <- yadirGetReport(ReportType = "ACCOUNT_PERFORMANCE_REPORT", 
+                              DateRangeType = "CUSTOM_DATE", 
+                              DateFrom = "2017-01-01", 
+                              DateTo = Sys.Date(), 
+                              FieldNames = c("Date","Impressions","Clicks","Cost"), 
+                              Login = clientList$Login, 
+                              Token = myToken)
+```
 
 # Пример работы с функцией yadirGetDictionary для загрузки справочников из API v.5. Яндекс Директ.
 ```
