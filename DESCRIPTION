@@ -7,5 +7,5 @@ Author: Alexey Seleznev
 Maintainer: Alexey Seleznev <selesnow@mail.ru>
 Description: Load data from yandex direct api into R
 License: not license it free
-Depends: R (>= 3.4.0)
+Depends: R (>= 3.4.1)
 Imports: utils, httr, RCurl, bitops, jsonlite
