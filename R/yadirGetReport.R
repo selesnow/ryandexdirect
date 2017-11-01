@@ -109,7 +109,7 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
         df_new$login <- login}
       
       #Удаляем строку итогов
-      df_new[!grepl("Total rows", df_new[,1]),]
+      df_new <- df_new[!grepl("Total rows", df_new[,1]),]
       #присоединяем свежие данные к результирующему дата врейму
       result <- rbind(result, df_new)
       #Завершаем цикл
