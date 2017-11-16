@@ -45,9 +45,11 @@
 `library(devtools)`
 
 После чего можно устанавливать пакет ryandexdirect.
-
+### Установка на Windows осуществляется с помощью следующей команды
 `install_github('selesnow/ryandexdirect')`
 
+### Установка на iOS, Linux, Ubuntu осуществляется с помощью следующей команды
+`install_github('selesnow/ryandexdirect', subdir = "utf8")`
 
 ## Функции входящие в пакет ryandexdirect.
 
