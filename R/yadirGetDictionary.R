@@ -101,12 +101,12 @@ if(getOption("stringsAsFactors")){
   options(stringsAsFactors = T)
   }
   #Г‚Г»ГўГ®Г¤ГЁГ¬ ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГѕ Г® Г°Г ГЎГ®ГІГҐ Г§Г ГЇГ°Г®Г±Г  ГЁ Г® ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГҐ ГЎГ Г«Г«Г®Гў
-   packageStartupMessage("Г‘ГЇГ°Г ГўГ®Г·Г­ГЁГЄ ГіГ±ГЇГҐГёГ­Г® Г§Г ГЈГ°ГіГ¦ГҐГ­!", appendLF = T)
-   packageStartupMessage(paste0("ГЃГ»Г«Г«Г» Г±ГЇГЁГ±Г Г­Г» Г± : " ,answer$headers$`units-used-login`), appendLF = T)
-   packageStartupMessage(paste0("ГЉ-ГўГ® ГЎГ Г«Г«Г®Гў ГЁГ§Г°Г Г±ГµГ®Г¤Г®ГўГ Г­Г»Гµ ГЇГ°ГЁ ГўГ»ГЇГ®Г«Г­ГҐГ­ГЁГЁ Г§Г ГЇГ°Г®Г±Г : " ,strsplit(answer$headers$units, "/")[[1]][1]), appendLF = T)
-   packageStartupMessage(paste0("Г„Г®Г±ГІГіГЇГ­Г»Г© Г®Г±ГІГ ГІГ®ГЄ Г±ГіГІГ®Г·Г­Г®ГЈГ® Г«ГЁГ¬ГЁГІГ  ГЎГ Г«Г«Г®Гў: " ,strsplit(answer$headers$units, "/")[[1]][2]), appendLF = T)
-   packageStartupMessage(paste0("Г‘ГіГІГ®Г·Г­Г»Г© Г«ГЁГ¬ГЁГІ ГЎГ Г«Г«Г®Гў: " ,strsplit(answer$headers$units, "/")[[1]][3]), appendLF = T)
-   packageStartupMessage(paste0("Г“Г­ГЁГЄГ Г«ГјГ­Г»Г© ГЁГ¤ГҐГ­ГІГЁГґГЁГЄГ ГІГ®Г° Г§Г ГЇГ°Г®Г±Г  ГЄГ®ГІГ®Г°Г»Г© Г­ГҐГ®ГЎГµГ®Г¤ГЁГ¬Г® ГіГЄГ Г§Г»ГўГ ГІГј ГЇГ°ГЁ Г®ГЎГ°Г Г№ГҐГ­ГЁГЁ Гў Г±Г«ГіГ¦ГЎГі ГЇГ®Г¤Г¤ГҐГ°Г¦ГЄГЁ: ",answer$headers$requestid), appendLF = T)
+   packageStartupMessage("Справочник успешно загружен!", appendLF = T)
+   packageStartupMessage(paste0("Баллы списаны с : " ,answer$headers$`units-used-login`), appendLF = T)
+   packageStartupMessage(paste0("К-во баллов израсходованых при выполнении запроса: " ,strsplit(answer$headers$units, "/")[[1]][1]), appendLF = T)
+   packageStartupMessage(paste0("Доступный остаток суточного лимита баллов: " ,strsplit(answer$headers$units, "/")[[1]][2]), appendLF = T)
+   packageStartupMessage(paste0("Суточный лимит баллов: " ,strsplit(answer$headers$units, "/")[[1]][3]), appendLF = T)
+   packageStartupMessage(paste0("Уникальный идентификатор запроса который необходимо указывать при обращении в службу поддержки: ",answer$headers$requestid), appendLF = T)
   
   #Г‚Г®Г§ГўГ°Г Г№Г ГҐГ¬ Г°ГҐГ§ГіГ«ГјГІГ ГІ Гў ГўГЁГ¤ГҐ Data Frame
   return(dictionary_df)
