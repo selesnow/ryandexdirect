@@ -29,6 +29,7 @@ yadirGetKeyWords <- function(CampaignIds = "14163546",
                             UserParam1                    = character(0),
                             UserParam2                    = character(0),
                             ProductivityValue             = numeric(0),
+                            ProductivityReferences        = character(0),
                             Bid                           = integer(0),
                             ContextBid                    = integer(0))
   
