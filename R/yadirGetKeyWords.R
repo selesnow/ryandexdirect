@@ -1,4 +1,4 @@
-yadirGetKeyWords <- function(CampaignIds, 
+yadirGetKeyWords <- function(CampaignIds = "14163546", 
                              AdGroupIds = NA, 
                              Ids = NA, 
                              States = c("OFF","ON","SUSPENDED"), 
@@ -24,10 +24,11 @@ yadirGetKeyWords <- function(CampaignIds,
                             StrategyPriority              = character(0), 
                             StatisticsSearchImpressions   = integer(0),
                             StatisticsSearchClicks        = integer(0),
-                            StatisticsNetworkImpressions       = integer(0),
+                            StatisticsNetworkImpressions  = integer(0),
                             StatisticsNetworkClicks       = integer(0),
                             UserParam1                    = character(0),
                             UserParam2                    = character(0),
+                            ProductivityValue             = numeric(0),
                             Bid                           = integer(0),
                             ContextBid                    = integer(0))
   
@@ -98,9 +99,6 @@ yadirGetKeyWords <- function(CampaignIds,
       }
       
       
-      
-      
-      dataRaw$result$Keywords[[1]]$StatisticsSearch$Impressions
       #Парсер ответа
       for(Keywords_i in 1:length(dataRaw$result$Keywords)){
         result      <- rbind(result,
@@ -118,6 +116,8 @@ yadirGetKeyWords <- function(CampaignIds,
                                         StatisticsNetworkClicks       = ifelse(is.null(dataRaw$result$Keywords[[Keywords_i]]$StatisticsNetwork$Clicks|WithStats) == F, NA,dataRaw$result$Keywords[[Keywords_i]]$StatisticsNetwork$Clicks),
                                         UserParam1                    = ifelse(is.null(dataRaw$result$Keywords[[Keywords_i]]$UserParam1), NA,dataRaw$result$Keywords[[Keywords_i]]$UserParam1),
                                         UserParam2                    = ifelse(is.null(dataRaw$result$Keywords[[Keywords_i]]$UserParam2), NA,dataRaw$result$Keywords[[Keywords_i]]$UserParam2),
+                                        ProductivityValue             = ifelse(is.null(dataRaw$result$Keywords[[Keywords_i]]$Productivity$Value), NA,dataRaw$result$Keywords[[Keywords_i]]$Productivity$Value),
+                                        ProductivityReferences        = ifelse(is.null(dataRaw$result$Keywords[[Keywords_i]]$Productivity$References), NA,paste(dataRaw$result$Keywords[[Keywords_i]]$Productivity$References,collapse = "," )),
                                         Bid                           = ifelse(is.null(dataRaw$result$Keywords[[Keywords_i]]$Bid), NA,dataRaw$result$Keywords[[Keywords_i]]$Bid / 1000000),
                                         ContextBid                    = ifelse(is.null(dataRaw$result$Keywords[[Keywords_i]]$ContextBid), NA,dataRaw$result$Keywords[[Keywords_i]]$ContextBid / 1000000)))
       }
