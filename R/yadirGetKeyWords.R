@@ -136,8 +136,9 @@ yadirGetKeyWords <- function(CampaignIds = "14163546",
   stop_time <- Sys.time()
   
   #Ã‘Ã®Ã®Ã¡Ã¹Ã¥Ã­Ã¨Ã¥ Ã® Ã²Ã®Ã¬, Ã·Ã²Ã® Ã§Ã Ã£Ã°Ã³Ã§ÃªÃ  Ã¤Ã Ã­Ã­Ã»Ãµ Ã¯Ã°Ã®Ã¸Ã«Ã  Ã³Ã±Ã¯Ã¥Ã¸Ã­Ã®
+  #Ñîîáùåíèå î òîì, ÷òî çàãðóçêà äàííûõ ïðîøëà óñïåøíî
   packageStartupMessage("Done", appendLF = T)
-  packageStartupMessage(paste0("ÃŠÃ®Ã«Ã¨Ã·Ã¥Ã±Ã²Ã¢Ã® Ã¯Ã®Ã«Ã³Ã·Ã¥Ã­Ã­Ã»Ãµ ÃªÃ«Ã¾Ã·Ã¥Ã¢Ã»Ãµ Ã±Ã«Ã®Ã¢: ", nrow(result)), appendLF = T)
-  packageStartupMessage(paste0("Ã„Ã«Ã¨Ã²Ã¥Ã«Ã¼Ã­Ã®Ã±Ã²Ã¼ Ã°Ã Ã¡Ã®Ã²Ã»: ", round(difftime(stop_time, start_time , units ="secs"),0), " Ã±Ã¥Ãª."), appendLF = T)
+  packageStartupMessage(paste0("Êîëè÷åñòâî ïîëó÷åííûõ êëþ÷åâûõ ñëîâ: ", nrow(result)), appendLF = T)
+  packageStartupMessage(paste0("Äëèòåëüíîñòü ðàáîòû: ", round(difftime(stop_time, start_time , units ="secs"),0), " ñåê."), appendLF = T)
   #Ã‚Ã®Ã§Ã¢Ã°Ã Ã¹Ã Ã¥Ã¬ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã²
   return(result)}
