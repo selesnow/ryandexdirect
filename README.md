@@ -144,21 +144,21 @@
 #### Аргументы:
 <b>Login</b> - Вектор с логинами на Яндексе
 
-<b>States</b> - На вход принимает текстовый вектор, используется для для фильтрации кампаний в указанных состояниях. Описание состояний см. в разделе [Статус и состояние кампании.](https://tech.yandex.ru/direct/doc/dg/objects/campaign-docpage/#status), допустимые значения ( "ARCHIVED" | "CONVERTED" | "ENDED" | "OFF" | "ON" | "SUSPENDED" ), пример использования (c("ON","SUSPENDED","CONVERTED"))*
-        + Допустимые значения: ARCHIVED, CONVERTED, ENDED, OFF, ONSUSPENDED
-        + Пример использования: States = c("ON","SUSPENDED","CONVERTED")
+<b>States</b> - На вход принимает текстовый вектор, используется для для фильтрации кампаний в указанных состояниях. Описание состояний см. в разделе [Статус и состояние кампании.](https://tech.yandex.ru/direct/doc/dg/objects/campaign-docpage/#status), допустимые значения ( "ARCHIVED" | "CONVERTED" | "ENDED" | "OFF" | "ON" | "SUSPENDED" ), пример использования (c("ON","SUSPENDED","CONVERTED"))
++ Допустимые значения: ARCHIVED, CONVERTED, ENDED, OFF, ONSUSPENDED
++ Пример использования: States = c("ON","SUSPENDED","CONVERTED")
         
-<b>Types</b> - На вход принимает текстовый вектор, используется для фильтрации кампаний по типам, См.  [Тип кампании](https://tech.yandex.ru/direct/doc/dg/objects/campaign-docpage/#type).*
-        + Допустимые значения: TEXT_CAMPAIGN, MOBILE_APP_CAMPAIGN, DYNAMIC_TEXT_CAMPAIGN
-        + Пример использования: Types = c("TEXT_CAMPAIGN", "DYNAMIC_TEXT_CAMPAIGN")
+<b>Types</b> - На вход принимает текстовый вектор, используется для фильтрации кампаний по типам, См.  [Тип кампании](https://tech.yandex.ru/direct/doc/dg/objects/campaign-docpage/#type).
++ Допустимые значения: TEXT_CAMPAIGN, MOBILE_APP_CAMPAIGN, DYNAMIC_TEXT_CAMPAIGN
++ Пример использования: Types = c("TEXT_CAMPAIGN", "DYNAMIC_TEXT_CAMPAIGN")
         
 <b>Statuses</b> - На вход принимает текстовый вектор, используется для фильтрации кампаний по указанными статусами. Описание статусов см. в разделе [Статус и состояние кампании](https://tech.yandex.ru/direct/doc/dg/objects/campaign-docpage/#status).*
-        + Допустимые значения: ACCEPTED, DRAFT, MODERATION, REJECTED
-        + Пример использования: Statuses = c("DRAFT", "REJECTED")
++ Допустимые значения: ACCEPTED, DRAFT, MODERATION, REJECTED
++ Пример использования: Statuses = c("DRAFT", "REJECTED")
         
 <b>StatusesPayment</b> - На вход принимает текстовый вектор, используется для фильтрации кампаний по указанным статусам оплаты. Описание статусов см. в разделе [Статус и состояние кампании.](https://tech.yandex.ru/direct/doc/dg/objects/campaign-docpage/#status).*
-        + Допустимые значения: DISALLOWED, ALLOWED
-        + Пример использования: Statuses = c("DISALLOWED", "ALLOWED")
++ Допустимые значения: DISALLOWED, ALLOWED
++ Пример использования: Statuses = c("DISALLOWED", "ALLOWED")
         
 <b>Token</b> - Токен дотупа к API
 
