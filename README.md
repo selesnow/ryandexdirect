@@ -53,7 +53,7 @@
 
 ## Функции входящие в пакет ryandexdirect.
 
-На данный момент в версию пакета 2.2.0 входит 13 функции:
+На данный момент в версию пакета 2.4.4 входит 13 функции:
 
 ### `yadirGetToken()`
 Функция для получения токена для доступа к API Яндекс.Директ, полученый токен используется во всех остальных функциях.
@@ -143,18 +143,23 @@
 
 #### Аргументы:
 <b>Login</b> - Вектор с логинами на Яндексе
+
 <b>States</b> - На вход принимает текстовый вектор, используется для для фильтрации кампаний в указанных состояниях. Описание состояний см. в разделе [Статус и состояние кампании.](https://tech.yandex.ru/direct/doc/dg/objects/campaign-docpage/#status), допустимые значения ( "ARCHIVED" | "CONVERTED" | "ENDED" | "OFF" | "ON" | "SUSPENDED" ), пример использования (c("ON","SUSPENDED","CONVERTED"))*
         + Допустимые значения: ARCHIVED, CONVERTED, ENDED, OFF, ONSUSPENDED
         + Пример использования: States = c("ON","SUSPENDED","CONVERTED")
+        
 <b>Types</b> - На вход принимает текстовый вектор, используется для фильтрации кампаний по типам, См.  [Тип кампании](https://tech.yandex.ru/direct/doc/dg/objects/campaign-docpage/#type).*
         + Допустимые значения: TEXT_CAMPAIGN, MOBILE_APP_CAMPAIGN, DYNAMIC_TEXT_CAMPAIGN
         + Пример использования: Types = c("TEXT_CAMPAIGN", "DYNAMIC_TEXT_CAMPAIGN")
+        
 <b>Statuses</b> - На вход принимает текстовый вектор, используется для фильтрации кампаний по указанными статусами. Описание статусов см. в разделе [Статус и состояние кампании](https://tech.yandex.ru/direct/doc/dg/objects/campaign-docpage/#status).*
         + Допустимые значения: ACCEPTED, DRAFT, MODERATION, REJECTED
         + Пример использования: Statuses = c("DRAFT", "REJECTED")
+        
 <b>StatusesPayment</b> - На вход принимает текстовый вектор, используется для фильтрации кампаний по указанным статусам оплаты. Описание статусов см. в разделе [Статус и состояние кампании.](https://tech.yandex.ru/direct/doc/dg/objects/campaign-docpage/#status).*
         + Допустимые значения: DISALLOWED, ALLOWED
         + Пример использования: Statuses = c("DISALLOWED", "ALLOWED")
+        
 <b>Token</b> - Токен дотупа к API
 
 #### Структура возвращаемого функцией `yadirGetCampaignList` дата фрейма:
