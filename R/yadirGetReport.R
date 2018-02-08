@@ -9,12 +9,12 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
                            Login = NULL,
                            Token = NULL){
   
-  #Запуск таймера начала работы функции
+  #Р—Р°РїСѓСЃРє С‚Р°Р№РјРµСЂР° РЅР°С‡Р°Р»Р° СЂР°Р±РѕС‚С‹ С„СѓРЅРєС†РёРё
   proc_start <- Sys.time()
-  #Форммируем список полей
+  #Р¤РѕСЂРјРјРёСЂСѓРµРј СЃРїРёСЃРѕРє РїРѕР»РµР№
   Fields <- paste0("<FieldNames>",FieldNames, "</FieldNames>", collapse = "")
   
-  #Формируем фильтр
+  #Р¤РѕСЂРјРёСЂСѓРµРј С„РёР»СЊС‚СЂ
   if(!is.null(FilterList)){
     fil_list <- NA
     filt <- FilterList
@@ -26,7 +26,7 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
                                 paste0("<Values>",strsplit(fil ," ")[[1]][3], "</Values>"),"</Filter>"))
     }}
   
-  #Формируем тело запроса
+  #Р¤РѕСЂРјРёСЂСѓРµРј С‚РµР»Рѕ Р·Р°РїСЂРѕСЃР°
   queryBody <- paste0('
                       <ReportDefinition xmlns="http://api.direct.yandex.com/v5/reports">
                       <SelectionCriteria>',
@@ -43,39 +43,39 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
                       <IncludeDiscount>',IncludeDiscount,'</IncludeDiscount>
                       </ReportDefinition>')
   
-  #Создаём результирующий dataframe
+  #РЎРѕР·РґР°С‘Рј СЂРµР·СѓР»СЊС‚РёСЂСѓСЋС‰РёР№ dataframe
   result <- data.frame()
  
   for(login in Login){
-    #Выодим сообщение о том какой проект в работе
+    #Р’С‹РѕРґРёРј СЃРѕРѕР±С‰РµРЅРёРµ Рѕ С‚РѕРј РєР°РєРѕР№ РїСЂРѕРµРєС‚ РІ СЂР°Р±РѕС‚Рµ
     packageStartupMessage("-----------------------------------------------------------")
-    packageStartupMessage(paste0("Загрузка данных по ",login))
-    #Отправляем запрос на сервер Яндекса
-    #Фиксируем время начала ожидания ответа
+    packageStartupMessage(paste0("Р—Р°РіСЂСѓР·РєР° РґР°РЅРЅС‹С… РїРѕ ",login))
+    #РћС‚РїСЂР°РІР»СЏРµРј Р·Р°РїСЂРѕСЃ РЅР° СЃРµСЂРІРµСЂ РЇРЅРґРµРєСЃР°
+    #Р¤РёРєСЃРёСЂСѓРµРј РІСЂРµРјСЏ РЅР°С‡Р°Р»Р° РѕР¶РёРґР°РЅРёСЏ РѕС‚РІРµС‚Р°
     serv_start_time <- Sys.time()
     
     answer <- POST("https://api.direct.yandex.com/v5/reports", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru", skipReportHeader = "true" ,skipReportSummary = "true" , 'Client-Login' = login, returnMoneyInMicros = "false", processingMode = "auto"))
     
     if(answer$status_code == 400){
       packageStartupMessage(paste0(login," - ",xml_text(content(answer, "parsed","text/xml",encoding = "UTF-8"))))
-      packageStartupMessage("Ошибка в параметрах запроса либо превышено ограничение на количество запросов или отчетов в очереди. В этом случае проанализируйте сообщение об ошибке, скорректируйте запрос и отправьте его снова.")
+      packageStartupMessage("РћС€РёР±РєР° РІ РїР°СЂР°РјРµС‚СЂР°С… Р·Р°РїСЂРѕСЃР° Р»РёР±Рѕ РїСЂРµРІС‹С€РµРЅРѕ РѕРіСЂР°РЅРёС‡РµРЅРёРµ РЅР° РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РїСЂРѕСЃРѕРІ РёР»Рё РѕС‚С‡РµС‚РѕРІ РІ РѕС‡РµСЂРµРґРё. Р’ СЌС‚РѕРј СЃР»СѓС‡Р°Рµ РїСЂРѕР°РЅР°Р»РёР·РёСЂСѓР№С‚Рµ СЃРѕРѕР±С‰РµРЅРёРµ РѕР± РѕС€РёР±РєРµ, СЃРєРѕСЂСЂРµРєС‚РёСЂСѓР№С‚Рµ Р·Р°РїСЂРѕСЃ Рё РѕС‚РїСЂР°РІСЊС‚Рµ РµРіРѕ СЃРЅРѕРІР°.")
       next
     }
     
     if(answer$status_code == 500){
       packageStartupMessage(paste0(login," - ",xml_text(content(answer, "parsed","text/xml",encoding = "UTF-8"))))
-      packageStartupMessage("При формировании отчета произошла ошибка на сервере. Если для этого отчета ошибка на сервере возникла впервые, попробуйте сформировать отчет заново. Если ошибка повторяется, обратитесь в службу поддержки.")
+      packageStartupMessage("РџСЂРё С„РѕСЂРјРёСЂРѕРІР°РЅРёРё РѕС‚С‡РµС‚Р° РїСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РЅР° СЃРµСЂРІРµСЂРµ. Р•СЃР»Рё РґР»СЏ СЌС‚РѕРіРѕ РѕС‚С‡РµС‚Р° РѕС€РёР±РєР° РЅР° СЃРµСЂРІРµСЂРµ РІРѕР·РЅРёРєР»Р° РІРїРµСЂРІС‹Рµ, РїРѕРїСЂРѕР±СѓР№С‚Рµ СЃС„РѕСЂРјРёСЂРѕРІР°С‚СЊ РѕС‚С‡РµС‚ Р·Р°РЅРѕРІРѕ. Р•СЃР»Рё РѕС€РёР±РєР° РїРѕРІС‚РѕСЂСЏРµС‚СЃСЏ, РѕР±СЂР°С‚РёС‚РµСЃСЊ РІ СЃР»СѓР¶Р±Сѓ РїРѕРґРґРµСЂР¶РєРё.")
       next
     }
     
     if(answer$status_code == 201){
-      packageStartupMessage("Отчет успешно поставлен в очередь на формирование в режиме офлайн.", appendLF = T)
+      packageStartupMessage("РћС‚С‡РµС‚ СѓСЃРїРµС€РЅРѕ РїРѕСЃС‚Р°РІР»РµРЅ РІ РѕС‡РµСЂРµРґСЊ РЅР° С„РѕСЂРјРёСЂРѕРІР°РЅРёРµ РІ СЂРµР¶РёРјРµ РѕС„Р»Р°Р№РЅ.", appendLF = T)
       packageStartupMessage("Proccesing", appendLF = F)
       packageStartupMessage("|", appendLF = F)
     }
     
     if(answer$status_code == 202){
-      packageStartupMessage("Формирование отчета еще не завершено.", appendLF = F)
+      packageStartupMessage("Р¤РѕСЂРјРёСЂРѕРІР°РЅРёРµ РѕС‚С‡РµС‚Р° РµС‰Рµ РЅРµ Р·Р°РІРµСЂС€РµРЅРѕ.", appendLF = F)
     }
     
     
@@ -83,58 +83,58 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
       answer <- POST("https://api.direct.yandex.com/v5/reports", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru", skipReportHeader = "true" ,skipReportSummary = "true" , 'Client-Login' = login, returnMoneyInMicros = "false", processingMode = "auto"))
       packageStartupMessage("=", appendLF = F)
       if(answer$status_code == 500){
-        stop("При формировании отчета произошла ошибка на сервере. Если для этого отчета ошибка на сервере возникла впервые, попробуйте сформировать отчет заново. Если ошибка повторяется, обратитесь в службу поддержки.")
+        stop("РџСЂРё С„РѕСЂРјРёСЂРѕРІР°РЅРёРё РѕС‚С‡РµС‚Р° РїСЂРѕРёР·РѕС€Р»Р° РѕС€РёР±РєР° РЅР° СЃРµСЂРІРµСЂРµ. Р•СЃР»Рё РґР»СЏ СЌС‚РѕРіРѕ РѕС‚С‡РµС‚Р° РѕС€РёР±РєР° РЅР° СЃРµСЂРІРµСЂРµ РІРѕР·РЅРёРєР»Р° РІРїРµСЂРІС‹Рµ, РїРѕРїСЂРѕР±СѓР№С‚Рµ СЃС„РѕСЂРјРёСЂРѕРІР°С‚СЊ РѕС‚С‡РµС‚ Р·Р°РЅРѕРІРѕ. Р•СЃР»Рё РѕС€РёР±РєР° РїРѕРІС‚РѕСЂСЏРµС‚СЃСЏ, РѕР±СЂР°С‚РёС‚РµСЃСЊ РІ СЃР»СѓР¶Р±Сѓ РїРѕРґРґРµСЂР¶РєРё.")
       }
       if(answer$status_code == 502){
-        stop("Время обработки запроса превысило серверное ограничение.")
+        stop("Р’СЂРµРјСЏ РѕР±СЂР°Р±РѕС‚РєРё Р·Р°РїСЂРѕСЃР° РїСЂРµРІС‹СЃРёР»Рѕ СЃРµСЂРІРµСЂРЅРѕРµ РѕРіСЂР°РЅРёС‡РµРЅРёРµ.")
       }
       Sys.sleep(5)
     }
     packageStartupMessage("|", appendLF = T)
-    #Сообщаем что отчёт был сформирован.
+    #РЎРѕРѕР±С‰Р°РµРј С‡С‚Рѕ РѕС‚С‡С‘С‚ Р±С‹Р» СЃС„РѕСЂРјРёСЂРѕРІР°РЅ.
     server_time <- round(difftime(Sys.time(), serv_start_time , units ="secs"),0)
-    packageStartupMessage("Отчет успешно сформирован и передан в теле ответа.", appendLF = T)
-    packageStartupMessage(paste0("Время ожидания ответа от сервера: ",server_time , " сек."), appendLF = T)
+    packageStartupMessage("РћС‚С‡РµС‚ СѓСЃРїРµС€РЅРѕ СЃС„РѕСЂРјРёСЂРѕРІР°РЅ Рё РїРµСЂРµРґР°РЅ РІ С‚РµР»Рµ РѕС‚РІРµС‚Р°.", appendLF = T)
+    packageStartupMessage(paste0("Р’СЂРµРјСЏ РѕР¶РёРґР°РЅРёСЏ РѕС‚РІРµС‚Р° РѕС‚ СЃРµСЂРІРµСЂР°: ",server_time , " СЃРµРє."), appendLF = T)
     
-    #Фиксируем время начала парсинга ответа
+    #Р¤РёРєСЃРёСЂСѓРµРј РІСЂРµРјСЏ РЅР°С‡Р°Р»Р° РїР°СЂСЃРёРЅРіР° РѕС‚РІРµС‚Р°
     pasr_start_time <- Sys.time()
     
     if(answer$status_code == 200){
       df_new <- suppressMessages(content(answer,  "parsed", "text/tab-separated-values", encoding = "UTF-8"))
 
-      #Проверка вернулись ли какие то данные
+      #РџСЂРѕРІРµСЂРєР° РІРµСЂРЅСѓР»РёСЃСЊ Р»Рё РєР°РєРёРµ С‚Рѕ РґР°РЅРЅС‹Рµ
       if(nrow(df_new) == 0){
-        packageStartupMessage("Ваш запрос не вернул никаких данных, внимательно проверьте заданный фильтр и период отч та, после чего повторите попытку.")
+        packageStartupMessage("Р’Р°С€ Р·Р°РїСЂРѕСЃ РЅРµ РІРµСЂРЅСѓР» РЅРёРєР°РєРёС… РґР°РЅРЅС‹С…, РІРЅРёРјР°С‚РµР»СЊРЅРѕ РїСЂРѕРІРµСЂСЊС‚Рµ Р·Р°РґР°РЅРЅС‹Р№ С„РёР»СЊС‚СЂ Рё РїРµСЂРёРѕРґ РѕС‚С‡ С‚Р°, РїРѕСЃР»Рµ С‡РµРіРѕ РїРѕРІС‚РѕСЂРёС‚Рµ РїРѕРїС‹С‚РєСѓ.")
         next
       }
-      #Сообщаем о том сколько времени длился парсинг результата
+      #РЎРѕРѕР±С‰Р°РµРј Рѕ С‚РѕРј СЃРєРѕР»СЊРєРѕ РІСЂРµРјРµРЅРё РґР»РёР»СЃСЏ РїР°СЂСЃРёРЅРі СЂРµР·СѓР»СЊС‚Р°С‚Р°
       parsing_time <- round(difftime(Sys.time(), pasr_start_time , units ="secs"),0)
-      packageStartupMessage(paste0("Время парсинга результата: ", parsing_time, " сек."), appendLF = T)
-      #Задаём названия полей
+      packageStartupMessage(paste0("Р’СЂРµРјСЏ РїР°СЂСЃРёРЅРіР° СЂРµР·СѓР»СЊС‚Р°С‚Р°: ", parsing_time, " СЃРµРє."), appendLF = T)
+      #Р—Р°РґР°С‘Рј РЅР°Р·РІР°РЅРёСЏ РїРѕР»РµР№
       #names(df_new) <- names_col
-      #Убираем строку итогов
+      #РЈР±РёСЂР°РµРј СЃС‚СЂРѕРєСѓ РёС‚РѕРіРѕРІ
       #df_new <- df_new[-nrow(df_new),]
       
-      #Информация о количестве баллов.
-      packageStartupMessage(paste0("Уникальный идентификатор запроса который необходимо указывать при обращении в службу поддержки: ",answer$headers$requestid), appendLF = T)
+      #РРЅС„РѕСЂРјР°С†РёСЏ Рѕ РєРѕР»РёС‡РµСЃС‚РІРµ Р±Р°Р»Р»РѕРІ.
+      packageStartupMessage(paste0("РЈРЅРёРєР°Р»СЊРЅС‹Р№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ Р·Р°РїСЂРѕСЃР° РєРѕС‚РѕСЂС‹Р№ РЅРµРѕР±С…РѕРґРёРјРѕ СѓРєР°Р·С‹РІР°С‚СЊ РїСЂРё РѕР±СЂР°С‰РµРЅРёРё РІ СЃР»СѓР¶Р±Сѓ РїРѕРґРґРµСЂР¶РєРё: ",answer$headers$requestid), appendLF = T)
       
-      #Добавляем логин
+      #Р”РѕР±Р°РІР»СЏРµРј Р»РѕРіРёРЅ
       if(length(Login) > 1){
         df_new$login <- login}
       
-      #Удаляем строку итогов
+      #РЈРґР°Р»СЏРµРј СЃС‚СЂРѕРєСѓ РёС‚РѕРіРѕРІ
       df_new <- df_new[!grepl("Total rows", df_new[,1]),]
-      #присоединяем свежие данные к результирующему дата врейму
+      #РїСЂРёСЃРѕРµРґРёРЅСЏРµРј СЃРІРµР¶РёРµ РґР°РЅРЅС‹Рµ Рє СЂРµР·СѓР»СЊС‚РёСЂСѓСЋС‰РµРјСѓ РґР°С‚Р° РІСЂРµР№РјСѓ
       result <- rbind(result, df_new)
-      #Завершаем цикл
+      #Р—Р°РІРµСЂС€Р°РµРј С†РёРєР»
     }
   }
-  #Выводим инфу о времени работы функции
+  #Р’С‹РІРѕРґРёРј РёРЅС„Сѓ Рѕ РІСЂРµРјРµРЅРё СЂР°Р±РѕС‚С‹ С„СѓРЅРєС†РёРё
   total_work_time <- round(difftime(Sys.time(), proc_start , units ="secs"),0)
-  packageStartupMessage(paste0("Общее время работы функции: ",total_work_time, " сек."))
-  packageStartupMessage(paste0(round(as.integer(server_time) / as.integer(total_work_time) * 100, 0), "% времени работы заняло ожидание ответа от сервера."))
-  packageStartupMessage(paste0(round(as.integer(parsing_time) / as.integer(total_work_time) * 100, 0), "% времени работы занял парсинг полученного результата."))
+  packageStartupMessage(paste0("РћР±С‰РµРµ РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹ С„СѓРЅРєС†РёРё: ",total_work_time, " СЃРµРє."))
+  packageStartupMessage(paste0(round(as.integer(server_time) / as.integer(total_work_time) * 100, 0), "% РІСЂРµРјРµРЅРё СЂР°Р±РѕС‚С‹ Р·Р°РЅСЏР»Рѕ РѕР¶РёРґР°РЅРёРµ РѕС‚РІРµС‚Р° РѕС‚ СЃРµСЂРІРµСЂР°."))
+  packageStartupMessage(paste0(round(as.integer(parsing_time) / as.integer(total_work_time) * 100, 0), "% РІСЂРµРјРµРЅРё СЂР°Р±РѕС‚С‹ Р·Р°РЅСЏР» РїР°СЂСЃРёРЅРі РїРѕР»СѓС‡РµРЅРЅРѕРіРѕ СЂРµР·СѓР»СЊС‚Р°С‚Р°."))
   packageStartupMessage("-----------------------------------------------------------")
-  #Возвращаем полученный массив
+  #Р’РѕР·РІСЂР°С‰Р°РµРј РїРѕР»СѓС‡РµРЅРЅС‹Р№ РјР°СЃСЃРёРІ
   return(result)
 }
