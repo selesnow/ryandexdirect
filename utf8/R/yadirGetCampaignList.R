@@ -1,7 +1,12 @@
 yadirGetCampaignList <-
-function (logins = NULL, token = NULL) {
+function (Logins          = NULL, 
+          States          = c("OFF","ON","SUSPENDED","ENDED","CONVERTED","ARCHIVED"),
+          Types           = c("TEXT_CAMPAIGN","MOBILE_APP_CAMPAIGN","DYNAMIC_TEXT_CAMPAIGN"),
+          Statuses        = c("ACCEPTED","DRAFT","MODERATION","REJECTED"),
+          StatusesPayment = c("DISALLOWED","ALLOWED"),
+          Token           = NULL) {
 #Проверка заполнения токена
-if(is.null(token)) {
+if(is.null(Token)) {
   stop("Enter your API token!")
 }
   
@@ -23,7 +28,13 @@ result       <- data.frame(Id = character(0),
                            ClientInfo = character(0),
                            Login = character(0),
                            stringsAsFactors=FALSE)
-  
+
+#Filters
+States          <- paste("\"",States,"\"",collapse=", ",sep="")
+Types           <- paste("\"",Types,"\"",collapse=", ",sep="")
+Statuses        <- paste("\"",Statuses,"\"",collapse=", ",sep="")
+StatusesPayment <- paste("\"",StatusesPayment,"\"",collapse=", ",sep="")
+
 #Задаём начальный offset
 lim <- 0
 
@@ -35,7 +46,11 @@ while(lim != "stoped"){
 queryBody <- paste0("{
   \"method\": \"get\",
   \"params\": { 
-    \"SelectionCriteria\": {},
+    \"SelectionCriteria\": {
+                      \"States\": [",States,"],        
+                      \"Types\": [",Types,"],
+                      \"StatusesPayment\": [",StatusesPayment,"],
+                      \"Statuses\": [",Statuses,"]},
     \"FieldNames\": [
                     \"Id\",
                     \"Name\",
@@ -56,8 +71,8 @@ queryBody <- paste0("{
 
 
     
-    for(l in 1:length(logins)){
-      answer <- POST("https://api.direct.yandex.com/json/v5/campaigns", body = queryBody, add_headers(Authorization = paste0("Bearer ",token), 'Accept-Language' = "ru","Client-Login" = logins[l]))
+    for(l in 1:length(Logins)){
+      answer <- POST("https://api.direct.yandex.com/json/v5/campaigns", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru","Client-Login" = Logins[l]))
       #Обработка ответа
       stop_for_status(answer)
       dataRaw <- content(answer, "parsed", "application/json")
@@ -82,7 +97,7 @@ queryBody <- paste0("{
                                    Impressions        = ifelse(is.null(dataRaw$result$Campaigns[[i]]$Statistics$Impressions), NA,dataRaw$result$Campaigns[[i]]$Statistics$Impressions),
                                    Clicks             = ifelse(is.null(dataRaw$result$Campaigns[[i]]$Statistics$Clicks), NA,dataRaw$result$Campaigns[[i]]$Statistics$Clicks),
                                    ClientInfo         = dataRaw$result$Campaigns[[i]]$ClientInfo,
-                                   Login              = logins[l])), silent = T)
+                                   Login              = Logins[l])), silent = T)
         
         }
     }
