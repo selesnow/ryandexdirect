@@ -1,5 +1,4 @@
 export(yadirGetCampaignList)
-export(yadirGetCampaignListOld)
 export(yadirGetClientList)
 export(yadirGetSummaryStat)
 export(yadirGetToken)
