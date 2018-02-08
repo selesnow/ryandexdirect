@@ -85,6 +85,8 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
     }
     
     if(answer$status_code == 200){
+      #Сообщаем что отчёт был сформирован.
+      packageStartupMessage("Отчет успешно сформирован и передан в теле ответа.", appendLF = T)
       #Получаем список названий полей
       names_col <- strsplit(read.csv(text = content(answer, "text"), sep = "\n", stringsAsFactors = F)[1,], "\t")[[1]]
       #получаем данные
@@ -101,7 +103,6 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
       #names(df_new) <- names_col
       #Убираем строку итогов
       #df_new <- df_new[-nrow(df_new),]
-      packageStartupMessage("Отчет успешно сформирован и передан в теле ответа.", appendLF = T)
       
       #Информация о количестве баллов.
       packageStartupMessage(paste0("Уникальный идентификатор запроса который необходимо указывать при обращении в службу поддержки: ",answer$headers$requestid), appendLF = T)
