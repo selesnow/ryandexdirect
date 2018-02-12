@@ -14,12 +14,12 @@
     + [yadirGetBalance]() - Получить остаток средств общего счёта и его различные параметры.
     + [yadirGetReport](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null-fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no-login--null-token--null) - Получение статистики из Report сервиса API v.5.
     + [yadirGetDictionary](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetdictionarydictionaryname--georegions-language--ru-login--null-token--null) - Получение справочной информации из API v.5.
-    + [yadirStartAds]() - Возобновить показы по объявлениям.
-    + [yadirStopAds]() - Остановить показы по объявлениям.
-    + [yadirStartCampaigns]() - Возобновить показы по рекламным кампаниям
-    + [yadirStopCampaigns]() - Остановить показы по рекламным кампаниям
-    + [yadirStartKeyWords]() - Возобновить показы по ключевым словам
-    + [yadirStopKeyWords]() - Остановить показы по ключевым словам
+    + [yadirStartAds](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirstartadslogin--null-ids--null-token--null) - Возобновить показы по объявлениям.
+    + [yadirStopAds](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirstopadslogin--null-ids--null-token--null) - Остановить показы по объявлениям.
+    + [yadirStartCampaigns](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirstartcampaignslogin--null-ids--null-token--null) - Возобновить показы по рекламным кампаниям
+    + [yadirStopCampaigns](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirstopcampaignslogin--null-ids--null-token--null) - Остановить показы по рекламным кампаниям
+    + [yadirStartKeyWords](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirstartkeywordslogin--null-ids--null-token--null) - Возобновить показы по ключевым словам
+    + [yadirStopKeyWords](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirstopkeywordslogin--null-ids--null-token--null) - Остановить показы по ключевым словам
     + [yadirGetSummaryStat](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetsummarystatcampaignids--null-datestart--sysdate---10-dateend--sysdate-currency--usd-token--null) - Получение общей статистики по рекламным кампаниям
     + [yadirCurrencyRates](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadircurrencyrateslogin--null-token--null) - Получения текущих курсов валют (С 28.03.2017 справочник валют так же можно получить с помощью функции yadirGetDictionary)
     + [yadirGetLogsData](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetlogsdatacounter--null-date_from--sysdate---10-date_to--sysdate-fields--null-source--visits-token--null) - Получение данных из Logs API Яндекс Метрики
