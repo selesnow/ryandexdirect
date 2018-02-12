@@ -47,6 +47,8 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
   result <- data.frame()
  
   for(login in Login){
+    parsing_time <- 0
+    server_time <- 0
     #Выодим сообщение о том какой проект в работе
     packageStartupMessage("-----------------------------------------------------------")
     packageStartupMessage(paste0("Загрузка данных по ",login))
