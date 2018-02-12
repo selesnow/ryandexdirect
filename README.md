@@ -14,7 +14,12 @@
     + [yadirGetBalance]() - Получить остаток средств общего счёта и его различные параметры.
     + [yadirGetReport](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null-fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no-login--null-token--null) - Получение статистики из Report сервиса API v.5.
     + [yadirGetDictionary](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetdictionarydictionaryname--georegions-language--ru-login--null-token--null) - Получение справочной информации из API v.5.
-    + [yadirGetCampaignListOld](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetcampaignlistoldlogins--null-token--null) - Получения списка рекламных кампаний (Устаревшая функция из API v.4.)
+    + [yadirStartAds]() - Возобновить показы по объявлениям.
+    + [yadirStopAds]() - Остановить показы по объявлениям.
+    + [yadirStartCampaigns]() - Возобновить показы по рекламным кампаниям
+    + [yadirStopCampaigns]() - Остановить показы по рекламным кампаниям
+    + [yadirStartKeyWords]() - Возобновить показы по ключевым словам
+    + [yadirStopKeyWords]() - Остановить показы по ключевым словам
     + [yadirGetSummaryStat](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetsummarystatcampaignids--null-datestart--sysdate---10-dateend--sysdate-currency--usd-token--null) - Получение общей статистики по рекламным кампаниям
     + [yadirCurrencyRates](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadircurrencyrateslogin--null-token--null) - Получения текущих курсов валют (С 28.03.2017 справочник валют так же можно получить с помощью функции yadirGetDictionary)
     + [yadirGetLogsData](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetlogsdatacounter--null-date_from--sysdate---10-date_to--sysdate-fields--null-source--visits-token--null) - Получение данных из Logs API Яндекс Метрики
@@ -698,8 +703,149 @@ my_clients_balance <- yadirGetBalance(Logins = my_client$Login,  Token = "abcdef
 
 <b>token</b> - Строковое значение, ваш API token.
 
-### `yadirGetCampaignListOld(logins = NULL, token = NULL)`
-Устаревшая функцая для получения списка рекламных кампаний, список функций запрашивался с помощью метода GetCampaignList из версии API 4, с августе 2016 года этот метод стал недоступен, для того что бы получить список кампаний используйте новую  функцию`yadirGetCampaignList(logins = NULL, token = NULL)`.
+### `yadirStartAds(Login = NULL, Ids   = NULL, Token = NULL)`
+Функция возобновляет показ по объявлениям и возвращает вектор с Id объявлений, по котором не удалось возобновить показы.
+
+#### Аргументы
+<b>Ids</b> - Числовой или текстовый вектор, содержащий Id объявлений по которым необходимо возобновить показ объявлений.
+
+<b>Login</b> - Строковое значение, ваш логин на Яндексе.
+
+<b>Token</b> - Строковое значение, ваш API token.
+
+#### Пример кода для возобновления показа объявлений
+```
+#Получаем токен
+tok <- yadirGetToken()
+
+#Получаем список рекламных кампаний
+my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+
+#Получаем список остановленных и выключенных объявлений
+my_ads <- yadirGetAds(Login = "Логин", Token = tok, States = c("SUSPENDED","OFF"))
+
+#Возобнолвям показы объявлений
+err <- yadirStartAds(Login = "Логин", Token =  tok, Ids = my_ads$Id) 
+```
+
+### `yadirStopAds(Login = NULL, Ids   = NULL, Token = NULL)`
+Функция останавливает показ по объявлениям и возвращает вектор с Id объявлений, по котором не удалось возобновить показы.
+
+#### Аргументы
+<b>Ids</b> - Числовой или текстовый вектор, содержащий Id объявлений по которым необходимо остановить показ.
+
+<b>Login</b> - Строковое значение, ваш логин на Яндексе.
+
+<b>Token</b> - Строковое значение, ваш API token.
+
+#### Пример кода для остановки показа объявлений
+```
+#Получаем токен
+tok <- yadirGetToken()
+
+#Получаем список рекламных кампаний
+my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+
+#Получаем список остановленных и выключенных объявлений
+my_ads <- yadirGetAds(Login = "Логин", Token = tok, States = "ON")
+
+#Останавливаем показы объявлений
+err <- yadirStopAds(Login = "Логин", Token =  tok, Ids = my_ads$Id) 
+```
+
+### `yadirStartCampaigns(Login = NULL, Ids   = NULL, Token = NULL)`
+Функция возобновляет показ по объявлениям по рекламным кампаниям и возвращает вектор с Id рекламных кампаний, по котором не удалось возобновить показы.
+
+#### Аргументы
+<b>Ids</b> - Числовой или текстовый вектор, содержащий Id рекламных кампаний по которым необходимо возобновить показ объявлений.
+
+<b>Login</b> - Строковое значение, ваш логин на Яндексе.
+
+<b>Token</b> - Строковое значение, ваш API token.
+
+#### Пример кода для возобновления показа объявлений по рекламым кампаниям
+```
+#Получаем токен
+tok <- yadirGetToken()
+
+#Получаем список рекламных кампаний
+my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+
+#Возобнолвям показы объявлений
+err <- yadirStartCampaigns(Login = "LOGIN", Token =  tok, Ids = my_camp$Id) 
+```
+
+### `yadirStopCampaigns(Login = NULL, Ids   = NULL, Token = NULL)`
+Функция останавливает показ по объявлениям по рекламным кампаниям и возвращает вектор с Id рекламных кампаний, по котором не удалось возобновить показы.
+
+#### Аргументы
+<b>Ids</b> - Числовой или текстовый вектор, содержащий Id рекламных кампаний по которым необходимо остановить показ объявлений.
+
+<b>Login</b> - Строковое значение, ваш логин на Яндексе.
+
+<b>Token</b> - Строковое значение, ваш API token.
+
+#### Пример кода для остановки показа объявлений по рекламным кампаниям
+```
+#Получаем токен
+tok <- yadirGetToken()
+
+#Получаем список рекламных кампаний
+my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+
+#Останавливаем показы объявлений
+err <- yadirStopCampaigns(Login = "LOGIN", Token =  tok, Ids = my_camp$Id) 
+```
+
+### `yadirStartKeyWords(Login = NULL, Ids   = NULL, Token = NULL)`
+Функция возобновляет показ объявлений по ключевым словам и возвращает вектор с Id ключевых слов, по котором не удалось возобновить показы.
+
+#### Аргументы
+<b>Ids</b> - Числовой или текстовый вектор, содержащий Id ключевых словй по которым необходимо возобновить показ объявлений.
+
+<b>Login</b> - Строковое значение, ваш логин на Яндексе.
+
+<b>Token</b> - Строковое значение, ваш API token.
+
+#### Пример кода для возобновления показа объявлений по ключевым словам
+```
+#Получаем токен
+tok <- yadirGetToken()
+
+#Получаем список рекламных кампаний
+my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+
+#Получаем список ключевых слов
+my_kw <- yadirGetKeyWords(Login = "Логин", Token = tok,CampaignIds = my_camp$Id[1:10])
+
+#Возобнолвям показы объявлений
+err <- yadirStartCampaigns(Login = "Логин", Token =  tok, Ids = my_kw$Id) 
+```
+
+### `yadirStopKeyWords(Login = NULL, Ids   = NULL, Token = NULL)`
+Функция останавливает показ объявлениям по ключевым словам и возвращает вектор с Id ключевых слов, по котором не удалось возобновить показы.
+
+#### Аргументы
+<b>Ids</b> - Числовой или текстовый вектор, содержащий Id ключевых слов по которым необходимо остановить показ объявлений.
+
+<b>Login</b> - Строковое значение, ваш логин на Яндексе.
+
+<b>Token</b> - Строковое значение, ваш API token.
+
+#### Пример кода для остановки показа объявлений по ключевым словам
+```
+#Получаем токен
+tok <- yadirGetToken()
+
+#Получаем список рекламных кампаний
+my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+
+#Получаем список ключевых слов
+my_kw <- yadirGetKeyWords(Login = "Логин", Token = tok,CampaignIds = my_camp$Id[1:10])
+
+#Останавливаем показы объявлений
+err <- yadirStopKeyWords(Login = "Логин", Token =  tok, Ids = my_kw$Id) 
+```
 
 ### `yadirGetSummaryStat(campaignIDS = NULL, dateStart = Sys.Date() - 10, dateEnd = Sys.Date(), currency = "USD", token = NULL)`
 Функция возвращает дата фрейм с общей статистикой в разрезе рекламных кампаний и дат.
