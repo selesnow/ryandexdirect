@@ -107,6 +107,7 @@
 <b>token</b> - Токен дотупа к API
 
 #### Структура возвращаемого функцией `yadirGetClientParam` дата фрейма:
+
 <table>
     <tr>
         <td><center>Поле</center></td><td><center>Тип данных</center></td><td><center>Описание</center></td>
