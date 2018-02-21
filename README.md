@@ -107,7 +107,6 @@
 <b>token</b> - Токен дотупа к API
 
 #### Структура возвращаемого функцией `yadirGetClientParam` дата фрейма:
-
 <table>
     <tr>
         <td><center>Поле</center></td><td><center>Тип данных</center></td><td><center>Описание</center></td>
@@ -141,9 +140,10 @@
     </tr>
     <tr>
          <td>APIPoints</td><td>int</td><td>Суточный лимит баллов API.</td>
+    </tr>
 </table>
 
-### `yadirGetCampaignList()`
+###  `yadirGetCampaignList(Logins = NULL, States = c("OFF","ON","SUSPENDED","ENDED","CONVERTED","ARCHIVED"),Types = c("TEXT_CAMPAIGN","MOBILE_APP_CAMPAIGN","DYNAMIC_TEXT_CAMPAIGN"), Statuses = c("ACCEPTED","DRAFT","MODERATION","REJECTED"), StatusesPayment = c("DISALLOWED","ALLOWED"), Token = NULL)`
           
 Функция возвращает дата фрейм со списком рекламных кампаний и некоторых их параметров по логину.
 
