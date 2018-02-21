@@ -143,7 +143,7 @@
     </tr>
 </table>
 
-###  `yadirGetCampaignList(Logins = NULL, States = c("OFF","ON","SUSPENDED","ENDED","CONVERTED","ARCHIVED"),Types = c("TEXT_CAMPAIGN","MOBILE_APP_CAMPAIGN","DYNAMIC_TEXT_CAMPAIGN"), Statuses = c("ACCEPTED","DRAFT","MODERATION","REJECTED"), StatusesPayment = c("DISALLOWED","ALLOWED"), Token = NULL)`
+### `yadirGetCampaignList(Logins = NULL, States = c("OFF","ON","SUSPENDED","ENDED","CONVERTED","ARCHIVED"),Types = c("TEXT_CAMPAIGN","MOBILE_APP_CAMPAIGN","DYNAMIC_TEXT_CAMPAIGN"), Statuses = c("ACCEPTED","DRAFT","MODERATION","REJECTED"), StatusesPayment = c("DISALLOWED","ALLOWED"), Token = NULL)`
           
 Функция возвращает дата фрейм со списком рекламных кампаний и некоторых их параметров по логину.
 
