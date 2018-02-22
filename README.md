@@ -1,5 +1,7 @@
 # ryandexdirect - пакет для работы с API Яндекс.Директ версии 4, Live 4 и 5, а так же с Logs API Яндекс метрики на языке R.
-
+<form>
+<input type="button" value="Кнопка" onClick='location.href="http://codehelper.ru/"'>
+</form>
 ## Содержание
 + [Краткое описание](#краткое-описание)
 + [Установка пакета ryandexdirect](#установка-пакета-ryandexdirect)
