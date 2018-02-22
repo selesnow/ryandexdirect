@@ -1,9 +1,5 @@
 # ryandexdirect - пакет для работы с API Яндекс.Директ версии 4, Live 4 и 5, а так же с Logs API Яндекс метрики на языке R.
 
-<form method="LINK" action="http://codehelper.ru">
-    <input type="submit" value="Go to CodeHelper!">
-</form>
-
 ## Содержание
 + [Краткое описание](#краткое-описание)
 + [Установка пакета ryandexdirect](#установка-пакета-ryandexdirect)
@@ -66,6 +62,12 @@
 
 ### `yadirGetToken()`
 Функция для получения токена для доступа к API Яндекс.Директ, полученый токен используется во всех остальных функциях.
+
+#### Можно получить токен воспользовавшись кнопкой
+
+<form method="LINK" action="https://oauth.yandex.ru/authorize?response_type=token&client_id=365a2d0a675c462d90ac145d4f5948cc">
+    <input type="submit" value="Получить токен доступа к API!">
+</form>
 
 ### `yadirGetClientList(token = NULL)`
 Данная функция возвращает дата фрейм со списком всех клиентов доступных в агентском аккаунте которому был выдан токен для доступа к API, используется только при работе с агентскими аккаунтами.
