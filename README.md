@@ -2,7 +2,7 @@
 
 ## Содержание
 + [Краткое описание](#краткое-описание)
-+ [Установка пакета ryandexdirect](https://selesnow.github.io/ryandexdirect/#установка-пакета-ryandexdirect)
++ [Установка пакета ryandexdirect](#установка-пакета-ryandexdirect)
 + [Функции входящие в пакет ryandexdirect](https://selesnow.github.io/ryandexdirect/#функции-входящие-в-пакет-ryandexdirect)
     + [yadirGetToken](https://selesnow.github.io/ryandexdirect/#yadirgettoken) - Получение токена доступа
     + [yadirGetClientList](https://selesnow.github.io/ryandexdirect/#yadirgetclientlisttoken--null) - Получение списка клиентов для агентского аккаунта
