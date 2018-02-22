@@ -1,7 +1,7 @@
 # ryandexdirect - пакет для работы с API Яндекс.Директ версии 4, Live 4 и 5, а так же с Logs API Яндекс метрики на языке R.
 
 ## Содержание
-+ [Краткое описание](https://selesnow.github.io/ryandexdirect/#краткое-описание)
++ [Краткое описание](#краткое-описание)
 + [Установка пакета ryandexdirect](https://selesnow.github.io/ryandexdirect/#установка-пакета-ryandexdirect)
 + [Функции входящие в пакет ryandexdirect](https://selesnow.github.io/ryandexdirect/#функции-входящие-в-пакет-ryandexdirect)
     + [yadirGetToken](https://selesnow.github.io/ryandexdirect/#yadirgettoken) - Получение токена доступа
