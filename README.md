@@ -65,9 +65,11 @@
 
 #### Можно получить токен воспользовавшись кнопкой
 
+<center>
 <form method="LINK" action="https://oauth.yandex.ru/authorize?response_type=token&client_id=365a2d0a675c462d90ac145d4f5948cc">
     <input type="submit" value="Получить токен доступа к API!">
 </form>
+</center>
 
 ### `yadirGetClientList(token = NULL)`
 Данная функция возвращает дата фрейм со списком всех клиентов доступных в агентском аккаунте которому был выдан токен для доступа к API, используется только при работе с агентскими аккаунтами.
