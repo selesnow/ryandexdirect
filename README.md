@@ -11,7 +11,7 @@
     + [yadirGetAdGroups](#yadirgetadgroupscampaignids--c123login--null-token--null) - Получения списка групп объявлений
     + [yadirGetKeyWords](#yadirgetkeywordscampaignids--c123-withstats--t-login--null-token--null) - Получения списка ключевых слов
     + [yadirGetAds](#yadirgetadscampaignids--c123-login--null-token--null) - Получения списка объявлений
-    + [yadirGetBalance]() - Получить остаток средств общего счёта и его различные параметры.
+    + [yadirGetBalance](#yadirgetbalancelogins--null-token--null) - Получить остаток средств общего счёта и его различные параметры.
     + [yadirGetReport](#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null-fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no-login--null-token--null) - Получение статистики из Report сервиса API v.5.
     + [yadirGetDictionary](#yadirgetdictionarydictionaryname--georegions-language--ru-login--null-token--null) - Получение справочной информации из API v.5.
     + [yadirStartAds](#yadirstartadslogin--null-ids--null-token--null) - Возобновить показы по объявлениям.
