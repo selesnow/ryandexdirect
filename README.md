@@ -3,34 +3,34 @@
 ## Содержание
 + [Краткое описание](#краткое-описание)
 + [Установка пакета ryandexdirect](#установка-пакета-ryandexdirect)
-+ [Функции входящие в пакет ryandexdirect](https://selesnow.github.io/ryandexdirect/#функции-входящие-в-пакет-ryandexdirect)
-    + [yadirGetToken](https://selesnow.github.io/ryandexdirect/#yadirgettoken) - Получение токена доступа
++ [Функции входящие в пакет ryandexdirect](#функции-входящие-в-пакет-ryandexdirect)
+    + [yadirGetToken](#yadirgettoken) - Получение токена доступа
     + [yadirGetClientList](#yadirgetclientlisttoken--null) - Получение списка клиентов для агентского аккаунта
     + [yadirGetClientParam](https://github.com/selesnow/ryandexdirect#yadirgetclientparamlanguage--ru-login--null-token--null) - Получение параметров аккаунта Яндекс Директ
-    + [yadirGetCampaignList](https://selesnow.github.io/ryandexdirect/#yadirgetcampaignlistlogins--null-token--null) - Получения списка рекламных кампаний
-    + [yadirGetAdGroups](https://selesnow.github.io/ryandexdirect/#yadirgetadgroupscampaignids--c123login--null-token--null) - Получения списка групп объявлений
-    + [yadirGetKeyWords](https://selesnow.github.io/ryandexdirect/#yadirgetkeywordscampaignids--c123-withstats--t-login--null-token--null) - Получения списка ключевых слов
-    + [yadirGetAds](https://selesnow.github.io/ryandexdirect/#yadirgetadscampaignids--c123-login--null-token--null) - Получения списка объявлений
+    + [yadirGetCampaignList](#yadirgetcampaignlistlogins--null-token--null) - Получения списка рекламных кампаний
+    + [yadirGetAdGroups](#yadirgetadgroupscampaignids--c123login--null-token--null) - Получения списка групп объявлений
+    + [yadirGetKeyWords](#yadirgetkeywordscampaignids--c123-withstats--t-login--null-token--null) - Получения списка ключевых слов
+    + [yadirGetAds](#yadirgetadscampaignids--c123-login--null-token--null) - Получения списка объявлений
     + [yadirGetBalance]() - Получить остаток средств общего счёта и его различные параметры.
-    + [yadirGetReport](https://selesnow.github.io/ryandexdirect/#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null-fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no-login--null-token--null) - Получение статистики из Report сервиса API v.5.
-    + [yadirGetDictionary](https://selesnow.github.io/ryandexdirect/#yadirgetdictionarydictionaryname--georegions-language--ru-login--null-token--null) - Получение справочной информации из API v.5.
-    + [yadirStartAds](https://selesnow.github.io/ryandexdirect/#yadirstartadslogin--null-ids--null-token--null) - Возобновить показы по объявлениям.
-    + [yadirStopAds](https://selesnow.github.io/ryandexdirect/#yadirstopadslogin--null-ids--null-token--null) - Остановить показы по объявлениям.
-    + [yadirStartCampaigns](https://selesnow.github.io/ryandexdirect/#yadirstartcampaignslogin--null-ids--null-token--null) - Возобновить показы по рекламным кампаниям
-    + [yadirStopCampaigns](https://selesnow.github.io/ryandexdirect/#yadirstopcampaignslogin--null-ids--null-token--null) - Остановить показы по рекламным кампаниям
-    + [yadirStartKeyWords](https://selesnow.github.io/ryandexdirect/#yadirstartkeywordslogin--null-ids--null-token--null) - Возобновить показы по ключевым словам
-    + [yadirStopKeyWords](https://selesnow.github.io/ryandexdirect/#yadirstopkeywordslogin--null-ids--null-token--null) - Остановить показы по ключевым словам
-    + [yadirGetSummaryStat](https://selesnow.github.io/ryandexdirect/#yadirgetsummarystatcampaignids--null-datestart--sysdate---10-dateend--sysdate-currency--usd-token--null) - Получение общей статистики по рекламным кампаниям
-    + [yadirCurrencyRates](https://selesnow.github.io/ryandexdirect/#yadircurrencyrateslogin--null-token--null) - Получения текущих курсов валют (С 28.03.2017 справочник валют так же можно получить с помощью функции yadirGetDictionary)
-    + [yadirGetLogsData](https://selesnow.github.io/ryandexdirect/#yadirgetlogsdatacounter--null-date_from--sysdate---10-date_to--sysdate-fields--null-source--visits-token--null) - Получение данных из Logs API Яндекс Метрики
-    + [yadirGetMetrikaGAData](https://selesnow.github.io/ryandexdirect/#yadirgetmetrikagadatastart_date--10daysago-end_date--today-counter_ids--null-dimensions--null-metrics--null-filters--null-sort--null-samplinglevel--higher_precision-token--null) - Получение данных из API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)
-+ [Пример работы с пакетом ryandexdirect](https://selesnow.github.io/ryandexdirect/#Пример-работы-с-пакетом-ryandexdirect)
-+ [Пример работы с функцией yadirGetReport](https://selesnow.github.io/ryandexdirect/#Пример-работы-с-функцией-yadirgetreport-и-загрузки-данных-из-сервиса-reports) - Загрузка данных из сервиса Reports
-+ [Пример работы с функцией yadirGetDictionary](https://selesnow.github.io/ryandexdirect/#Пример-работы-с-функцией-yadirgetdictionary-для-загрузки-справочников-из-api-v5-Яндекс-Директ) - загрузки справочников из API v.5. Яндекс Директ
-+ [Пример работы с Logs API Яндекс Метрики](https://selesnow.github.io/ryandexdirect/#Пример-работы-с-logs-api-Яндекс-Метрики) - Загрузка сырых данных из Яндекс Метрики
-+ [Пример работы с API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)](https://selesnow.github.io/ryandexdirect/#Пример-работы-с-api-Яндекс-Метрики-совместимым-с-google-analytics-core-reporting-api-v3)
-+ [Как обратится к API сервисов Яндекс.Директ и Яндекс.Метрика через прокси сервер](https://selesnow.github.io/ryandexdirect/#Как-обратиться-к-api-сервисов-ЯндексДирект-и-ЯндексМетрика-с-помощью-proxy-сервера-необходимо-в-случае-блокировки-доступа-к-сервисам).
-+ [Подборка статей с примерами работы с пакетом ryandexdirect](https://selesnow.github.io/ryandexdirect/#Подборка-статей-с-примерами-работы-с-пакетом-ryandexdirect)
+    + [yadirGetReport](#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null-fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no-login--null-token--null) - Получение статистики из Report сервиса API v.5.
+    + [yadirGetDictionary](#yadirgetdictionarydictionaryname--georegions-language--ru-login--null-token--null) - Получение справочной информации из API v.5.
+    + [yadirStartAds](#yadirstartadslogin--null-ids--null-token--null) - Возобновить показы по объявлениям.
+    + [yadirStopAds](#yadirstopadslogin--null-ids--null-token--null) - Остановить показы по объявлениям.
+    + [yadirStartCampaigns](#yadirstartcampaignslogin--null-ids--null-token--null) - Возобновить показы по рекламным кампаниям
+    + [yadirStopCampaigns](#yadirstopcampaignslogin--null-ids--null-token--null) - Остановить показы по рекламным кампаниям
+    + [yadirStartKeyWords](#yadirstartkeywordslogin--null-ids--null-token--null) - Возобновить показы по ключевым словам
+    + [yadirStopKeyWords](#yadirstopkeywordslogin--null-ids--null-token--null) - Остановить показы по ключевым словам
+    + [yadirGetSummaryStat](#yadirgetsummarystatcampaignids--null-datestart--sysdate---10-dateend--sysdate-currency--usd-token--null) - Получение общей статистики по рекламным кампаниям
+    + [yadirCurrencyRates](#yadircurrencyrateslogin--null-token--null) - Получения текущих курсов валют (С 28.03.2017 справочник валют так же можно получить с помощью функции yadirGetDictionary)
+    + [yadirGetLogsData](#yadirgetlogsdatacounter--null-date_from--sysdate---10-date_to--sysdate-fields--null-source--visits-token--null) - Получение данных из Logs API Яндекс Метрики
+    + [yadirGetMetrikaGAData](#yadirgetmetrikagadatastart_date--10daysago-end_date--today-counter_ids--null-dimensions--null-metrics--null-filters--null-sort--null-samplinglevel--higher_precision-token--null) - Получение данных из API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)
++ [Пример работы с пакетом ryandexdirect](#Пример-работы-с-пакетом-ryandexdirect)
++ [Пример работы с функцией yadirGetReport](#Пример-работы-с-функцией-yadirgetreport-и-загрузки-данных-из-сервиса-reports) - Загрузка данных из сервиса Reports
++ [Пример работы с функцией yadirGetDictionary](#Пример-работы-с-функцией-yadirgetdictionary-для-загрузки-справочников-из-api-v5-Яндекс-Директ) - загрузки справочников из API v.5. Яндекс Директ
++ [Пример работы с Logs API Яндекс Метрики](#Пример-работы-с-logs-api-Яндекс-Метрики) - Загрузка сырых данных из Яндекс Метрики
++ [Пример работы с API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)](#Пример-работы-с-api-Яндекс-Метрики-совместимым-с-google-analytics-core-reporting-api-v3)
++ [Как обратится к API сервисов Яндекс.Директ и Яндекс.Метрика через прокси сервер](#Как-обратиться-к-api-сервисов-ЯндексДирект-и-ЯндексМетрика-с-помощью-proxy-сервера-необходимо-в-случае-блокировки-доступа-к-сервисам).
++ [Подборка статей с примерами работы с пакетом ryandexdirect](#Подборка-статей-с-примерами-работы-с-пакетом-ryandexdirect)
 
 ## Краткое описание.
 
