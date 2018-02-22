@@ -525,7 +525,7 @@ my_ads <- yadirGetAds(CampaignIds = my_campaign$Id,
 
 <b>Token</b> - Токен дотупа к API
 
-#### Структура возвращаемого функцией `yadirGetAds` дата фрейма:
+#### Структура возвращаемого функцией `yadirGetBalance` дата фрейма:
 <table>
     <tr>
         <td><center>Поле</center></td><td><center>Тип данных</center></td><td><center>Описание</center></td>
