@@ -6,7 +6,7 @@
 + [Функции входящие в пакет ryandexdirect](#функции-входящие-в-пакет-ryandexdirect)
     + [yadirGetToken](#yadirgettoken) - Получение токена доступа
     + [yadirGetClientList](#yadirgetclientlisttoken--null) - Получение списка клиентов для агентского аккаунта
-    + [yadirGetClientParam](https://github.com/selesnow/ryandexdirect#yadirgetclientparamlanguage--ru-login--null-token--null) - Получение параметров аккаунта Яндекс Директ
+    + [yadirGetClientParam](#yadirgetclientparamlanguage--ru-login--null-token--null) - Получение параметров аккаунта Яндекс Директ
     + [yadirGetCampaignList](#yadirgetcampaignlistlogins--null-token--null) - Получения списка рекламных кампаний
     + [yadirGetAdGroups](#yadirgetadgroupscampaignids--c123login--null-token--null) - Получения списка групп объявлений
     + [yadirGetKeyWords](#yadirgetkeywordscampaignids--c123-withstats--t-login--null-token--null) - Получения списка ключевых слов
@@ -24,15 +24,15 @@
     + [yadirCurrencyRates](#yadircurrencyrateslogin--null-token--null) - Получения текущих курсов валют (С 28.03.2017 справочник валют так же можно получить с помощью функции yadirGetDictionary)
     + [yadirGetLogsData](#yadirgetlogsdatacounter--null-date_from--sysdate---10-date_to--sysdate-fields--null-source--visits-token--null) - Получение данных из Logs API Яндекс Метрики
     + [yadirGetMetrikaGAData](#yadirgetmetrikagadatastart_date--10daysago-end_date--today-counter_ids--null-dimensions--null-metrics--null-filters--null-sort--null-samplinglevel--higher_precision-token--null) - Получение данных из API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)
-+ [Пример работы с пакетом ryandexdirect](#Пример-работы-с-пакетом-ryandexdirect)
-+ [Пример работы с функцией yadirGetReport](#Пример-работы-с-функцией-yadirgetreport-и-загрузки-данных-из-сервиса-reports) - Загрузка данных из сервиса Reports
-+ [Пример работы с функцией yadirGetDictionary](#Пример-работы-с-функцией-yadirgetdictionary-для-загрузки-справочников-из-api-v5-Яндекс-Директ) - загрузки справочников из API v.5. Яндекс Директ
-+ [Пример работы с Logs API Яндекс Метрики](#Пример-работы-с-logs-api-Яндекс-Метрики) - Загрузка сырых данных из Яндекс Метрики
-+ [Пример работы с API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)](#Пример-работы-с-api-Яндекс-Метрики-совместимым-с-google-analytics-core-reporting-api-v3)
-+ [Как обратится к API сервисов Яндекс.Директ и Яндекс.Метрика через прокси сервер](#Как-обратиться-к-api-сервисов-ЯндексДирект-и-ЯндексМетрика-с-помощью-proxy-сервера-необходимо-в-случае-блокировки-доступа-к-сервисам).
-+ [Подборка статей с примерами работы с пакетом ryandexdirect](#Подборка-статей-с-примерами-работы-с-пакетом-ryandexdirect)
++ [Пример работы с пакетом ryandexdirect](#пример-работы-с-пакетом-ryandexdirect)
++ [Пример работы с функцией yadirGetReport](#пример-работы-с-функцией-yadirgetreport-и-загрузки-данных-из-сервиса-reports) - Загрузка данных из сервиса Reports
++ [Пример работы с функцией yadirGetDictionary](#пример-работы-с-функцией-yadirgetdictionary-для-загрузки-справочников-из-api-v5-Яндекс-Директ) - загрузки справочников из API v.5. Яндекс Директ
++ [Пример работы с Logs API Яндекс Метрики](#пример-работы-с-logs-api-Яндекс-Метрики) - Загрузка сырых данных из Яндекс Метрики
++ [Пример работы с API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)](#пример-работы-с-api-Яндекс-Метрики-совместимым-с-google-analytics-core-reporting-api-v3)
++ [Как обратится к API сервисов Яндекс.Директ и Яндекс.Метрика через прокси сервер](#как-обратиться-к-api-сервисов-ЯндексДирект-и-ЯндексМетрика-с-помощью-proxy-сервера-необходимо-в-случае-блокировки-доступа-к-сервисам).
++ [Подборка статей с примерами работы с пакетом ryandexdirect](#подборка-статей-с-примерами-работы-с-пакетом-ryandexdirect)
 
-## Краткое описание.
+## краткое описание.
 
 Пакет ryandexdirect предназначен для загрузки данных из Яндекс Директ и Яндекс Метрики в R, с помощью функций данного пакета вы можете работать с перечисленными ниже сервисами и службами API Яндекса с помощью готовых функций, не углубляясь при этом в документацию по работе с этими API сервисами.
 
@@ -41,7 +41,7 @@
 + [API Директа версии 4 и Live 4](https://tech.yandex.ru/direct/doc/dg-v4/concepts/About-docpage/) - Через API внешние приложения добавляют и редактируют кампании, объявления, фразы, задают ставки, получают статистику показов.
 + [API Директа версии 5](https://tech.yandex.ru/direct/doc/dg/concepts/about-docpage/) - Через API внешние приложения добавляют и редактируют кампании, объявления, фразы, задают ставки, получают статистику показов.
 
-## Установка пакета ryandexdirect.
+## установка пакета ryandexdirect.
 
 Установка пакета осуществляется из репозитория GitHub, для этого сначала требуется установить и подключить пакет devtools.
 
@@ -50,13 +50,13 @@
 `library(devtools)`
 
 После чего можно устанавливать пакет ryandexdirect.
-### Установка на Windows осуществляется с помощью следующей команды
+### установка на Windows осуществляется с помощью следующей команды
 `install_github('selesnow/ryandexdirect')`
 
-### Установка на iOS, Linux, Ubuntu осуществляется с помощью следующей команды
+### установка на iOS, Linux, Ubuntu осуществляется с помощью следующей команды
 `install_github('selesnow/ryandexdirect', subdir = "utf8")`
 
-## Функции входящие в пакет ryandexdirect.
+## функции входящие в пакет ryandexdirect.
 
 На данный момент в версию пакета 2.4.4 входит 13 функции:
 
@@ -1019,7 +1019,7 @@ stat <- yadirGetSummaryStat(campaignIDS = campaignList$Id,
                             currency = "USD",
                             token = myToken)
 ```
-# Пример работы с функцией yadirGetReport и загрузки данных из сервиса Reports.
+# пример работы с функцией yadirGetReport и загрузки данных из сервиса Reports.
 ```
 library(ryandexdirect)
 myToken <- yadirGetToken()
@@ -1051,7 +1051,7 @@ stat        <- yadirGetReport(ReportType = "ACCOUNT_PERFORMANCE_REPORT",
                               Token = myToken)
 ```
 
-# Пример работы с функцией yadirGetDictionary для загрузки справочников из API v.5. Яндекс Директ.
+# пример работы с функцией yadirGetDictionary для загрузки справочников из API v.5. Яндекс Директ.
 ```
 library(ryandexdirect)
 myToken <- yadirGetToken()
@@ -1062,7 +1062,7 @@ Regions <- yadirGetDictionary(DictionaryName = "GeoRegions",
 ```
 Вместо <b>YourLogin</b> подставьте в виде строки ваш логин на Яндексе, данный запрос загрузит в R справочник регионов Яндекс Директ.
 
-# Пример работы с Logs API Яндекс Метрики.
+# пример работы с Logs API Яндекс Метрики.
 ```
 library(ryandexdirect)
 myToken <- yadirGetToken()
@@ -1074,7 +1074,7 @@ rawmetrikdata <- yadirGetLogsData(counter = "00000000",
                                   token = myToken)
 ```
 
-# Пример работы с API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)
+# пример работы с API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)
 ```
 library(ryandexdirect)
 myToken <- yadirGetToken()
@@ -1086,7 +1086,7 @@ metrikData6 <- yadirGetMetrikaGAData(start_date = "2017-08-01",
                                      token = myToken)
 ```
 
-## Как обратиться к API сервисов Яндекс.Директ и Яндекс.Метрика с помощью proxy сервера, необходимо в случае блокировки доступа к сервисам.
+## как обратиться к API сервисов Яндекс.Директ и Яндекс.Метрика с помощью proxy сервера, необходимо в случае блокировки доступа к сервисам.
 Для обхода блокировки API сервиса Яндекс.Директ, и Яндекс.Метрика необходимо сделать следующие действия:
 + Найти любой сервис генерирующий списки доступных прокси например [этот](https://hidemy.name/ru/proxy-list/)
 + Выбрать в фильтре тип прокси поддерживающий HTTPS.
@@ -1122,7 +1122,7 @@ My_report <- yadirGetReport(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
 Sys.unsetenv("https_proxy")           
 ```
 
-## Подборка статей с примерами работы с пакетом ryandexdirect.
+## подборка статей с примерами работы с пакетом ryandexdirect.
 + [Как получить и обработать сырые данные из Яндекс.Метрики](https://netpeak.net/ru/blog/kak-poluchit-i-obrabotat-syrye-dannye-iz-yandeks-metriki/)
 + [Как связать Яндекс.Директ с Microsoft Power BI](https://netpeak.net/ru/blog/kak-svyazat-yandeks-direkt-s-microsoft-power-bi/)
 + [Подключение Power BI к Yandex.Metrika](http://pm-partner.ru/articles/114/591/)
