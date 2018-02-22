@@ -1,5 +1,7 @@
 # ryandexdirect - пакет для работы с API Яндекс.Директ версии 4, Live 4 и 5, а так же с Logs API Яндекс метрики на языке R.
-<button>Кнопка с текстом</button>
+  <p style="text-align: center"><button>Кнопка с текстом</button>
+  <button><img src="images/umbrella.gif" alt="Зонтик" 
+          style="vertical-align: middle"> Кнопка с рисунком</button></p>
 ## Содержание
 + [Краткое описание](#краткое-описание)
 + [Установка пакета ryandexdirect](#установка-пакета-ryandexdirect)
