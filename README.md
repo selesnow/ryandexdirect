@@ -5,7 +5,7 @@
 + [Установка пакета ryandexdirect](#установка-пакета-ryandexdirect)
 + [Функции входящие в пакет ryandexdirect](https://selesnow.github.io/ryandexdirect/#функции-входящие-в-пакет-ryandexdirect)
     + [yadirGetToken](https://selesnow.github.io/ryandexdirect/#yadirgettoken) - Получение токена доступа
-    + [yadirGetClientList](https://selesnow.github.io/ryandexdirect/#yadirgetclientlisttoken--null) - Получение списка клиентов для агентского аккаунта
+    + [yadirGetClientList](#yadirgetclientlisttoken--null) - Получение списка клиентов для агентского аккаунта
     + [yadirGetClientParam](https://github.com/selesnow/ryandexdirect#yadirgetclientparamlanguage--ru-login--null-token--null) - Получение параметров аккаунта Яндекс Директ
     + [yadirGetCampaignList](https://selesnow.github.io/ryandexdirect/#yadirgetcampaignlistlogins--null-token--null) - Получения списка рекламных кампаний
     + [yadirGetAdGroups](https://selesnow.github.io/ryandexdirect/#yadirgetadgroupscampaignids--c123login--null-token--null) - Получения списка групп объявлений
