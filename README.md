@@ -70,7 +70,7 @@ my_ads <- yadirGetAds(CampaignIds = my_campaign$Id,
     </tr>
     <tr>
         <td>EmailNotification.Email</td><td>chr</td><td>Адрес электронной почты для отправки уведомлений, связанных с общим счетом.</td>
- </tr>
+
 </table>
 
 #### Пример кода для получения списка ключевых слов:
