@@ -7,7 +7,7 @@
     + [yadirGetToken](#yadirgettoken) - Получение токена доступа
     + [yadirGetClientList](#yadirgetclientlisttoken--null) - Получение списка клиентов для агентского аккаунта
     + [yadirGetClientParam](#yadirgetclientparamlanguage--ru-login--null-token--null) - Получение параметров аккаунта Яндекс Директ
-    + [yadirGetCampaignList](#yadirgetcampaignlistlogins--null-token--null) - Получения списка рекламных кампаний
+    + [yadirGetCampaignList](#yadirgetcampaignlistlogins--null-states--coffonsuspendedendedconvertedarchivedtypes--ctext_campaignmobile_app_campaigndynamic_text_campaign-statuses--caccepteddraftmoderationrejected-statusespayment--cdisallowedallowed-token--null) - Получения списка рекламных кампаний
     + [yadirGetAdGroups](#yadirgetadgroupscampaignids--c123login--null-token--null) - Получения списка групп объявлений
     + [yadirGetKeyWords](#yadirgetkeywordscampaignids--c123-withstats--t-login--null-token--null) - Получения списка ключевых слов
     + [yadirGetAds](#yadirgetadscampaignids--c123-login--null-token--null) - Получения списка объявлений
