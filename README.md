@@ -1,58 +1,5 @@
 #### Структура возвращаемого функцией `yadirGetAds` дата фрейма:
-<table>
-    <tr>
-        <td><center>Поле</center></td><td><center>Тип данных</center></td><td><center>Описание</center></td>
-    </tr>
-    <tr>
-        <td>Id</td><td>num</td><td>Идентификатор объявления.</td>
-    </tr>
-    <tr>
-        <td>AdGroupId</td><td>num</td><td>Идентификатор группы объявлений, к которой относится объявление.</td>
-    </tr>
-    <tr>
-        <td>CampaignId</td><td>int</td><td>Идентификатор кампании, к которой относится объявление.</td>
-    </tr>
-    <tr>
-        <td>Type</td><td>Factor</td><td>Тип объявления. См. <a href="https://tech.yandex.ru/direct/doc/dg/objects/ad-docpage/#types">Тип объявления.</a></td>
-    </tr>
-    <tr>
-        <td>Subtype</td><td>Factor</td><td>одтип объявления. Для объявлений с типом, отличным от IMAGE_AD, возвращается значение NONE.</td>
-    </tr>
-    <tr>
-        <td>Status</td><td>Factor</td><td>Статус объявления. Описание статусов см. в разделе <a href="https://tech.yandex.ru/direct/doc/dg/objects/ad-docpage/#status">Статус и состояние объявления.</a></td>
-    </tr>
-    <tr>
-        <td>AgeLabel</td><td>chr</td><td><a href="https://tech.yandex.ru/direct/doc/dg/objects/ad-docpage/#age">Возрастная метка.</a></td>
-    </tr>
-    <tr>
-        <td>State</td><td>int</td><td>Состояние объявления. Описание состояний см. в разделе <a href="https://tech.yandex.ru/direct/doc/dg/objects/ad-docpage/#status">Статус и состояние объявления.</a></td>
-    </tr>
-    <tr>
-        <td>TextAdTitle</td><td>Factor</td><td>Заголовок 1.
-Не более 35 символов без учета «узких» плюс не более 15 «узких» символов. Каждое слово не более 22 символов. В случае использования <a href="https://yandex.ru/support/direct/features/ad-templates.html">шаблона</a> символы # не учитываются в длине).</td>
-    </tr>
-    <tr>
-        <td>TextAdTitle2</td><td>chr</td><td>Заголовок 2.
-Не более 30 символов без учета «узких» плюс не более 15 «узких» символов. Каждое слово не более 22 символов. В случае использования <a href="https://yandex.ru/support/direct/features/ad-templates.html">шаблона</a> символы # не учитываются в длине).</td>
-    </tr>
-    <tr>
-        <td>TextAdText</td><td>Factor</td><td>Текст объявления.
-Не более 81 символа без учета «узких» плюс не более 15 «узких» символов. Каждое слово не более 23 символов. В случае использования <a href="https://yandex.ru/support/direct/features/ad-templates.html">шаблона</a> символы # не учитываются в длине).</td>
-    </tr>
-    <tr>
-        <td>TextAdHref</td><td>Factor</td><td>Ссылка на сайт рекламодателя.</td>
-    </tr>
-    <tr>
-        <td>TextAdDisplayDomain</td><td>Factor</td><td>Рекламируемый домен. Определяется автоматически на основе ссылки объявления.</td>
-    </tr>
-    <tr>
-    <td>TextAdMobile</td><td>Factor</td><td>Признак того, что объявление является мобильным: YES или NO.</td>
-    </tr>
-    <tr>
-    <td>TextImageAdHref</td><td>chr</td><td>Хэш изображения.
-Для текстово-графических объявлений подходят только изображения с типом REGULAR и WIDE.</td>
-    </tr>
-</table>
+
 
 #### Пример кода для получения списка ключевых слов:
 ```
