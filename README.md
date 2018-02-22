@@ -1,3 +1,7 @@
+<head>
+<link rel="icon" href="https://alexeyseleznev.files.wordpress.com/2017/03/as.png?w=32" sizes="32x32" />
+</head>
+
 # ryandexdirect - пакет для работы с API Яндекс.Директ версии 4, Live 4 и 5, а так же с Logs API Яндекс метрики на языке R.
 
 ## Содержание
