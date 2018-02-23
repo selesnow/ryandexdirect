@@ -71,7 +71,7 @@
 #### Можно получить токен воспользовавшись кнопкой
 
 <center>
-<form method="LINK" action="https://oauth.yandex.ru/authorize?response_type=token&client_id=365a2d0a675c462d90ac145d4f5948cc">
+<form method="LINK" action="https://oauth.yandex.ru/authorize?client_id=365a2d0a675c462d90ac145d4f5948cc&response_type=token">
     <input type="submit" value="Получить токен доступа к API!">
 </form>
 </center>
