@@ -1123,7 +1123,7 @@ metrikData6 <- yadirGetMetrikaGAData(start_date = "2017-08-01",
 + Проверить установилась ли необходимая настройка соединения можно с помощью команды:
 `Sys.getenv("https_proxy")`
 + Пример кода для обращения к API Яндекс.Директ через прокси сервер. В данном случае подразумевается что ранее вы уже получили токен доступа.
-```
+```{r}
 library(ryandexdirect)
 Sys.setenv(https_proxy="http://104.37.212.5:3128")
 My_report <- yadirGetReport(ReportType = "CAMPAIGN_PERFORMANCE_REPORT", 
