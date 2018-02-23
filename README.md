@@ -71,9 +71,7 @@
 #### Можно получить токен воспользовавшись кнопкой
 
 <center>
-<form method="LINK" action="https://oauth.yandex.ru/authorize?client_id=365a2d0a675c462d90ac145d4f5948cc&response_type=token">
-    <input type="submit" value="Получить токен доступа к API!">
-</form>
+<p class="buttond"  style="text-align:center;"><a href="https://oauth.yandex.ru/authorize?response_type=token&client_id=365a2d0a675c462d90ac145d4f5948cc" target="_self" style="cursor: pointer; font-size:14px;  text-decoration: none; padding:10px 20px; color:#383a3b; background-color:#bbc0c4; border-radius:5px; border: 3px solid #383a3b;">Получить токен доступа к API!</a></p>
 </center>
 
 Если у вас не отображается кнопка перейдите на страницу официльной документации ryandexdirect по [этой ссылке](https://selesnow.github.io/ryandexdirect/#yadirgettoken).
