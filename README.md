@@ -3,7 +3,7 @@
 </head>
 
 <p align="center">
-<img src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png?w=40" data-canonical-src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png?w=300" style="max-width:100%;">
+<img src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png?w=40" data-canonical-src="https://alexeyseleznev.wordpress.com/" style="max-width:100%;">
 </p>
 
 
