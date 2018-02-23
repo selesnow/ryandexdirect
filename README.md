@@ -2,6 +2,11 @@
 <link rel="shortcut icon" type="image/x-icon" href="as.ico">
 </head>
 
+<p align="center">
+<img src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png?w=40" data-canonical-src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png?w=300" style="max-width:100%;">
+</p>
+
+
 # ryandexdirect - пакет для работы с API Яндекс.Директ версии 4, Live 4 и 5, а так же с Logs API Яндекс метрики на языке R.
 
 ## Содержание
