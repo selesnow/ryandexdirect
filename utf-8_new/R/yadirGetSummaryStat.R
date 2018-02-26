@@ -1,4 +1,4 @@
-﻿yadirGetSummaryStat <-
+yadirGetSummaryStat <-
 function(campaignIDS = NULL, dateStart = Sys.Date()-10, dateEnd = Sys.Date(), currency = "USD", token = NULL){
   if(is.null(token)|is.null(campaignIDS)){
     warning("You must add argument campaignIDS and token! ");

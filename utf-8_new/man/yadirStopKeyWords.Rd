@@ -1,4 +1,4 @@
-﻿\name{yadirStopKeyWordss}
+\name{yadirStopKeyWordss}
 \alias{yadirStopKeyWordss}
 \title{Suspend impressions by KeyWords}
 \description{yadirStopKeyWordss suspend impressions by keywords in Yandex Direct account}

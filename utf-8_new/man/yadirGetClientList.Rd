@@ -1,4 +1,4 @@
-﻿\name{yadirGetClientList}
+\name{yadirGetClientList}
 \alias{yadirGetClientList}
 \title{Get client list with parameters and information}
 \description{yadirGetClientList function for agency account for get his clients list with all information}

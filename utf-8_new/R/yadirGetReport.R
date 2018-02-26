@@ -1,4 +1,4 @@
-﻿yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT", 
+yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT", 
                            DateRangeType = "LAST_MONTH", 
                            DateFrom = NULL, 
                            DateTo = NULL, 

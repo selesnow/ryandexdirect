@@ -1,4 +1,4 @@
-﻿\name{yadirGetSummaryStat}
+\name{yadirGetSummaryStat}
 \alias{yadirGetSummaryStat}
 \title{Get campaign statistic}
 \description{Get campaign statistic by day}

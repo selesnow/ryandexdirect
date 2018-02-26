@@ -1,4 +1,4 @@
-﻿yadirGetMetrikaGAData <- function
+yadirGetMetrikaGAData <- function
 
                       (start_date = "10daysAgo",
                        end_date = "today",

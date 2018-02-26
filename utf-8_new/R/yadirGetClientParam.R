@@ -1,4 +1,4 @@
-﻿yadirGetClientParam <- function(Language = "ru", login = NULL, token = NULL){
+yadirGetClientParam <- function(Language = "ru", login = NULL, token = NULL){
   #ГЏГ°Г®ГўГҐГ°ГЄГ  Г­Г Г«ГЁГ·ГЁГї Г«Г®ГЈГЁГ­Г  ГЁ ГІГ®ГЄГҐГ­Г 
   if(is.null(login)|is.null(token)) {
     stop("You must enter login and API token!")

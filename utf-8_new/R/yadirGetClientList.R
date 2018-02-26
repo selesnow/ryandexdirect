@@ -1,4 +1,4 @@
-﻿yadirGetClientList <-
+yadirGetClientList <-
 function(token = NULL){
   if(is.null(token)){
     warning("Get your api token by function yadirGetToken() and argument token in function yadirGetClientList!");

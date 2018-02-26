@@ -1,4 +1,4 @@
-﻿\name{yadirGetToken}
+\name{yadirGetToken}
 \alias{yadirGetToken}
 \title{get api yandex developer token}
 \description{this function open web browser for get api yandex direct token}

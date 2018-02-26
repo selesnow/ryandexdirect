@@ -1,4 +1,4 @@
-﻿\name{yadirGetDictionary}
+\name{yadirGetDictionary}
 \alias{yadirGetDictionary}
 \title{Get Dictionary from Yandex}
 \description{yadirGetDictionary get Dictionaties from Yandex Direct API v.5.}

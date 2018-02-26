@@ -1,4 +1,4 @@
-﻿yadirGetBalance <- function(Logins = NULL, Token = NULL){
+yadirGetBalance <- function(Logins = NULL, Token = NULL){
 
    if(is.null(Token)){
      stop("Token is a require argument!")

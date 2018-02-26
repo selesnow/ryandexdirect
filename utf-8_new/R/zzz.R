@@ -1,4 +1,4 @@
-﻿.onAttach <- function(lib, pkg,...){
+.onAttach <- function(lib, pkg,...){
   packageStartupMessage(ryandexdirectWelcomeMessage())
 }
 

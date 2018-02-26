@@ -1,4 +1,4 @@
-﻿\name{yadirStartKeyWords}
+\name{yadirStartKeyWords}
 \alias{yadirStartKeyWords}
 \title{Resume impressions by KeyWords}
 \description{yadirStartKeyWords resume impressions by keywords in Yandex Direct account}

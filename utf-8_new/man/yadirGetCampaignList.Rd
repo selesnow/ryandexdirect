@@ -1,4 +1,4 @@
-﻿\name{yadirGetCampaignList}
+\name{yadirGetCampaignList}
 \alias{yadirGetCampaignList}
 \title{Get campaign list from yandex direct account}
 \description{yadirGetCampaignList get campaings names and parameters}

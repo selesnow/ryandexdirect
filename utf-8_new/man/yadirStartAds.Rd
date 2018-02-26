@@ -1,4 +1,4 @@
-﻿\name{yadirStartAds}
+\name{yadirStartAds}
 \alias{yadirStartAds}
 \title{Resume impressions by Ads}
 \description{yadirStartAds resume impressions by ads}

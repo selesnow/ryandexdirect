@@ -1,4 +1,4 @@
-﻿\name{yadirGetClientParam}
+\name{yadirGetClientParam}
 \alias{yadirGetClientParam}
 \title{Get params list from yandex direct account}
 \description{yadirGetClientParam get clients parameters names and parameters}

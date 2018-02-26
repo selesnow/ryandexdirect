@@ -1,4 +1,4 @@
-﻿\name{yadirGetKeyWords}
+\name{yadirGetKeyWords}
 \alias{yadirGetKeyWords}
 \title{Get keywords list from yandex direct account}
 \description{yadirGetKeyWords get Р»СѓРЅС†С‰РєРІС‹ id and parameters from Yandex Direct account}

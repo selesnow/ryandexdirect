@@ -1,4 +1,4 @@
-﻿\name{yadirGetBalance}
+\name{yadirGetBalance}
 \alias{yadirGetBalance}
 \title{Get yandex direct balance}
 \description{yadirGetBalance get data frame with information about you account.}

@@ -1,4 +1,4 @@
-﻿\name{yadirStopCampaigns}
+\name{yadirStopCampaigns}
 \alias{yadirStopCampaigns}
 \title{Suspend impressions by Campaigns}
 \description{yadirStopCampaigns suspend impressions by campaings in Yandex Direct account}

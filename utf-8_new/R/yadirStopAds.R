@@ -1,4 +1,4 @@
-﻿yadirStopAds <-  function(Login = NULL, 
+yadirStopAds <-  function(Login = NULL, 
                           Ids   = NULL,
                           Token = NULL){
   

@@ -1,4 +1,4 @@
-﻿yadirStopCampaigns <-  function(Login = NULL, 
+yadirStopCampaigns <-  function(Login = NULL, 
                                 Ids   = NULL,
                                 Token = NULL){
     

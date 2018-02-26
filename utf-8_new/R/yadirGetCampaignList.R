@@ -1,4 +1,4 @@
-﻿yadirGetCampaignList <-
+yadirGetCampaignList <-
 function (Logins          = NULL, 
           States          = c("OFF","ON","SUSPENDED","ENDED","CONVERTED","ARCHIVED"),
           Types           = c("TEXT_CAMPAIGN","MOBILE_APP_CAMPAIGN","DYNAMIC_TEXT_CAMPAIGN"),

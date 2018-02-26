@@ -1,4 +1,4 @@
-﻿yadirStartAds <-  function(Login = NULL, 
+yadirStartAds <-  function(Login = NULL, 
                            Ids   = NULL,
                            Token = NULL){
   

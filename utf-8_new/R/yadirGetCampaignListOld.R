@@ -1,4 +1,4 @@
-﻿yadirGetCampaignListOld <-
+yadirGetCampaignListOld <-
 function (logins = NULL, token = NULL) {
   #Create result data frame
   #Г‘Г®Г§Г¤Г ВёГ¬ Г¤Г ГІГ  ГґГ°ГҐГ©Г¬

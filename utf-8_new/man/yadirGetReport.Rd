@@ -1,4 +1,4 @@
-﻿\name{yadirGetReport}
+\name{yadirGetReport}
 \alias{yadirGetReport}
 \title{Get report from yandex direct Report service}
 \description{yadirGetReport get data frame with Report data from Report Yandex Direct Service}

@@ -1,4 +1,4 @@
-﻿\name{yadirGetLogsData}
+\name{yadirGetLogsData}
 \alias{yadirGetLogsData}
 \title{yadirGetLogsData get raw data from Yandex Metrika LogsApi}
 \description{yadirGetLogsData get raw data from Yandex Metrika LogsApi}

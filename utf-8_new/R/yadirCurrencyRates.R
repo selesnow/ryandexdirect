@@ -1,4 +1,4 @@
-﻿yadirCurrencyRates <- 
+yadirCurrencyRates <- 
 function(login = NULL, token = NULL){
   if(is.null(login)|is.null(token)) {
     warning("You must enter login and API token!")

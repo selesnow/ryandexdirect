@@ -1,4 +1,4 @@
-﻿yadirGetAds <- function(CampaignIds = NULL, 
+yadirGetAds <- function(CampaignIds = NULL, 
                         AdGroupIds = NA, 
                         Ids = NA, 
                         States = c("OFF","ON","SUSPENDED","OFF_BY_MONITORING","ARCHIVED"), 

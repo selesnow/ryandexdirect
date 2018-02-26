@@ -1,4 +1,4 @@
-﻿\name{yadirCurrencyRates}
+\name{yadirCurrencyRates}
 \alias{yadirCurrencyRates}
 \title{Get campaign list from yandex direct account}
 \description{yadirCurrencyRates get currency rates from Yandex Direct}

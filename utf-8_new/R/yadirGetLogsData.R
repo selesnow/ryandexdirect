@@ -1,4 +1,4 @@
-﻿yadirGetLogsData <- 
+yadirGetLogsData <- 
 function(counter = NULL, date_from = Sys.Date() - 10, date_to = Sys.Date(), fields = NULL, source = "visits", token = NULL){
   fun_start <- Sys.time()
   #РћС‚РїСЂР°РІРёС‚СЊ Р·Р°РїСЂРѕСЃ

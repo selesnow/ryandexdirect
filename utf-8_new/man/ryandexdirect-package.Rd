@@ -1,4 +1,4 @@
-﻿\name{ryandexdirect-package}
+\name{ryandexdirect-package}
 \alias{ryandexdirect-package}
 \alias{ryandexdirect}
 \docType{package}

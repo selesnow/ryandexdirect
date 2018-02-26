@@ -1,4 +1,4 @@
-﻿\name{yadirStopAds}
+\name{yadirStopAds}
 \alias{yadirStopAds}
 \title{Suspend impressions by Ads}
 \description{yadirStopAds suspend impressions by ads}

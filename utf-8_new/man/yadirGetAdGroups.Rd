@@ -1,4 +1,4 @@
-﻿\name{yadirGetAdGroups}
+\name{yadirGetAdGroups}
 \alias{yadirGetAdGroups}
 \title{Get adgroups list from yandex direct account}
 \description{yadirGetCampaignList get adgroups id and parameters from Yandex Direct account}

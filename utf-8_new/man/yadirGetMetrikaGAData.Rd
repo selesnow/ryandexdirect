@@ -1,4 +1,4 @@
-﻿\name{yadirGetMetrikaGAData}
+\name{yadirGetMetrikaGAData}
 \alias{yadirGetMetrikaGAData}
 \title{Get data from Yandex Metrika API is compatible with the Google Analytics Core Reporting API (v3)}
 \description{Get data from Yandex Metrika API is compatible with the Google Analytics Core Reporting API (v3), more ditails go link https://tech.yandex.ru/metrika/doc/api2/ga/intro-docpage/}

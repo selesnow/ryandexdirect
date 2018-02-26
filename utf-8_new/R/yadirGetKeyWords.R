@@ -1,4 +1,4 @@
-﻿yadirGetKeyWords <- function(CampaignIds = "14163546", 
+yadirGetKeyWords <- function(CampaignIds = "14163546", 
                              AdGroupIds = NA, 
                              Ids = NA, 
                              States = c("OFF","ON","SUSPENDED"), 
