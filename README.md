@@ -3,7 +3,7 @@
 </head>
 
 <p align="center">
-<img src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png?w=40" data-canonical-src="https://selesnow.github.io/" style="max-width:100%;">
+<a href="https://selesnow.github.io/"><img src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png" height="80"></a>
 </p>
 
 
