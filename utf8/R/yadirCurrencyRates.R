@@ -12,7 +12,7 @@ function(login = NULL, token = NULL){
 }"
 
 answer <- POST("https://api.direct.yandex.com/json/v5/dictionaries", body = queryBody, add_headers(Authorization = paste0("Bearer ",token), 'Accept-Language' = "ru","Client-Login" = login[1]))
-#Обработка ответа
+#ГЋГЎГ°Г ГЎГ®ГІГЄГ  Г®ГІГўГҐГІГ 
 stop_for_status(answer)
 dataRaw <- content(answer, "parsed", "application/json")
 

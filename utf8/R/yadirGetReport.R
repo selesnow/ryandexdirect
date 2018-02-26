@@ -47,6 +47,8 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
   result <- data.frame()
  
   for(login in Login){
+    parsing_time <- 0
+    server_time <- 0
     #Выодим сообщение о том какой проект в работе
     packageStartupMessage("-----------------------------------------------------------")
     packageStartupMessage(paste0("Загрузка данных по ",login))
@@ -110,6 +112,10 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
       #Сообщаем о том сколько времени длился парсинг результата
       parsing_time <- round(difftime(Sys.time(), pasr_start_time , units ="secs"),0)
       packageStartupMessage(paste0("Время парсинга результата: ", parsing_time, " сек."), appendLF = T)
+      #Задаём названия полей
+      #names(df_new) <- names_col
+      #Убираем строку итогов
+      #df_new <- df_new[-nrow(df_new),]
       
       #Информация о количестве баллов.
       packageStartupMessage(paste0("Уникальный идентификатор запроса который необходимо указывать при обращении в службу поддержки: ",answer$headers$requestid), appendLF = T)

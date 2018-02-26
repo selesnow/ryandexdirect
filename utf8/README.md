@@ -1,33 +1,47 @@
+<head>
+<link rel="shortcut icon" type="image/x-icon" href="as.ico">
+</head>
+
+<p align="center">
+<img src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png?w=40" data-canonical-src="https://alexeyseleznev.wordpress.com/" style="max-width:100%;">
+</p>
+
+
 # ryandexdirect - пакет для работы с API Яндекс.Директ версии 4, Live 4 и 5, а так же с Logs API Яндекс метрики на языке R.
 
 ## Содержание
-+ [Краткое описание](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Краткое-описание)
-+ [Установка пакета ryandexdirect](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Установка-пакета-ryandexdirect)
-+ [Функции входящие в пакет ryandexdirect](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Функции-входящие-в-пакет-ryandexdirect)
-+ [yadirGetToken](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgettoken) - Получение токена доступа
-+ [yadirGetClientList](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetclientlisttoken--null) - Получение списка клиентов для агентского аккаунта
-+ [yadirGetClientParam](https://github.com/selesnow/ryandexdirect#yadirgetclientparamlanguage--ru-login--null-token--null) - Получение параметров аккаунта Яндекс Директ
-+ [yadirGetCampaignList](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetcampaignlistlogins--null-token--null) - Получения списка рекламных кампаний
-+ [yadirGetAdGroups](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetadgroupscampaignids--c123login--null-token--null) - Получения списка групп объявлений
-+ [yadirGetKeyWords](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetkeywordscampaignids--c123-withstats--t-login--null-token--null) - Получения списка ключевых слов
-+ [yadirGetAds](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetadscampaignids--c123-login--null-token--null) - Получения списка объявлений
-+ [yadirGetBalance]() - Получить остаток средств общего счёта и его различные параметры.
-+ [yadirGetReport](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null-fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no-login--null-token--null) - Получение статистики из Report сервиса API v.5.
-+ [yadirGetDictionary](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetdictionarydictionaryname--georegions-language--ru-login--null-token--null) - Получение справочной информации из API v.5.
-+ [yadirGetCampaignListOld](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetcampaignlistoldlogins--null-token--null) - Получения списка рекламных кампаний (Устаревшая функция из API v.4.)
-+ [yadirGetSummaryStat](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetsummarystatcampaignids--null-datestart--sysdate---10-dateend--sysdate-currency--usd-token--null) - Получение общей статистики по рекламным кампаниям
-+ [yadirCurrencyRates](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadircurrencyrateslogin--null-token--null) - Получения текущих курсов валют (С 28.03.2017 справочник валют так же можно получить с помощью функции yadirGetDictionary)
-+ [yadirGetLogsData](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetlogsdatacounter--null-date_from--sysdate---10-date_to--sysdate-fields--null-source--visits-token--null) - Получение данных из Logs API Яндекс Метрики
-+ [yadirGetMetrikaGAData](https://github.com/selesnow/ryandexdirect/blob/master/README.md#yadirgetmetrikagadatastart_date--10daysago-end_date--today-counter_ids--null-dimensions--null-metrics--null-filters--null-sort--null-samplinglevel--higher_precision-token--null) - Получение данных из API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)
-+ [Пример работы с пакетом ryandexdirect](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Пример-работы-с-пакетом-ryandexdirect)
-+ [Пример работы с функцией yadirGetReport](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Пример-работы-с-функцией-yadirgetreport-и-загрузки-данных-из-сервиса-reports) - Загрузка данных из сервиса Reports
-+ [Пример работы с функцией yadirGetDictionary](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Пример-работы-с-функцией-yadirgetdictionary-для-загрузки-справочников-из-api-v5-Яндекс-Директ) - загрузки справочников из API v.5. Яндекс Директ
-+ [Пример работы с Logs API Яндекс Метрики](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Пример-работы-с-logs-api-Яндекс-Метрики) - Загрузка сырых данных из Яндекс Метрики
-+ [Пример работы с API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Пример-работы-с-api-Яндекс-Метрики-совместимым-с-google-analytics-core-reporting-api-v3)
-+ [Как обратится к API сервисов Яндекс.Директ и Яндекс.Метрика через прокси сервер](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Как-обратиться-к-api-сервисов-ЯндексДирект-и-ЯндексМетрика-с-помощью-proxy-сервера-необходимо-в-случае-блокировки-доступа-к-сервисам).
-+ [Подборка статей с примерами работы с пакетом ryandexdirect](https://github.com/selesnow/ryandexdirect/blob/master/README.md#Подборка-статей-с-примерами-работы-с-пакетом-ryandexdirect)
++ [Краткое описание](#краткое-описание)
++ [Установка пакета ryandexdirect](#установка-пакета-ryandexdirect)
++ [Функции входящие в пакет ryandexdirect](#функции-входящие-в-пакет-ryandexdirect)
+    + [yadirGetToken](#yadirgettoken) - Получение токена доступа
+    + [yadirGetClientList](#yadirgetclientlisttoken--null) - Получение списка клиентов для агентского аккаунта
+    + [yadirGetClientParam](#yadirgetclientparamlanguage--ru-login--null-token--null) - Получение параметров аккаунта Яндекс Директ
+    + [yadirGetCampaignList](#yadirgetcampaignlistlogins--null-states--coffonsuspendedendedconvertedarchivedtypes--ctext_campaignmobile_app_campaigndynamic_text_campaign-statuses--caccepteddraftmoderationrejected-statusespayment--cdisallowedallowed-token--null) - Получения списка рекламных кампаний
+    + [yadirGetAdGroups](#yadirgetadgroupscampaignids--c123login--null-token--null) - Получения списка групп объявлений
+    + [yadirGetKeyWords](#yadirgetkeywordscampaignids--c123-withstats--t-login--null-token--null) - Получения списка ключевых слов
+    + [yadirGetAds](#yadirgetadscampaignids--c123-login--null-token--null) - Получения списка объявлений
+    + [yadirGetBalance](#yadirgetbalancelogins--null-token--null) - Получить остаток средств общего счёта и его различные параметры.
+    + [yadirGetReport](#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null----fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no----------login--null-token--null) - Получение статистики из Report сервиса API v.5.
+    + [yadirGetDictionary](#yadirgetdictionarydictionaryname--georegions-language--ru-login--null-token--null) - Получение справочной информации из API v.5.
+    + [yadirStartAds](#yadirstartadslogin--null-ids--null-token--null) - Возобновить показы по объявлениям.
+    + [yadirStopAds](#yadirstopadslogin--null-ids--null-token--null) - Остановить показы по объявлениям.
+    + [yadirStartCampaigns](#yadirstartcampaignslogin--null-ids--null-token--null) - Возобновить показы по рекламным кампаниям
+    + [yadirStopCampaigns](#yadirstopcampaignslogin--null-ids--null-token--null) - Остановить показы по рекламным кампаниям
+    + [yadirStartKeyWords](#yadirstartkeywordslogin--null-ids--null-token--null) - Возобновить показы по ключевым словам
+    + [yadirStopKeyWords](#yadirstopkeywordslogin--null-ids--null-token--null) - Остановить показы по ключевым словам
+    + [yadirGetSummaryStat](#yadirgetsummarystatcampaignids--null-datestart--sysdate---10-dateend--sysdate-currency--usd-token--null) - Получение общей статистики по рекламным кампаниям
+    + [yadirCurrencyRates](#yadircurrencyrateslogin--null-token--null) - Получения текущих курсов валют (С 28.03.2017 справочник валют так же можно получить с помощью функции yadirGetDictionary)
+    + [yadirGetLogsData](#yadirgetlogsdatacounter--null-date_from--sysdate---10-date_to--sysdate-fields--null-source--visits-token--null) - Получение данных из Logs API Яндекс Метрики
+    + [yadirGetMetrikaGAData](#yadirgetmetrikagadatastart_date--10daysago-end_date--today-counter_ids--null-dimensions--null-metrics--null-filters--null-sort--null-samplinglevel--higher_precision-token--null) - Получение данных из API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)
++ [Пример работы с пакетом ryandexdirect](#пример-работы-с-пакетом-ryandexdirect)
++ [Пример работы с функцией yadirGetReport](#пример-работы-с-функцией-yadirgetreport-и-загрузки-данных-из-сервиса-reports) - Загрузка данных из сервиса Reports
++ [Пример работы с функцией yadirGetDictionary](#пример-работы-с-функцией-yadirgetdictionary-для-загрузки-справочников-из-api-v5-Яндекс-Директ) - загрузки справочников из API v.5. Яндекс Директ
++ [Пример работы с Logs API Яндекс Метрики](#пример-работы-с-logs-api-Яндекс-Метрики) - Загрузка сырых данных из Яндекс Метрики
++ [Пример работы с API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)](#пример-работы-с-api-Яндекс-Метрики-совместимым-с-google-analytics-core-reporting-api-v3)
++ [Как обратится к API сервисов Яндекс.Директ и Яндекс.Метрика через прокси сервер](#как-обратиться-к-api-сервисов-ЯндексДирект-и-ЯндексМетрика-с-помощью-proxy-сервера-необходимо-в-случае-блокировки-доступа-к-сервисам).
++ [Подборка статей с примерами работы с пакетом ryandexdirect](#подборка-статей-с-примерами-работы-с-пакетом-ryandexdirect)
 
-## Краткое описание.
+## краткое описание.
 
 Пакет ryandexdirect предназначен для загрузки данных из Яндекс Директ и Яндекс Метрики в R, с помощью функций данного пакета вы можете работать с перечисленными ниже сервисами и службами API Яндекса с помощью готовых функций, не углубляясь при этом в документацию по работе с этими API сервисами.
 
@@ -36,7 +50,7 @@
 + [API Директа версии 4 и Live 4](https://tech.yandex.ru/direct/doc/dg-v4/concepts/About-docpage/) - Через API внешние приложения добавляют и редактируют кампании, объявления, фразы, задают ставки, получают статистику показов.
 + [API Директа версии 5](https://tech.yandex.ru/direct/doc/dg/concepts/about-docpage/) - Через API внешние приложения добавляют и редактируют кампании, объявления, фразы, задают ставки, получают статистику показов.
 
-## Установка пакета ryandexdirect.
+## установка пакета ryandexdirect.
 
 Установка пакета осуществляется из репозитория GitHub, для этого сначала требуется установить и подключить пакет devtools.
 
@@ -45,16 +59,27 @@
 `library(devtools)`
 
 После чего можно устанавливать пакет ryandexdirect.
-
+### установка на Windows осуществляется с помощью следующей команды
 `install_github('selesnow/ryandexdirect')`
 
+### установка на iOS, Linux, Ubuntu осуществляется с помощью следующей команды
+`install_github('selesnow/ryandexdirect', subdir = "utf8")`
 
-## Функции входящие в пакет ryandexdirect.
+## функции входящие в пакет ryandexdirect.
 
-На данный момент в версию пакета 2.2.0 входит 13 функции:
+На данный момент в версию пакета 2.4.4 входит 13 функции:
 
 ### `yadirGetToken()`
 Функция для получения токена для доступа к API Яндекс.Директ, полученый токен используется во всех остальных функциях.
+После запуска функции откроется окна браузера, перед запуском функции необходимо авторизироваться в яндексе под логином через который есть доступ к аккаунтту Яндекс.Директ.
+
+#### Можно получить токен воспользовавшись кнопкой
+
+<center>
+<p class="buttond"  style="text-align:center;"><a href="https://oauth.yandex.ru/authorize?response_type=token&client_id=365a2d0a675c462d90ac145d4f5948cc" target="_self" style="cursor: pointer; font-size:14px;  text-decoration: none; padding:10px 20px; color:#383a3b; background-color:#bbc0c4; border-radius:5px; border: 3px solid #383a3b;">Получить токен доступа к API!</a></p>
+</center>
+
+Если у вас не отображается кнопка перейдите на страницу официльной документации ryandexdirect по [этой ссылке](https://selesnow.github.io/ryandexdirect/#yadirgettoken).
 
 ### `yadirGetClientList(token = NULL)`
 Данная функция возвращает дата фрейм со списком всех клиентов доступных в агентском аккаунте которому был выдан токен для доступа к API, используется только при работе с агентскими аккаунтами.
@@ -126,22 +151,44 @@
     </tr>
      <tr>
          <td>AccountQuality</td><td>num</td><td>Показатель качества аккаунта.</td>
-         <tr>
+
+   </tr>
+    <tr>
          <td>CampaignsTotalPerClient</td><td>int</td><td>Максимальное количество кампаний у рекламодателя.</td>
+
+   </tr>
     <tr>
          <td> CampaignsUnarchivePerClient</td><td>int</td><td>максимальное количество кампаний, не находящихся в архиве.</td>
     </tr>
     <tr>
          <td>APIPoints</td><td>int</td><td>Суточный лимит баллов API.</td>
+    </tr>
 </table>
 
-### `yadirGetCampaignList(logins = NULL, token = NULL)`
+### `yadirGetCampaignList(Logins = NULL, States = c("OFF","ON","SUSPENDED","ENDED","CONVERTED","ARCHIVED"),Types = c("TEXT_CAMPAIGN","MOBILE_APP_CAMPAIGN","DYNAMIC_TEXT_CAMPAIGN"), Statuses = c("ACCEPTED","DRAFT","MODERATION","REJECTED"), StatusesPayment = c("DISALLOWED","ALLOWED"), Token = NULL)`
+          
 Функция возвращает дата фрейм со списком рекламных кампаний и некоторых их параметров по логину.
 
 #### Аргументы:
-<b>login</b> - Логин на Яндексе
+<b>Login</b> - Вектор с логинами на Яндексе
 
-<b>token</b> - Токен дотупа к API
+<b>States</b> - На вход принимает текстовый вектор, используется для для фильтрации кампаний в указанных состояниях. Описание состояний см. в разделе [Статус и состояние кампании.](https://tech.yandex.ru/direct/doc/dg/objects/campaign-docpage/#status), допустимые значения ( "ARCHIVED" | "CONVERTED" | "ENDED" | "OFF" | "ON" | "SUSPENDED" ), пример использования (c("ON","SUSPENDED","CONVERTED"))
++ Допустимые значения: ARCHIVED, CONVERTED, ENDED, OFF, ONSUSPENDED
++ Пример использования: States = c("ON","SUSPENDED","CONVERTED")
+        
+<b>Types</b> - На вход принимает текстовый вектор, используется для фильтрации кампаний по типам, См.  [Тип кампании](https://tech.yandex.ru/direct/doc/dg/objects/campaign-docpage/#type).
++ Допустимые значения: TEXT_CAMPAIGN, MOBILE_APP_CAMPAIGN, DYNAMIC_TEXT_CAMPAIGN
++ Пример использования: Types = c("TEXT_CAMPAIGN", "DYNAMIC_TEXT_CAMPAIGN")
+        
+<b>Statuses</b> - На вход принимает текстовый вектор, используется для фильтрации кампаний по указанными статусами. Описание статусов см. в разделе [Статус и состояние кампании](https://tech.yandex.ru/direct/doc/dg/objects/campaign-docpage/#status).*
++ Допустимые значения: ACCEPTED, DRAFT, MODERATION, REJECTED
++ Пример использования: Statuses = c("DRAFT", "REJECTED")
+        
+<b>StatusesPayment</b> - На вход принимает текстовый вектор, используется для фильтрации кампаний по указанным статусам оплаты. Описание статусов см. в разделе [Статус и состояние кампании.](https://tech.yandex.ru/direct/doc/dg/objects/campaign-docpage/#status).*
++ Допустимые значения: DISALLOWED, ALLOWED
++ Пример использования: Statuses = c("DISALLOWED", "ALLOWED")
+        
+<b>Token</b> - Токен дотупа к API
 
 #### Структура возвращаемого функцией `yadirGetCampaignList` дата фрейма:
 <table>
@@ -259,6 +306,7 @@ WI_FI_AND_CELLULAR — по мобильной связи и Wi-Fi.</td>
     <td>MobileAppAdGroupTargetOperatingSystemVersion</td><td>chr</td><td>Минимальная версия операционной системы, на которой может быть показано объявление. Например, 2.3.
 Примечание. Если минимальная версия ОС в магазине приложений выше, чем заданная в параметре, то объявления будут показаны только для версий ОС как в магазине приложений или выше.</td>
     </tr>
+    <tr>
     <td>MobileAppAdGroupAppIconModerationStatus</td><td>chr</td><td>Результат модерации иконки мобильного приложения:
  ACCEPTED — принята модерацией;
  MODERATION — находится на модерации;
@@ -377,6 +425,12 @@ my_adgroups <- yadirGetAdGroups(CampaignIds = my_campaign$Id,
         <td>UserParam2</td><td>Factor</td><td>Значение <a href="https://tech.yandex.ru/direct/doc/dg/objects/keyword-docpage/#userparams">подстановочной переменной</a> {param2}. Не более 255 символов.</td>
     </tr>
     <tr>
+    <td>ProductivityValue</td><td>num</td><td>Значение продуктивности фразы (до 1 знака после запятой).</td>
+    </tr>
+    <tr>
+    <td>ProductivityReferences</td><td>Factor</td><td>Массив номеров рекомендаций для данной фразы. Справочник рекомендаций можно получить с помощью функции yadirGetDictionary, указав в качестве параметра DictionaryName "ProductivityAssertions".</td>
+    </tr>
+    <tr>
     <td>Bid</td><td>num</td><td>Ставка на поиске.</td>
     </tr>
     <tr>
@@ -489,7 +543,7 @@ my_ads <- yadirGetAds(CampaignIds = my_campaign$Id,
 
 <b>Token</b> - Токен дотупа к API
 
-#### Структура возвращаемого функцией `yadirGetAds` дата фрейма:
+#### Структура возвращаемого функцией `yadirGetBalance` дата фрейма:
 <table>
     <tr>
         <td><center>Поле</center></td><td><center>Тип данных</center></td><td><center>Описание</center></td>
@@ -501,10 +555,10 @@ my_ads <- yadirGetAds(CampaignIds = my_campaign$Id,
         <td>AccountID</td><td>int</td><td>Идентификатор общего счета.</td>
     </tr>
     <tr>
-        <td>Discount/td><td>int</td><td>Текущая скидка рекламодателя (в процентах). В настоящее время не применяется.</td>
+        <td>Discount</td><td>int</td><td>Текущая скидка рекламодателя (в процентах). В настоящее время не применяется.</td>
     </tr>
     <tr>
-        <td>Login</td><td>chr</td><td>Логин рекламодателя — владельца общего счета.</a></td>
+        <td>Login</td><td>chr</td><td>Логин рекламодателя — владельца общего счета.</td>
     </tr>
     <tr>
         <td>AmountAvailableForTransfer</td><td>chr</td><td>Сумма, доступная для перевода с помощью операции TransferMoney (в валюте, указанной в параметре Currency).</td>
@@ -522,7 +576,7 @@ my_ads <- yadirGetAds(CampaignIds = my_campaign$Id,
         <td>SmsNotification.SmsTimeTo</td><td>chr</td><td>Время, до которого разрешено отправлять SMS о событиях, связанных с общим счетом. Указывается в формате HH:MM, минуты задают кратно 15 (0, 15, 30, 45).</td>
     </tr>
     <tr>
-        <td>SmsNotification.SmsTimeFrom/td><td>chr</td><td>Время, начиная с которого разрешено отправлять SMS о событиях, связанных с общим счетом. Указывается в формате HH:MM, минуты задают кратно 15 (0, 15, 30, 45).</td>
+        <td>SmsNotification.SmsTimeFrom</td><td>chr</td><td>Время, начиная с которого разрешено отправлять SMS о событиях, связанных с общим счетом. Указывается в формате HH:MM, минуты задают кратно 15 (0, 15, 30, 45).</td>
     </tr>
     <tr>
         <td>SmsNotification.MoneyOutSms</td><td>chr</td><td>Сообщать об исчерпании средств на общем счете — Yes/No.</td>
@@ -535,8 +589,7 @@ my_ads <- yadirGetAds(CampaignIds = my_campaign$Id,
     </tr>
     <tr>
         <td>EmailNotification.Email</td><td>chr</td><td>Адрес электронной почты для отправки уведомлений, связанных с общим счетом.</td>
-    </tr>
-    <tr>
+ </tr>
 </table>
 
 #### Пример кода для получения списка ключевых слов:
@@ -673,8 +726,149 @@ my_clients_balance <- yadirGetBalance(Logins = my_client$Login,  Token = "abcdef
 
 <b>token</b> - Строковое значение, ваш API token.
 
-### `yadirGetCampaignListOld(logins = NULL, token = NULL)`
-Устаревшая функцая для получения списка рекламных кампаний, список функций запрашивался с помощью метода GetCampaignList из версии API 4, с августе 2016 года этот метод стал недоступен, для того что бы получить список кампаний используйте новую  функцию`yadirGetCampaignList(logins = NULL, token = NULL)`.
+### `yadirStartAds(Login = NULL, Ids   = NULL, Token = NULL)`
+Функция возобновляет показ по объявлениям и возвращает вектор с Id объявлений, по котором не удалось возобновить показы.
+
+#### Аргументы
+<b>Ids</b> - Числовой или текстовый вектор, содержащий Id объявлений по которым необходимо возобновить показ объявлений.
+
+<b>Login</b> - Строковое значение, ваш логин на Яндексе.
+
+<b>Token</b> - Строковое значение, ваш API token.
+
+#### Пример кода для возобновления показа объявлений
+```
+#Получаем токен
+tok <- yadirGetToken()
+
+#Получаем список рекламных кампаний
+my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+
+#Получаем список остановленных и выключенных объявлений
+my_ads <- yadirGetAds(Login = "Логин", Token = tok, States = c("SUSPENDED","OFF"))
+
+#Возобнолвям показы объявлений
+err <- yadirStartAds(Login = "Логин", Token =  tok, Ids = my_ads$Id) 
+```
+
+### `yadirStopAds(Login = NULL, Ids   = NULL, Token = NULL)`
+Функция останавливает показ по объявлениям и возвращает вектор с Id объявлений, по котором не удалось возобновить показы.
+
+#### Аргументы
+<b>Ids</b> - Числовой или текстовый вектор, содержащий Id объявлений по которым необходимо остановить показ.
+
+<b>Login</b> - Строковое значение, ваш логин на Яндексе.
+
+<b>Token</b> - Строковое значение, ваш API token.
+
+#### Пример кода для остановки показа объявлений
+```
+#Получаем токен
+tok <- yadirGetToken()
+
+#Получаем список рекламных кампаний
+my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+
+#Получаем список остановленных и выключенных объявлений
+my_ads <- yadirGetAds(Login = "Логин", Token = tok, States = "ON")
+
+#Останавливаем показы объявлений
+err <- yadirStopAds(Login = "Логин", Token =  tok, Ids = my_ads$Id) 
+```
+
+### `yadirStartCampaigns(Login = NULL, Ids   = NULL, Token = NULL)`
+Функция возобновляет показ по объявлениям по рекламным кампаниям и возвращает вектор с Id рекламных кампаний, по котором не удалось возобновить показы.
+
+#### Аргументы
+<b>Ids</b> - Числовой или текстовый вектор, содержащий Id рекламных кампаний по которым необходимо возобновить показ объявлений.
+
+<b>Login</b> - Строковое значение, ваш логин на Яндексе.
+
+<b>Token</b> - Строковое значение, ваш API token.
+
+#### Пример кода для возобновления показа объявлений по рекламым кампаниям
+```
+#Получаем токен
+tok <- yadirGetToken()
+
+#Получаем список рекламных кампаний
+my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+
+#Возобнолвям показы объявлений
+err <- yadirStartCampaigns(Login = "LOGIN", Token =  tok, Ids = my_camp$Id) 
+```
+
+### `yadirStopCampaigns(Login = NULL, Ids   = NULL, Token = NULL)`
+Функция останавливает показ по объявлениям по рекламным кампаниям и возвращает вектор с Id рекламных кампаний, по котором не удалось возобновить показы.
+
+#### Аргументы
+<b>Ids</b> - Числовой или текстовый вектор, содержащий Id рекламных кампаний по которым необходимо остановить показ объявлений.
+
+<b>Login</b> - Строковое значение, ваш логин на Яндексе.
+
+<b>Token</b> - Строковое значение, ваш API token.
+
+#### Пример кода для остановки показа объявлений по рекламным кампаниям
+```
+#Получаем токен
+tok <- yadirGetToken()
+
+#Получаем список рекламных кампаний
+my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+
+#Останавливаем показы объявлений
+err <- yadirStopCampaigns(Login = "LOGIN", Token =  tok, Ids = my_camp$Id) 
+```
+
+### `yadirStartKeyWords(Login = NULL, Ids   = NULL, Token = NULL)`
+Функция возобновляет показ объявлений по ключевым словам и возвращает вектор с Id ключевых слов, по котором не удалось возобновить показы.
+
+#### Аргументы
+<b>Ids</b> - Числовой или текстовый вектор, содержащий Id ключевых словй по которым необходимо возобновить показ объявлений.
+
+<b>Login</b> - Строковое значение, ваш логин на Яндексе.
+
+<b>Token</b> - Строковое значение, ваш API token.
+
+#### Пример кода для возобновления показа объявлений по ключевым словам
+```
+#Получаем токен
+tok <- yadirGetToken()
+
+#Получаем список рекламных кампаний
+my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+
+#Получаем список ключевых слов
+my_kw <- yadirGetKeyWords(Login = "Логин", Token = tok,CampaignIds = my_camp$Id[1:10])
+
+#Возобнолвям показы объявлений
+err <- yadirStartCampaigns(Login = "Логин", Token =  tok, Ids = my_kw$Id) 
+```
+
+### `yadirStopKeyWords(Login = NULL, Ids   = NULL, Token = NULL)`
+Функция останавливает показ объявлениям по ключевым словам и возвращает вектор с Id ключевых слов, по котором не удалось возобновить показы.
+
+#### Аргументы
+<b>Ids</b> - Числовой или текстовый вектор, содержащий Id ключевых слов по которым необходимо остановить показ объявлений.
+
+<b>Login</b> - Строковое значение, ваш логин на Яндексе.
+
+<b>Token</b> - Строковое значение, ваш API token.
+
+#### Пример кода для остановки показа объявлений по ключевым словам
+```
+#Получаем токен
+tok <- yadirGetToken()
+
+#Получаем список рекламных кампаний
+my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+
+#Получаем список ключевых слов
+my_kw <- yadirGetKeyWords(Login = "Логин", Token = tok,CampaignIds = my_camp$Id[1:10])
+
+#Останавливаем показы объявлений
+err <- yadirStopKeyWords(Login = "Логин", Token =  tok, Ids = my_kw$Id) 
+```
 
 ### `yadirGetSummaryStat(campaignIDS = NULL, dateStart = Sys.Date() - 10, dateEnd = Sys.Date(), currency = "USD", token = NULL)`
 Функция возвращает дата фрейм с общей статистикой в разрезе рекламных кампаний и дат.
@@ -731,7 +925,7 @@ my_clients_balance <- yadirGetBalance(Logins = my_client$Login,  Token = "abcdef
 ### `yadirCurrencyRates(login = NULL, token = NULL)`
 Функция возвращает дата фрейм с актуальными курсами валют в Яндекс.Директ.
 
-#### Структура возвращаемого функцией `yadirGetSummaryStat` дата фрейма:
+#### Структура возвращаемого функцией `yadirCurrencyRates` дата фрейма:
 <table>
     <tr>
         <td><center>Поле</center></td><td><center>Тип данных</center></td><td><center>Описание</center></td>
@@ -843,7 +1037,7 @@ stat <- yadirGetSummaryStat(campaignIDS = campaignList$Id,
                             currency = "USD",
                             token = myToken)
 ```
-# Пример работы с функцией yadirGetReport и загрузки данных из сервиса Reports.
+# пример работы с функцией yadirGetReport и загрузки данных из сервиса Reports.
 ```
 library(ryandexdirect)
 myToken <- yadirGetToken()
@@ -875,7 +1069,7 @@ stat        <- yadirGetReport(ReportType = "ACCOUNT_PERFORMANCE_REPORT",
                               Token = myToken)
 ```
 
-# Пример работы с функцией yadirGetDictionary для загрузки справочников из API v.5. Яндекс Директ.
+# пример работы с функцией yadirGetDictionary для загрузки справочников из API v.5. Яндекс Директ.
 ```
 library(ryandexdirect)
 myToken <- yadirGetToken()
@@ -886,7 +1080,7 @@ Regions <- yadirGetDictionary(DictionaryName = "GeoRegions",
 ```
 Вместо <b>YourLogin</b> подставьте в виде строки ваш логин на Яндексе, данный запрос загрузит в R справочник регионов Яндекс Директ.
 
-# Пример работы с Logs API Яндекс Метрики.
+# пример работы с Logs API Яндекс Метрики.
 ```
 library(ryandexdirect)
 myToken <- yadirGetToken()
@@ -898,8 +1092,8 @@ rawmetrikdata <- yadirGetLogsData(counter = "00000000",
                                   token = myToken)
 ```
 
-# Пример работы с API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)
-```
+# пример работы с API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)
+```{r}
 library(ryandexdirect)
 myToken <- yadirGetToken()
 metrikData6 <- yadirGetMetrikaGAData(start_date = "2017-08-01",
@@ -910,29 +1104,30 @@ metrikData6 <- yadirGetMetrikaGAData(start_date = "2017-08-01",
                                      token = myToken)
 ```
 
-## Как обратиться к API сервисов Яндекс.Директ и Яндекс.Метрика с помощью proxy сервера, необходимо в случае блокировки доступа к сервисам.
+## как обратиться к API сервисов Яндекс.Директ и Яндекс.Метрика с помощью proxy сервера, необходимо в случае блокировки доступа к сервисам.
 Для обхода блокировки API сервиса Яндекс.Директ, и Яндекс.Метрика необходимо сделать следующие действия:
-+ Найти любой сервис генерирующий списки доступных прокси например [этот](https://hidemy.name/ru/proxy-list/)
-+ Выбрать в фильтре тип прокси поддерживающий HTTPS.
-+ Сформировать список доступных прокси серверов.
+* Найти любой сервис генерирующий списки доступных прокси например [этот](https://hidemy.name/ru/proxy-list/)
+* Выбрать в фильтре тип прокси поддерживающий HTTPS.
+* Сформировать список доступных прокси серверов.
 <p align="center">
 <img src="http://img.netpeak.ua/alsey/149573200371_kiss_26kb.png" data-canonical-src="http://img.netpeak.ua/alsey/149573200371_kiss_26kb.png" style="max-width:100%;">
 </p>
-+ Далее нам понадобятся только IP адрес и порт прокси сервера (я обычно использую сервера с портом  3128):
+* Далее нам понадобятся только IP адрес и порт прокси сервера (я обычно использую сервера с портом  3128):
 <p align="center">
 <img src="http://img.netpeak.ua/alsey/149573210236_kiss_41kb.png" data-canonical-src="http://img.netpeak.ua/alsey/149573210236_kiss_41kb.png" style="max-width:100%;">
 </p>
-+ В данном случае в качестве примера возьмём американский сервер который находится в третей строке списка IP 104.37.212.5 порт 3128, далее в код R перед функцией обращения к API необходимо направить интернет соединение через прокси сервер добавив в код строку
+* В данном случае в качестве примера возьмём американский сервер который находится в третей строке списка IP 104.37.212.5 порт 3128, далее в код R перед функцией обращения к API необходимо направить интернет соединение через прокси сервер добавив в код строку
 `Sys.setenv(https_proxy="http://104.37.212.5:3128")`
-+ После пишем обычный код обращения к API.
-+ После чего добавляем строку для отклчения интернет соединения от прокси сервера с помощью строки.
+* После пишем обычный код обращения к API.
+* После чего добавляем строку для отклчения интернет соединения от прокси сервера с помощью строки.
 `Sys.unsetenv("https_proxy")`
-+ В случае если прокси сервер требует прохождения аутентификации вы можете указать имя пользователя и пароль:
+* В случае если прокси сервер требует прохождения аутентификации вы можете указать имя пользователя и пароль:
 `Sys.setenv(https_proxy="http://user:password@proxy_server:port")`
-+ Проверить установилась ли необходимая настройка соединения можно с помощью команды:
+* Проверить установилась ли необходимая настройка соединения можно с помощью команды:
 `Sys.getenv("https_proxy")`
 + Пример кода для обращения к API Яндекс.Директ через прокси сервер. В данном случае подразумевается что ранее вы уже получили токен доступа.
-```
+
+```{r}
 library(ryandexdirect)
 Sys.setenv(https_proxy="http://104.37.212.5:3128")
 My_report <- yadirGetReport(ReportType = "CAMPAIGN_PERFORMANCE_REPORT", 
@@ -946,15 +1141,14 @@ My_report <- yadirGetReport(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
 Sys.unsetenv("https_proxy")           
 ```
 
-## Подборка статей с примерами работы с пакетом ryandexdirect.
+## подборка статей с примерами работы с пакетом ryandexdirect.
 + [Как получить и обработать сырые данные из Яндекс.Метрики](https://netpeak.net/ru/blog/kak-poluchit-i-obrabotat-syrye-dannye-iz-yandeks-metriki/)
 + [Как связать Яндекс.Директ с Microsoft Power BI](https://netpeak.net/ru/blog/kak-svyazat-yandeks-direkt-s-microsoft-power-bi/)
 + [Подключение Power BI к Yandex.Metrika](http://pm-partner.ru/articles/114/591/)
 + [Облако минус слов для Яндекс Директ](https://esliklientov.net/articles/%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%BD%D0%B0%D1%8F-%D1%80%D0%B5%D0%BA%D0%BB%D0%B0%D0%BC%D0%B0/%D1%8F%D0%BD%D0%B4%D0%B5%D0%BA%D1%81-%D0%B4%D0%B8%D1%80%D0%B5%D0%BA%D1%82/%D0%BE%D0%B1%D0%BB%D0%B0%D0%BA%D0%BE-%D0%BC%D0%B8%D0%BD%D1%83%D1%81-%D1%81%D0%BB%D0%BE%D0%B2-%D0%B4%D0%BB%D1%8F-%D1%8F%D0%BD%D0%B4%D0%B5%D0%BA%D1%81-%D0%B4%D0%B8%D1%80%D0%B5%D0%BA%D1%82.html)
 + [Как загрузить статистику из рекламных систем в Google BigQuery](https://ppc.world/analitika/kak-zagruzit-statistiku-iz-reklamnyh-sistem-v-google-bigquery/)
 
-
- ## *Автор пакета: Алексей Селезнёв, Head of Analytics Dept. at Netpeak*
+## *Автор пакета: Алексей Селезнёв, Head of Analytics Dept. at Netpeak*
  <p align="center">
 <img src="https://lh3.googleusercontent.com/R-0jgJSxIIhpag2L6YCIhJVIcIWx6-Jt5UCTRJjWzJewo47u2QBnik5CRF2dNB79jmsN_BFRjVOAYfvCqFcn3UNS_thGbbxF-99c9lwBWWlFI7JCWE43K5Yk9HnIW8i8YpTDx3l28IuYswaI-qc9QosHT1lPCsVilTfXTyV2empF4S74daOJ6x5QHYRWumT_2MhUS0hPqUsKVtOoveqDnGf3cF_VsN-RfOAwG9uCeGOgNRgv_fhSr41rw4LBND4gf05nO8zMp4TZMrrcUjKvvx6qNgYDor5LFOHiRmfKISYRVkWYe4wLyGO1FgkgTDjg0300lcur2t3txVwZUgROLZdaxOLx4owa8Rc8B8VKwd3vHxjov_aVfNPT4xf9jSFBBEOI-mfYpa55ejKDw-rqTQ6miFRFWpp_hjrk9KbGyB-Z6iZvYL-2dZ6mzgpUfs2I0tEAGsV07yTzboJ0RNCByC2-U-ZVjWdp2_9Au3FFoUcdQUAmPYOVqOv4r3oLbkkJKLj2A5jp7vf4IAoExLIfJuqEf7XN7fFcv4geib029qJjBt28wnqSO6TKEwB2fesR3uPHvGB6_6NHD70UDH-aCRCK4UBeoajtU0Y8Ks8Vwxo0oZBwmoEu8gudTFBF6mDT7GjLoGLDeNxE-TG7OtWUdxsJk7yzXGW3hE-VxsMD9g=s351-no?w=300" data-canonical-src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png?w=300" style="max-width:100%;">
 </p>

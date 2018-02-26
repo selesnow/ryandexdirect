@@ -1,10 +1,10 @@
 yadirGetDictionary <- function(DictionaryName = "GeoRegions", Language = "ru", login = NULL, token = NULL){
-  #Проверка наличия логина и токена
+  #ГЏГ°Г®ГўГҐГ°ГЄГ  Г­Г Г«ГЁГ·ГЁГї Г«Г®ГЈГЁГ­Г  ГЁ ГІГ®ГЄГҐГ­Г 
   if(is.null(login)|is.null(token)) {
     stop("You must enter login and API token!")
   }
   
-  #Проверка верно ли указано название справочника
+  #ГЏГ°Г®ГўГҐГ°ГЄГ  ГўГҐГ°Г­Г® Г«ГЁ ГіГЄГ Г§Г Г­Г® Г­Г Г§ГўГ Г­ГЁГҐ Г±ГЇГ°Г ГўГ®Г·Г­ГЁГЄГ 
   if(!DictionaryName %in% c("Currencies",
                             "MetroStations",
                             "GeoRegions",
@@ -34,9 +34,9 @@ if(getOption("stringsAsFactors")){
 }
 }")
   
-  #Отправка запроса на сервер 
+  #ГЋГІГЇГ°Г ГўГЄГ  Г§Г ГЇГ°Г®Г±Г  Г­Г  Г±ГҐГ°ГўГҐГ°
   answer <- POST("https://api.direct.yandex.com/json/v5/dictionaries", body = queryBody, add_headers(Authorization = paste0("Bearer ",token), 'Accept-Language' = Language, "Client-Login" = login[1]))
-  #Проверка результата на ошибки
+  #ГЏГ°Г®ГўГҐГ°ГЄГ  Г°ГҐГ§ГіГ«ГјГІГ ГІГ  Г­Г  Г®ГёГЁГЎГЄГЁ
   stop_for_status(answer)
   
   dataRaw <- content(answer, "parsed", "application/json")
@@ -45,9 +45,9 @@ if(getOption("stringsAsFactors")){
     stop(paste0(dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
   }
   
-  #Преобразуем ответ в data frame
+  #ГЏГ°ГҐГ®ГЎГ°Г Г§ГіГҐГ¬ Г®ГІГўГҐГІ Гў data frame
   
-  #Парсинг справочника регионов
+  #ГЏГ Г°Г±ГЁГ­ГЈ Г±ГЇГ°Г ГўГ®Г·Г­ГЁГЄГ  Г°ГҐГЈГЁГ®Г­Г®Гў
   if(DictionaryName == "GeoRegions"){
   dictionary_df <- data.frame()
 
@@ -60,7 +60,7 @@ if(getOption("stringsAsFactors")){
     
   }}
 
-#Парсинг справочника валют
+  #ГЏГ Г°Г±ГЁГ­ГЈ Г±ГЇГ°Г ГўГ®Г·Г­ГЁГЄГ  ГўГ Г«ГѕГІ
   if(DictionaryName == "Currencies"){
     dictionary_df <- data.frame()
   for(dr in 1:length(dataRaw$result[[1]])){
@@ -68,7 +68,7 @@ if(getOption("stringsAsFactors")){
     dictionary_df <- rbind(dictionary_df, dictionary_df_temp)
   }
     dictionary_df_cur <- data.frame()
-    #Преобразуем справочник валют
+    #ГЏГ°ГҐГ®ГЎГ°Г Г§ГіГҐГ¬ Г±ГЇГ°Г ГўГ®Г·Г­ГЁГЄ ГўГ Г«ГѕГІ
     for(curlist in unique(dictionary_df$Cur)){
       dictionary_df_temp <- data.frame(Cur = curlist,
                                        FullName = dictionary_df[dictionary_df$Cur == curlist & dictionary_df$Name == "FullName",3],
@@ -79,7 +79,7 @@ if(getOption("stringsAsFactors")){
     dictionary_df <- dictionary_df_cur
   }
   
-  #Парсинг справочника Interests
+  #ГЏГ Г°Г±ГЁГ­ГЈ Г±ГЇГ°Г ГўГ®Г·Г­ГЁГЄГ  Interests
   if(DictionaryName == "Interests"){
     dictionary_df <- data.frame()
     for(dr in 1:length(dataRaw$result[[1]])){
@@ -91,7 +91,7 @@ if(getOption("stringsAsFactors")){
     }
   }
   
-  #Парсинг остальных справочников со стандартной структурой
+  #ГЏГ Г°Г±ГЁГ­ГЈ Г®Г±ГІГ Г«ГјГ­Г»Гµ Г±ГЇГ°Г ГўГ®Г·Г­ГЁГЄГ®Гў Г±Г® Г±ГІГ Г­Г¤Г Г°ГІГ­Г®Г© Г±ГІГ°ГіГЄГІГіГ°Г®Г©
   if(! DictionaryName %in% c("Currencies","GeoRegions","Interests")){
     dictionary_df <- do.call(rbind.data.frame, dataRaw$result[[1]])
     }
@@ -100,15 +100,15 @@ if(getOption("stringsAsFactors")){
   if(factor_change){
   options(stringsAsFactors = T)
   }
-  #Выводим информаци о работе запроса и о количестве баллов
-  packageStartupMessage("Справочник успешно загружен!", appendLF = T)
-  packageStartupMessage(paste0("Баллы списаны с : " ,answer$headers$`units-used-login`), appendLF = T)
-  packageStartupMessage(paste0("К-во баллов израсходованых при выполнении запроса: " ,strsplit(answer$headers$units, "/")[[1]][1]), appendLF = T)
-  packageStartupMessage(paste0("Доступный остаток суточного лимита баллов: " ,strsplit(answer$headers$units, "/")[[1]][2]), appendLF = T)
-  packageStartupMessage(paste0("Суточный лимит баллов: " ,strsplit(answer$headers$units, "/")[[1]][3]), appendLF = T)
-  packageStartupMessage(paste0("Уникальный идентификатор запроса который необходимо указывать при обращении в службу поддержки: ",answer$headers$requestid), appendLF = T)
-
-  #Возвращаем результат в виде Data Frame
+  #Г‚Г»ГўГ®Г¤ГЁГ¬ ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГѕ Г® Г°Г ГЎГ®ГІГҐ Г§Г ГЇГ°Г®Г±Г  ГЁ Г® ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГҐ ГЎГ Г«Г«Г®Гў
+   packageStartupMessage("Справочник успешно загружен!", appendLF = T)
+   packageStartupMessage(paste0("Баллы списаны с : " ,answer$headers$`units-used-login`), appendLF = T)
+   packageStartupMessage(paste0("К-во баллов израсходованых при выполнении запроса: " ,strsplit(answer$headers$units, "/")[[1]][1]), appendLF = T)
+   packageStartupMessage(paste0("Доступный остаток суточного лимита баллов: " ,strsplit(answer$headers$units, "/")[[1]][2]), appendLF = T)
+   packageStartupMessage(paste0("Суточный лимит баллов: " ,strsplit(answer$headers$units, "/")[[1]][3]), appendLF = T)
+   packageStartupMessage(paste0("Уникальный идентификатор запроса который необходимо указывать при обращении в службу поддержки: ",answer$headers$requestid), appendLF = T)
+  
+  #Г‚Г®Г§ГўГ°Г Г№Г ГҐГ¬ Г°ГҐГ§ГіГ«ГјГІГ ГІ Гў ГўГЁГ¤ГҐ Data Frame
   return(dictionary_df)
 }
 

@@ -1,7 +1,7 @@
 \name{yadirGetKeyWords}
 \alias{yadirGetKeyWords}
 \title{Get keywords list from yandex direct account}
-\description{yadirGetKeyWords get лунцщквы id and parameters from Yandex Direct account}
+\description{yadirGetKeyWords get Р»СѓРЅС†С‰РєРІС‹ id and parameters from Yandex Direct account}
 \usage{
 yadirGetAds(CampaignIds = NULL, AdGroupIds = NA, Ids = NA, States = c("OFF","ON","SUSPENDED"), WithStats = T, Login = NULL, Token = NULL)
 }

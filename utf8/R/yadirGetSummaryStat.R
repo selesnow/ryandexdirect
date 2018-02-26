@@ -5,29 +5,29 @@ function(campaignIDS = NULL, dateStart = Sys.Date()-10, dateEnd = Sys.Date(), cu
     break
   }
   #Check currency value, and replace him if is nit in provide currency refference
-  #Проверяем значение валюты и если оно не входит в справочник доступных валют устанавливаем USD
+  #РџСЂРѕРІРµСЂСЏРµРј Р·РЅР°С‡РµРЅРёРµ РІР°Р»СЋС‚С‹ Рё РµСЃР»Рё РѕРЅРѕ РЅРµ РІС…РѕРґРёС‚ РІ СЃРїСЂР°РІРѕС‡РЅРёРє РґРѕСЃС‚СѓРїРЅС‹С… РІР°Р»СЋС‚ СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј USD
   ifelse((!(currency %in% c("RUB", "CHF", "EUR", "KZT", "TRY", "UAH", "USD"))), currency <- "USD", currency <- currency)
   
   #Create result data frame
-  #Создаём результирующий дата фрейм
+  #РЎРѕР·РґР°С‘Рј СЂРµР·СѓР»СЊС‚РёСЂСѓСЋС‰РёР№ РґР°С‚Р° С„СЂРµР№Рј
   data <- data.frame()
   
   #bypassing limitation and run api request by one campaign
-  #Обходим ограничение в количество строк в 1000 путём поочерёдного запроса по кампаниям
+  #РћР±С…РѕРґРёРј РѕРіСЂР°РЅРёС‡РµРЅРёРµ РІ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє РІ 1000 РїСѓС‚С‘Рј РїРѕРѕС‡РµСЂС‘РґРЅРѕРіРѕ Р·Р°РїСЂРѕСЃР° РїРѕ РєР°РјРїР°РЅРёСЏРј
   for (iids in 1:length(campaignIDS)){
     #Create POST request
-    #Создаём POST запрос
+    #РЎРѕР·РґР°С‘Рј POST Р·Р°РїСЂРѕСЃ
     answer <- POST("https://api.direct.yandex.ru/v4/json/", body = paste0("{\"method\": \"GetSummaryStat\", \"param\":{\"CampaignIDS\": [\"",campaignIDS[iids],"\"], \"StartDate\" : \"",dateStart,"\", \"EndDate\": \"",dateEnd,"\", \"Currency\": \"",currency,"\"}, \"locale\": \"ru\", \"token\": \"",token,"\"}"))
     #Send POST request
-    #Отправка POST запроса к API Директа
+    #РћС‚РїСЂР°РІРєР° POST Р·Р°РїСЂРѕСЃР° Рє API Р”РёСЂРµРєС‚Р°
     stop_for_status(answer)
     dataRaw <- content(answer, "parsed", "application/json")
     
     #Run cicle which parse result by current campaign and add this data to result data frame
-    #Запускаем цикл который парсит текущую кампанию и добавляет полученные данные в итоговый дата фрейм
+    #Р—Р°РїСѓСЃРєР°РµРј С†РёРєР» РєРѕС‚РѕСЂС‹Р№ РїР°СЂСЃРёС‚ С‚РµРєСѓС‰СѓСЋ РєР°РјРїР°РЅРёСЋ Рё РґРѕР±Р°РІР»СЏРµС‚ РїРѕР»СѓС‡РµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ РІ РёС‚РѕРіРѕРІС‹Р№ РґР°С‚Р° С„СЂРµР№Рј
     for (i in 1:length(dataRaw$data)){
       #Replace NULL to NA
-      #Заменяем пропущенные значение на NA
+      #Р—Р°РјРµРЅСЏРµРј РїСЂРѕРїСѓС‰РµРЅРЅС‹Рµ Р·РЅР°С‡РµРЅРёРµ РЅР° NA
       try(dataRaw$data[[i]][sapply(dataRaw$data[[i]], is.null)] <- NA, silent = TRUE)
       try(dataTemp <- data.frame(StatDate           = dataRaw$data[[i]]$StatDate,
                              CampaignID             = dataRaw$data[[i]]$CampaignID,
