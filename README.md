@@ -1,11 +1,11 @@
 <head>
 <link rel="shortcut icon" type="image/x-icon" href="as.ico">
     
-    <!--html_preserve-->
+<html_preserve>
 
 Google Analytics Code Here
 
-    <!--/html_preserve-->
+</html_preserve>
 
 </head>
 
