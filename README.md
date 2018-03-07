@@ -1,7 +1,7 @@
 <head>
 <link rel="shortcut icon" type="image/x-icon" href="as.ico">
     
-<!--html_preserve-->
+
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-114798296-1"></script>
@@ -12,7 +12,6 @@
   gtag('config', 'UA-114798296-1');
 </script>
 
-<!--/html_preserve-->
 
 </head>
 
