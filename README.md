@@ -1,11 +1,18 @@
 <head>
 <link rel="shortcut icon" type="image/x-icon" href="as.ico">
     
-<html_preserve>
+<!--html_preserve-->
 
-Google Analytics Code Here
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-114798296-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-114798296-1');
+</script>
 
-</html_preserve>
+<!--/html_preserve-->
 
 </head>
 
