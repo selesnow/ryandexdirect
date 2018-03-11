@@ -392,7 +392,7 @@ OS_TYPE_UNKNOWN — данные из магазина приложений ещ
 </table>
 
 #### Пример кода для получения списка групп объявлений:
-```
+```r
 #Подключаем пакет
 library(ryandexdirect)
 #Получаем API token
@@ -480,7 +480,7 @@ my_adgroups <- yadirGetAdGroups(CampaignIds = my_campaign$Id,
 </table>
 
 #### Пример кода для получения списка ключевых слов:
-```
+```r
 #Подключаем пакет
 library(ryandexdirect)
 #Получаем API token
@@ -562,7 +562,7 @@ my_keywords <- yadirGetKeyWords(CampaignIds = my_campaign$Id,
 </table>
 
 #### Пример кода для получения списка ключевых слов:
-```
+```r
 #Подключаем пакет
 library(ryandexdirect)
 #Получаем API token
@@ -634,7 +634,7 @@ my_ads <- yadirGetAds(CampaignIds = my_campaign$Id,
 </table>
 
 #### Пример кода для получения списка ключевых слов:
-```
+```r
 #Подключаем пакет
 library(ryandexdirect)
 #Получаем API token
@@ -778,7 +778,7 @@ my_clients_balance <- yadirGetBalance(Logins = my_client$Login,  Token = "abcdef
 <b>Token</b> - Строковое значение, ваш API token.
 
 #### Пример кода для возобновления показа объявлений
-```
+```r
 #Получаем токен
 tok <- yadirGetToken()
 
@@ -803,7 +803,7 @@ err <- yadirStartAds(Login = "Логин", Token =  tok, Ids = my_ads$Id)
 <b>Token</b> - Строковое значение, ваш API token.
 
 #### Пример кода для остановки показа объявлений
-```
+```r
 #Получаем токен
 tok <- yadirGetToken()
 
@@ -828,7 +828,7 @@ err <- yadirStopAds(Login = "Логин", Token =  tok, Ids = my_ads$Id)
 <b>Token</b> - Строковое значение, ваш API token.
 
 #### Пример кода для возобновления показа объявлений по рекламым кампаниям
-```
+```r
 #Получаем токен
 tok <- yadirGetToken()
 
@@ -850,7 +850,7 @@ err <- yadirStartCampaigns(Login = "LOGIN", Token =  tok, Ids = my_camp$Id)
 <b>Token</b> - Строковое значение, ваш API token.
 
 #### Пример кода для остановки показа объявлений по рекламным кампаниям
-```
+```r
 #Получаем токен
 tok <- yadirGetToken()
 
@@ -872,7 +872,7 @@ err <- yadirStopCampaigns(Login = "LOGIN", Token =  tok, Ids = my_camp$Id)
 <b>Token</b> - Строковое значение, ваш API token.
 
 #### Пример кода для возобновления показа объявлений по ключевым словам
-```
+```r
 #Получаем токен
 tok <- yadirGetToken()
 
@@ -897,7 +897,7 @@ err <- yadirStartCampaigns(Login = "Логин", Token =  tok, Ids = my_kw$Id)
 <b>Token</b> - Строковое значение, ваш API token.
 
 #### Пример кода для остановки показа объявлений по ключевым словам
-```
+```r
 #Получаем токен
 tok <- yadirGetToken()
 
@@ -1059,15 +1059,17 @@ err <- yadirStopKeyWords(Login = "Логин", Token =  tok, Ids = my_kw$Id)
 
 Для того, что бы получить дата фрейм со статиской по кампаниям в разрезе дней осталось воспользоваться функцией `yadirGetSummaryStat`
 
-`stat <- yadirGetSummaryStat(campaignIDS = campaigns$Id],
+```r
+stat <- yadirGetSummaryStat(campaignIDS = campaigns$Id],
                             dateStart = "2016-01-01",
                             dateEnd = "2016-06-30",
                             currency = "USD",
-                            token = myToken)`
+                            token = myToken)
+```
 
 
 ##Образец кода для работы с пакетом ryandexdirect для агентских аккаунтов
-```
+```r
 library(ryandexdirect)
 myToken <- yadirGetToken()
 clientList <- yadirGetClientList(myToken)
@@ -1079,7 +1081,7 @@ stat <- yadirGetSummaryStat(campaignIDS = campaignList$Id,
                             token = myToken)
 ```
 # пример работы с функцией yadirGetReport и загрузки данных из сервиса Reports.
-```
+```r
 library(ryandexdirect)
 myToken <- yadirGetToken()
 My_report <- yadirGetReport(ReportType = "CAMPAIGN_PERFORMANCE_REPORT", 
@@ -1096,7 +1098,7 @@ My_report <- yadirGetReport(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
 Данные в отчете можно агрегировать по различным периодам. Для этого укажите в аргументе FieldNames одно из значений Date, Week, Month, Quarter или Year.
 
 Аргумент Login является векторизирован с версии 2.4.1 и может принимать на вход вектор логинов. Пример работы с векторизированной функцией `yadirGetReport`:
-```
+```r
 library(ryandexdirect)
 myToken     <- yadirGetToken()
 clientList  <- yadirGetClientList(myToken)
@@ -1111,7 +1113,7 @@ stat        <- yadirGetReport(ReportType = "ACCOUNT_PERFORMANCE_REPORT",
 ```
 
 # пример работы с функцией yadirGetDictionary для загрузки справочников из API v.5. Яндекс Директ.
-```
+```r
 library(ryandexdirect)
 myToken <- yadirGetToken()
 Regions <- yadirGetDictionary(DictionaryName = "GeoRegions", 
@@ -1122,7 +1124,7 @@ Regions <- yadirGetDictionary(DictionaryName = "GeoRegions",
 Вместо <b>YourLogin</b> подставьте в виде строки ваш логин на Яндексе, данный запрос загрузит в R справочник регионов Яндекс Директ.
 
 # пример работы с Logs API Яндекс Метрики.
-```
+```r
 library(ryandexdirect)
 myToken <- yadirGetToken()
 rawmetrikdata <- yadirGetLogsData(counter = "00000000",
@@ -1134,7 +1136,7 @@ rawmetrikdata <- yadirGetLogsData(counter = "00000000",
 ```
 
 # пример работы с API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)
-```{r}
+```r
 library(ryandexdirect)
 myToken <- yadirGetToken()
 metrikData6 <- yadirGetMetrikaGAData(start_date = "2017-08-01",
@@ -1168,7 +1170,7 @@ metrikData6 <- yadirGetMetrikaGAData(start_date = "2017-08-01",
 `Sys.getenv("https_proxy")`
 + Пример кода для обращения к API Яндекс.Директ через прокси сервер. В данном случае подразумевается что ранее вы уже получили токен доступа.
 
-```{r}
+```r
 library(ryandexdirect)
 Sys.setenv(https_proxy="http://104.37.212.5:3128")
 My_report <- yadirGetReport(ReportType = "CAMPAIGN_PERFORMANCE_REPORT", 
