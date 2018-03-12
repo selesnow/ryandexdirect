@@ -30,7 +30,7 @@
 `install_github('selesnow/ryandexdirect', subdir = "utf8")`
 
 ### Ссылки
-1. [Документация по работе с пакетом](https://selesnow.github.io/ryandexdirect/).
+1. [Документация по работе с пакетом ryandexdirect](https://selesnow.github.io/ryandexdirect/).
 2. Баг репорты, предложения по доработке и улучшению функционала ryandexdirect оставлять [тут](https://github.com/selesnow/ryandexdirect/issues). 
 3. [Список релизов](https://github.com/selesnow/ryandexdirect/releases).
 
