@@ -35,9 +35,9 @@
 3. [Список релизов](https://github.com/selesnow/ryandexdirect/releases).
 
 ### Автор пакета
-Алексей Селезнёв
-email: selesnow@gmail.com
-skype: selesnow
-facebook: [facebook.com/selesnow](https://facebook.com/selesnow)
-linkedin: [linkedin.com/in/selesnow](https://linkedin.com/in/selesnow)
-blog: [alexeyseleznev.wordpress.com](https://alexeyseleznev.wordpress.com/)
+<Br>Алексей Селезнёв
+<Br>email: selesnow@gmail.com
+<Br>skype: selesnow
+<Br>facebook: [facebook.com/selesnow](https://facebook.com/selesnow)
+<Br>linkedin: [linkedin.com/in/selesnow](https://linkedin.com/in/selesnow)
+<Br>blog: [alexeyseleznev.wordpress.com](https://alexeyseleznev.wordpress.com/)
