@@ -33,3 +33,11 @@
 1. [Документация по работе с пакетом](https://selesnow.github.io/ryandexdirect/).
 2. Баг репорты, предложения по доработке и улучшению функционала ryandexdirect оставлять [тут](https://github.com/selesnow/ryandexdirect/issues). 
 3. [Список релизов](https://github.com/selesnow/ryandexdirect/releases).
+
+### Автор пакета
+Алексей Селезнёв
+email: selesnow@gmail.com
+skype: selesnow
+facebook: [facebook.com/selesnow](https://facebook.com/selesnow)
+linkedin: [linkedin.com/in/selesnow](https://linkedin.com/in/selesnow)
+blog: [alexeyseleznev.wordpress.com](https://alexeyseleznev.wordpress.com/)
