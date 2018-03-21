@@ -19,12 +19,14 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
     fil_list <- NA
     filt <- FilterList
     for(fil in filt){
+      val <- strsplit(paste0(strsplit(fil ," ")[[1]][3:length(strsplit(fil ," ")[[1]])], collapse = ""), split = ",| |;")[[1]]
       fil_list <- paste0(fil_list[!is.na(fil_list)],
                          paste0("<Filter>",
                                 paste0("<Field>",strsplit(fil ," ")[[1]][1], "</Field>"),
                                 paste0("<Operator>",strsplit(fil ," ")[[1]][2], "</Operator>"),
-                                paste0("<Values>",strsplit(fil ," ")[[1]][3], "</Values>"),"</Filter>"))
+                                paste0(paste0("<Values>",val, "</Values>"), collapse = ""),"</Filter>"))
     }}
+  
   
   #Формируем тело запроса
   queryBody <- paste0('
