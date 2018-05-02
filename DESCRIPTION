@@ -8,4 +8,4 @@ Maintainer: Alexey Seleznev <selesnow@mail.ru>
 Description: Load data from yandex direct api into R
 License: not license it free
 Depends: R (>= 3.4.1)
-Imports: utils, httr, RCurl, bitops, jsonlite, xml2
+Imports: utils, httr, RCurl, bitops, jsonlite, xml2, data.table
