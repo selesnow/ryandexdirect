@@ -3,16 +3,33 @@ yadirGetBalance <- function(Logins = NULL, Token = NULL){
    if(is.null(Token)){
      stop("Token is a require argument!")
    }
-
+  
+  # результирующий фрейм
+  result <- data.table()
+  
+  # стартовый элемент
+  start_element <- 1
+  
+  # допустимое количество логинов в одном запросе
+  lim <- 50
+  
+  # информация о последней итерации
+  ended <- FALSE
+  
+  while(ended == FALSE) {
+  
+   # отделяем нужную порцию логинов
+   logins_temp <- head(Logins[start_element:length(Logins)], lim)
+  
    #Для правильного формирования JSON смотрим к-во логинов и в случае если логин 1 то преобразуем его в lost
-   if(length(Logins)==1){
-     Logins <- list(Logins)
+   if(length(logins_temp)==1){
+     Logins <- list(logins_temp)
     }
 
-   #Формируем тело запроса
+  #Формируем тело запроса
   body_list <-  list(method = "AccountManagement",
                      param  = list(Action = "Get",
-                                   SelectionCriteria = list(Logins = Logins)),
+                                   SelectionCriteria = list(Logins = logins_temp)),
                      locale = "ru",
                      token = Token)
 
@@ -34,7 +51,7 @@ yadirGetBalance <- function(Logins = NULL, Token = NULL){
   }
   
   #Преобразуем полученный результат в таблицу
-  result <- fromJSON(content(answer, "text", "application/json"),flatten = TRUE)$data$Accounts
+  result_temp <- fromJSON(content(answer, "text", "application/json"),flatten = TRUE)$data$Accounts
   
   #Проверяем все ли логины загрузились
   errors_list <- fromJSON(content(answer, "text", "application/json"),flatten = TRUE)$data$ActionsResult
@@ -49,5 +66,15 @@ yadirGetBalance <- function(Logins = NULL, Token = NULL){
   packageStartupMessage(paste0("....String: ", error$FaultString[err]), appendLF = T)  
   packageStartupMessage(paste0("....Detail: ", error$FaultDetail[err]), appendLF = T)
   }}
-    
-  return(result)}
+  
+  # добавляем информацию в результирующий фрейм
+  result <- rbind(result, result_temp, fill = TRUE)
+  
+  # передвигаем начальный элемент
+  start_element <- start_element + lim
+  # проверяем надо ли ещё обращаться к апи сос ледующей порцией логинов
+  if (start_element > length(Logins)) {
+    ended <- TRUE
+  }
+ }    
+  return(as.data.frame(result))}
