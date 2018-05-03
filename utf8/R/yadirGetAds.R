@@ -42,7 +42,7 @@ packageStartupMessage("Processing", appendLF = F)
 while(camp_start <= camp_num){
 
 #определяем какое к-во РК надо обработать
-camp_step   <-  if(camp_num - camp_start > 10) camp_step else camp_num - camp_start + 1
+camp_step   <-  if(camp_num - camp_start >= 10) camp_step else camp_num - camp_start + 1
 
 #Преобразуем список рекламных кампаний
 Ids             <- ifelse(is.na(Ids), NA,paste0(Ids, collapse = ","))
