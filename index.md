@@ -94,6 +94,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     + [yadirGetBalance](#yadirgetbalancelogins--null-token--null) - Получить остаток средств общего счёта и его различные параметры.
     + [yadirGetReport](#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null----fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no----------login--null-token--null) - Получение статистики из Report сервиса API v.5.
     + [yadirGetDictionary](#yadirgetdictionarydictionaryname--georegions-language--ru-login--null-token--null) - Получение справочной информации из API v.5.
+    + [yadirGetSiteLinks]() - Загрузка списка быстрых ссылок из рекламного аккаунта.
     + [yadirStartAds](#yadirstartadslogin--null-ids--null-token--null) - Возобновить показы по объявлениям.
     + [yadirStopAds](#yadirstopadslogin--null-ids--null-token--null) - Остановить показы по объявлениям.
     + [yadirStartCampaigns](#yadirstartcampaignslogin--null-ids--null-token--null) - Возобновить показы по рекламным кампаниям
@@ -751,6 +752,21 @@ my_clients_balance <- yadirGetBalance(Logins = my_client$Login,  Token = "abcdef
 <b>Login</b> - Строковое вектор содержащий логины на Яндексе по которым необходимо получить данные.
 
 <b>Token</b> - Строковое значение, ваш API token.
+
+### `yadirGetSiteLinks(Login, Token)`
+Функция для загрузки списка быстрых ссылок и их параметров, Id, текста, адресса и описания.
+
+#### Аргументы
+<b>Login</b> - Строковое вектор содержащий логины на Яндексе по которым необходимо получить данные.
+
+<b>Token</b> - Строковое значение, ваш API token.
+
+#### Пример загрузки быстрых ссылок
+```r
+library(ryandexdirect)
+ya_token <- yadirGetToken()
+my_links <- yadirGetSiteLinks(Login = "Ваш Логин в Директе", Token = ya_token)
+```
 
 ### `yadirGetDictionary(DictionaryName = "GeoRegions", Language = "ru", login = NULL, token = NULL)`
 Функция для загрузки справочников из API v.5. Яндекс Директ.
