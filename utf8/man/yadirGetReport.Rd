@@ -25,7 +25,9 @@ yadirGetReport(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
   \item{IncludeVAT}{Include or exclude VAT, one of "NO" or "YES"}
   \item{IncludeDiscount}{Include or exclude Discount, one of "NO" or "YES"}
   \item{Login}{Your Yandex Login}
-  \item{Token}{Your Yandex API Token}
+  \item{AgencyAccount}{Your agency account login, if you get statistic from client account}
+  \item{TokenPath}{Path to directory where you save credential data}
+  \item{Token}{character or list object, your Yandex API Token, you can get this by function yadirGetToken or yadirAuth}
 }
 \details{
 For more details about Report service go https://tech.yandex.ru/direct/doc/reports/reports-docpage/
@@ -34,8 +36,38 @@ For more details about Report service go https://tech.yandex.ru/direct/doc/repor
 \author{Alexey Seleznev}
 
 \examples{
-#For get Report
-My_report <- yadirGetReport(ReportType = "CAMPAIGN_PERFORMANCE_REPORT", DateRangeType = "LAST_MONTH", DateFrom = NULL, DateTo = NULL, FieldNames = c("CampaignName","Impressions","Clicks"), FilterList = c("Clicks GREATER_THAN 99","Impressions LESS_THAN 1000"), Login = <YourLogin>, Token = <YourToken>)
+#Load package
+library(ryandexdirect)
+
+#For get Report from client account
+statAgency <- yadirGetReport(ReportType = "ACCOUNT_PERFORMANCE_REPORT", 
+                             DateRangeType = "CUSTOM_DATE", 
+                             DateFrom = "2018-01-01", 
+                             DateTo = "2018-05-10", 
+                             FieldNames = c("AdNetworkType",
+                                            "Impressions",
+                                            "Clicks",
+                                            "Cost"), 
+                             IncludeVAT = "YES", 
+                             IncludeDiscount = "NO", 
+                             Login = "client_login", 
+                             TokenPath = "C:/token_yandex")
+							 
+#For get data from agency client account
+statAgency <- yadirGetReport(ReportType = "ACCOUNT_PERFORMANCE_REPORT", 
+                             DateRangeType = "CUSTOM_DATE", 
+                             DateFrom = "2018-01-01", 
+                             DateTo = "2018-05-10", 
+                             FieldNames = c("AdNetworkType",
+                                            "Impressions",
+                                            "Clicks",
+                                            "Cost"), 
+                             IncludeVAT = "YES", 
+                             IncludeDiscount = "NO", 
+                             Login = "client_login", 
+                             AgencyAccount = "aguncy_login",
+                             TokenPath = "C:/token_yandex")
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

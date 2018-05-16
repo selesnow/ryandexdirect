@@ -1,17 +1,18 @@
-yadirGetAdGroups <- function(CampaignIds, 
-                             AdGroupIds = NA, 
-                             Ids = NA, 
-                             Types = c("TEXT_AD_GROUP" ,"MOBILE_APP_AD_GROUP" ,"DYNAMIC_TEXT_AD_GROUP"),
-                             Statuses = c( "ACCEPTED", "DRAFT", "MODERATION", "PREACCEPTED", "REJECTED"), 
-                             Login,
-                             Token){
-  
-  if(is.null(Login)|is.null(Token)) {
-    stop("You must enter login and API token!")
-  }
+yadirGetAdGroups <- function(CampaignIds   = NULL, 
+                             AdGroupIds    = NA, 
+                             Ids           = NA, 
+                             Types         = c("TEXT_AD_GROUP" ,"MOBILE_APP_AD_GROUP" ,"DYNAMIC_TEXT_AD_GROUP"),
+                             Statuses      = c( "ACCEPTED", "DRAFT", "MODERATION", "PREACCEPTED", "REJECTED"), 
+                             Login         = NULL,
+                             AgencyAccount = NULL,
+                             Token         = NULL,
+                             TokenPath     = getwd()){
   
   #Фиксируем время начала работы
   start_time  <- Sys.time()
+  
+  #Авторизация
+  Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
   
   #Результирующий дата фрейм
   result      <- data.frame(Id                                                   = integer(0), 
@@ -39,7 +40,14 @@ yadirGetAdGroups <- function(CampaignIds,
                             DynamicTextFeedAdGroupSourceType                     = character(0),
                             DynamicTextFeedAdGroupSourceProcessingStatus         = character(0))
   
-
+  #Проверяем если не задан список рекламных кампаний загружаем его и получаем все группы
+  if (is.null(CampaignIds)) {
+    CampaignIds <-  yadirGetCampaignList(Login         = Login,
+                                         AgencyAccount = AgencyAccount,
+                                         Token         = Token,
+                                         TokenPath     = TokenPath)$Id
+  }
+  
   #Переводим фильтр по статусу в json
   Statuses          <- paste("\"",Statuses,"\"",collapse=", ",sep="")
   Types             <- paste("\"",Types,"\"",collapse=", ",sep="")
@@ -107,7 +115,6 @@ yadirGetAdGroups <- function(CampaignIds,
     }
     }")
       
-
       answer <- POST("https://api.direct.yandex.com/json/v5/adgroups", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru",'Client-Login' = Login))
       stop_for_status(answer)
       dataRaw <- content(answer, "parsed", "application/json")

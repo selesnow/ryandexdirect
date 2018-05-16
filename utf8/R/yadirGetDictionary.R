@@ -1,8 +1,13 @@
-yadirGetDictionary <- function(DictionaryName = "GeoRegions", Language = "ru", login = NULL, token = NULL){
+yadirGetDictionary <- function(DictionaryName = "GeoRegions", 
+                               Language = "ru", 
+                               Login         = NULL,
+                               Token         = NULL,
+                               AgencyAccount = NULL,
+                               TokenPath     = getwd()){
   #ГЏГ°Г®ГўГҐГ°ГЄГ  Г­Г Г«ГЁГ·ГЁГї Г«Г®ГЈГЁГ­Г  ГЁ ГІГ®ГЄГҐГ­Г 
-  if(is.null(login)|is.null(token)) {
-    stop("You must enter login and API token!")
-  }
+
+  #Авторизация
+  Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
   
   #ГЏГ°Г®ГўГҐГ°ГЄГ  ГўГҐГ°Г­Г® Г«ГЁ ГіГЄГ Г§Г Г­Г® Г­Г Г§ГўГ Г­ГЁГҐ Г±ГЇГ°Г ГўГ®Г·Г­ГЁГЄГ 
   if(!DictionaryName %in% c("Currencies",
@@ -35,7 +40,7 @@ if(getOption("stringsAsFactors")){
 }")
   
   #ГЋГІГЇГ°Г ГўГЄГ  Г§Г ГЇГ°Г®Г±Г  Г­Г  Г±ГҐГ°ГўГҐГ°
-  answer <- POST("https://api.direct.yandex.com/json/v5/dictionaries", body = queryBody, add_headers(Authorization = paste0("Bearer ",token), 'Accept-Language' = Language, "Client-Login" = login[1]))
+  answer <- POST("https://api.direct.yandex.com/json/v5/dictionaries", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = Language, "Client-Login" = Login[1]))
   #ГЏГ°Г®ГўГҐГ°ГЄГ  Г°ГҐГ§ГіГ«ГјГІГ ГІГ  Г­Г  Г®ГёГЁГЎГЄГЁ
   stop_for_status(answer)
   

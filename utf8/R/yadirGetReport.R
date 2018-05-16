@@ -1,13 +1,15 @@
-yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT", 
-                           DateRangeType = "LAST_MONTH", 
-                           DateFrom = NULL, 
-                           DateTo = NULL, 
-                           FieldNames = c("CampaignName","Impressions","Clicks","Cost"), 
-                           FilterList = NULL,
-                           IncludeVAT = "NO",
+yadirGetReport <- function(ReportType      = "CAMPAIGN_PERFORMANCE_REPORT", 
+                           DateRangeType   = "LAST_MONTH", 
+                           DateFrom        = NULL, 
+                           DateTo          = NULL, 
+                           FieldNames      = c("CampaignName","Impressions","Clicks","Cost"), 
+                           FilterList      = NULL,
+                           IncludeVAT      = "NO",
                            IncludeDiscount = "NO",
-                           Login = NULL,
-                           Token = NULL){
+                           Login           = NULL,
+                           AgencyAccount   = NULL,
+                           Token           = NULL,
+                           TokenPath       = getwd()){
   
   #Запуск таймера начала работы функции
   proc_start <- Sys.time()
@@ -44,11 +46,23 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
                       <IncludeVAT>',IncludeVAT,'</IncludeVAT>
                       <IncludeDiscount>',IncludeDiscount,'</IncludeDiscount>
                       </ReportDefinition>')
-  
   #Создаём результирующий dataframe
   result <- data.frame()
- 
+  
   for(login in Login){
+    #Авторизация
+    if (is.null(AgencyAccount)) {
+      if (is.null(Token)) {
+        Token <- yadirAuth(Login = login, TokenPath = TokenPath, NewUser = FALSE)$access_token
+      } else if (class(Token) == "list") {
+        Token <- Token$access_token
+      }
+    } else {
+      # обработка агентского аккаунта
+        Token <- yadirAuth(Login = AgencyAccount, TokenPath = TokenPath, NewUser = FALSE)$access_token
+    }
+    
+    #Счётчик времени
     parsing_time <- 0
     server_time <- 0
     #Выодим сообщение о том какой проект в работе
@@ -60,9 +74,30 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
     
     answer <- POST("https://api.direct.yandex.com/v5/reports", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru", skipReportHeader = "true" ,skipReportSummary = "true" , 'Client-Login' = login, returnMoneyInMicros = "false", processingMode = "auto"))
     
-    if(answer$status_code == 400){
-      packageStartupMessage(paste0(login," - ",xml_text(content(answer, "parsed","text/xml",encoding = "UTF-8"))))
+    if(substr(answer$status_code,1,1) == 4){
       packageStartupMessage("Ошибка в параметрах запроса либо превышено ограничение на количество запросов или отчетов в очереди. В этом случае проанализируйте сообщение об ошибке, скорректируйте запрос и отправьте его снова.")
+      
+      # парсим ошибку
+      content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
+          xml_find_all(., xpath = ".//reports:ApiError//reports:requestId") %>%
+          xml_text() %>%
+          message("Request Id: ", .)
+      
+      content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
+          xml_find_all(., xpath = ".//reports:ApiError//reports:errorCode") %>%
+          xml_text() %>%
+          message("Error Code: ", .)
+      
+      content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
+          xml_find_all(., xpath = ".//reports:ApiError//reports:errorMessage") %>%
+          xml_text() %>%
+          message("Error Message: ", .)
+      
+      content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
+          xml_find_all(., xpath = ".//reports:ApiError//reports:errorDetail") %>%
+          xml_text() %>%
+          message("Error Detail: ", .)
+      
       next
     }
     
@@ -114,17 +149,13 @@ yadirGetReport <- function(ReportType = "CAMPAIGN_PERFORMANCE_REPORT",
       #Сообщаем о том сколько времени длился парсинг результата
       parsing_time <- round(difftime(Sys.time(), pasr_start_time , units ="secs"),0)
       packageStartupMessage(paste0("Время парсинга результата: ", parsing_time, " сек."), appendLF = T)
-      #Задаём названия полей
-      #names(df_new) <- names_col
-      #Убираем строку итогов
-      #df_new <- df_new[-nrow(df_new),]
-      
+
       #Информация о количестве баллов.
       packageStartupMessage(paste0("Уникальный идентификатор запроса который необходимо указывать при обращении в службу поддержки: ",answer$headers$requestid), appendLF = T)
       
       #Добавляем логин
       if(length(Login) > 1){
-        df_new$login <- login}
+        df_new$Login <- login}
       
       #присоединяем свежие данные к результирующему дата врейму
       result <- rbind(result, df_new)

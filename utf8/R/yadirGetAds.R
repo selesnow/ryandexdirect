@@ -1,14 +1,22 @@
-yadirGetAds <- function(CampaignIds = NULL, 
-                        AdGroupIds = NA, 
-                        Ids = NA, 
-                        States = c("OFF","ON","SUSPENDED","OFF_BY_MONITORING","ARCHIVED"), 
-                        Login = NULL,
-                        Token = NULL){
+yadirGetAds <- function(CampaignIds   = NULL, 
+                        AdGroupIds    = NA, 
+                        Ids           = NA, 
+                        States        = c("OFF","ON","SUSPENDED","OFF_BY_MONITORING","ARCHIVED"), 
+                        Login         = NULL,
+                        Token         = NULL,
+                        AgencyAccount = NULL,
+                        TokenPath     = getwd()){
   
-  if(is.null(Login)|is.null(Token)) {
-    stop("You must enter login and API token!")
+  #Авторизация
+  Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
+
+  #Проверяем если не задан список рекламных кампаний загружаем его и получаем все группы
+  if (is.null(CampaignIds)) {
+    CampaignIds <-  yadirGetCampaignList(Login         = Login,
+                                         AgencyAccount = AgencyAccount,
+                                         Token         = Token,
+                                         TokenPath     = TokenPath)$Id
   }
-  
 #Фиксируем время начала работы
 start_time  <- Sys.time()
 

@@ -1,11 +1,12 @@
 yadirGetClientList <-
-function(token = NULL){
-  if(is.null(token)){
-    warning("Get your api token by function yadirGetToken() and argument token in function yadirGetClientList!");
-    break
-    }
+function(AgencyAccount = NULL,
+         Token         = NULL,
+         TokenPath     = getwd()){
+  
+  #Авторизация
+  Token <- tech_auth(login = Logins[l], token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
   #Create POST request
-  answer <- POST("https://api.direct.yandex.ru/v4/json/", body = paste0("{\"method\": \"GetClientsList\", \"locale\": \"ru\", \"token\": \"",token,"\"}"))
+  answer <- POST("https://api.direct.yandex.ru/v4/json/", body = paste0("{\"method\": \"GetClientsList\", \"locale\": \"ru\", \"token\": \"",Token,"\"}"))
   #Send POST request
   stop_for_status(answer)
   dataRaw <- content(answer, "parsed", "application/json")

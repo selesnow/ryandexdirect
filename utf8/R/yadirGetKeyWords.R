@@ -1,19 +1,29 @@
-yadirGetKeyWords <- function(CampaignIds = "14163546", 
-                             AdGroupIds = NA, 
-                             Ids = NA, 
-                             States = c("OFF","ON","SUSPENDED"), 
-                             WithStats = T,
-                             Login,
-                             Token){
+yadirGetKeyWords <- function(CampaignIds = NULL, 
+                             AdGroupIds  = NA, 
+                             Ids         = NA, 
+                             States      = c("OFF","ON","SUSPENDED"), 
+                             WithStats   = T,
+                             Login         = NULL,
+                             Token         = NULL,
+                             AgencyAccount = NULL,
+                             TokenPath     = getwd()){
   
-  if(is.null(Login)|is.null(Token)) {
-    stop("You must enter login and API token!")
+  
+  #Временная метка начала работы функции
+  start_time  <- Sys.time()
+   
+  #Авторизация
+  Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
+  
+  #Проверяем если не задан список рекламных кампаний загружаем его и получаем все группы
+  if (is.null(CampaignIds)) {
+    CampaignIds <-  yadirGetCampaignList(Login         = Login,
+                                         AgencyAccount = AgencyAccount,
+                                         Token         = Token,
+                                         TokenPath     = TokenPath)$Id
   }
   
-  #Г”ГЁГЄГ±ГЁГ°ГіГҐГ¬ ГўГ°ГҐГ¬Гї Г­Г Г·Г Г«Г  Г°Г ГЎГ®ГІГ»
-  start_time  <- Sys.time()
-  
-  #ГђГҐГ§ГіГ«ГјГІГЁГ°ГіГѕГ№ГЁГ© Г¤Г ГІГ  ГґГ°ГҐГ©Г¬
+  #Формируем результирующий дата фрейм
   result      <- data.frame(Id                            = integer(0), 
                             Keyword                       = character(0),
                             AdGroupId                     = integer(0),
@@ -33,27 +43,27 @@ yadirGetKeyWords <- function(CampaignIds = "14163546",
                             Bid                           = integer(0),
                             ContextBid                    = integer(0))
   
-  #ГЏГҐГ°ГҐГўГ®Г¤ГЁГ¬ ГґГЁГ«ГјГІГ° ГЇГ® Г±ГІГ ГІГіГ±Гі Гў json
+ 
   States          <- paste("\"",States,"\"",collapse=", ",sep="")
   
-  #ГЋГЇГ°ГҐГ¤ГҐГ«ГїГҐГ¬ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЄГ Г¬ГЇГ Г­ГЁГ© ГЄГ®ГІГ®Г°Г®ГҐ ГІГ°ГҐГЎГіГҐГІГ±Гї Г®ГЎГ°Г ГЎГ®ГІГ ГІГј
+
   camp_num     <- as.integer(length(CampaignIds))
   camp_start   <- 1
   camp_step    <- 10
   
   packageStartupMessage("Processing", appendLF = F)
-  #Г‡Г ГЇГіГ±ГЄГ ГҐГ¬ Г¶ГЁГЄГ« Г®ГЎГ°Г ГЎГ®ГІГЄГЁ ГЄГ Г¬ГЇГ Г­ГЁГ©
+
   while(camp_start <= camp_num){
     
-    #Г®ГЇГ°ГҐГ¤ГҐГ«ГїГҐГ¬ ГЄГ ГЄГ®ГҐ ГЄ-ГўГ® ГђГЉ Г­Г Г¤Г® Г®ГЎГ°Г ГЎГ®ГІГ ГІГј
+    #
     camp_step   <-  if(camp_num - camp_start > 10) camp_step else camp_num - camp_start + 1
     
-    #ГЏГ°ГҐГ®ГЎГ°Г Г§ГіГҐГ¬ Г±ГЇГЁГ±Г®ГЄ Г°ГҐГЄГ«Г Г¬Г­Г»Гµ ГЄГ Г¬ГЇГ Г­ГЁГ©
+    #
     Ids             <- ifelse(is.na(Ids), NA,paste0(Ids, collapse = ","))
     AdGroupIds      <- ifelse(is.na(AdGroupIds),NA,paste0(AdGroupIds, collapse = ","))
     CampaignIdsTmp  <- paste("\"",CampaignIds[camp_start:(camp_start + camp_step - 1)],"\"",collapse=", ",sep="")
     
-    #Г‡Г Г¤Г ВёГ¬ Г­Г Г·Г Г«ГјГ­Г»Г© offset
+    #
     lim <- 0
     
     while(lim != "stoped"){
@@ -94,13 +104,13 @@ yadirGetKeyWords <- function(CampaignIds = "14163546",
       stop_for_status(answer)
       dataRaw <- content(answer, "parsed", "application/json")
       
-      #ГЏГ°Г®ГўГҐГ°ГЄГ  Г­ГҐ ГўГҐГ°Г­ГіГ« Г«ГЁ Г§Г ГЇГ°Г®Г± Г®ГёГЁГЎГЄГі
+      #
       if(length(dataRaw$error) > 0){
         stop(paste0(dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
       }
       
       
-      #ГЏГ Г°Г±ГҐГ° Г®ГІГўГҐГІГ 
+      #
       for(Keywords_i in 1:length(dataRaw$result$Keywords)){
         result      <- rbind(result,
                              data.frame(Id                            = ifelse(is.null(dataRaw$result$Keywords[[Keywords_i]]$Id), NA,dataRaw$result$Keywords[[Keywords_i]]$Id),
@@ -122,23 +132,23 @@ yadirGetKeyWords <- function(CampaignIds = "14163546",
                                         Bid                           = ifelse(is.null(dataRaw$result$Keywords[[Keywords_i]]$Bid), NA,dataRaw$result$Keywords[[Keywords_i]]$Bid / 1000000),
                                         ContextBid                    = ifelse(is.null(dataRaw$result$Keywords[[Keywords_i]]$ContextBid), NA,dataRaw$result$Keywords[[Keywords_i]]$ContextBid / 1000000)))
       }
-      #Г„Г®ГЎГ ГўГ«ГїГҐГ¬ ГІГ®Г·ГЄГі, Г·ГІГ® ГЇГ°Г®Г¶ГҐГ±Г± Г§Г ГЈГ°ГіГ§ГЄГЁ ГЁГ¤ВёГІ
+      #
       packageStartupMessage(".", appendLF = F)
-      #ГЏГ°Г®ГўГҐГ°ГїГҐГ¬ Г®Г±ГІГ Г«ГЁГ±Гј Г«ГЁ ГҐГ№Вё Г±ГІГ°Г®ГЄГЁ ГЄГ®ГІГ®Г°Г»ГҐ Г­Г Г¤Г® Г§Г ГЎГ°Г ГІГј
+      #
       lim <- ifelse(is.null(dataRaw$result$LimitedBy), "stoped",dataRaw$result$LimitedBy + 1)
     }
     
-    #ГЋГЇГ°ГҐГ¤ГҐГ«ГїГҐГ¬ Г±Г«ГҐГ¤ГіГѕГ№ГЁГ© ГЇГіГ« ГЄГ Г¬ГЇГ Г­ГЁГ©
+    #
     camp_start <- camp_start + camp_step
   }
   
-  #Г”ГЁГЄГ±ГЁГ°ГіГҐГ¬ ГўГ°ГҐГ¬Гї Г§Г ГўГҐГ°ГёГҐГ­ГЁГї Г®ГЎГ°Г ГЎГ®ГІГЄГЁ
+  #
   stop_time <- Sys.time()
   
-  #Г‘Г®Г®ГЎГ№ГҐГ­ГЁГҐ Г® ГІГ®Г¬, Г·ГІГ® Г§Г ГЈГ°ГіГ§ГЄГ  Г¤Г Г­Г­Г»Гµ ГЇГ°Г®ГёГ«Г  ГіГ±ГЇГҐГёГ­Г®
+  #
   #Сообщение о том, что загрузка данных прошла успешно
   packageStartupMessage("Done", appendLF = T)
   packageStartupMessage(paste0("Количество полученных ключевых слов: ", nrow(result)), appendLF = T)
   packageStartupMessage(paste0("Длительность работы: ", round(difftime(stop_time, start_time , units ="secs"),0), " сек."), appendLF = T)
-  #Г‚Г®Г§ГўГ°Г Г№Г ГҐГ¬ Г°ГҐГ§ГіГ«ГјГІГ ГІ
+  #Возвращаем результат
   return(result)}

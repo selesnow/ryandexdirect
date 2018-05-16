@@ -3,7 +3,7 @@
 \title{Get keywords list from yandex direct account}
 \description{yadirGetKeyWords get Р»СѓРЅС†С‰РєРІС‹ id and parameters from Yandex Direct account}
 \usage{
-yadirGetAds(CampaignIds = NULL, AdGroupIds = NA, Ids = NA, States = c("OFF","ON","SUSPENDED"), WithStats = T, Login = NULL, Token = NULL)
+yadirGetKeyWords(CampaignIds = NULL, AdGroupIds = NA, Ids = NA, States = c("OFF","ON","SUSPENDED"), WithStats = T, Login = NULL, Token = NULL)
 }
 
 \arguments{
@@ -14,6 +14,8 @@ yadirGetAds(CampaignIds = NULL, AdGroupIds = NA, Ids = NA, States = c("OFF","ON"
   \item{WithStats}{logical, if TRUE then load stat by impressions and click but load process will be long durations}
   \item{Login}{character, your login at Yandex, require}
   \item{Token}{character, your Yandex Direct API Token, require}
+  \item{AgencyAccount}{Your agency account login, if you get statistic from client account}
+  \item{TokenPath}{Path to directory where you save credential data}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
@@ -23,7 +25,11 @@ yadirGetAds(CampaignIds = NULL, AdGroupIds = NA, Ids = NA, States = c("OFF","ON"
 
 \examples{
 #For get keywords data frame
-my_kw <- yadirGetKeyWords(CampaignIds = c(1,2,3,4,5), Login = "vasya", Token = "abcdef123456")
+library(ryandexdirect)
+# get data from agency account
+my_keywords <- yadirGetKeyWords(Login = "client_login",
+                                AgencyAccount = "agency_login",
+                                TokenPath     = "token_yandex")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -1,11 +1,11 @@
 yadirStartKeyWords <-  function(Login = NULL, 
                                 Ids   = NULL,
-                                Token = NULL){
+                                Token = NULL,
+                                AgencyAccount = NULL,
+                                TokenPath     = getwd()){
   
-  #Проверка заполнения токена
-  if(is.null(Token)) {
-    stop("Enter your API token!")
-  }
+  #Авторизация
+  Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
   
   if(length(Ids) > 10000){
     stop(paste0("В параметр Ids переданы номера ",length(Ids), " ключевых слов, максимально допустимое количество ключевых слов в одном запросе 10000."))

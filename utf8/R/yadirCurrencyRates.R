@@ -1,17 +1,20 @@
 yadirCurrencyRates <- 
-function(login = NULL, token = NULL){
-  if(is.null(login)|is.null(token)) {
-    warning("You must enter login and API token!")
-    return()
-  }
+function(Login           = NULL,
+         AgencyAccount   = NULL,
+         Token           = NULL,
+         TokenPath       = getwd()){
+  
   queryBody <- "{
   \"method\": \"get\",
   \"params\": {
   \"DictionaryNames\": [ \"Currencies\" ]
-}
-}"
+   }
+  }"
 
-answer <- POST("https://api.direct.yandex.com/json/v5/dictionaries", body = queryBody, add_headers(Authorization = paste0("Bearer ",token), 'Accept-Language' = "ru","Client-Login" = login[1]))
+  #Авторизация
+  Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
+  
+answer <- POST("https://api.direct.yandex.com/json/v5/dictionaries", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru","Client-Login" = Login[1]))
 #ГЋГЎГ°Г ГЎГ®ГІГЄГ  Г®ГІГўГҐГІГ 
 stop_for_status(answer)
 dataRaw <- content(answer, "parsed", "application/json")
