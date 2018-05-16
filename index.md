@@ -86,34 +86,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 + [Авторизация](#авторизация-в-api-яндекс-директ)
 + [Общие аргументы для всех функций](#аргументы-общие-для-всех-функций)
 + [Функции входящие в пакет ryandexdirect](#функции-входящие-в-пакет-ryandexdirect)
-    + [Функции для загрузки статистики и данных из аккаунтов Яндекс Директ]()
+    + [Функции для загрузки статистики и данных из аккаунтов Яндекс Директ](#функции-для-загрузки-статистики-из-аккаунтов-яндекс-директ)
         + [yadirGetReport](#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null----fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no----------login--null-token--null) - Получение статистики из Report сервиса API v.5.
         + [yadirGetSummaryStat](#yadirgetsummarystatcampaignids--null-datestart--sysdate---10-dateend--sysdate-currency--usd-token--null) - Получение общей статистики по рекламным кампаниям
-    + [Функции для загрузки основных объектов из рекламных аккаунтов Яндекс Директ]()
+    + [Функции для загрузки основных объектов из рекламных аккаунтов Яндекс Директ](#функции-для-загрузки-основных-объектов-из-рекламных-аккаунтов-яндекс-директ)
         + [yadirGetCampaignList](#yadirgetcampaignlistlogins--null-states--coffonsuspendedendedconvertedarchivedtypes--ctext_campaignmobile_app_campaigndynamic_text_campaign-statuses--caccepteddraftmoderationrejected-statusespayment--cdisallowedallowed-token--null) - Получения списка рекламных кампаний
         + [yadirGetAdGroups](#yadirgetadgroupscampaignids--c123login--null-token--null) - Получения списка групп объявлений
         + [yadirGetKeyWords](#yadirgetkeywordscampaignids--c123-withstats--t-login--null-token--null) - Получения списка ключевых слов
         + [yadirGetAds](#yadirgetadscampaignids--c123-login--null-token--null) - Получения списка объявлений
         + [yadirGetBalance](#yadirgetbalancelogins--null-token--null) - Получить остаток средств общего счёта и его различные параметры.
-        + [yadirGetSiteLinks]() - Загрузка списка быстрых ссылок из рекламного аккаунта.
-    + [Функции для загрузки списка клиентов из агентского аккаунта Яндекс Директ]()
+        + [yadirGetSiteLinks](#загрузка-списка-быстрых-ссылок-из-аккаунтов-яндекс-директа) - Загрузка списка быстрых ссылок из рекламного аккаунта.
+    + [Функции для загрузки списка клиентов из агентского аккаунта Яндекс Директ](#функции-для-загрузки-списка-клиентов-из-агентского-аккаунта-яндекс-директ)
         + [yadirGetClientList](#yadirgetclientlisttoken--null) - Получение списка клиентов для агентского аккаунта
         + [yadirGetClientParam](#yadirgetclientparamlanguage--ru-login--null-token--null) - Получение параметров аккаунта Яндекс Директ
-    + [Функции для загрузки справочной информации Яндекс Директ]()
+    + [Функции для загрузки справочной информации Яндекс Директ](#функции-для-загрузки-справочной-информации-яндекс-директ)
         + [yadirGetDictionary](#yadirgetdictionarydictionaryname--georegions-language--ru-login--null-token--null) - Получение справочной информации из API v.5.
         + [yadirCurrencyRates](#yadircurrencyrateslogin--null-token--null) - Получения текущих курсов валют (С 28.03.2017 справочник валют так же можно получить с помощью функции yadirGetDictionary)
-    + [Функции для остановки и запуска показов рекламы в Яндекс Директ]()
+    + [Функции для остановки и запуска показов рекламы в Яндекс Директ](#функции-для-управления-показами-реклмных-объявлений-в-аккаунтах-яндекс-директа)
         + [yadirStartAds](#yadirstartadslogin--null-ids--null-token--null) - Возобновить показы по объявлениям.
         + [yadirStopAds](#yadirstopadslogin--null-ids--null-token--null) - Остановить показы по объявлениям.
         + [yadirStartCampaigns](#yadirstartcampaignslogin--null-ids--null-token--null) - Возобновить показы по рекламным кампаниям
         + [yadirStopCampaigns](#yadirstopcampaignslogin--null-ids--null-token--null) - Остановить показы по рекламным кампаниям
         + [yadirStartKeyWords](#yadirstartkeywordslogin--null-ids--null-token--null) - Возобновить показы по ключевым словам
         + [yadirStopKeyWords](#yadirstopkeywordslogin--null-ids--null-token--null) - Остановить показы по ключевым словам
-    + [Функции для загрузки данных из Яндекс Метрики]()
+    + [Функции для загрузки данных из Яндекс Метрики](#функции-для-загрузки-данных-из-яндекс-метрики)
         + [yadirGetLogsData](#yadirgetlogsdatacounter--null-date_from--sysdate---10-date_to--sysdate-fields--null-source--visits-token--null) - Получение данных из Logs API Яндекс Метрики
         + [yadirGetMetrikaGAData](#yadirgetmetrikagadatastart_date--10daysago-end_date--today-counter_ids--null-dimensions--null-metrics--null-filters--null-sort--null-samplinglevel--higher_precision-token--null) - Получение данных из API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)
-+ [Пример работы с пакетом ryandexdirect](#пример-работы-с-пакетом-ryandexdirect)
 + [Пример работы с функцией yadirGetReport](#пример-работы-с-функцией-yadirgetreport-и-загрузки-данных-из-сервиса-reports) - Загрузка данных из сервиса Reports
++ [Пример работы с пакетом ryandexdirect](#пример-работы-с-пакетом-ryandexdirect)
 + [Пример работы с функцией yadirGetDictionary](#пример-работы-с-функцией-yadirgetdictionary-для-загрузки-справочников-из-api-v5-Яндекс-Директ) - загрузки справочников из API v.5. Яндекс Директ
 + [Пример работы с Logs API Яндекс Метрики](#пример-работы-с-logs-api-Яндекс-Метрики) - Загрузка сырых данных из Яндекс Метрики
 + [Пример работы с API Яндекс Метрики совместимым с Google Analytics Core Reporting API (v3)](#пример-работы-с-api-Яндекс-Метрики-совместимым-с-google-analytics-core-reporting-api-v3)
