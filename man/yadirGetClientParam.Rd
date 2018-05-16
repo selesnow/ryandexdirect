@@ -3,12 +3,18 @@
 \title{Get params list from yandex direct account}
 \description{yadirGetClientParam get clients parameters names and parameters}
 \usage{
-yadirGetClientParam(Language = "ru", login = NULL, token = NULL)
+yadirGetClientParam(Language = "ru", 
+                    Logins = NULL, 
+                    Token = NULL,
+                    AgencyAccount = NULL,
+                    TokenPath     = getwd())
 }
 
 \arguments{
-  \item{login}{character with yandex direct login}
-  \item{token}{your api yandex direct token}
+  \item{Login}{Your Yandex Login}
+  \item{AgencyAccount}{Your agency account login, if you get statistic from client account}
+  \item{TokenPath}{Path to directory where you save credential data}
+  \item{Token}{character or list object, your Yandex API Token, you can get this by function yadirGetToken or yadirAuth}
   \item{Language}{Answer language one of en, ru, tr, uk}
 }
 \details{
@@ -18,10 +24,10 @@ yadirGetClientParam(Language = "ru", login = NULL, token = NULL)
 \author{Alexey Seleznev}
 
 \examples{
-#For get campaings data frame
-cl <- yadirGetClientsTest(Language = "ru",
-                          login = <YourLogin>, 
-                          token = <YourToken>)
+#Get client param from agency account
+library(ryandexdirect)
+client_param <- yadirGetClientParam(AgencyAccount = "agency_login", 
+                                    TokenPath     = "token_yandex")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -1,8 +1,10 @@
-yadirGetBalance <- function(Logins = NULL, Token = NULL){
+yadirGetBalance <- function(Logins        = NULL, 
+                            Token         = NULL,     
+                            AgencyAccount = NULL,
+                            TokenPath     = getwd()){
 
-   if(is.null(Token)){
-     stop("Token is a require argument!")
-   }
+  #Авторизация
+  Token <- tech_auth(login = Logins, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
   
   # результирующий фрейм
   result <- data.table()
@@ -25,7 +27,8 @@ yadirGetBalance <- function(Logins = NULL, Token = NULL){
    if(length(logins_temp)==1){
      Logins <- list(logins_temp)
     }
-
+  
+   
   #Формируем тело запроса
   body_list <-  list(method = "AccountManagement",
                      param  = list(Action = "Get",
@@ -51,10 +54,10 @@ yadirGetBalance <- function(Logins = NULL, Token = NULL){
   }
   
   #Преобразуем полученный результат в таблицу
-  result_temp <- fromJSON(content(answer, "text", "application/json"),flatten = TRUE)$data$Accounts
+  result_temp <- fromJSON(content(answer, "text", "application/json", encoding = "UTF-8"),flatten = TRUE)$data$Accounts
   
   #Проверяем все ли логины загрузились
-  errors_list <- fromJSON(content(answer, "text", "application/json"),flatten = TRUE)$data$ActionsResult
+  errors_list <- fromJSON(content(answer, "text", "application/json", encoding = "UTF-8"),flatten = TRUE)$data$ActionsResult
   
   if(length(errors_list) > 0){
   error <- data.frame(login = errors_list$Login, do.call(rbind.data.frame, errors_list$Errors))

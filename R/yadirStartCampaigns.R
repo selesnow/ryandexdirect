@@ -1,11 +1,11 @@
 yadirStartCampaigns <-  function(Login = NULL, 
-                                Ids   = NULL,
-                                Token = NULL){
+                                 Ids   = NULL,
+                                 Token = NULL,
+                                 AgencyAccount = NULL,
+                                 TokenPath     = getwd()){
   
-  #Проверка заполнения токена
-  if(is.null(Token)) {
-    stop("Enter your API token!")
-  }
+  #Авторизация
+  Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
   
   if(length(Ids) > 1000){
     stop(paste0("В параметр Ids переданы номера ",length(Ids), "кампаний, максимально допустимое количество кампаний в одном запросе 1000."))

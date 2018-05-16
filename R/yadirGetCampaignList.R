@@ -4,12 +4,10 @@ function (Logins          = NULL,
           Types           = c("TEXT_CAMPAIGN","MOBILE_APP_CAMPAIGN","DYNAMIC_TEXT_CAMPAIGN"),
           Statuses        = c("ACCEPTED","DRAFT","MODERATION","REJECTED"),
           StatusesPayment = c("DISALLOWED","ALLOWED"),
-          Token           = NULL) {
-#Проверка заполнения токена
-if(is.null(Token)) {
-  stop("Enter your API token!")
-}
-  
+          Token           = NULL,
+          AgencyAccount = NULL,
+          TokenPath     = getwd()) {
+
 #Фиксируем время начала работы
 start_time  <- Sys.time()
 
@@ -72,6 +70,9 @@ queryBody <- paste0("{
 
     
     for(l in 1:length(Logins)){
+      #Авторизация
+      Token <- tech_auth(login = Logins[l], token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
+      
       answer <- POST("https://api.direct.yandex.com/json/v5/campaigns", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru","Client-Login" = Logins[l]))
       #Обработка ответа
       stop_for_status(answer)

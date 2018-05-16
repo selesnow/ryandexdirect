@@ -1,11 +1,20 @@
-yadirGetClientParam <- function(Language = "ru", login = NULL, token = NULL){
-  #√è√∞√Æ√¢√•√∞√™√† √≠√†√´√®√∑√®√ø √´√Æ√£√®√≠√† √® √≤√Æ√™√•√≠√†
-  if(is.null(login)|is.null(token)) {
-    stop("You must enter login and API token!")
+yadirGetClientParam <- function(Language = "ru", 
+                                Logins = NULL, 
+                                Token = NULL,
+                                AgencyAccount = NULL,
+                                TokenPath     = getwd()){
+  
+  
+  #¿‚ÚÓËÁ‡ˆËˇ
+  Token <- tech_auth(login = Logins, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
+  
+  #«‡„ÛÁÍ‡ ÒÔËÒÍ‡ ÍÎËÂÌÚÓ‚ ÂÒÎË ÌÂ·˚ÎÓ Á‡‰‡ÌË Ëı ÒÔËÒÓÍ
+  if ( ! is.null(AgencyAccount) && is.null(Logins)) {
+    Logins <- yadirGetClientList(AgencyAccount = AgencyAccount, TokenPath = TokenPath, Token = Token)$Login
   }
   
-  
-  queryBody <- paste0("{
+  #‘ÓÏËÛÂÏ Á‡ÔÓÒ
+    queryBody <- paste0("{
   \"method\": \"get\",
                       \"params\": { 
                       \"FieldNames\": [
@@ -25,48 +34,57 @@ yadirGetClientParam <- function(Language = "ru", login = NULL, token = NULL){
                       \"Restrictions\",
                       \"Settings\",
                       \"VatRate\"]
-}
-}")
+      }
+    }")
   
-  #√é√≤√Ø√∞√†√¢√™√† √ß√†√Ø√∞√Æ√±√† √≠√† √±√•√∞√¢√•√∞
-  answer <- POST("https://api.direct.yandex.com/json/v5/clients", body = queryBody, add_headers(Authorization = paste0("Bearer ",token), 'Accept-Language' = Language, "Client-Login" = login[1]))
-  #√è√∞√Æ√¢√•√∞√™√† √∞√•√ß√≥√´√º√≤√†√≤√† √≠√† √Æ√∏√®√°√™√®
-  stop_for_status(answer)
+  result <- data.frame()
   
-  dataRaw <- content(answer, "parsed", "application/json")
-  
-  if(length(dataRaw$error) > 0){
-    stop(paste0(dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
-  }
-  
-  #√è√∞√•√Æ√°√∞√†√ß√≥√•√¨ √Æ√≤√¢√•√≤ √¢ data frame
-  
-  #√è√†√∞√±√®√≠√£ √±√Ø√∞√†√¢√Æ√∑√≠√®√™√† √∞√•√£√®√Æ√≠√Æ√¢
-    dictionary_df <- data.frame()
+  for (login in Logins) {
     
-    for(dr in 1:length(dataRaw$result[[1]])){
-      dictionary_df_temp <- data.frame(Login = dataRaw$result[[1]][[dr]]$Login,
-                                       ClientId = dataRaw$result[[1]][[dr]]$ClientId,
-                                       CountryId = dataRaw$result[[1]][[dr]]$CountryId,
-                                       Currency = dataRaw$result[[1]][[dr]]$Currency,
-                                       CreatedAt = dataRaw$result[[1]][[dr]]$CreatedAt,
-                                       ClientInfo = dataRaw$result[[1]][[dr]]$ClientInfo,
-                                       AccountQuality = dataRaw$result[[1]][[dr]]$AccountQuality,
-                                       CampaignsTotalPerClient = dataRaw$result[[1]][[dr]]$Restrictions[[1]]$Value,
-                                       CampaignsUnarchivePerClient = dataRaw$result[[1]][[dr]]$Restrictions[[2]]$Value,
-                                       APIPoints = dataRaw$result[[1]][[dr]]$Restrictions[[10]]$Value)
-      
-      dictionary_df <- rbind(dictionary_df, dictionary_df_temp)
-      
+    #Ioi?aaea cai?ina ia na?aa?
+    answer <- POST("https://api.direct.yandex.com/json/v5/clients", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = Language, "Client-Login" = login))
+    #I?iaa?ea ?acoeuoaoa ia ioeaee
+    stop_for_status(answer)
+    
+    dataRaw <- content(answer, "parsed", "application/json")
+    
+    if(length(dataRaw$error) > 0){
+      stop(paste0(dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
     }
+    
+    #I?aia?acoai ioaao a data frame
+    
+    #Ia?neia ni?aai?ieea ?aaeiiia
+      dictionary_df <- data.frame()
+      
+      for(dr in 1:length(dataRaw$result[[1]])){
+        dictionary_df_temp <- data.frame(Login = dataRaw$result[[1]][[dr]]$Login,
+                                         ClientId = dataRaw$result[[1]][[dr]]$ClientId,
+                                         CountryId = dataRaw$result[[1]][[dr]]$CountryId,
+                                         Currency = dataRaw$result[[1]][[dr]]$Currency,
+                                         CreatedAt = dataRaw$result[[1]][[dr]]$CreatedAt,
+                                         ClientInfo = dataRaw$result[[1]][[dr]]$ClientInfo,
+                                         AccountQuality = dataRaw$result[[1]][[dr]]$AccountQuality,
+                                         CampaignsTotalPerClient = dataRaw$result[[1]][[dr]]$Restrictions[[1]]$Value,
+                                         CampaignsUnarchivePerClient = dataRaw$result[[1]][[dr]]$Restrictions[[2]]$Value,
+                                         APIPoints = dataRaw$result[[1]][[dr]]$Restrictions[[10]]$Value)
+        
+        dictionary_df <- rbind(dictionary_df, dictionary_df_temp)
+        
+      }
+      
 
-    #√Ç√ª√¢√Æ√§√®√¨ √®√≠√¥√Æ√∞√¨√†√∂√®√æ √Æ √∞√†√°√Æ√≤√• √ß√†√Ø√∞√Æ√±√† √® √Æ √™√Æ√´√®√∑√•√±√≤√¢√• √°√†√´√´√Æ√¢
-     #packageStartupMessage("√ë√Ø√∞√†√¢√Æ√∑√≠√®√™ √≥√±√Ø√•√∏√≠√Æ √ß√†√£√∞√≥√¶√•√≠!", appendLF = T)
-     #packageStartupMessage(paste0("√Å√ª√´√´√ª √±√Ø√®√±√†√≠√ª √± : " ,answer$headers$`units-used-login`), appendLF = T)
-     #packageStartupMessage(paste0("√ä-√¢√Æ √°√†√´√´√Æ√¢ √®√ß√∞√†√±√µ√Æ√§√Æ√¢√†√≠√ª√µ √Ø√∞√® √¢√ª√Ø√Æ√´√≠√•√≠√®√® √ß√†√Ø√∞√Æ√±√†: " ,strsplit(answer$headers$units, "/")[[1]][1]), appendLF = T)
-     #packageStartupMessage(paste0("√Ñ√Æ√±√≤√≥√Ø√≠√ª√© √Æ√±√≤√†√≤√Æ√™ √±√≥√≤√Æ√∑√≠√Æ√£√Æ √´√®√¨√®√≤√† √°√†√´√´√Æ√¢: " ,strsplit(answer$headers$units, "/")[[1]][2]), appendLF = T)
-     #packageStartupMessage(paste0("√ë√≥√≤√Æ√∑√≠√ª√© √´√®√¨√®√≤ √°√†√´√´√Æ√¢: " ,strsplit(answer$headers$units, "/")[[1]][3]), appendLF = T)
-     #packageStartupMessage(paste0("√ì√≠√®√™√†√´√º√≠√ª√© √®√§√•√≠√≤√®√¥√®√™√†√≤√Æ√∞ √ß√†√Ø√∞√Æ√±√† √™√Æ√≤√Æ√∞√ª√© √≠√•√Æ√°√µ√Æ√§√®√¨√Æ √≥√™√†√ß√ª√¢√†√≤√º √Ø√∞√® √Æ√°√∞√†√π√•√≠√®√® √¢ √±√´√≥√¶√°√≥ √Ø√Æ√§√§√•√∞√¶√™√®: ",answer$headers$requestid), appendLF = T)
-    #√Ç√Æ√ß√¢√∞√†√π√†√•√¨ √∞√•√ß√≥√´√º√≤√†√≤ √¢ √¢√®√§√• Data Frame
-  return(dictionary_df)
+
+    #Auaiaei eioi?iaoe? i ?aaioa cai?ina e i eiee?anoaa aaeeia
+     #packageStartupMessage("Ni?aai?iee oniaoii caa?o?ai!", appendLF = T)
+     packageStartupMessage(paste0("¡‡ÎÎ˚ ÒÔËÒ‡Ì˚ Ò : " ,answer$headers$`units-used-login`), appendLF = T)
+     packageStartupMessage(paste0(" -‚Ó ·‡ÎÎÓ‚ ËÁ‡ÒıÓ‰Ó‚‡Ì˚ı ÔË ‚˚ÔÓÎÌÂÌËË Á‡ÔÓÒ‡: " ,strsplit(answer$headers$units, "/")[[1]][1]), appendLF = T)
+     packageStartupMessage(paste0("ƒÓÒÚÛÔÌ˚È ÓÒÚ‡ÚÓÍ ÒÛÚÓ˜ÌÓ Ó ÎËÏËÚ‡ ·‡ÎÎÓ‚: " ,strsplit(answer$headers$units, "/")[[1]][2]), appendLF = T)
+     packageStartupMessage(paste0("—ÛÚÓ˜Ì˚È ÎËÏËÚ ·‡ÎÎÓ‚: " ,strsplit(answer$headers$units, "/")[[1]][3]), appendLF = T)
+     packageStartupMessage(paste0("”ÌËÍ‡Î¸Ì˚È Ë‰ÂÌÚËÙËÍ‡ÚÓÓ Á‡ÔÓÒ‡ ÍÓÚÓ˚È ÌÂÓ·ıÓ‰ËÏÓ ÛÍ‡Á˚‚‡Ú¸ ÔË Ó·‡˘ÂÌËË ‚ ÒÎÛÊ·Û ÔÓ‰‰ÂÊÍË: ",answer$headers$requestid), appendLF = T)
+
+     # ÔËÍÂÔÎˇÂÏ Í Ó·˘ÂÏÛ ÂÁÛÎ¸Ú‡ÚÛ
+     result <- rbind(result, dictionary_df)
+  }
+  return(result)
 }

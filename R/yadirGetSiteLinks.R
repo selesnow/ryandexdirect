@@ -1,8 +1,13 @@
 yadirGetSiteLinks <- function(Login = NULL,
-                              Token = NULL) {
+                              Token = NULL,
+                              AgencyAccount = NULL,
+                              TokenPath     = getwd()) {
   
   # результирующий фрейм
   result <- data.frame()
+  
+  #Авторизация
+  Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
   
   # начальное смещение и лимит на к-во строк
   offset <- 0
