@@ -29,36 +29,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <p align="center">
 <a href="https://selesnow.github.io/"><img src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png" height="80"></a>
 </p>
+<style type="text/css">
+ ul.menu {
+  list-style: none; /*убираем маркеры списка*/
+  margin: 0; /*убираем отступы*/
+  padding-left: 0; /*убираем отступы*/
+  margin-top:25px; /*делаем отступ сверху*/
+  background:#C0C0C0; /*добавляем фон всему меню (заменив этот параметр, вы поменяете цвет всего меню)*/
+  height: 40px; /*задаем высоту*/
+}
+a.amenu {
+  text-decoration: none; /*убираем подчеркивание текста ссылок*/
+  background: #C0C0C0; /*добавляем фон к пункту меню (заменив этот параметр, вы поменяете цвет всех пунктов меню)*/
+  color: #000000; /*меняем цвет ссылок*/
+  padding:0px 10px; /*добавляем отступ*/
+  font-family: sans-serif; /*меняем шрифт*/
+  font-size: 9pt;
+  line-height:40px; /*ровняем меню по вертикали*/
+  display: block; 
+  border-right: 1px solid #808080; /*добавляем бордюр справа*/
+  -moz-transition: all 0.3s 0.01s ease; /*делаем плавный переход*/
+  -o-transition: all 0.3s 0.01s ease;
+  -webkit-transition: all 0.3s 0.01s ease;
+}
+a:hover {
+  background:#808080;/*добавляем эффект при наведении*/
+}
+li.menu {
+  float:left; /*Размещаем список горизонтально для реализации меню*/
+}
+</style>
 
-<table>
-    <tr>
-      <td>
-        <a href="https://selesnow.github.io/ryandexdirect/">ryandexdirect</a>
-      </td>
-      <td>
-        <a href="https://selesnow.github.io/rfacebookstat/">rfacebookstat</a>
-      </td>
-      <td>
-        <a href="https://selesnow.github.io/rvkstat/">rvkstat</a>
-      </td>
-      <td>
-        <a href="https://selesnow.github.io/rmytarget/">rmytarget</a>
-      </td>
-      <td>
-        <a href="https://selesnow.github.io/rmixpanel/">rmixpanel</a>
-      </td>
-      <td>
-        <a href="https://selesnow.github.io/getProxy/">getProxy</a>
-      </td>
-      <td>
-        <a href="https://selesnow.github.io/rGitHub/">rGitHub</a>
-      </td>
-      <td>
-        <a href="https://selesnow.github.io/news/">NEWS</a>
-      </td>
-    </tr>
-</table>
-
+<h2>Menu:</h2>
+<center>
+<ul class="menu">
+  <li class="menu"><a href="https://selesnow.github.io/ryandexdirect" class="amenu">ryandexdirect</a></li>
+  <li class="menu"><a href="https://selesnow.github.io/rmytarget" class="amenu">rvkstat</a></li>
+  <li class="menu"><a href="https://selesnow.github.io/rfacebookstat" class="amenu">rfacebookstat</a></li>
+  <li class="menu"><a href="https://selesnow.github.io/rmytarget" class="amenu">rmytarget</a></li>
+  <li class="menu"><a href="https://selesnow.github.io/rmixpanel" class="amenu">rmixpanel</a></li>
+  <li class="menu"><a href="https://selesnow.github.io/rgithub" class="amenu">rGitHub</a></li>
+  <li class="menu"><a href="https://selesnow.github.io/getproxy" class="amenu">getProxy</a></li>
+  <li class="menu"><a href="https://selesnow.github.io/news" class="amenu">NEWS</a></li>
+  <li class="menu"><a href="https://selesnow.github.io/library" class="amenu">Статьи</a></li>
+</ul>
+</center>
+<Br>
+<h2>Search:</h2>
 <script>
   (function() {
     var cx = '002735389418227325972:fdikniadyig';
@@ -70,7 +87,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     s.parentNode.insertBefore(gcse, s);
   })();
 </script>
-<gcse:search></gcse:search> 
+<gcse:search></gcse:search>
+<Br>
 
 # ryandexdirect - пакет для работы с API Яндекс.Директ версии 4, Live 4 и 5, а так же с Logs API Яндекс метрики на языке R.
 
