@@ -51,16 +51,7 @@ yadirGetReport <- function(ReportType      = "CAMPAIGN_PERFORMANCE_REPORT",
   
   for(login in Login){
     #Авторизация
-    if (is.null(AgencyAccount)) {
-      if (is.null(Token)) {
-        Token <- yadirAuth(Login = login, TokenPath = TokenPath, NewUser = FALSE)$access_token
-      } else if (class(Token) == "list") {
-        Token <- Token$access_token
-      }
-    } else {
-      # обработка агентского аккаунта
-        Token <- yadirAuth(Login = AgencyAccount, TokenPath = TokenPath, NewUser = FALSE)$access_token
-    }
+    Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
     
     #Счётчик времени
     parsing_time <- 0
