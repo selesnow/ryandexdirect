@@ -12,7 +12,7 @@ tech_auth <-  function(login = NULL, token = NULL, AgencyAccount = NULL, TokenPa
   # Р•СЃР»Рё С‚РѕРєРµРЅ РЅРµ Р·Р°РґР°РЅ С‚Рѕ РЅРµРѕР±С…РѕРґРёРјРѕ РµРіРѕ РїРѕР»СѓС‡РёС‚СЊ
   } else {
     # РѕРїСЂРµРґРµР»СЏРµРј С‚РёРї Р°РєРєР°СѓРЅС‚Р°, Р°РіРµРЅС‚СЃРєРёР№ РёР»Рё РєР»РёРµРЅС‚СЃРєРёР№
-    load_login <- ifelse(is.null(AgencyAccount), login, AgencyAccount)
+    load_login <- ifelse(is.null(AgencyAccount) | is.na(AgencyAccount), login, AgencyAccount)
     # Р·Р°РіСЂСѓР¶Р°РµРј С‚РѕРєРµРЅ
     Token <- yadirAuth(Login = load_login, TokenPath = TokenPath, NewUser = FALSE)$access_token
   }
