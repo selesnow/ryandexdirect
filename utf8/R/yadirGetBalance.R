@@ -25,7 +25,7 @@ yadirGetBalance <- function(Logins        = NULL,
   
    #Для правильного формирования JSON смотрим к-во логинов и в случае если логин 1 то преобразуем его в lost
    if(length(logins_temp)==1){
-     Logins <- list(logins_temp)
+     logins_temp <- list(logins_temp)
     }
   
    
