@@ -23,9 +23,9 @@ yadirGetBalance <- function(Logins        = NULL,
    # отделяем нужную порцию логинов
    logins_temp <- head(Logins[start_element:length(Logins)], lim)
   
-   #Для правильного формирования JSON смотрим к-во логинов и в случае если логин 1 то преобразуем его в lost
+   #Для правильного формирования JSON смотрим к-во логинов и в случае если логин 1 то преобразуем его в list
    if(length(logins_temp)==1){
-     Logins <- list(logins_temp)
+     logins_temp <- list(logins_temp)
     }
   
    
@@ -37,8 +37,8 @@ yadirGetBalance <- function(Logins        = NULL,
                      token = Token)
 
   #Формируем тело запроса
-  body_json <- toJSON(body_list,auto_unbox = T, pretty=TRUE)
-
+  body_json <- toJSON(body_list, auto_unbox = T, pretty = TRUE)
+  
   #Обращаемся к API
   answer <- POST("https://api.direct.yandex.ru/live/v4/json/", body = body_json)
   
