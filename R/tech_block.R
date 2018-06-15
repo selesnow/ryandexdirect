@@ -12,7 +12,7 @@ tech_auth <-  function(login = NULL, token = NULL, AgencyAccount = NULL, TokenPa
   # ≈сли токен не задан то необходимо его получить
   } else {
     # определ€ем тип аккаунта, агентский или клиентский
-    load_login <- ifelse(is.null(AgencyAccount) | is.na(AgencyAccount), login, AgencyAccount)
+    load_login <- ifelse(is.null(AgencyAccount) || is.na(AgencyAccount), login, AgencyAccount)
     # загружаем токен
     Token <- yadirAuth(Login = load_login, TokenPath = TokenPath, NewUser = FALSE)$access_token
   }
