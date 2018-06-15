@@ -1,11 +1,18 @@
 yadirGetBalance <- function(Logins        = NULL, 
-                            Token         = NULL,     
-                            AgencyAccount = NULL,
-                            TokenPath     = getwd()){
+                             Token         = NULL,     
+                             AgencyAccount = NULL,
+                             TokenPath     = getwd()){
 
   # результирующий фрейм
   result <- data.table()
   
+  #Авторизация
+  if (length(Logins) > 1 || is.null(Logins)) {
+  Token <- tech_auth(login = AgencyAccount, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
+  } else {
+  Token <- tech_auth(login = Logins, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)  
+  }
+ 
   # стартовый элемент
   start_element <- 1
   
@@ -20,15 +27,11 @@ yadirGetBalance <- function(Logins        = NULL,
    # отделяем нужную порцию логинов
    logins_temp <- head(Logins[start_element:length(Logins)], lim)
    
-   #Авторизация
-   Token <- tech_auth(login = logins_temp, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
-  
    #Для правильного формирования JSON смотрим к-во логинов и в случае если логин 1 то преобразуем его в list
    if(length(logins_temp)==1){
      logins_temp <- list(logins_temp)
     }
   
-   
   #Формируем тело запроса
   body_list <-  list(method = "AccountManagement",
                      param  = list(Action = "Get",
