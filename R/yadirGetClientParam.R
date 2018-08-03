@@ -49,7 +49,8 @@ yadirGetClientParam <- function(Language = "ru",
     dataRaw <- content(answer, "parsed", "application/json")
     
     if(length(dataRaw$error) > 0){
-      stop(paste0(dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
+      warning(login,paste0(": ",dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
+	  next
     }
     
     #I?aia?acoai ioaao a data frame
