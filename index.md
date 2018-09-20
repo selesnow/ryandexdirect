@@ -30,48 +30,82 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="https://selesnow.github.io/"><img src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png" height="80"></a>
 </p>
 <style type="text/css">
- ul.menu {
+
+ul.nm_ul {
   list-style: none; /*убираем маркеры списка*/
   margin: 0; /*убираем отступы*/
   padding-left: 0; /*убираем отступы*/
   margin-top:25px; /*делаем отступ сверху*/
-  background:#C0C0C0; /*добавляем фон всему меню (заменив этот параметр, вы поменяете цвет всего меню)*/
-  height: 40px; /*задаем высоту*/
+  background:#DCDCDC; /*добавляем фон всему меню*/
+  height: 30px; /*задаем высоту*/
 }
-a.amenu {
+a.nm_a {
   text-decoration: none; /*убираем подчеркивание текста ссылок*/
-  background: #C0C0C0; /*добавляем фон к пункту меню (заменив этот параметр, вы поменяете цвет всех пунктов меню)*/
-  color: #000000; /*меняем цвет ссылок*/
-  padding:0px 10px; /*добавляем отступ*/
-  font-family: sans-serif; /*меняем шрифт*/
-  font-size: 9pt;
-  line-height:40px; /*ровняем меню по вертикали*/
+  background:#696969; /*добавляем фон к пункту меню*/
+  color:#fff; /*меняем цвет ссылок*/
+  padding:0px 7px; /*добавляем отступ*/
+  font-family: arial; /*меняем шрифт*/
+  line-height:30px; /*ровняем меню по вертикали*/
   display: block; 
-  border-right: 1px solid #808080; /*добавляем бордюр справа*/
+  border-right: 1px solid #677B27; /*добавляем бордюр справа*/
   -moz-transition: all 0.3s 0.01s ease; /*делаем плавный переход*/
   -o-transition: all 0.3s 0.01s ease;
   -webkit-transition: all 0.3s 0.01s ease;
 }
-a:hover {
-  background:#808080;/*добавляем эффект при наведении*/
+a.nm_a:hover {
+  background:#FF8C00;/*добавляем эффект при наведении*/
 }
-li.menu {
+li.nm_li {
   float:left; /*Размещаем список горизонтально для реализации меню*/
+  position:relative; /*задаем позицию для позиционирования*/
 }
+     
+    /*Стили для скрытого выпадающего меню*/
+    li.nm_li > ul.nm_ul {
+        position:absolute;
+        top:5px;
+        display:none;   
+    }
+     
+    /*Делаем скрытую часть видимой*/
+    li.nm_li:hover > ul.nm_ul {
+        display:block; 
+        width:280px;  /*Задаем ширину выпадающего меню*/      
+    }
+   li.nm_li:hover > ul.nm_ul > li.nm_li {
+        float:none; /*Убираем горизонтальное позиционирование*/
+    }
 </style>
 
 <h2>Menu:</h2>
 <center>
-<ul class="menu">
-  <li class="menu"><a href="https://selesnow.github.io/ryandexdirect" class="amenu">ryandexdirect</a></li>
-  <li class="menu"><a href="https://selesnow.github.io/rmytarget" class="amenu">rvkstat</a></li>
-  <li class="menu"><a href="https://selesnow.github.io/rfacebookstat" class="amenu">rfacebookstat</a></li>
-  <li class="menu"><a href="https://selesnow.github.io/rmytarget" class="amenu">rmytarget</a></li>
-  <li class="menu"><a href="https://selesnow.github.io/rmixpanel" class="amenu">rmixpanel</a></li>
-  <li class="menu"><a href="https://selesnow.github.io/rgithub" class="amenu">rGitHub</a></li>
-  <li class="menu"><a href="https://selesnow.github.io/getproxy" class="amenu">getProxy</a></li>
-  <li class="menu"><a href="https://selesnow.github.io/news" class="amenu">NEWS</a></li>
-  <li class="menu"><a href="https://selesnow.github.io/library" class="amenu">Статьи</a></li>
+<ul class="nm_ul">
+    <li class="nm_li"><a href="/" class="nm_a">Main</a></li>
+    <li class="nm_li"><a href="/" class="nm_a">R Packages</a>
+        <ul class="nm_ul">
+            <li class="nm_li"><a href="/ryandexdirect" class="nm_a">ryandexdirect</a></li>
+            <li class="nm_li"><a href="/rym" class="nm_a">rym</a></li>
+            <li class="nm_li"><a href="/rfacebookstat" class="nm_a">rfacebookstat</a></li>
+			<li class="nm_li"><a href="/rvkstat" class="nm_a">rvkstat</a></li>
+			<li class="nm_li"><a href="/rmytarget" class="nm_a">rmytarget</a></li>
+			<li class="nm_li"><a href="/rmixpanel" class="nm_a">rmixpanel</a></li>
+			<li class="nm_li"><a href="/rGitHub" class="nm_a">rGitHub</a></li>
+			<li class="nm_li"><a href="/getProxy" class="nm_a">getProxy</a></li>
+        </ul>
+    </li>
+	<li class="nm_li"><a href="#" class="nm_a">Онлайн Книги</a>
+	    <ul class="nm_ul">
+            <li class="nm_li"><a href="/r_for_marketing" class="nm_a">Язык R в Интернет Маркетинге</a></li>
+        </ul>
+	</li>
+	<li class="nm_li"><a href="#" class="nm_a">Онлайн Курсы</a>
+	    <ul class="nm_ul">
+            <li class="nm_li"><a href="#" class="nm_a">Язык R в Интернет Маркетинге</a></li>
+        </ul>
+    </li>
+    <li class="nm_li"><a href="/library" class="nm_a">Статьи</a></li>
+    <li class="nm_li"><a href="https://alexeyseleznev.wordpress.com/" class="nm_a">Блог</a></li>
+	<li class="nm_li"><a href="/news" class="nm_a">Новости</a></li>
 </ul>
 </center>
 <Br>
