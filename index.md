@@ -105,7 +105,8 @@ li.nm_li {
     </li>
     <li class="nm_li"><a href="/library" class="nm_a">Статьи</a></li>
     <li class="nm_li"><a href="https://alexeyseleznev.wordpress.com/" class="nm_a">Блог</a></li>
-	<li class="nm_li"><a href="/news" class="nm_a">Новости</a></li>
+    <li class="nm_li"><a href="/news" class="nm_a">Новости</a></li>
+    <li class="nm_li"><a href="/publications" class="nm_a">Архив</a></li>
 </ul>
 </center>
 <Br>
