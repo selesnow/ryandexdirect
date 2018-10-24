@@ -40,9 +40,9 @@ Attribution model is the rule, what transition to consider the source of the vis
 
 Possible values:
 
-  \item{FC}{the first transition}
-  \item{LC}{the last transition}
-  \item{LSC}{is the last significant transition}
+\item{FC}{the first transition}
+\item{LC}{the last transition}
+\item{LSC}{is the last significant transition}
  
 The AttributionModels parameter can be specified only if the Goals parameter is specified. If the Goals parameter is specified, and the AttributionModels parameter is not, the default value is LSC.
 
@@ -57,6 +57,7 @@ If several attribution models are specified, the data will be displayed for each
 \href{https://yandex.ru/support/direct/statistics/attribution-model.html}{What are attribution models?}
 
 \href{https://selesnow.github.io/ryandexdirect/}{Docs on ryandexdirect website}
+}
 \value{data frame with campaings names and parameters}
 \author{Alexey Seleznev}
 
