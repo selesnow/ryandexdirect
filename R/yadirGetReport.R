@@ -1,15 +1,17 @@
-yadirGetReport <- function(ReportType      = "CAMPAIGN_PERFORMANCE_REPORT", 
-                           DateRangeType   = "LAST_MONTH", 
-                           DateFrom        = NULL, 
-                           DateTo          = NULL, 
-                           FieldNames      = c("CampaignName","Impressions","Clicks","Cost"), 
-                           FilterList      = NULL,
-                           IncludeVAT      = "YES",
-                           IncludeDiscount = "NO",
-                           Login           = NULL,
-                           AgencyAccount   = NULL,
-                           Token           = NULL,
-                           TokenPath       = getwd()){
+yadirGetReport <- function(ReportType    = "CAMPAIGN_PERFORMANCE_REPORT", 
+                           DateRangeType     = "LAST_MONTH", 
+                           DateFrom          = NULL, 
+                           DateTo            = NULL, 
+                           FieldNames        = c("CampaignName","Impressions","Clicks","Cost"), 
+                           FilterList        = NULL,
+                           Goals             = NULL,
+                           AttributionModels = NULL,
+                           IncludeVAT        = "YES",
+                           IncludeDiscount   = "NO",
+                           Login             = NULL,
+                           AgencyAccount     = NULL,
+                           Token             = NULL,
+                           TokenPath         = getwd()){
   
   #Запуск таймера начала работы функции
   proc_start <- Sys.time()
@@ -29,8 +31,11 @@ yadirGetReport <- function(ReportType      = "CAMPAIGN_PERFORMANCE_REPORT",
                                 paste0(paste0("<Values>",val, "</Values>"), collapse = ""),"</Filter>"))
     }}
   
-  
-  #Формируем тело запроса
+  Goals <- ifelse(is.null(Goals), "", paste0("<Goals>",Goals, "</Goals>", collapse = ""))
+
+  AttributionModels <- ifelse(is.null(AttributionModels), "", paste0("<AttributionModels>",AttributionModels, "</AttributionModels>", collapse = ""))
+ 
+   #Формируем тело запроса
   queryBody <- paste0('
                       <ReportDefinition xmlns="http://api.direct.yandex.com/v5/reports">
                       <SelectionCriteria>',
@@ -38,7 +43,7 @@ yadirGetReport <- function(ReportType      = "CAMPAIGN_PERFORMANCE_REPORT",
                       ifelse(is.null(FilterList),"",fil_list),
                       '
                       </SelectionCriteria>',
-                      Fields,'
+                      Goals,AttributionModels,Fields,'
                       <ReportName>',paste0("MyReport ", Sys.time()),'</ReportName>
                       <ReportType>',ReportType,'</ReportType>
                       <DateRangeType>',DateRangeType ,'</DateRangeType>
@@ -52,7 +57,7 @@ yadirGetReport <- function(ReportType      = "CAMPAIGN_PERFORMANCE_REPORT",
   for(login in Login){
     #Авторизация
     Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
-    
+   
     #Счётчик времени
     parsing_time <- 0
     server_time <- 0
