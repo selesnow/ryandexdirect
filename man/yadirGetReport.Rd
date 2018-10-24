@@ -39,9 +39,9 @@ yadirGetReport(ReportType    = "CAMPAIGN_PERFORMANCE_REPORT",
 Attribution model is the rule, what transition to consider the source of the visit.
 
 Possible values{
-\item{FC}{the first transition}
-\item{LC}{the last transition}
-\item{LSC}{is the last significant transition}
+  \item{FC}{the first transition}
+  \item{LC}{the last transition}
+  \item{LSC}{is the last significant transition}
 }
  
 The AttributionModels parameter can be specified only if the Goals parameter is specified. If the Goals parameter is specified, and the AttributionModels parameter is not, the default value is LSC.
