@@ -38,7 +38,7 @@ yadirGetReport(ReportType    = "CAMPAIGN_PERFORMANCE_REPORT",
 \details{
 Attribution model is the rule, what transition to consider the source of the visit.
 
-Possible values{
+PossibleValues{
   \item{FC}{the first transition}
   \item{LC}{the last transition}
   \item{LSC}{is the last significant transition}
