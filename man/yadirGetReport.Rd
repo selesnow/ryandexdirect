@@ -41,9 +41,9 @@ Attribution model is the rule, what transition to consider the source of the vis
 Possible Values:
 
 \describe{
-  \item{FC}{the first transition}
-  \item{LC}{the last transition}
-  \item{LSC}{is the last significant transition}
+  \item{FC}{The first transition. The source of any visitor visits is his first visit to the site in the last 180 days. This model allows you to track the source of advertising, which first brought the client and thereby influenced all subsequent interactions with the site.}
+  \item{LC}{The last transition. The source of the visit is considered to be a transition, as a result of which the visitor is currently visiting the site, regardless of the history of visits. This model can be used in the technical analysis of the site. To assess the performance of advertising campaigns, use the Last significant transition model.}
+  \item{LSC}{Is the last significant transition. All sources of transitions for the last 90 days are conventionally divided into significant (your ads) and insignificant (transitions from saved pages, internal transitions or direct visits to the site). The source of the visit is considered to be an ad transition. If the visit occurred after an insignificant transition, then its source is considered the last transition on the ad. This model allows you to take into account the conversions that are lost in the model Last transition due to technical limitations on the duration of the visit.}
 }
  
 The AttributionModels parameter can be specified only if the Goals parameter is specified. If the Goals parameter is specified, and the AttributionModels parameter is not, the default value is LSC.
