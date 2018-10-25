@@ -1,10 +1,10 @@
 \name{yadirGetReport}
 \alias{yadirGetReport}
 \title{Get report from yandex direct Report service}
-\description{yadirGetReport get data frame with Report data from Report Yandex Direct Service}
+\description{The service Report is designed to get statistics on the advertiser's account. You must set period, choose report type and needed fields, and get statistic.}
 \usage{
-yadirGetReport(ReportType    = "CAMPAIGN_PERFORMANCE_REPORT", 
-               DateRangeType     = "LAST_MONTH", 
+yadirGetReport(ReportType        = "CUSTOM_REPORT", 
+               DateRangeType     = "LAST_30_DAYS", 
                DateFrom          = NULL, 
                DateTo            = NULL, 
                FieldNames        = c("CampaignName","Impressions","Clicks","Cost"), 
@@ -60,7 +60,9 @@ If several attribution models are specified, the data will be displayed for each
 
 \href{https://selesnow.github.io/ryandexdirect/}{Docs on ryandexdirect website}
 }
-\value{data frame with campaings names and parameters}
+
+\value{Data frame with the requested fields}
+
 \author{Alexey Seleznev}
 
 \examples{
