@@ -1,5 +1,5 @@
-yadirGetReport <- function(ReportType    = "CAMPAIGN_PERFORMANCE_REPORT", 
-                           DateRangeType     = "LAST_MONTH", 
+yadirGetReport <- function(ReportType        = "CUSTOM_REPORT", 
+                           DateRangeType     = "LAST_30_DAYS", 
                            DateFrom          = NULL, 
                            DateTo            = NULL, 
                            FieldNames        = c("CampaignName","Impressions","Clicks","Cost"), 
