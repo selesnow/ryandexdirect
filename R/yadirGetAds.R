@@ -53,8 +53,8 @@ while(camp_start <= camp_num){
 camp_step   <-  if(camp_num - camp_start >= 10) camp_step else camp_num - camp_start + 1
 
 #Преобразуем список рекламных кампаний
-Ids             <- ifelse(is.na(Ids), NA,paste0(Ids, collapse = ","))
-AdGroupIds      <- ifelse(is.na(AdGroupIds),NA,paste0(AdGroupIds, collapse = ","))
+Ids             <- ifelse(any(is.na(Ids)), NA,paste0(Ids, collapse = ","))
+AdGroupIds      <- ifelse(any(is.na(AdGroupIds)),NA,paste0(AdGroupIds, collapse = ","))
 CampaignIdsTmp  <- paste("\"",CampaignIds[camp_start:(camp_start + camp_step - 1)],"\"",collapse=", ",sep="")
 
 #Задаём начальный offset
