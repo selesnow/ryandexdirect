@@ -163,6 +163,7 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
   packageStartupMessage(paste0("Общее время работы функции: ",total_work_time, " сек."))
   packageStartupMessage(paste0(round(as.integer(server_time) / as.integer(total_work_time) * 100, 0), "% времени работы заняло ожидание ответа от сервера."))
   packageStartupMessage(paste0(round(as.integer(parsing_time) / as.integer(total_work_time) * 100, 0), "% времени работы занял парсинг полученного результата."))
+  packageStartupMessage(paste0("RequestID: ",answer$headers$requestid))
   packageStartupMessage("-----------------------------------------------------------")
   #Возвращаем полученный массив
   return(result)
