@@ -95,7 +95,8 @@ li.nm_li {
     </li>
 	<li class="nm_li"><a href="#" class="nm_a">Онлайн Книги</a>
 	    <ul class="nm_ul">
-            <li class="nm_li"><a href="/r_for_marketing" class="nm_a">Язык R в Интернет Маркетинге</a></li>
+            <li class="nm_li"><a href="https://r-for-marketing.netpeak.net/" class="nm_a">Язык R в Интернет Маркетинге</a></li>
+            <li class="nm_li"><a href="https://netpeak.net/files/whitepapers/10-fishek-web-analitiki.pdf" class="nm_a">10 фишек Google Analytics</a></li>
         </ul>
 	</li>
 	<li class="nm_li"><a href="#" class="nm_a">Онлайн Курсы</a>
