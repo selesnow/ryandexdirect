@@ -49,7 +49,8 @@ yadirGetClientParam <- function(Language = "ru",
     dataRaw <- content(answer, "parsed", "application/json")
     
     if(length(dataRaw$error) > 0){
-      stop(paste0(dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
+      warning(login,paste0(": ",dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
+	  next
     }
     
     #I?aia?acoai ioaao a data frame
@@ -64,7 +65,7 @@ yadirGetClientParam <- function(Language = "ru",
                                          Currency = dataRaw$result[[1]][[dr]]$Currency,
                                          CreatedAt = dataRaw$result[[1]][[dr]]$CreatedAt,
                                          ClientInfo = dataRaw$result[[1]][[dr]]$ClientInfo,
-                                         AccountQuality = dataRaw$result[[1]][[dr]]$AccountQuality,
+                                         AccountQuality = ifelse(is.null(dataRaw$result[[1]][[dr]]$AccountQuality),NA,dataRaw$result[[1]][[dr]]$AccountQuality),
                                          CampaignsTotalPerClient = dataRaw$result[[1]][[dr]]$Restrictions[[1]]$Value,
                                          CampaignsUnarchivePerClient = dataRaw$result[[1]][[dr]]$Restrictions[[2]]$Value,
                                          APIPoints = dataRaw$result[[1]][[dr]]$Restrictions[[10]]$Value)

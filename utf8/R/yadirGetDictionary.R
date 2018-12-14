@@ -4,12 +4,13 @@ yadirGetDictionary <- function(DictionaryName = "GeoRegions",
                                Token         = NULL,
                                AgencyAccount = NULL,
                                TokenPath     = getwd()){
-  #ГЏГ°Г®ГўГҐГ°ГЄГ  Г­Г Г«ГЁГ·ГЁГї Г«Г®ГЈГЁГ­Г  ГЁ ГІГ®ГЄГҐГ­Г 
+  
+  # start
 
-  #Авторизация
+  # auth
   Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
   
-  #ГЏГ°Г®ГўГҐГ°ГЄГ  ГўГҐГ°Г­Г® Г«ГЁ ГіГЄГ Г§Г Г­Г® Г­Г Г§ГўГ Г­ГЁГҐ Г±ГЇГ°Г ГўГ®Г·Г­ГЁГЄГ 
+  # Check dict name
   if(!DictionaryName %in% c("Currencies",
                             "MetroStations",
                             "GeoRegions",
@@ -23,36 +24,36 @@ yadirGetDictionary <- function(DictionaryName = "GeoRegions",
     stop("Error in DictionaryName, select one of Currencies, MetroStations, GeoRegions, TimeZones, Constants, AdCategories, OperationSystemVersions, ProductivityAssertions, SupplySidePlatforms, Interests")
   }
 
-#check stringAsFactor
-factor_change <- FALSE
+	#check stringAsFactor
+	factor_change <- FALSE
 
-#change string is factor if TRUE
-if(getOption("stringsAsFactors")){
-  options(stringsAsFactors = F)
-  factor_change <- TRUE
-}
+	#change string is factor if TRUE
+	if(getOption("stringsAsFactors")){
+	  options(stringsAsFactors = F)
+	  factor_change <- TRUE
+	}
+	  
+	  queryBody <- paste0("{
+						  \"method\": \"get\",
+						  \"params\": {
+						  \"DictionaryNames\": [ \"",DictionaryName,"\" ]
+	}
+	}")
   
-  queryBody <- paste0("{
-                      \"method\": \"get\",
-                      \"params\": {
-                      \"DictionaryNames\": [ \"",DictionaryName,"\" ]
-}
-}")
-  
-  #ГЋГІГЇГ°Г ГўГЄГ  Г§Г ГЇГ°Г®Г±Г  Г­Г  Г±ГҐГ°ГўГҐГ°
+  # send query
   answer <- POST("https://api.direct.yandex.com/json/v5/dictionaries", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = Language, "Client-Login" = Login[1]))
-  #ГЏГ°Г®ГўГҐГ°ГЄГ  Г°ГҐГ§ГіГ«ГјГІГ ГІГ  Г­Г  Г®ГёГЁГЎГЄГЁ
+  # check status
   stop_for_status(answer)
-  
+  # parse
   dataRaw <- content(answer, "parsed", "application/json")
   
   if(length(dataRaw$error) > 0){
     stop(paste0(dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
   }
   
-  #ГЏГ°ГҐГ®ГЎГ°Г Г§ГіГҐГ¬ Г®ГІГўГҐГІ Гў data frame
+  # convert to data.frame
   
-  #ГЏГ Г°Г±ГЁГ­ГЈ Г±ГЇГ°Г ГўГ®Г·Г­ГЁГЄГ  Г°ГҐГЈГЁГ®Г­Г®Гў
+  # georegions
   if(DictionaryName == "GeoRegions"){
   dictionary_df <- data.frame()
 
@@ -65,26 +66,30 @@ if(getOption("stringsAsFactors")){
     
   }}
 
-  #ГЏГ Г°Г±ГЁГ­ГЈ Г±ГЇГ°Г ГўГ®Г·Г­ГЁГЄГ  ГўГ Г«ГѕГІ
+  # cur
   if(DictionaryName == "Currencies"){
     dictionary_df <- data.frame()
-  for(dr in 1:length(dataRaw$result[[1]])){
-    dictionary_df_temp <- data.frame(Cur = dataRaw$result[[1]][[dr]]$Currency, as.data.frame(do.call(rbind.data.frame, dataRaw$result[[1]][[dr]]$Properties), row.names = NULL, stringsAsFactors = F))
-    dictionary_df <- rbind(dictionary_df, dictionary_df_temp)
-  }
-    dictionary_df_cur <- data.frame()
-    #ГЏГ°ГҐГ®ГЎГ°Г Г§ГіГҐГ¬ Г±ГЇГ°Г ГўГ®Г·Г­ГЁГЄ ГўГ Г«ГѕГІ
-    for(curlist in unique(dictionary_df$Cur)){
-      dictionary_df_temp <- data.frame(Cur = curlist,
-                                       FullName = dictionary_df[dictionary_df$Cur == curlist & dictionary_df$Name == "FullName",3],
-                                       Rate = dictionary_df[dictionary_df$Cur == curlist & dictionary_df$Name == "Rate",3],
-                                       RateWithVAT = dictionary_df[dictionary_df$Cur == curlist & dictionary_df$Name == "RateWithVAT",3])
-      dictionary_df_cur <- rbind(dictionary_df_cur,dictionary_df_temp)
+    for(dr in dataRaw$result$Currencies){
+      dictionary_df_temp <- data.frame(Currency                = dr$Currency,
+                                       BidIncrement            = as.numeric(dr$Properties[[1]]$Value) / 1000000,
+                                       FullName                = dr$Properties[[2]]$Value,
+                                       MaximumBid              = as.numeric(dr$Properties[[3]]$Value) / 1000000,
+                                       MinimumAverageCPA       = as.numeric(dr$Properties[[4]]$Value) / 1000000,
+                                       MinimumAverageCPC       = as.numeric(dr$Properties[[5]]$Value) / 1000000,
+                                       MinimumCPM              = as.numeric(dr$Properties[[6]]$Value) / 1000000,
+                                       MaximumCPM              = as.numeric(dr$Properties[[7]]$Value) / 1000000,
+                                       MinimumBid              = as.numeric(dr$Properties[[8]]$Value) / 1000000,
+                                       MinimumDailyBudget      = as.numeric(dr$Properties[[9]]$Value) / 1000000,
+                                       MinimumPayment          = as.numeric(dr$Properties[[10]]$Value) / 1000000,
+                                       MinimumTransferAmount   = as.numeric(dr$Properties[[11]]$Value) / 1000000,
+                                       MinimumWeeklySpendLimit = as.numeric(dr$Properties[[12]]$Value) / 1000000)
+      
+      dictionary_df <- rbind(dictionary_df, dictionary_df_temp)
     }
-    dictionary_df <- dictionary_df_cur
+    
   }
   
-  #ГЏГ Г°Г±ГЁГ­ГЈ Г±ГЇГ°Г ГўГ®Г·Г­ГЁГЄГ  Interests
+  # Interests
   if(DictionaryName == "Interests"){
     dictionary_df <- data.frame()
     for(dr in 1:length(dataRaw$result[[1]])){
@@ -96,24 +101,25 @@ if(getOption("stringsAsFactors")){
     }
   }
   
-  #ГЏГ Г°Г±ГЁГ­ГЈ Г®Г±ГІГ Г«ГјГ­Г»Гµ Г±ГЇГ°Г ГўГ®Г·Г­ГЁГЄГ®Гў Г±Г® Г±ГІГ Г­Г¤Г Г°ГІГ­Г®Г© Г±ГІГ°ГіГЄГІГіГ°Г®Г©
+  # pars dict with standart structure
   if(! DictionaryName %in% c("Currencies","GeoRegions","Interests")){
     dictionary_df <- do.call(rbind.data.frame, dataRaw$result[[1]])
     }
   
-  #back string as factor value
+  # back string as factor value
   if(factor_change){
   options(stringsAsFactors = T)
   }
-  #Г‚Г»ГўГ®Г¤ГЁГ¬ ГЁГ­ГґГ®Г°Г¬Г Г¶ГЁГѕ Г® Г°Г ГЎГ®ГІГҐ Г§Г ГЇГ°Г®Г±Г  ГЁ Г® ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГҐ ГЎГ Г«Г«Г®Гў
-   packageStartupMessage("Справочник успешно загружен!", appendLF = T)
-   packageStartupMessage(paste0("Баллы списаны с : " ,answer$headers$`units-used-login`), appendLF = T)
-   packageStartupMessage(paste0("К-во баллов израсходованых при выполнении запроса: " ,strsplit(answer$headers$units, "/")[[1]][1]), appendLF = T)
-   packageStartupMessage(paste0("Доступный остаток суточного лимита баллов: " ,strsplit(answer$headers$units, "/")[[1]][2]), appendLF = T)
-   packageStartupMessage(paste0("Суточный лимит баллов: " ,strsplit(answer$headers$units, "/")[[1]][3]), appendLF = T)
-   packageStartupMessage(paste0("Уникальный идентификатор запроса который необходимо указывать при обращении в службу поддержки: ",answer$headers$requestid), appendLF = T)
   
-  #Г‚Г®Г§ГўГ°Г Г№Г ГҐГ¬ Г°ГҐГ§ГіГ«ГјГІГ ГІ Гў ГўГЁГ¤ГҐ Data Frame
+  # technical info message
+   packageStartupMessage("Directory successfully loaded!", appendLF = T)
+   packageStartupMessage(paste0("Points are deducted from: " ,answer$headers$`units-used-login`), appendLF = T)
+   packageStartupMessage(paste0("Number of API points spent when executing the request: " ,strsplit(answer$headers$units, "/")[[1]][1]), appendLF = T)
+   packageStartupMessage(paste0("Available balance of daily limit API points: " ,strsplit(answer$headers$units, "/")[[1]][2]), appendLF = T)
+   packageStartupMessage(paste0("Daily limit of API points:" ,strsplit(answer$headers$units, "/")[[1]][3]), appendLF = T)
+   packageStartupMessage(paste0("Reqiest ID that must be specified when contacting support:: ",answer$headers$requestid), appendLF = T)
+  
+  # result
   return(dictionary_df)
 }
 
