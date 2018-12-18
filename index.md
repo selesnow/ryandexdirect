@@ -132,17 +132,19 @@ li.nm_li {
 * [Документация](https://selesnow.github.io/ryandexdirect/)
 * [Поддержка пользователей, отчёты об ошибках и доработках](https://github.com/selesnow/ryandexdirect/issues)
 * [Список релизов](https://github.com/selesnow/ryandexdirect/releases)
+* [Телеграм канал R4marketing](http://t.me/R4marketing)
 * [Группа в Вконтакте](https://vk.com/data_club)
 
 ## Содержание
 + [Краткое описание](#краткое-описание)
 + [Установка пакета ryandexdirect](#установка-пакета-ryandexdirect)
++ [Пример работы с пакетом]()
++ [Запись вебинара "Как маркетологу избавиться от рутины с помощью языка R"]()
 + [Авторизация](#авторизация-в-api-яндекс-директ)
 + [Общие аргументы для всех функций](#аргументы-общие-для-всех-функций)
 + [Функции входящие в пакет ryandexdirect](#функции-входящие-в-пакет-ryandexdirect)
     + [Функции для загрузки статистики и данных из аккаунтов Яндекс Директ](#функции-для-загрузки-статистики-из-аккаунтов-яндекс-директ)
         + [yadirGetReport](#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null----fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no----------login--null-token--null) - Получение статистики из Report сервиса API v.5.
-        + [yadirGetSummaryStat](#yadirgetsummarystatcampaignids--null-datestart--sysdate---10-dateend--sysdate-currency--usd-token--null) - Получение общей статистики по рекламным кампаниям
     + [Функции для загрузки основных объектов из рекламных аккаунтов Яндекс Директ](#функции-для-загрузки-основных-объектов-из-рекламных-аккаунтов-яндекс-директ)
         + [yadirGetCampaignList](#yadirgetcampaignlistlogins--null-states--coffonsuspendedendedconvertedarchivedtypes--ctext_campaignmobile_app_campaigndynamic_text_campaign-statuses--caccepteddraftmoderationrejected-statusespayment--cdisallowedallowed-token--null) - Получения списка рекламных кампаний
         + [yadirGetAdGroups](#yadirgetadgroupscampaignids--c123login--null-token--null) - Получения списка групп объявлений
@@ -197,6 +199,101 @@ li.nm_li {
 
 ### установка на iOS, Linux, Ubuntu осуществляется с помощью следующей команды
 `install_github('selesnow/ryandexdirect', subdir = "utf8")`
+
+## Пример кода
+```r
+# Установка пакетов
+install.packages("devtools")
+devtools::install_github("selesnow/ryandexdirect", upgrade = "never")
+
+# Подключение пакета
+library(ryandexdirect)
+
+# Авторизация 
+yadirAuth(Login     = "my_yandex_login",  # логин пользователя Яндекс.Директ
+          TokenPath = "C:/direct/tokens") # путь к папаке в которой будет храниться файл с учётными данными
+	  
+# ###################################################
+# Загрузка различных объектов из рекламного аккаунта
+# ###################################################
+
+# Список рекламных кампаний
+camp <- yadirGetCampaignList(Logins    = "my_yandex_login",
+                             TokenPath = "C:/direct/tokens",
+                             States    = "ON",
+                             Types     = "TEXT_CAMPAIGN")
+
+# Список ключевых слов
+kw <- yadirGetKeyWords(Login       = "my_yandex_login",
+                       TokenPath   = "C:/direct/tokens",
+                       CampaignIds = camp$Id[1:5],
+                       States      = "ON")
+
+# Список групп объявлений
+adgroups <- yadirGetAdGroups(Login       = "my_yandex_login",
+                             TokenPath   = "C:/direct/tokens",
+                             CampaignIds = camp$Id[c(1,2)],
+                             Types       = "TEXT_AD_GROUP",
+                             Statuses    = c("ACCEPTED", "MODERATION"))
+
+# Список объявлений
+ads <- yadirGetAds(Login       = "my_yandex_login",
+                   TokenPath   = "C:/direct/tokens",
+                   CampaignIds = camp$Id[c(1,2)])
+
+# Список быстрых ссылок 
+links <- yadirGetSiteLinks(Login       = "my_yandex_login",
+                           TokenPath   = "C:/direct/tokens")
+
+# ###################################################
+# Загрузка справочной информации
+# ###################################################
+
+# Справочник валют
+currency <- yadirGetDictionary(DictionaryName = "Currencies",
+                               Language       = "en",
+                               Login          = "my_yandex_login",
+                               TokenPath      = "C:/direct/tokens")
+
+# Георгафический справочник
+regions <- yadirGetDictionary(DictionaryName = "GeoRegions",
+                              Language       = "ru",
+                              Login          = "my_yandex_login",
+                              TokenPath      = "C:/direct/tokens")
+
+# ###################################################
+# Загрузка статистики
+# ###################################################
+
+# простейший отчёт за прошлый месяц
+simple_report <- yadirGetReport(DateRangeType = "LAST_MONTH",  # относительный период
+                                FieldNames    = c("Date", "Clicks", "Impressions"),
+                                Login         = "my_yandex_login",
+                                TokenPath     = "C:/direct/tokens")
+
+# отчёт по конверсиям с моделью аттрибуции за статичный период
+attribution_report <- yadirGetReport(DateFrom          = "2018-11-15", # статичный период, дата начала
+                                     DateTo            = "2018-11-20", # статичный период, дата завершения
+                                     FieldNames        = c("Date", 
+                                                           "Conversions"),
+                                     Goals             = c(27475434, 38234732),
+                                     AttributionModels = c("LC", "FC"),
+                                     Login             = "my_yandex_login",
+                                     TokenPath         = "C:/direct/tokens")
+
+# отчёт с применением фильтрации
+filtring_report <- yadirGetReport(DateRangeType = "LAST_30_DAYS",
+                                  FieldNames    = c("Date", "Clicks", "Impressions"),
+                                  FilterList    = c("Conversions GREATER_THAN 1", 
+                                                    "Impressions LESS_THAN 3500"),
+                                  Login         = "my_yandex_login",
+                                  TokenPath     = "C:/direct/tokens")
+
+```
+## Запись вебинара "Как маркетологу избавиться от рутины с помощью языка R"
+Первые 28 минут вебинара полностью посвящены демонстрации работы с API Яндекс.Директ с помощью пакета ryandexdirect.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0LU7dOHZiUU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Авторизация в API Яндекс Директ
 ### Получение токена
@@ -325,59 +422,6 @@ li.nm_li {
 <b>Login</b> - Строковое вектор содержащий логины на Яндексе по которым необходимо получить данные.
 
 <b>Token</b> - Токен дотупа к API, необязательный аргумент, можно передать токен в виде строки (пример "abcdef1234567"), можно передавать объект полученный с помощью функции `yadirAuth`, можно опустить этот аргумент, в таком случае сначала будет запущен поиск файла с учётными данными в рабочей директории или в папке путь к которой указан в аргументе "TokenPath", если файл был найден то токен будет загружен из него, если файл не найден то будет открыт браузер и вам необходимо будет пройти [аутентификацию](#авторизация-в-api-яндекс-директ).
-
-## Загрузка общей статистики по рекламным кампаниям
-### `yadirGetSummaryStat(campaignIDS = NULL, dateStart = Sys.Date() - 10, dateEnd = Sys.Date(), currency = "USD", token = NULL)`
-Функция возвращает дата фрейм с общей статистикой в разрезе рекламных кампаний и дат. Данная функция считается устаревшей начиная с версии пакета 3.0.0, вместо неё рекомендуется использовать функцию [`yadirGetReport`](https://selesnow.github.io/ryandexdirect/#yadirgetreportreporttype--campaign_performance_report-daterangetype--last_month-datefrom--null-dateto--null----fieldnames--ccampaignnameimpressionsclickscost-filterlist--null-includevat--no-includediscount--no----------login--null-token--null), примеры кода для загрузки статистики доступны в [конце статьи](#пример-работы-с-функцией-yadirgetreport-и-загрузки-данных-из-сервиса-reports).
-
-#### Структура возвращаемого функцией `yadirGetSummaryStat` дата фрейма:
-<table>
-    <tr>
-        <td><center>Поле</center></td><td><center>Тип данных</center></td><td><center>Описание</center></td>
-    </tr>
-    <tr>
-        <td>Date</td><td>POSIXct</td><td>Дата, за которую приведена статистика.</td>
-    </tr>
-    <tr>
-        <td>CampaignID</td><td>Factor</td><td>Идентификатор кампании.</td>
-    </tr>
-    <tr>
-        <td>SumSearch</td><td>num</td><td>Стоимость кликов на поиске.</td>
-    </tr>
-    <tr>
-        <td>GoalConversionSearch</td><td>num</td><td>Доля целевых визитов в общем числе визитов при переходе с поиска, в процентах.</td>
-    </tr>
-    <tr>
-        <td>GoalCostSearch</td><td>num</td><td>Цена достижения цели Яндекс.Метрики при переходе с поиска.</td>
-    </tr>
-    <tr>
-        <td>ClickSearch</td><td>int</td><td>Количество кликов на поиске.</td>
-    </tr>
-    <tr>
-        <td>ShowsSearch</td><td>int</td><td>Количество показов на поиске.</td>
-    </tr>
-    <tr>
-        <td>SessionDepthSearch</td><td>num</td><td>Глубина просмотра сайта при переходе с поиска.</td>
-    </tr>
-    <tr>
-        <td>SumContext</td><td>num</td><td>Стоимость кликов в Рекламной сети Яндекса.</td>
-    </tr>
-    <tr>
-        <td>GoalConversionContext</td><td>num</td><td>Доля целевых визитов в общем числе визитов при переходе из Рекламной сети Яндекса, в процентах.</td>
-    </tr>
-    <tr>
-        <td>GoalCostContext</td><td>num</td><td>Цена достижения цели Яндекс.Метрики при переходе из Рекламной сети Яндекса.</td>
-    </tr>
-    <tr>
-        <td>ClicksContext</td><td>int</td><td>Количество кликов в Рекламной сети Яндекса.</td>
-    </tr>
-    <tr>
-        <td>ShowsContext</td><td>int</td><td>Количество показов в Рекламной сети Яндекса.</td>
-    </tr>
-    <tr>
-        <td>SessionDepthContext</td><td>num</td><td>Глубина просмотра сайта при переходе из Рекламной сети Яндекса.</td>
-    </tr>
-</table>
 
 # Функции для загрузки основных объектов из рекламных аккаунтов Яндекс Директ
 ## Загрузка списка рекламных кампаний из аккаунта яндекс директ
@@ -572,8 +616,8 @@ OS_TYPE_UNKNOWN — данные из магазина приложений ещ
 #Подключаем пакет
 library(ryandexdirect)
 #Получаем данные по группам объявлений
-my_adgroups <- yadirGetAdGroups(Login = <ВАШ ЛОГИН>, 
-                                Token = my_token)
+my_adgroups <- yadirGetAdGroups(Login = "ВАШ ЛОГИН", 
+                                Token = "my_token")
 ```
 
 ## Загрузка списка ключевых слов из рекламного аккаунта Яндекс Директ
@@ -657,8 +701,8 @@ library(ryandexdirect)
 #Получаем данные по ключевым словам
 my_keywords <- yadirGetKeyWords(CampaignIds = my_campaign$Id, 
                                 WithStats = F,
-                                Login = <ВАШ ЛОГИН>, 
-                                Token = my_token)
+                                Login = "ВАШ ЛОГИН", 
+                                Token = "my_token")
 ```
 
 ## Загрузка списка объявлений из рекламного аккаунта Яндекс Директ
@@ -735,8 +779,8 @@ library(ryandexdirect)
 
 #Получаем данные по ключевым словам
 my_ads <- yadirGetAds(CampaignIds = my_campaign$Id, 
-                      Login = <ВАШ ЛОГИН>, 
-                      Token = my_token)
+                      Login = "ВАШ ЛОГИН", 
+                      Token = "my_token")
 ```
 
 ## Загрузка параметров общих счетов из аккаунтов Яндекс Директ.
@@ -806,9 +850,10 @@ library(ryandexdirect)
 my_balance <- yadirGetBalance(Logins = "vasya")
 
 #Получаем список клиентских аккаунтов
-my_client <- yadirGetClientList()
+my_client <- yadirGetClientList(AgencyAccount = "agency_account_login")
 #Получаем остатки средств на общих счетах всех клиентов агентского аккаунта
-my_clients_balance <- yadirGetBalance(Logins = my_client$Login)
+my_clients_balance <- yadirGetBalance(Logins = my_client$Login,
+                                      AgencyAccount = "agency_account_login")
 ```
 
 ## Загрузка списка быстрых ссылок из аккаунтов Яндекс Директа
@@ -823,8 +868,8 @@ my_clients_balance <- yadirGetBalance(Logins = my_client$Login)
 #### Пример загрузки быстрых ссылок
 ```r
 library(ryandexdirect)
-ya_token <- yadirAuth()
-my_links <- yadirGetSiteLinks(Login = "Ваш Логин в Директе", Token = ya_token)
+ya_token <- yadirAuth(Login = "Ваш Логин в Директе")
+my_links <- yadirGetSiteLinks(Login = "Ваш Логин в Директе")
 ```
 
 # Функции для загрузки списка клиентов из агентского аккаунта Яндекс Директ
@@ -963,29 +1008,6 @@ my_links <- yadirGetSiteLinks(Login = "Ваш Логин в Директе", Tok
 
 <b>Token</b> - Токен дотупа к API, необязательный аргумент, можно передать токен в виде строки (пример "abcdef1234567"), можно передавать объект полученный с помощью функции `yadirAuth`, можно опустить этот аргумент, в таком случае сначала будет запущен поиск файла с учётными данными в рабочей директории или в папке путь к которой указан в аргументе "TokenPath", если файл был найден то токен будет загружен из него, если файл не найден то будет открыт браузер и вам необходимо будет пройти [аутентификацию](#авторизация-в-api-яндекс-директ).
 
-## Загрузка курсов валют
-### `yadirCurrencyRates(Login = NULL, Token = NULL)`
-Функция возвращает дата фрейм с актуальными курсами валют в Яндекс.Директ.
-
-#### Структура возвращаемого функцией `yadirCurrencyRates` дата фрейма:
-<table>
-    <tr>
-        <td><center>Поле</center></td><td><center>Тип данных</center></td><td><center>Описание</center></td>
-    </tr>
-    <tr>
-        <td><center>curName</center></td><td><center>chr</center></td><td><center>Код валюты</center></td>
-    </tr>
-    <tr>
-        <td><center>fullName</center></td><td><center>chr</center></td><td><center>Полное название валюты</center></td>
-    </tr>
-    <tr>
-        <td><center>RateWithVAT</center></td><td><center>num</center></td><td><center>стоимость 1 у. е. с учетом НДС.</center></td>
-    </tr>
-    <tr>
-        <td><center>Rate</center></td><td><center>num</center></td><td><center>стоимость 1 у. е. без учета НДС.</center></td>
-    </tr>
-</table>
-
 # Функции для управления показами реклмных объявлений в аккаунтах Яндекс Директа
 ## Остановка и возобновление показов объявлений в аккаунтах Яндекс Директ на уровне объявлений
 ### `yadirStartAds(Login = NULL, Ids   = NULL, Token = NULL)`
@@ -1001,16 +1023,16 @@ my_links <- yadirGetSiteLinks(Login = "Ваш Логин в Директе", Tok
 #### Пример кода для возобновления показа объявлений
 ```r
 #Получаем токен
-tok <- yadirAuth()
+yadirAuth(Login = "Логин")
 
 #Получаем список рекламных кампаний
-my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+my_camp <- yadirGetCampaignList(Login = "Логин")
 
 #Получаем список остановленных и выключенных объявлений
-my_ads <- yadirGetAds(Login = "Логин", Token = tok, States = c("SUSPENDED","OFF"))
+my_ads <- yadirGetAds(Login = "Логин", States = c("SUSPENDED","OFF"))
 
 #Возобнолвям показы объявлений
-err <- yadirStartAds(Login = "Логин", Token =  tok, Ids = my_ads$Id) 
+err <- yadirStartAds(Login = "Логин", Ids = my_ads$Id) 
 ```
 
 ### `yadirStopAds(Login = NULL, Ids   = NULL, Token = NULL)`
@@ -1025,17 +1047,14 @@ err <- yadirStartAds(Login = "Логин", Token =  tok, Ids = my_ads$Id)
 
 #### Пример кода для остановки показа объявлений
 ```r
-#Получаем токен
-tok <- yadirAuth()
-
 #Получаем список рекламных кампаний
-my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+my_camp <- yadirGetCampaignList(Login = "Логин")
 
 #Получаем список остановленных и выключенных объявлений
-my_ads <- yadirGetAds(Login = "Логин", Token = tok, States = "ON")
+my_ads <- yadirGetAds(Login = "Логин", States = "ON")
 
 #Останавливаем показы объявлений
-err <- yadirStopAds(Login = "Логин", Token =  tok, Ids = my_ads$Id) 
+err <- yadirStopAds(Login = "Логин", Ids = my_ads$Id) 
 ```
 
 ## Остановка и возобновление показов объявлений в аккаунтах Яндекс Директ на уровне реклмных кампаний
@@ -1051,14 +1070,11 @@ err <- yadirStopAds(Login = "Логин", Token =  tok, Ids = my_ads$Id)
 
 #### Пример кода для возобновления показа объявлений по рекламым кампаниям
 ```r
-#Получаем токен
-tok <- yadirGetToken()
-
 #Получаем список рекламных кампаний
-my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+my_camp <- yadirGetCampaignList(Login = "Логин")
 
 #Возобнолвям показы объявлений
-err <- yadirStartCampaigns(Login = "LOGIN", Token =  tok, Ids = my_camp$Id) 
+err <- yadirStartCampaigns(Login = "Логин", Ids = my_camp$Id) 
 ```
 
 ### `yadirStopCampaigns(Login = NULL, Ids   = NULL, Token = NULL)`
@@ -1073,14 +1089,11 @@ err <- yadirStartCampaigns(Login = "LOGIN", Token =  tok, Ids = my_camp$Id)
 
 #### Пример кода для остановки показа объявлений по рекламным кампаниям
 ```r
-#Получаем токен
-tok <- yadirAuth()
-
 #Получаем список рекламных кампаний
-my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+my_camp <- yadirGetCampaignList(Login = "Логин")
 
 #Останавливаем показы объявлений
-err <- yadirStopCampaigns(Login = "LOGIN", Token =  tok, Ids = my_camp$Id) 
+err <- yadirStopCampaigns(Login = "LOGIN", Ids = my_camp$Id) 
 ```
 
 ## Остановка и возобновление показов объявлений в аккаунтах Яндекс Директ на уровне ключевых слов
@@ -1096,17 +1109,14 @@ err <- yadirStopCampaigns(Login = "LOGIN", Token =  tok, Ids = my_camp$Id)
 
 #### Пример кода для возобновления показа объявлений по ключевым словам
 ```r
-#Получаем токен
-tok <- yadirAuth()
-
 #Получаем список рекламных кампаний
-my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+my_camp <- yadirGetCampaignList(Login = "Логин")
 
 #Получаем список ключевых слов
-my_kw <- yadirGetKeyWords(Login = "Логин", Token = tok,CampaignIds = my_camp$Id[1:10])
+my_kw <- yadirGetKeyWords(Login = "Логин",CampaignIds = my_camp$Id[1:10])
 
 #Возобнолвям показы объявлений
-err <- yadirStartCampaigns(Login = "Логин", Token =  tok, Ids = my_kw$Id) 
+err <- yadirStartCampaigns(Login = "Логин", Ids = my_kw$Id) 
 ```
 
 ### `yadirStopKeyWords(Login = NULL, Ids   = NULL, Token = NULL)`
@@ -1122,16 +1132,16 @@ err <- yadirStartCampaigns(Login = "Логин", Token =  tok, Ids = my_kw$Id)
 #### Пример кода для остановки показа объявлений по ключевым словам
 ```r
 #Получаем токен
-tok <- yadirAuth()
+yadirAuth(Login = "Логин")
 
 #Получаем список рекламных кампаний
-my_camp <- yadirGetCampaignList(Login = "Логин", Token = tok)
+my_camp <- yadirGetCampaignList(Login = "Логин")
 
 #Получаем список ключевых слов
-my_kw <- yadirGetKeyWords(Login = "Логин", Token = tok,CampaignIds = my_camp$Id[1:10])
+my_kw <- yadirGetKeyWords(Login = "Логин", CampaignIds = my_camp$Id[1:10])
 
 #Останавливаем показы объявлений
-err <- yadirStopKeyWords(Login = "Логин", Token =  tok, Ids = my_kw$Id) 
+err <- yadirStopKeyWords(Login = "Логин", Ids = my_kw$Id) 
 ```
 
 # Функции для загрузки данных из Яндекс Метрики
@@ -1184,19 +1194,36 @@ err <- yadirStopKeyWords(Login = "Логин", Token =  tok, Ids = my_kw$Id)
 * token = API токен полученный с помощью функции yadirGetToken
 
 # Пример работы с пакетом ryandexdirect.
-##Образец кода для работы с пакетом ryandexdirect для агентских аккаунтов
+## Пример кода для работы с пакетом ryandexdirect для агентских аккаунтов
+Перед запуском кода замените **логин агентского аккаунта** на логин, под которым вы входите в ваш агентский аккаунт.
 ```r
+# подключение пакета
 library(ryandexdirect)
-myToken <- yadirGetToken()
-clientList <- yadirGetClientList(myToken)
-campaignList <- yadirGetCampaignList(logins = clientList$Login, token = myToken)
-stat <- yadirGetSummaryStat(campaignIDS = campaignList$Id,
-                            dateStart = "2016-01-01",
-                            dateEnd = "2016-06-30",
-                            currency = "USD",
-                            token = myToken)
+
+# авторизация под агентским аккаунтом
+yadirAuth(Login = "логин агентского аккаунта")
+
+# список клиентов из агентского аккаунта
+clientList <- yadirGetClientList(AgencyAccount = "логин агентского аккаунта")
+
+# запрос списка рекламных кампаний из клиентских аккаунтов привязанных к агентскому аккаунту
+campaignList <- yadirGetCampaignList(Logins = clientList$Login, 
+                                     AgencyAccount = "логин агентского аккаунта")
+
+# загрузка статистики из рекламных аккаунтов привязанных к агентскому аккаунту
+stat <- yadirGetReport(ReportType = "ACCOUNT_PERFORMANCE_REPORT", 
+                            DateRangeType = "CUSTOM_DATE", 
+                            DateFrom = "2018-01-01", 
+                            DateTo = "2018-05-10", 
+                            FieldNames = c("AdNetworkType",
+                                           "Impressions",
+                                           "Clicks",
+                                           "Cost"), 
+			    AgencyAccount = "логин агентского аккаунта",
+                            Login = clientList$Login, 
+                            TokenPath = "token_yandex")
 ```
-## пример работы с функцией yadirGetReport и загрузки данных из сервиса Reports.
+## Пример кода для работы с пакетом ryandexdirect для обычного рекламного аккаунтов
 Перед запуском кода замените значение "yandex_login", передаваемое в аргумент Login функции yadirGetReport на логин под которым вы авторизуетесь в рекламном аккаунте Яндекс Директ.
 ```r
 library(ryandexdirect)
