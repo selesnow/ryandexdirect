@@ -1,7 +1,7 @@
 Package: ryandexdirect
 Type: Package
 Title: Load data from Yandex Direct
-Version: 3.0.11.0
+Version: 3.0.12.0
 Date: 2018-12-11
 Author: Alexey Seleznev
 Maintainer: Alexey Seleznev <selesnow@gmail.com>
@@ -9,4 +9,4 @@ Description: Load data from yandex direct api v5 into R
 License: GPL-2
 Depends: R (>= 3.5.0)
 Encoding: CP1251
-Imports: utils, httr, RCurl, bitops, jsonlite, xml2, data.table, readr, magrittr, dplyr, rlang
+Imports: utils, httr, RCurl, bitops, jsonlite, xml2, data.table, readr, magrittr, dplyr
