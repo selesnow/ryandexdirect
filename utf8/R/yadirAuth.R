@@ -38,6 +38,11 @@ yadirAuth <- function(Login = NULL, NewUser = FALSE, TokenPath = getwd()) {
       return(token)
   }
 }
+  
+  # check session mode
+  if ( ! interactive() ) {
+    stop(paste0("Function yadirAuth does not find the ", Login, ".yadirAuth.RData file in ",TokenPath,". You must run this script in interactive mode in RStudio or RGui and go through the authorization process for create ", Login,".yadirAuth.RData file, and using him between R session in batch mode. For more details see realise https://github.com/selesnow/ryandexdirect/releases/tag/3.0.0. For more details about R modes see https://www.r-bloggers.com/batch-processing-vs-interactive-sessions/") )
+  } else {
   # если токен не найден в файле то получаем код и проходим всю процедуру
   browseURL(paste0("https://oauth.yandex.ru/authorize?response_type=code&client_id=365a2d0a675c462d90ac145d4f5948cc&redirect_uri=https://selesnow.github.io/ryandexdirect/getToken/get_code.html&force_confirm=", as.integer(NewUser), ifelse(is.null(Login), "", paste0("&login_hint=", Login))))
   # запрашиваем код
@@ -47,6 +52,7 @@ yadirAuth <- function(Login = NULL, NewUser = FALSE, TokenPath = getwd()) {
   while(nchar(temp_code) != 7) {
     message("Проверочный код введённый вами не является 7-значным, повторите попытку ввода кода.")
     temp_code <- readline(prompt = "Enter authorize code:")
+   }
   }
   
   token_raw <- httr::POST("https://oauth.yandex.ru/token", body = list(grant_type="authorization_code", 
