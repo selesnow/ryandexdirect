@@ -151,7 +151,3 @@ yadirGetAds <- function(CampaignIds   = NULL,
   packageStartupMessage(paste0("Duration: ", round(difftime(stop_time, start_time , units ="secs"),0), " sec."), appendLF = T)
   # return of result
   return(result)}
-ftime(stop_time, start_time , units ="secs"),0), " сек."), appendLF = T)
-#Возвращаем результат
-return(result)}
-
