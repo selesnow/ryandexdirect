@@ -64,13 +64,3 @@ yadirGetSiteLinks <- function(Login = NULL,
   # result
   return(result)
 }
-)) {
-      offset <- offset + limit
-    } else {
-      break
-      }
-  }
-  
-  # возвращаем полученный массив
-  return(result)
-}
