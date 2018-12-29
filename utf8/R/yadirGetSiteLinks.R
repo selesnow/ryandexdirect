@@ -1,45 +1,48 @@
 yadirGetSiteLinks <- function(Login = NULL,
                               Token = NULL,
+                              Ids   = NULL,
                               AgencyAccount = NULL,
                               TokenPath     = getwd()) {
   
-  # результирующий фрейм
+  # result frame
   result <- data.frame()
   
-  #Авторизация
+  # auth
   Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
   
-  # начальное смещение и лимит на к-во строк
+  # set offset and limit
   offset <- 0
   limit  <- 10000
   
   dataRaw <- list()
-  # запускаем цикл 
+  
+  # start the cycle
   while (! is.null(dataRaw$result$LimitedBy) || offset == 0 ) {
-    # формируем тело запроса
+    # body query
     queryBody <- paste0("{
-      \"method\": \"get\",
-                          \"params\": {
-                              \"FieldNames\": [\"Id\", \"Sitelinks\"],
-                              \"Page\": {  
-                                \"Limit\": ",limit,",
-                                \"Offset\": ",offset,"}
-        }
-      }")
+                        \"method\": \"get\",
+                        \"params\": {",
+                          ifelse( is.null(Ids), "", paste0("\"SelectionCriteria\": { \"Ids\": [",paste0(Ids, collapse = ","),"]}," )),"
+                          \"FieldNames\": [\"Id\", \"Sitelinks\"],
+                          \"Page\": {  
+                          \"Limit\": ",limit,",
+                          \"Offset\": ",offset,"}
+  }
+  }")
     
-    # отправляем запрос к API
+    # send request API
     answer <- POST("https://api.direct.yandex.com/json/v5/sitelinks", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru",'Client-Login' = Login))
     stop_for_status(answer)
     
-    # парсим ответ
+    # parsing
     dataRaw <- content(answer, "parsed", "application/json")
     
-    # проверка на ошибки
+    # check error
     if(length(dataRaw$error) > 0){
       stop(paste0(dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
     }
     
-    # парсим полученный результат
+    # parse json and to result frame
     for (i in seq_along(1:length(dataRaw$result$SitelinksSets))) {
       for (y in seq_along(1:length(dataRaw$result$SitelinksSets[[i]]$Sitelinks)))
         result <- rbind(result, 
@@ -47,11 +50,21 @@ yadirGetSiteLinks <- function(Login = NULL,
                                    Title       = ifelse(is.null(dataRaw$result$SitelinksSets[[i]]$Sitelinks[[y]]$Title), NA, dataRaw$result$SitelinksSets[[i]]$Sitelinks[[y]]$Title),
                                    Href        = ifelse(is.null(dataRaw$result$SitelinksSets[[i]]$Sitelinks[[y]]$Href), NA, dataRaw$result$SitelinksSets[[i]]$Sitelinks[[y]]$Href),
                                    Description = ifelse(is.null(dataRaw$result$SitelinksSets[[i]]$Sitelinks[[y]]$Description), NA, dataRaw$result$SitelinksSets[[i]]$Sitelinks[[y]]$Description))
-                                    )
+        )
     }
     
-    # провряем требуется ли следующий шаг
+    # check of needly next iteration
     if (! is.null(dataRaw$result$LimitedBy)) {
+      offset <- offset + limit
+    } else {
+      break
+    }
+  }
+  
+  # result
+  return(result)
+}
+)) {
       offset <- offset + limit
     } else {
       break
