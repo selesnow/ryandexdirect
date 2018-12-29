@@ -1,8 +1,8 @@
 Package: ryandexdirect
 Type: Package
 Title: Load data from Yandex Direct
-Version: 3.0.12.1
-Date: 2018-12-11
+Version: 3.0.13.1
+Date: 2018-12-29
 Author: Alexey Seleznev
 Maintainer: Alexey Seleznev <selesnow@gmail.com>
 Description: Load data from yandex direct api v5 into R
