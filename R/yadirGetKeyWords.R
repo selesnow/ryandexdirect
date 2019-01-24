@@ -51,6 +51,7 @@ yadirGetKeyWords <- function(CampaignIds = NULL,
   camp_start   <- 1
   camp_step    <- 10
   
+  units_spent  <- 0
   packageStartupMessage("Processing", appendLF = F)
 
   while(camp_start <= camp_num){
