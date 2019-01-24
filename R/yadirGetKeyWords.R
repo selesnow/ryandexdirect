@@ -46,7 +46,10 @@ yadirGetKeyWords <- function(CampaignIds = NULL,
  
   States          <- paste("\"",States,"\"",collapse=", ",sep="")
   
-
+  if ( as.integer(length(CampaignIds)) == 0 ) {
+      warning(Login, ": This account have not any campaigns")
+	  return(result)
+  }
   camp_num     <- as.integer(length(CampaignIds))
   camp_start   <- 1
   camp_step    <- 10
