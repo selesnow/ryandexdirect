@@ -13,12 +13,12 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
                            Token             = NULL,
                            TokenPath         = getwd()){
   
-  #Запуск таймера начала работы функции
+  # start time
   proc_start <- Sys.time()
-  #Форммируем список полей
+  # field names
   Fields <- paste0("<FieldNames>",FieldNames, "</FieldNames>", collapse = "")
   
-  #Формируем фильтр
+  # filters
   if(!is.null(FilterList)){
     fil_list <- NA
     filt <- FilterList
@@ -35,7 +35,7 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
 
   AttributionModels <- ifelse(is.null(AttributionModels), "", paste0("<AttributionModels>",AttributionModels, "</AttributionModels>", collapse = ""))
  
-   #Формируем тело запроса
+   # compose request body
   queryBody <- paste0('
                       <ReportDefinition xmlns="http://api.direct.yandex.com/v5/reports">
                       <SelectionCriteria>',
@@ -51,29 +51,30 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
                       <IncludeVAT>',IncludeVAT,'</IncludeVAT>
                       <IncludeDiscount>',IncludeDiscount,'</IncludeDiscount>
                       </ReportDefinition>')
-  #Создаём результирующий dataframe
+  
+  # result frame
   result <- data.frame()
   
   for(login in Login){
-    #Авторизация
+    # auth
     Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
    
-    #Счётчик времени
+    # time counter
     parsing_time <- 0
     server_time <- 0
-    #Выодим сообщение о том какой проект в работе
+    # start message
     packageStartupMessage("-----------------------------------------------------------")
     packageStartupMessage(paste0("Загрузка данных по ",login))
-    #Отправляем запрос на сервер Яндекса
-    #Фиксируем время начала ожидания ответа
+    
+	# send request to API
     serv_start_time <- Sys.time()
     
     answer <- POST("https://api.direct.yandex.com/v5/reports", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru", skipReportHeader = "true" ,skipReportSummary = "true" , 'Client-Login' = login, returnMoneyInMicros = "false", processingMode = "auto"))
     
     if(substr(answer$status_code,1,1) == 4){
-      packageStartupMessage("Ошибка в параметрах запроса либо превышено ограничение на количество запросов или отчетов в очереди. В этом случае проанализируйте сообщение об ошибке, скорректируйте запрос и отправьте его снова.")
+      packageStartupMessage("Error in request parameters or limit on the number of requests or reports in the queue is exceeded. In this case, analyze the error message, correct the request and send it again.")
       
-      # парсим ошибку
+      # parse error
       content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
           xml_find_all(., xpath = ".//reports:ApiError//reports:requestId") %>%
           xml_text() %>%
@@ -99,18 +100,18 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
     
     if(answer$status_code == 500){
       packageStartupMessage(paste0(login," - ",xml_text(content(answer, "parsed","text/xml",encoding = "UTF-8"))))
-      packageStartupMessage("При формировании отчета произошла ошибка на сервере. Если для этого отчета ошибка на сервере возникла впервые, попробуйте сформировать отчет заново. Если ошибка повторяется, обратитесь в службу поддержки.")
+      packageStartupMessage("While generating the report an error occurred on the server. If for this report the error on the server occurred for the first time, try to generate a report again. If the error persists, contact support.")
       next
     }
     
     if(answer$status_code == 201){
-      packageStartupMessage("Отчет успешно поставлен в очередь на формирование в режиме офлайн.", appendLF = T)
+      packageStartupMessage("The report has been successfully queued for offline generation.", appendLF = T)
       packageStartupMessage("Proccesing", appendLF = F)
       packageStartupMessage("|", appendLF = F)
     }
     
     if(answer$status_code == 202){
-      packageStartupMessage("Формирование отчета еще не завершено.", appendLF = F)
+      packageStartupMessage("Report generation is not completed yet.", appendLF = F)
     }
     
     
@@ -118,53 +119,53 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
       answer <- POST("https://api.direct.yandex.com/v5/reports", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru", skipReportHeader = "true" ,skipReportSummary = "true" , 'Client-Login' = login, returnMoneyInMicros = "false", processingMode = "auto"))
       packageStartupMessage("=", appendLF = F)
       if(answer$status_code == 500){
-        stop("При формировании отчета произошла ошибка на сервере. Если для этого отчета ошибка на сервере возникла впервые, попробуйте сформировать отчет заново. Если ошибка повторяется, обратитесь в службу поддержки.")
+        stop("While generating the report an error occurred on the server. If for this report the error on the server occurred for the first time, try to generate a report again. If the error persists, contact support.")
       }
       if(answer$status_code == 502){
-        stop("Время обработки запроса превысило серверное ограничение.")
+        stop("Request processing time exceeded server limit.")
       }
       Sys.sleep(5)
     }
     packageStartupMessage("|", appendLF = T)
-    #Сообщаем что отчёт был сформирован.
+    # succes message
     server_time <- round(difftime(Sys.time(), serv_start_time , units ="secs"),0)
-    packageStartupMessage("Отчет успешно сформирован и передан в теле ответа.", appendLF = T)
-    packageStartupMessage(paste0("Время ожидания ответа от сервера: ",server_time , " сек."), appendLF = T)
+    packageStartupMessage("Report successfully generated and transmitted in response body.", appendLF = T)
+    packageStartupMessage(paste0("Server time: ",server_time , " sec."), appendLF = T)
     
-    #Фиксируем время начала парсинга ответа
+    # pars start time
     pasr_start_time <- Sys.time()
     
     if(answer$status_code == 200){
       df_new <- suppressMessages(content(answer,  "parsed", "text/tab-separated-values", encoding = "UTF-8"))
 
-      #Проверка вернулись ли какие то данные
+      # check data
       if(nrow(df_new) == 0){
-        packageStartupMessage("Ваш запрос не вернул никаких данных, внимательно проверьте заданный фильтр и период отч та, после чего повторите попытку.")
+        packageStartupMessage("Your request did not return any data, carefully check the specified filter and report period, and then try again.")
         next
       }
-      #Сообщаем о том сколько времени длился парсинг результата
+      # timing message
       parsing_time <- round(difftime(Sys.time(), pasr_start_time , units ="secs"),0)
-      packageStartupMessage(paste0("Время парсинга результата: ", parsing_time, " сек."), appendLF = T)
+      packageStartupMessage(paste0("Parsing time: ", parsing_time, " sec."), appendLF = T)
 
-      #Информация о количестве баллов.
-      packageStartupMessage(paste0("Уникальный идентификатор запроса который необходимо указывать при обращении в службу поддержки: ",answer$headers$requestid), appendLF = T)
+      # request id
+      packageStartupMessage(paste0("RequestID: ",answer$headers$requestid), appendLF = T)
       
-      #Добавляем логин
+      # add login
       if(length(Login) > 1){
         df_new$Login <- login}
       
-      #присоединяем свежие данные к результирующему дата врейму
+      # add to result
       result <- rbind(result, df_new)
-      #Завершаем цикл
+      # end of cycle
     }
   }
-  #Выводим инфу о времени работы функции
+  # tech messages
   total_work_time <- round(difftime(Sys.time(), proc_start , units ="secs"),0)
-  packageStartupMessage(paste0("Общее время работы функции: ",total_work_time, " сек."))
-  packageStartupMessage(paste0(round(as.integer(server_time) / as.integer(total_work_time) * 100, 0), "% времени работы заняло ожидание ответа от сервера."))
-  packageStartupMessage(paste0(round(as.integer(parsing_time) / as.integer(total_work_time) * 100, 0), "% времени работы занял парсинг полученного результата."))
+  packageStartupMessage(paste0("Total time: ",total_work_time, " сек."))
+  packageStartupMessage(paste0(round(as.integer(server_time) / as.integer(total_work_time) * 100, 0), "% server time rate."))
+  packageStartupMessage(paste0(round(as.integer(parsing_time) / as.integer(total_work_time) * 100, 0), "% parsing time rate."))
   packageStartupMessage(paste0("RequestID: ",answer$headers$requestid))
   packageStartupMessage("-----------------------------------------------------------")
-  #Возвращаем полученный массив
+  # return result
   return(result)
 }

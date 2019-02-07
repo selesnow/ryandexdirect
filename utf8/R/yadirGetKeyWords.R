@@ -9,13 +9,13 @@ yadirGetKeyWords <- function(CampaignIds = NULL,
                              TokenPath     = getwd()){
   
   
-  #Временная метка начала работы функции
+  #start time
   start_time  <- Sys.time()
    
-  #Авторизация
+  #auth
   Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
   
-  #Проверяем если не задан список рекламных кампаний загружаем его и получаем все группы
+  #check camp id
   if (is.null(CampaignIds)) {
     CampaignIds <-  yadirGetCampaignList(Login         = Login,
                                          AgencyAccount = AgencyAccount,
@@ -23,7 +23,7 @@ yadirGetKeyWords <- function(CampaignIds = NULL,
                                          TokenPath     = TokenPath)$Id
   }
   
-  #Формируем результирующий дата фрейм
+  #result frame
   result      <- data.frame(Id                            = integer(0), 
                             Keyword                       = character(0),
                             AdGroupId                     = integer(0),
@@ -46,24 +46,28 @@ yadirGetKeyWords <- function(CampaignIds = NULL,
  
   States          <- paste("\"",States,"\"",collapse=", ",sep="")
   
-
+  if ( as.integer(length(CampaignIds)) == 0 ) {
+      warning(Login, ": This account have not any campaigns")
+	  return(result)
+  }
   camp_num     <- as.integer(length(CampaignIds))
   camp_start   <- 1
   camp_step    <- 10
   
+  units_spent  <- 0
   packageStartupMessage("Processing", appendLF = F)
 
   while(camp_start <= camp_num){
     
-    #
+    #composevector camps
     camp_step   <-  if(camp_num - camp_start > 10) camp_step else camp_num - camp_start + 1
     
-    #
+    #ids
     Ids             <- ifelse(is.na(Ids), NA,paste0(Ids, collapse = ","))
     AdGroupIds      <- ifelse(is.na(AdGroupIds),NA,paste0(AdGroupIds, collapse = ","))
     CampaignIdsTmp  <- paste("\"",CampaignIds[camp_start:(camp_start + camp_step - 1)],"\"",collapse=", ",sep="")
     
-    #
+    #limits
     lim <- 0
     
     while(lim != "stoped"){
@@ -136,19 +140,27 @@ yadirGetKeyWords <- function(CampaignIds = NULL,
       packageStartupMessage(".", appendLF = F)
       #
       lim <- ifelse(is.null(dataRaw$result$LimitedBy), "stoped",dataRaw$result$LimitedBy + 1)
+	  units_spent <- units_spent + as.integer(strsplit(answer$headers$units, "/")[[1]][1])
     }
     
     #
     camp_start <- camp_start + camp_step
   }
   
+  
+  # delete NA rows
+  result <- subset(result, !is.na(result$Id))
+  
   #
   stop_time <- Sys.time()
   
   #
-  #Сообщение о том, что загрузка данных прошла успешно
+  #sucess meggage
   packageStartupMessage("Done", appendLF = T)
-  packageStartupMessage(paste0("Количество полученных ключевых слов: ", nrow(result)), appendLF = T)
-  packageStartupMessage(paste0("Длительность работы: ", round(difftime(stop_time, start_time , units ="secs"),0), " сек."), appendLF = T)
-  #Возвращаем результат
+  packageStartupMessage(paste0("KeyWords number: ", nrow(result)), appendLF = T)
+  packageStartupMessage(paste0("Number of API points spent when executing the request: " ,units_spent), appendLF = T)
+  packageStartupMessage(paste0("Available balance of daily limit API points: " ,strsplit(answer$headers$units, "/")[[1]][2]), appendLF = T)
+  packageStartupMessage(paste0("Daily limit of API points:" ,strsplit(answer$headers$units, "/")[[1]][3]), appendLF = T)
+  packageStartupMessage(paste0("Duration: ", round(difftime(stop_time, start_time , units ="secs"),0), " sec."), appendLF = T)
+  #result
   return(result)}
