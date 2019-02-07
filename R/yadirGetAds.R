@@ -11,7 +11,7 @@ yadirGetAds <- function(CampaignIds   = NULL,
   Token <- ryandexdirect:::tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
   
   # check campaign filter
-  if ( all(is.null(CampaignIds), is.na(AdGroupIds), is.na(Ids)) ) {
+  if ( is.null(CampaignIds) ) {
     message("You dont choised any ids of campaign, adgroup or ad . Loading full campaign list.")
     CampaignIds <-  yadirGetCampaignList(Login         = Login,
                                          AgencyAccount = AgencyAccount,
