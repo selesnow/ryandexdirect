@@ -65,7 +65,7 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
     server_time <- 0
     # start message
     packageStartupMessage("-----------------------------------------------------------")
-    packageStartupMessage(paste0("Çàãðóçêà äàííûõ ïî ",login))
+    packageStartupMessage(paste0("Ã‡Ã Ã£Ã°Ã³Ã§ÃªÃ  Ã¤Ã Ã­Ã­Ã»Ãµ Ã¯Ã® ",login))
     
 	# send request to API
     serv_start_time <- Sys.time()
@@ -99,7 +99,7 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
 	  if ( SkipErrors == FALSE ) stop(content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
 									  xml_find_all(., xpath = ".//reports:ApiError//reports:errorDetail") %>%
 									  xml_text() %>%
-									  message("Error Detail: ", .))
+									  paste0("Error Detail: ", .))
       
       next
     }
@@ -173,7 +173,7 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
   }
   # tech messages
   total_work_time <- round(difftime(Sys.time(), proc_start , units ="secs"),0)
-  packageStartupMessage(paste0("Total time: ",total_work_time, " ñåê."))
+  packageStartupMessage(paste0("Total time: ",total_work_time, " Ã±Ã¥Ãª."))
   packageStartupMessage(paste0(round(as.integer(server_time) / as.integer(total_work_time) * 100, 0), "% server time rate."))
   packageStartupMessage(paste0(round(as.integer(parsing_time) / as.integer(total_work_time) * 100, 0), "% parsing time rate."))
   packageStartupMessage(paste0("RequestID: ",answer$headers$requestid))
