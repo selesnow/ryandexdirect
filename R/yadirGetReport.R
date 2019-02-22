@@ -98,8 +98,7 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
 		  
 	  if ( SkipErrors == FALSE ) stop(content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
 									  xml_find_all(., xpath = ".//reports:ApiError//reports:errorDetail") %>%
-									  xml_text() %>%
-									  paste0("Error Detail: ", .))
+									  xml_text())
       
       next
     }
@@ -110,8 +109,7 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
 	  
 	  if ( SkipErrors == FALSE ) stop(content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
 		      						  xml_find_all(., xpath = ".//reports:ApiError//reports:errorDetail") %>%
-									  xml_text() %>%
-									  message("Error Detail: ", .))
+									  xml_text())
 	  
       next
     }
