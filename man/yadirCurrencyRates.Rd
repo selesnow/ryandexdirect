@@ -3,7 +3,8 @@
 \title{Get campaign list from yandex direct account}
 \description{yadirCurrencyRates get currency rates from Yandex Direct}
 \usage{
-yadirCurrencyRates(logins = NULL, token = NULL)
+yadirCurrencyRates(Login = NULL, AgencyAccount = NULL, Token = NULL,
+                 TokenPath = getwd())
 }
 
 \arguments{

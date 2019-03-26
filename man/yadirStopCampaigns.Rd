@@ -3,15 +3,15 @@
 \title{Suspend impressions by Campaigns}
 \description{yadirStopCampaigns suspend impressions by campaings in Yandex Direct account}
 \usage{
-yadirStartCampaigns(Login = NULL, 
-					Ids   = NULL,
-					Token = NULL)
+yadirStopCampaigns(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
+                 = NULL, TokenPath = getwd())
 }
 
 \arguments{
   \item{Ids}{Integer or Character vector with Campaigns Ids, who will suspend impressions}
   \item{Login}{Your Yandex Login}
   \item{Token}{Your Yandex API Token}
+  \item{TokenPath}{Path to directory where you save credential data}
 }
 \details{
 Function suspend impressions and return vector with Campaigns Ids with error.

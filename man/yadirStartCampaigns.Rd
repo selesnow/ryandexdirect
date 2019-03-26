@@ -3,15 +3,15 @@
 \title{Resume impressions by Campaigns}
 \description{yadirStartCampaigns resume impressions by ads}
 \usage{
-yadirStartCampaigns(Login = NULL, 
-					Ids   = NULL,
-					Token = NULL)
+yadirStartCampaigns(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
+                 = NULL, TokenPath = getwd())
 }
 
 \arguments{
   \item{Ids}{Integer or Character vector with Campaigns Ids, who will resume impressions}
   \item{Login}{Your Yandex Login}
   \item{Token}{Your Yandex API Token}
+  \item{TokenPath}{Path to directory where you save credential data}
 }
 \details{
 Function resume impressions and return vector with Campaigns Ids with error.

@@ -3,15 +3,15 @@
 \title{Suspend impressions by Ads}
 \description{yadirStopAds suspend impressions by ads}
 \usage{
-yadirStopAds(Login = NULL, 
-             Ids   = NULL,
-             Token = NULL)
+yadirStopAds(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
+                 = NULL, TokenPath = getwd())
 }
 
 \arguments{
   \item{Ids}{Integer or Character vector with Ads Ids, who will suspend impressions}
   \item{Login}{Your Yandex Login}
   \item{Token}{Your Yandex API Token}
+  \item{TokenPath}{Path to directory where you save credential data}
 }
 \details{
 Function resume impressions and return vector with Ads Ids with error.
