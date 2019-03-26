@@ -1,17 +1,17 @@
 \name{yadirStopKeyWords}
 \alias{yadirStopKeyWords}
 \title{Suspend impressions by KeyWords}
-\description{yadirStopKeyWordss suspend impressions by keywords in Yandex Direct account}
+\description{yadirStopKeyWords suspend impressions by keywords in Yandex Direct account}
 \usage{
-yadirStopKeyWordss(Login = NULL, 
-				   Ids   = NULL,
-				   Token = NULL)
+yadirStopKeyWords(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
+                 = NULL, TokenPath = getwd())
 }
 
 \arguments{
   \item{Ids}{Integer or Character vector with KeyWords Ids, who will suspend impressions}
   \item{Login}{Your Yandex Login}
   \item{Token}{Your Yandex API Token}
+  \item{TokenPath}{Path to directory where you save credential data}
 }
 \details{
 Function suspend impressions and return vector with KeyWords Ids with error.
@@ -20,6 +20,7 @@ Function suspend impressions and return vector with KeyWords Ids with error.
 \author{Alexey Seleznev}
 
 \examples{
+\dontrun{
 #Get API token
 tok <- yadirGetToken()
 
@@ -32,7 +33,5 @@ my_kw <- yadirGetKeyWords(Login = "Login", Token = tok, CampaignIds = my_camp$Id
 #Resume impressions
 err <- yadirStopKeyWordss(Login = "LOGIN", Token =  tok, Ids = my_kw$Id) 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}
+

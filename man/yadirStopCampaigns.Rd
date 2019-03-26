@@ -20,6 +20,7 @@ Function suspend impressions and return vector with Campaigns Ids with error.
 \author{Alexey Seleznev}
 
 \examples{
+\dontrun{
 #Get API token
 tok <- yadirGetToken()
 
@@ -29,7 +30,4 @@ my_camp <- yadirGetCampaignList(Login = "Login", Token = tok)
 #Resume impressions
 err <- yadirStopCampaigns(Login = "LOGIN", Token =  tok, Ids = my_camp$Id) 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}
