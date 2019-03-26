@@ -15,9 +15,7 @@ yadirGetBalance(Logins        = NULL,
   \item{AgencyAccount}{Your agency account login, if you get statistic from client account}
   \item{TokenPath}{Path to directory where you save credential data}
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{data frame with campaings names and parameters}
 \author{Alexey Seleznev}
 

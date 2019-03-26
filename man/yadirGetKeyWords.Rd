@@ -3,8 +3,7 @@
 \title{Get keywords list from yandex direct account}
 \description{yadirGetKeyWords get Р»СѓРЅС†С‰РєРІС‹ id and parameters from Yandex Direct account}
 \usage{
-yadirGetKeyWords(
-  Code: function(CampaignIds = NULL, AdGroupIds = NA, Ids = NA, States
+yadirGetKeyWords(CampaignIds = NULL, AdGroupIds = NA, Ids = NA, States
                  = c("OFF", "ON", "SUSPENDED"), WithStats = T, Login =
                  NULL, Token = NULL, AgencyAccount = NULL, TokenPath =
                  getwd())
@@ -21,9 +20,7 @@ yadirGetKeyWords(
   \item{AgencyAccount}{Your agency account login, if you get statistic from client account}
   \item{TokenPath}{Path to directory where you save credential data}
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{data frame with campaings names and parameters}
 \author{Alexey Seleznev}
 

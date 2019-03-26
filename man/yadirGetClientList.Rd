@@ -19,7 +19,7 @@ yadirGetClientList(AgencyAccount = NULL,
 
 \examples{
 \dontrun{
-library(ryandexdirect)
-my_client <- yadirGetClientList(AgencyAccount = "agency_login", TokenPath = "token_yandex")
+my_client <- yadirGetClientList(AgencyAccount = "agency_login", 
+                      TokenPath = "token_yandex")
 }
 }

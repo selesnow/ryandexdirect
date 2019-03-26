@@ -32,7 +32,7 @@ my_camp <- yadirGetCampaignList(Login = "Login", Token = tok)
 my_kw <- yadirGetKeyWords(Login = "Login", Token = tok, CampaignIds = my_camp$Id[1:10])
 
 #Resume impressions
-err <- yadirStopKeyWordss(Login = "LOGIN", Token =  tok, Ids = my_kw$Id) 
+err <- yadirStopKeyWords(Login = "LOGIN", Token =  tok, Ids = my_kw$Id) 
 }
 }
 
