@@ -17,9 +17,7 @@ yadirGetSiteLinks(Login = NULL,
   \item{AgencyAccount}{Your agency account login, if you get statistic from client account}
   \item{TokenPath}{Path to directory where you save credential data}
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{data frame with SiteLinks parameters, id, title, href and description }
 \author{Alexey Seleznev}
 
@@ -32,7 +30,4 @@ sl <- yadirGetSiteLinks2(AgencyAccount = "my.agency",
                          TokenPath     = "C:\\tokens")
  }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+

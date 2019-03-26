@@ -28,6 +28,7 @@ yadirGetReport(ReportType = "CUSTOM_REPORT", DateRangeType =
   \item{AgencyAccount}{Your agency account login, if you get statistic from client account}
   \item{TokenPath}{Path to directory where you save credential data}
   \item{Token}{character or list object, your Yandex API Token, you can get this by function yadirGetToken or yadirAuth}
+  \item{SkipErrors}{Logical, if TRUE function skip all errors of API answer}
 }
 \details{
 Attribution model is the rule, what transition to consider the source of the visit.
@@ -60,6 +61,7 @@ If several attribution models are specified, the data will be displayed for each
 \author{Alexey Seleznev}
 
 \examples{
+\dontrun{
 #Load package
 library(ryandexdirect)
 
@@ -93,9 +95,5 @@ statAgency <- yadirGetReport(ReportType = "ACCOUNT_PERFORMANCE_REPORT",
                              Login = "client_login", 
                              AgencyAccount = "aguncy_login",
                              TokenPath = "C:/token_yandex")
-
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}

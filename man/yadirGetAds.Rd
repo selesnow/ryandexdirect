@@ -30,6 +30,7 @@ yadirGetAds(CampaignIds   = NULL,
 \author{Alexey Seleznev}
 
 \examples{
+\dontrun{
 #For get ads data frame
 # Get ads from client account
 library(ryandexdirect)
@@ -46,7 +47,4 @@ my_ads  <- yadirGetAds(Login = "client_login",
 					   AgencyAccount = "agency_login",
                        Token = aut)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}

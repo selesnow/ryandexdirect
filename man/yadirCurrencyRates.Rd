@@ -17,6 +17,7 @@ yadirCurrencyRates(Login = NULL, AgencyAccount = NULL, Token = NULL,
 \author{Alexey Seleznev}
 
 \examples{
+\dontrun{
 # from storage tokrn
 library(ryandexdirect)
 cur <- yadirCurrencyRates(Login         = "login" ,
@@ -28,7 +29,4 @@ aut <- yadirAuth(Login = "login", NewUser = TRUE, TokenPath = "token_yandex")
 cur2 <- yadirCurrencyRates(Login =  "login" ,
                            Token = aut)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}

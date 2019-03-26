@@ -4,14 +4,13 @@
 \description{yadirGetCampaignList get adgroups id and parameters from Yandex Direct account}
 \usage{
 yadirGetAdGroups(CampaignIds   = NULL, 
-                             AdGroupIds    = NA, 
-                             Ids           = NA, 
-                             Types         = c("TEXT_AD_GROUP" ,"MOBILE_APP_AD_GROUP" ,"DYNAMIC_TEXT_AD_GROUP"),
-                             Statuses      = c( "ACCEPTED", "DRAFT", "MODERATION", "PREACCEPTED", "REJECTED"), 
-                             Login         = NULL,
-                             AgencyAccount = NULL,
-                             Token         = NULL,
-                             TokenPath     = getwd())
+                 Ids           = NA, 
+                 Types         = c("TEXT_AD_GROUP" ,"MOBILE_APP_AD_GROUP" ,"DYNAMIC_TEXT_AD_GROUP"),
+                 Statuses      = c( "ACCEPTED", "DRAFT", "MODERATION", "PREACCEPTED", "REJECTED"), 
+                 Login         = NULL,
+                 AgencyAccount = NULL,
+                 Token         = NULL,
+                 TokenPath     = getwd())
 }
 
 \arguments{
@@ -24,13 +23,12 @@ yadirGetAdGroups(CampaignIds   = NULL,
   \item{AgencyAccount}{Your agency account login, if you get statistic from client account}
   \item{TokenPath}{Path to directory where you save credential data}
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{data frame with campaings names and parameters}
 \author{Alexey Seleznev}
 
 \examples{
+\dontrun{
 #For get adgroups data frame
 # Get data from clients account
 library(ryandexdirect)
@@ -43,7 +41,4 @@ my_ad_group <- yadirGetAdGroups(Login         = "client_login",
 								TokenPath     = "token_yandex")
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}

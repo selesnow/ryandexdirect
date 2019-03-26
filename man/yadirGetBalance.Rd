@@ -22,6 +22,7 @@ yadirGetBalance(Logins        = NULL,
 \author{Alexey Seleznev}
 
 \examples{
+\dontrun{
 #For get accounts from client account use
 my_balance <- yadirGetBalance(Logins = "vasya",  Token = "abcdef123456")
 
@@ -33,7 +34,4 @@ client_balance <- yadirGetBalance(Logins = client$Login,
                                   AgencyAccount = "agency_login",
                                   Token = aut)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}

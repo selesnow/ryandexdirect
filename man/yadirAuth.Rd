@@ -14,10 +14,8 @@ yadirAuth(Login = NULL, NewUser = FALSE, TokenPath = getwd())
 \author{Alexey Seleznev}
 
 \examples{
+\dontrun{
 library(ryandexdirect)
 yadirAuth(Login = "login", NewUser = TRUE)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}

@@ -10,6 +10,7 @@ yadirStartAds(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
 \arguments{
   \item{Ids}{Integer or Character vector with Ads Ids, who will resume impressions}
   \item{Login}{Your Yandex Login}
+  \item{AgencyAccount}{Your agency account login, if you get statistic from client account}
   \item{Token}{Your Yandex API Token}
   \item{TokenPath}{Path to directory where you save credential data}
 }
@@ -20,6 +21,7 @@ Function resume impressions and return vector with Ads Ids with error.
 \author{Alexey Seleznev}
 
 \examples{
+\dontrun{
 #Get API token
 tok <- yadirGetToken()
 
@@ -29,7 +31,4 @@ my_ads <- yadirGetAds(Login = "LOGIN", Token = tok,States = c("SUSPENDED","OFF")
 #Resume impressions
 err <- yadirStartAds(Login = "LOGIN", Token =  tok, Ids = my_ads$Id) 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}

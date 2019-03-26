@@ -28,6 +28,7 @@ yadirGetKeyWords(
 \author{Alexey Seleznev}
 
 \examples{
+\dontrun{
 #For get keywords data frame
 library(ryandexdirect)
 # get data from agency account
@@ -35,7 +36,4 @@ my_keywords <- yadirGetKeyWords(Login = "client_login",
                                 AgencyAccount = "agency_login",
                                 TokenPath     = "token_yandex")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}

@@ -26,11 +26,8 @@ For more details go https://tech.yandex.ru/direct/doc/ref-v5/dictionaries/get-do
 \author{Alexey Seleznev}
 
 \examples{
-library(ryandexdirect)
+\dontrun{
 geo <- yadirGetDictionary(Login     = "login", 
                           TokenPath = "token_yandex")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}
