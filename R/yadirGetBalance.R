@@ -1,7 +1,7 @@
 yadirGetBalance <- function(Logins        = NULL, 
-                             Token         = NULL,     
-                             AgencyAccount = NULL,
-                             TokenPath     = getwd()){
+                            Token         = NULL,     
+                            AgencyAccount = NULL,
+                            TokenPath     = getwd()){
 
   # result frame
   result <- data.table()
@@ -34,11 +34,15 @@ yadirGetBalance <- function(Logins        = NULL,
     }
   
   # compose query body
-  body_list <-  list(method = "AccountManagement",
-                     param  = list(Action = "Get",
-                                   SelectionCriteria = list(Logins = logins_temp)),
-                     locale = "ru",
-                     token = Token)
+	body_list <-  list(method = "AccountManagement",
+					   param  = list(Action = "Get"),
+					   locale = "ru",
+					   token = Token)
+    
+  # if is agency account add selection 
+	if ( ! is.null(AgencyAccount) ) {
+	  body_list$param <- append(body_list$param, list(SelectionCriteria = list(Logins = logins_temp)))
+	}
 
   # body to json format
   body_json <- toJSON(body_list, auto_unbox = T, pretty = TRUE)

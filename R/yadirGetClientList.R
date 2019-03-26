@@ -4,7 +4,7 @@ function(AgencyAccount = NULL,
          TokenPath     = getwd()){
    
    # authorize
-   Token <- tech_auth(login = Logins[l], token = Token, AgencyAccount = AgencyAccount, 
+   Token <- tech_auth(token = Token, AgencyAccount = AgencyAccount, 
                       TokenPath = TokenPath)
    
    # prepare query body

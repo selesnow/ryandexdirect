@@ -1,5 +1,4 @@
 yadirGetAdGroups <- function(CampaignIds   = NULL, 
-                             AdGroupIds    = NA, 
                              Ids           = NA, 
                              Types         = c("TEXT_AD_GROUP" ,"MOBILE_APP_AD_GROUP" ,"DYNAMIC_TEXT_AD_GROUP"),
                              Statuses      = c( "ACCEPTED", "DRAFT", "MODERATION", "PREACCEPTED", "REJECTED"), 
@@ -42,7 +41,7 @@ yadirGetAdGroups <- function(CampaignIds   = NULL,
   
   # check ids
   if (is.null(CampaignIds)) {
-    CampaignIds <-  yadirGetCampaignList(Login         = Login,
+    CampaignIds <-  yadirGetCampaignList(Logins        = Login,
                                          AgencyAccount = AgencyAccount,
                                          Token         = Token,
                                          TokenPath     = TokenPath)$Id
@@ -66,7 +65,6 @@ yadirGetAdGroups <- function(CampaignIds   = NULL,
     
     
     Ids             <- ifelse(is.na(Ids), NA,paste0(Ids, collapse = ","))
-    AdGroupIds      <- ifelse(is.na(AdGroupIds),NA,paste0(AdGroupIds, collapse = ","))
     CampaignIdsTmp  <- paste("\"",CampaignIds[camp_start:(camp_start + camp_step - 1)],"\"",collapse=", ",sep="")
     
     # set offset

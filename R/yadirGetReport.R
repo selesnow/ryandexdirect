@@ -78,27 +78,27 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
       
       # parse error
       content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
-          xml_find_all(., xpath = ".//reports:ApiError//reports:requestId") %>%
+          xml_find_all(xpath = ".//reports:ApiError//reports:requestId") %>%
           xml_text() %>%
           message("Request Id: ", .)
       
       content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
-          xml_find_all(., xpath = ".//reports:ApiError//reports:errorCode") %>%
+          xml_find_all(xpath = ".//reports:ApiError//reports:errorCode") %>%
           xml_text() %>%
           message("Error Code: ", .)
       
       content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
-          xml_find_all(., xpath = ".//reports:ApiError//reports:errorMessage") %>%
+          xml_find_all(xpath = ".//reports:ApiError//reports:errorMessage") %>%
           xml_text() %>%
           message("Error Message: ", .)
       
       content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
-          xml_find_all(., xpath = ".//reports:ApiError//reports:errorDetail") %>%
+          xml_find_all(xpath = ".//reports:ApiError//reports:errorDetail") %>%
           xml_text() %>%
           message("Error Detail: ", .)
 		  
 	  if ( SkipErrors == FALSE ) stop(content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
-									  xml_find_all(., xpath = ".//reports:ApiError//reports:errorDetail") %>%
+									  xml_find_all(xpath = ".//reports:ApiError//reports:errorDetail") %>%
 									  xml_text() %>%
 									  message("Error Detail: ", .))
       
@@ -110,7 +110,7 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
       packageStartupMessage("While generating the report an error occurred on the server. If for this report the error on the server occurred for the first time, try to generate a report again. If the error persists, contact support.")
 	  
 	  if ( SkipErrors == FALSE ) stop(content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
-		      						  xml_find_all(., xpath = ".//reports:ApiError//reports:errorDetail") %>%
+		      						  xml_find_all(xpath = ".//reports:ApiError//reports:errorDetail") %>%
 									  xml_text() %>%
 									  message("Error Detail: ", .))
 	  

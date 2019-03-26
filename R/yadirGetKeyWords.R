@@ -17,7 +17,7 @@ yadirGetKeyWords <- function(CampaignIds = NULL,
   
   #check camp id
   if (is.null(CampaignIds)) {
-    CampaignIds <-  yadirGetCampaignList(Login         = Login,
+    CampaignIds <-  yadirGetCampaignList(Logins        = Login,
                                          AgencyAccount = AgencyAccount,
                                          Token         = Token,
                                          TokenPath     = TokenPath)$Id

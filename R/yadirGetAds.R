@@ -13,7 +13,7 @@ yadirGetAds <- function(CampaignIds   = NULL,
   # check campaign filter
   if ( is.null(CampaignIds) ) {
     message("You dont choised any ids of campaign, adgroup or ad . Loading full campaign list.")
-    CampaignIds <-  yadirGetCampaignList(Login         = Login,
+    CampaignIds <-  yadirGetCampaignList(Logins        = Login,
                                          AgencyAccount = AgencyAccount,
                                          Token         = Token,
                                          TokenPath     = TokenPath)$Id
