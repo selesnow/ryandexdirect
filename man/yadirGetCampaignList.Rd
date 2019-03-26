@@ -4,24 +4,14 @@
 \title{Get campaign list from yandex direct account}
 \description{yadirGetCampaignList get campaings names and parameters}
 \usage{
-yadirGetCampaignList(Logins = NULL, 
-                     States = c("OFF",
-					            "ON",
-							    "SUSPENDED",
-								"ENDED",
-								"CONVERTED",
-								"ARCHIVED"),
-                     Types = c("TEXT_CAMPAIGN",
-					           "MOBILE_APP_CAMPAIGN",
-							   "DYNAMIC_TEXT_CAMPAIGN"),
-                     Statuses = c("ACCEPTED",
-					              "DRAFT",
-								  "MODERATION",
-								  "REJECTED"),
-                     StatusesPayment = c("DISALLOWED","ALLOWED"),
-                     Token           = NULL,
-                     AgencyAccount = NULL,
-                     TokenPath     = getwd())
+yadirGetCampaignList(Logins = NULL, States = c("OFF", "ON", "SUSPENDED",
+                   "ENDED", "CONVERTED", "ARCHIVED"), Types =
+                   c("TEXT_CAMPAIGN", "MOBILE_APP_CAMPAIGN",
+                   "DYNAMIC_TEXT_CAMPAIGN", "CPM_BANNER_CAMPAIGN"),
+                   Statuses = c("ACCEPTED", "DRAFT", "MODERATION",
+                   "REJECTED"), StatusesPayment = c("DISALLOWED",
+                   "ALLOWED"), Token = NULL, AgencyAccount = NULL,
+                   TokenPath = getwd())
 }
 
 \arguments{
