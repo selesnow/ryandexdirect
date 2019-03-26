@@ -8,7 +8,7 @@ yadirGetAds <- function(CampaignIds   = NULL,
                         TokenPath     = getwd()){
   
   # auth
-  Token <- ryandexdirect:::tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
+  Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
   
   # check campaign filter
   if ( is.null(CampaignIds) ) {

@@ -8,10 +8,10 @@ function (Logins          = NULL,
           AgencyAccount = NULL,
           TokenPath     = getwd()) {
 
-#Фиксируем время начала работы
+# start time
 start_time  <- Sys.time()
 
-#Парсинг ответа
+# result frame
 result       <- data.frame(Id = character(0),
                            Name = character(0),
                            Type = character(0),
@@ -27,20 +27,20 @@ result       <- data.frame(Id = character(0),
                            Login = character(0),
                            stringsAsFactors=FALSE)
 
-#Filters
+# filters
 States          <- paste("\"",States,"\"",collapse=", ",sep="")
 Types           <- paste("\"",Types,"\"",collapse=", ",sep="")
 Statuses        <- paste("\"",Statuses,"\"",collapse=", ",sep="")
 StatusesPayment <- paste("\"",StatusesPayment,"\"",collapse=", ",sep="")
 
-#Задаём начальный offset
+# offset
 lim <- 0
 
-#Сообщение о начале обработки данных
+# start message
 packageStartupMessage("Processing", appendLF = F)
 
-while(lim != "stoped"){  
-#Формируем тело POST запроса
+while(lim != "stoped") {  
+# compose query body
 queryBody <- paste0("{
   \"method\": \"get\",
   \"params\": { 
@@ -70,11 +70,11 @@ queryBody <- paste0("{
 
     
     for(l in 1:length(Logins)){
-      #Авторизация
+      # auth
       Token <- tech_auth(login = Logins[l], token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
       
       answer <- POST("https://api.direct.yandex.com/json/v5/campaigns", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru","Client-Login" = Logins[l]))
-      #Обработка ответа
+      # check answer status
       stop_for_status(answer)
       dataRaw <- content(answer, "parsed", "application/json")
       
@@ -82,7 +82,7 @@ queryBody <- paste0("{
             stop(paste0(dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
            }
       
-      #Парсинг ответа
+      # parsing
       for (i in 1:length(dataRaw$result$Campaigns)){
         
         try(result <- rbind(result,
@@ -103,25 +103,26 @@ queryBody <- paste0("{
         }
     }
 
-  #Добавляем точку, что процесс загрузки идёт
+  # add progres
   packageStartupMessage(".", appendLF = F)
-  #Проверяем остались ли ещё строки которые надо забрать
+  # check for next iteraction
   lim <- ifelse(is.null(dataRaw$result$LimitedBy), "stoped",dataRaw$result$LimitedBy + 1)
 }
 
-#Преобразовываем некоторые поля результирующего дата фрейма в фактор
-result$Type <- as.factor(result$Type)
-result$Status <- as.factor(result$Status)
-result$State <- as.factor(result$State)
+# convert to factor
+result$Type     <- as.factor(result$Type)
+result$Status   <- as.factor(result$Status)
+result$State    <- as.factor(result$State)
 result$Currency <- as.factor(result$Currency)
 
-#Фиксируем время завершения обработки
+# end timr
 stop_time <- Sys.time()
 
-#Сообщение о том, что загрузка данных прошла успешно
+# out message
 packageStartupMessage("Done", appendLF = T)
-packageStartupMessage(paste0("Количество полученных рекламных кампаний: ", nrow(result)), appendLF = T)
-packageStartupMessage(paste0("Длительность работы: ", round(difftime(stop_time, start_time , units ="secs"),0), " сек."), appendLF = T)
-#Возвращаем результат
+packageStartupMessage(paste0("Number of load campaings: ", nrow(result)), appendLF = T)
+packageStartupMessage(paste0("Processing durations: ", round(difftime(stop_time, start_time , units ="secs"),0), " sec."), appendLF = T)
+
+# result
 return(result)
 }

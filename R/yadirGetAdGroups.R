@@ -8,13 +8,13 @@ yadirGetAdGroups <- function(CampaignIds   = NULL,
                              Token         = NULL,
                              TokenPath     = getwd()){
   
-  #Фиксируем время начала работы
+  # set start time
   start_time  <- Sys.time()
   
-  #Авторизация
+  # auth
   Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
   
-  #Результирующий дата фрейм
+  # result frame
   result      <- data.frame(Id                                                   = integer(0), 
                             Name                                                 = character(0),
                             CampaignId                                           = integer(0),
@@ -40,7 +40,7 @@ yadirGetAdGroups <- function(CampaignIds   = NULL,
                             DynamicTextFeedAdGroupSourceType                     = character(0),
                             DynamicTextFeedAdGroupSourceProcessingStatus         = character(0))
   
-  #Проверяем если не задан список рекламных кампаний загружаем его и получаем все группы
+  # check ids
   if (is.null(CampaignIds)) {
     CampaignIds <-  yadirGetCampaignList(Login         = Login,
                                          AgencyAccount = AgencyAccount,
@@ -48,28 +48,28 @@ yadirGetAdGroups <- function(CampaignIds   = NULL,
                                          TokenPath     = TokenPath)$Id
   }
   
-  #Переводим фильтр по статусу в json
+  # convert filters to JSON
   Statuses          <- paste("\"",Statuses,"\"",collapse=", ",sep="")
   Types             <- paste("\"",Types,"\"",collapse=", ",sep="")
   
-  #Определяем количество кампаний которое требуется обработать
+  # define camp numbers
   camp_num     <- as.integer(length(CampaignIds))
   camp_start   <- 1
   camp_step    <- 10
   
   packageStartupMessage("Processing", appendLF = F)
-  #Запускаем цикл обработки кампаний
+  # start cycle
   while(camp_start <= camp_num){
     
-    #определяем какое к-во РК надо обработать
+    #camp num
     camp_step   <-  if(camp_num - camp_start >= 10) camp_step else camp_num - camp_start + 1
     
-    #Преобразуем список рекламных кампаний
+    
     Ids             <- ifelse(is.na(Ids), NA,paste0(Ids, collapse = ","))
     AdGroupIds      <- ifelse(is.na(AdGroupIds),NA,paste0(AdGroupIds, collapse = ","))
     CampaignIdsTmp  <- paste("\"",CampaignIds[camp_start:(camp_start + camp_step - 1)],"\"",collapse=", ",sep="")
     
-    #Задаём начальный offset
+    # set offset
     lim <- 0
     
     while(lim != "stoped"){
@@ -119,12 +119,12 @@ yadirGetAdGroups <- function(CampaignIds   = NULL,
       stop_for_status(answer)
       dataRaw <- content(answer, "parsed", "application/json")
       
-      #Проверка не вернул ли запрос ошибку
+      #check answer for error
       if(length(dataRaw$error) > 0){
         stop(paste0(dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
       }
       
-      #Парсер ответа
+      # pars
       for(adgroups_i in 1:length(dataRaw$result$AdGroups)){
         result      <- rbind(result,
                              data.frame(Id                                                   = ifelse(is.null(dataRaw$result$AdGroups[[adgroups_i]]$Id), NA,dataRaw$result$AdGroups[[adgroups_i]]$Id), 
@@ -152,22 +152,22 @@ yadirGetAdGroups <- function(CampaignIds   = NULL,
                                         DynamicTextFeedAdGroupSourceType                     = ifelse(is.null(dataRaw$result$AdGroups[[adgroups_i]]$DynamicTextFeedAdGroup$SourceType), NA,dataRaw$result$AdGroups[[adgroups_i]]$DynamicTextFeedAdGroup$SourceType),
                                         DynamicTextFeedAdGroupSourceProcessingStatus         = ifelse(is.null(dataRaw$result$AdGroups[[adgroups_i]]$DynamicTextFeedAdGroup$SourceProcessingStatus), NA,dataRaw$result$AdGroups[[adgroups_i]]$DynamicTextFeedAdGroup$SourceProcessingStatus)))
       }
-      #Добавляем точку, что процесс загрузки идёт
+      # progressbar
       packageStartupMessage(".", appendLF = F)
-      #Проверяем остались ли ещё строки которые надо забрать
+      # check last iteration
       lim <- ifelse(is.null(dataRaw$result$LimitedBy), "stoped",dataRaw$result$LimitedBy + 1)
     }
     
-    #Определяем следующий пул кампаний
+    # next campaings
     camp_start <- camp_start + camp_step
   }
   
-  #Фиксируем время завершения обработки
+  # set finish time
   stop_time <- Sys.time()
   
-  #Сообщение о том, что загрузка данных прошла успешно
+  # message
   packageStartupMessage("Done", appendLF = T)
-  packageStartupMessage(paste0("Количество полученных групп объявлений: ", nrow(result)), appendLF = T)
-  packageStartupMessage(paste0("Длительность работы: ", round(difftime(stop_time, start_time , units ="secs"),0), " сек."), appendLF = T)
-  #Возвращаем результат
+  packageStartupMessage(paste0("Number of ad groups: ", nrow(result)), appendLF = T)
+  packageStartupMessage(paste0("Duration: ", round(difftime(stop_time, start_time , units ="secs"),0), " sec."), appendLF = T)
+  # result
   return(result)}

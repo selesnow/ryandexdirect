@@ -16,6 +16,7 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
   
   # start time
   proc_start <- Sys.time()
+  
   # field names
   Fields <- paste0("<FieldNames>",FieldNames, "</FieldNames>", collapse = "")
   
@@ -32,8 +33,8 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
                                 paste0(paste0("<Values>",val, "</Values>"), collapse = ""),"</Filter>"))
     }}
   
-  Goals <- ifelse(is.null(Goals), "", paste0("<Goals>",Goals, "</Goals>", collapse = ""))
-
+  # Goals and attributtion
+  Goals             <- ifelse(is.null(Goals), "", paste0("<Goals>",Goals, "</Goals>", collapse = ""))
   AttributionModels <- ifelse(is.null(AttributionModels), "", paste0("<AttributionModels>",AttributionModels, "</AttributionModels>", collapse = ""))
  
    # compose request body
@@ -65,7 +66,7 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
     server_time <- 0
     # start message
     packageStartupMessage("-----------------------------------------------------------")
-    packageStartupMessage(paste0("Çàãðóçêà äàííûõ ïî ",login))
+    packageStartupMessage(paste0("Loading data by ",login))
     
 	# send request to API
     serv_start_time <- Sys.time()
@@ -98,7 +99,8 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
 		  
 	  if ( SkipErrors == FALSE ) stop(content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
 									  xml_find_all(., xpath = ".//reports:ApiError//reports:errorDetail") %>%
-									  xml_text())
+									  xml_text() %>%
+									  message("Error Detail: ", .))
       
       next
     }
@@ -109,7 +111,8 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
 	  
 	  if ( SkipErrors == FALSE ) stop(content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
 		      						  xml_find_all(., xpath = ".//reports:ApiError//reports:errorDetail") %>%
-									  xml_text())
+									  xml_text() %>%
+									  message("Error Detail: ", .))
 	  
       next
     }
@@ -171,7 +174,7 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
   }
   # tech messages
   total_work_time <- round(difftime(Sys.time(), proc_start , units ="secs"),0)
-  packageStartupMessage(paste0("Total time: ",total_work_time, " ñåê."))
+  packageStartupMessage(paste0("Total time: ",total_work_time, " sec."))
   packageStartupMessage(paste0(round(as.integer(server_time) / as.integer(total_work_time) * 100, 0), "% server time rate."))
   packageStartupMessage(paste0(round(as.integer(parsing_time) / as.integer(total_work_time) * 100, 0), "% parsing time rate."))
   packageStartupMessage(paste0("RequestID: ",answer$headers$requestid))

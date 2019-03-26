@@ -1,9 +1,9 @@
 yadirGetDictionary <- function(DictionaryName = "GeoRegions", 
-                               Language = "ru", 
-                               Login         = NULL,
-                               Token         = NULL,
-                               AgencyAccount = NULL,
-                               TokenPath     = getwd()){
+                               Language       = "ru", 
+                               Login          = NULL,
+                               Token          = NULL,
+                               AgencyAccount  = NULL,
+                               TokenPath      = getwd()){
   
   # start
 
