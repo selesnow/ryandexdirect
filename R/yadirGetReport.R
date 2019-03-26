@@ -12,7 +12,7 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
                            AgencyAccount     = NULL,
                            Token             = NULL,
                            TokenPath         = getwd(),
-						   SkipErrors        = TRUE){
+						               SkipErrors        = TRUE){
   
   # start time
   proc_start <- Sys.time()
@@ -80,27 +80,27 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
       content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
           xml_find_all(xpath = ".//reports:ApiError//reports:requestId") %>%
           xml_text() %>%
-          message("Request Id: ", .)
+          message(" > Request Id")
       
       content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
           xml_find_all(xpath = ".//reports:ApiError//reports:errorCode") %>%
           xml_text() %>%
-          message("Error Code: ", .)
+          message(" > Error Code")
       
       content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
           xml_find_all(xpath = ".//reports:ApiError//reports:errorMessage") %>%
           xml_text() %>%
-          message("Error Message: ", .)
+          message(" > Error Message")
       
       content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
           xml_find_all(xpath = ".//reports:ApiError//reports:errorDetail") %>%
           xml_text() %>%
-          message("Error Detail: ", .)
+          message(" > Error Detail")
 		  
 	  if ( SkipErrors == FALSE ) stop(content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
 									  xml_find_all(xpath = ".//reports:ApiError//reports:errorDetail") %>%
 									  xml_text() %>%
-									  message("Error Detail: ", .))
+									  message(" > Error Detail"))
       
       next
     }
@@ -112,7 +112,7 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
 	  if ( SkipErrors == FALSE ) stop(content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
 		      						  xml_find_all(xpath = ".//reports:ApiError//reports:errorDetail") %>%
 									  xml_text() %>%
-									  message("Error Detail: ", .))
+									  message(" > Error Detail"))
 	  
       next
     }

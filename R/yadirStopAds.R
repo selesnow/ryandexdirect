@@ -73,7 +73,7 @@ yadirStopAds <-  function(Login = NULL,
     out_message <- "ads stoped"
   }
   
-  #Выводим информацию
+  # out message
   packageStartupMessage(paste0(TotalCampStoped, " ", out_message))
   packageStartupMessage(paste0("Total time: ", as.integer(round(difftime(Sys.time(), start_time , units ="secs"),0)), " sec."))
   return(errors_id)}
