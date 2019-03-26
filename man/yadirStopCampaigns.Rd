@@ -1,7 +1,7 @@
 \name{yadirStopCampaigns}
 \alias{yadirStopCampaigns}
 \title{Suspend impressions by Campaigns}
-\description{yadirStopCampaigns suspend impressions by campaings in Yandex Direct account}
+\description{Suspend impressions by campaings in Yandex Direct account}
 \usage{
 yadirStopCampaigns(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
                  = NULL, TokenPath = getwd())
@@ -22,13 +22,13 @@ Function suspend impressions and return vector with Campaigns Ids with error.
 
 \examples{
 \dontrun{
-#Get API token
+# Get API token
 tok <- yadirGetToken()
 
-#Get camp dictionary
+# Get camp dictionary
 my_camp <- yadirGetCampaignList(Login = "Login", Token = tok)
 
-#Resume impressions
+# Resume impressions
 err <- yadirStopCampaigns(Login = "LOGIN", Token =  tok, Ids = my_camp$Id) 
 }
 }

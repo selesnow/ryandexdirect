@@ -1,7 +1,7 @@
 \name{yadirStopAds}
 \alias{yadirStopAds}
 \title{Suspend impressions by Ads}
-\description{yadirStopAds suspend impressions by ads}
+\description{Suspend impressions by ads}
 \usage{
 yadirStopAds(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
                  = NULL, TokenPath = getwd())
@@ -22,16 +22,20 @@ Function resume impressions and return vector with Ads Ids with error.
 
 \examples{
 \dontrun{
-#Get API token
-tok <- yadirGetToken()
+# Get API token
+tok <- yadirGetToken(Login = "LOGIN")
 
-#Get Campaigns
-my_camp <- yadirGetCampaignList(Login = "LOGIN", Token = tok)
+# Get Campaigns
+my_camp <- yadirGetCampaignList(Login = "LOGIN", 
+                                Token = tok)
 
-#Get ads dictionary
-my_ads <- yadirGetAds(Login = "LOGIN", Token = tok, States = "ON", CampaignIds = my_camp$Id[1:10])
+# Get ads dictionary
+my_ads <- yadirGetAds(Login = "LOGIN", 
+                      Token = tok, 
+					  States = "ON", 
+					  CampaignIds = my_camp$Id[1:10])
 
-#Resume impressions
+# Resume impressions
 err <- yadirStopAds(Login = "LOGIN", Token =  tok, Ids = my_ads$Id) 
 }
 }

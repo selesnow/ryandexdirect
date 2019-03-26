@@ -62,10 +62,7 @@ If several attribution models are specified, the data will be displayed for each
 
 \examples{
 \dontrun{
-#Load package
-library(ryandexdirect)
-
-#For get Report from client account
+# For get Report from client account
 statAgency <- yadirGetReport(ReportType       = "ACCOUNT_PERFORMANCE_REPORT", 
                              DateRangeType    = "CUSTOM_DATE", 
                              DateFrom         = "2018-01-01", 
@@ -74,14 +71,16 @@ statAgency <- yadirGetReport(ReportType       = "ACCOUNT_PERFORMANCE_REPORT",
                                                   "Impressions",
                                                   "Clicks",
                                                   "Cost"), 
-							 Goals             = c(182453, 182452, 23458860),
+							 Goals = c(182453, 
+							           182452, 
+							           234588),
 							 AttributionModels = c("LSC", "LC"),
                              IncludeVAT        = "YES", 
                              IncludeDiscount   = "NO", 
                              Login             = "client_login", 
                              TokenPath         = "C:/token_yandex")
 							 
-#For get data from agency client account
+# For get data from agency client account
 statAgency <- yadirGetReport(ReportType = "ACCOUNT_PERFORMANCE_REPORT", 
                              DateRangeType = "CUSTOM_DATE", 
                              DateFrom = "2018-01-01", 

@@ -1,7 +1,7 @@
 \name{yadirGetSiteLinks}
 \alias{yadirGetSiteLinks}
 \title{Get fast links from yandex direct}
-\description{yadirGetSiteLinks returns sets of quick links that meet the specified criteria..}
+\description{Returns sets of quick links that meet the specified criteria..}
 \usage{
 yadirGetSiteLinks(Login = NULL,
                   Token = NULL,
@@ -24,9 +24,12 @@ yadirGetSiteLinks(Login = NULL,
 \examples{
 \dontrun{
 # Get sitelinks
-sl <- yadirGetSiteLinks2(AgencyAccount = "my.agency", 
-                         Login         = "my.client.login",
-						 Ids           = c(5276537, 8927897239, 252627, 33123)
+sl <- yadirGetSiteLinks(AgencyAccount = "my.agency", 
+                        Login         = "my.client.login",
+						Ids           = c(5276537, 
+						                  8927897239, 
+						         	      252627, 
+								          33123)
                          TokenPath     = "C:\\tokens")
  }
 }

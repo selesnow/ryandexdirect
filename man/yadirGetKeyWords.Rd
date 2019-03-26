@@ -1,7 +1,7 @@
 \name{yadirGetKeyWords}
 \alias{yadirGetKeyWords}
 \title{Get keywords list from yandex direct account}
-\description{yadirGetKeyWords get Р»СѓРЅС†С‰РєРІС‹ id and parameters from Yandex Direct account}
+\description{Get keywords list with id and other parameters from Yandex Direct account}
 \usage{
 yadirGetKeyWords(CampaignIds = NULL, AdGroupIds = NA, Ids = NA, States
                  = c("OFF", "ON", "SUSPENDED"), WithStats = T, Login =
@@ -26,8 +26,7 @@ yadirGetKeyWords(CampaignIds = NULL, AdGroupIds = NA, Ids = NA, States
 
 \examples{
 \dontrun{
-#For get keywords data frame
-library(ryandexdirect)
+
 # get data from agency account
 my_keywords <- yadirGetKeyWords(Login = "client_login",
                                 AgencyAccount = "agency_login",

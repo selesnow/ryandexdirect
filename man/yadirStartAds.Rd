@@ -1,7 +1,7 @@
 \name{yadirStartAds}
 \alias{yadirStartAds}
 \title{Resume impressions by Ads}
-\description{yadirStartAds resume impressions by ads}
+\description{Resume impressions by ads}
 \usage{
 yadirStartAds(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
                  = NULL, TokenPath = getwd())
@@ -22,13 +22,13 @@ Function resume impressions and return vector with Ads Ids with error.
 
 \examples{
 \dontrun{
-#Get API token
+# Get API token
 tok <- yadirGetToken()
 
-#Get ads dictionary
+# Get ads dictionary
 my_ads <- yadirGetAds(Login = "LOGIN", Token = tok,States = c("SUSPENDED","OFF"))
 
-#Resume impressions
+# Resume impressions
 err <- yadirStartAds(Login = "LOGIN", Token =  tok, Ids = my_ads$Id) 
 }
 }

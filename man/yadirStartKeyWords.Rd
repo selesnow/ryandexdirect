@@ -22,16 +22,16 @@ Function resume impressions and return vector with KeyWords Ids with error.
 
 \examples{
 \dontrun{
-#Get API token
+# Get API token
 tok <- yadirGetToken()
 
-#Get camp dictionary
+# Get camp dictionary
 my_camp <- yadirGetCampaignList(Login = "Login", Token = tok)
 
-#Get keywords dictionary
+# Get keywords dictionary
 my_kw <- yadirGetKeyWords(Login = "Login", Token = tok, CampaignIds = my_camp$Id[1:10])
 
-#Resume impressions
+# Resume impressions
 err <- yadirStartKeyWords(Login = "LOGIN", Token =  tok, Ids = my_kw$Id) 
 }
 }
