@@ -1,7 +1,7 @@
 Package: ryandexdirect
 Type: Package
 Title: Load data from Yandex Direct
-Version: 3.0.18
+Version: 3.0.19
 Date: 2019-03-26
 Author: Alexey Seleznev
 Maintainer: Alexey Seleznev <selesnow@gmail.com>
