@@ -40,7 +40,8 @@
 1. [Документация по работе с пакетом ryandexdirect](https://selesnow.github.io/ryandexdirect/).
 2. Баг репорты, предложения по доработке и улучшению функционала ryandexdirect оставлять [тут](https://github.com/selesnow/ryandexdirect/issues). 
 3. [Список релизов](https://github.com/selesnow/ryandexdirect/releases).
-4. [Группа в Вконтакте](https://vk.com/data_club).
+4. [Телеграмм канал R4marketing](https://t.me/R4marketing).
+5. [Группа в Вконтакте](https://vk.com/data_club).
 
 ### Автор пакета
 Алексей Селезнёв, Head of analytics dept. at [Netpeak](https://netpeak.net)
