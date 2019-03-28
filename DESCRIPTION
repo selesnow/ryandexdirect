@@ -6,10 +6,10 @@ Date: 2019-03-26
 Author: Alexey Seleznev
 Maintainer: Alexey Seleznev <selesnow@gmail.com>
 Description: Load data from yandex direct API v5 
-    <https://tech.yandex.ru/direct/doc/dg/concepts/about-docpage/> into R.
-	Provide function for load lists of campaings, ads, keywords and other 
-	objects from Yandex Direct account. Also you can load statistic from
-	API Reports Service <https://tech.yandex.ru/direct/doc/reports/reports-docpage/>.
+ <https://tech.yandex.ru/direct/doc/dg/concepts/about-docpage/> into R.
+ Provide function for load lists of campaings, ads, keywords and other 
+ objects from Yandex Direct account. Also you can load statistic from
+ API Reports Service <https://tech.yandex.ru/direct/doc/reports/reports-docpage/>.
 License: GPL-2
 Depends: R (>= 3.5.0)
 Imports: utils, httr, bitops, jsonlite, xml2, data.table, readr, magrittr, dplyr
