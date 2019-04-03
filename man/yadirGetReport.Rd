@@ -1,7 +1,7 @@
 \name{yadirGetReport}
 \alias{yadirGetReport}
-\title{Get report from yandex direct Report service}
-\description{The service Report is designed to get statistics on the advertiser's account. You must set period, choose report type and needed fields, and get statistic.}
+\title{Get Report From 'Yandex Direct Report Service'}
+\description{The 'Service Report' is designed to get statistics on the advertiser's account. You must set period, choose report type and needed fields, and get statistic.}
 \usage{
 yadirGetReport(ReportType = "CUSTOM_REPORT", DateRangeType =
                  "LAST_30_DAYS", DateFrom = NULL, DateTo = NULL,

@@ -1,7 +1,7 @@
 \name{yadirStopKeyWords}
 \alias{yadirStopKeyWords}
 \title{Suspend impressions by KeyWords}
-\description{Suspend impressions by keywords in Yandex Direct account}
+\description{Stops impressions by keyword phrases and autotargeting.}
 \usage{
 yadirStopKeyWords(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
                  = NULL, TokenPath = getwd())

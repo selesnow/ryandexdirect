@@ -1,7 +1,7 @@
 \name{yadirGetAds}
 \alias{yadirGetAds}
-\title{Get ads list from yandex direct account}
-\description{yadirGetCampaignList get ads id and parameters from Yandex Direct account}
+\title{Get Ads List From 'Yandex Direct' account}
+\description{Returns the parameters of ads that match the specified criteria.}
 \usage{
 yadirGetAds(CampaignIds   = NULL, 
             AdGroupIds    = NA, 
@@ -24,7 +24,7 @@ yadirGetAds(CampaignIds   = NULL,
   \item{TokenPath}{Path to directory where you save credential data}
 }
 
-\value{data frame with campaings names and parameters}
+\value{Data Frame}
 \author{Alexey Seleznev}
 
 \examples{
@@ -36,8 +36,6 @@ my_ads  <- yadirGetAds(Login = "login",
                        Token = aut)
 					   
 # Get data from agency account
-library(ryandexdirect)
-
 aut <- yadirAuth(Login = "agency_login", NewUser = TRUE)
 
 my_ads  <- yadirGetAds(Login = "client_login",

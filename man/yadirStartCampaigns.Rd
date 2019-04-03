@@ -1,7 +1,7 @@
 \name{yadirStartCampaigns}
 \alias{yadirStartCampaigns}
-\title{Resume impressions by Campaigns}
-\description{yadirStartCampaigns resume impressions by ads}
+\title{Start Campaigns}
+\description{Resumes impressions at the campaign level.}
 \usage{
 yadirStartCampaigns(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
                  = NULL, TokenPath = getwd())

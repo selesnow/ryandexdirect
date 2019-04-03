@@ -1,7 +1,7 @@
 \name{yadirStopAds}
 \alias{yadirStopAds}
 \title{Suspend impressions by Ads}
-\description{Suspend impressions by ads}
+\description{Stops Ad Impressions in 'Yandex Direct' accounts.}
 \usage{
 yadirStopAds(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
                  = NULL, TokenPath = getwd())

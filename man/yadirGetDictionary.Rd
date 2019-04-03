@@ -1,7 +1,7 @@
 \name{yadirGetDictionary}
 \alias{yadirGetDictionary}
-\title{Get Dictionary from Yandex}
-\description{yadirGetDictionary get Dictionaties from Yandex Direct API v.5.}
+\title{Get Dictionary from 'Yandex Direct'}
+\description{Returns reference data: regions, time zones, exchange rates, list of metro stations, restrictions on parameter values, external networks (SSP), Crypt segments for targeting by user profile, etc.}
 \usage{
 yadirGetDictionary(DictionaryName = "GeoRegions", 
                                Language      = "ru", 
@@ -19,15 +19,16 @@ yadirGetDictionary(DictionaryName = "GeoRegions",
   \item{TokenPath}{Path to directory where you save credential data}
   \item{Token}{character or list object, your Yandex API Token, you can get this by function yadirGetToken or yadirAuth}
 }
-\details{
-For more details go https://tech.yandex.ru/direct/doc/ref-v5/dictionaries/get-docpage/
+\references{
+For more details go \href{https://tech.yandex.ru/direct/doc/ref-v5/dictionaries/get-docpage/}{link}
 }
-\value{data frame with campaings names and parameters}
+\value{Data Frame}
 \author{Alexey Seleznev}
 
 \examples{
 \dontrun{
 geo <- yadirGetDictionary(Login     = "login", 
+                          DictionaryName = "GeoRegions",
                           TokenPath = "token_yandex")
 }
 }

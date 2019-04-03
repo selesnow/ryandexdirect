@@ -1,10 +1,19 @@
 \name{yadirGetCampaignList}
 \alias{yadirGetCampaignList}
 \alias{yadirGetCampaign}
-\title{Get campaign list from yandex direct account}
-\description{yadirGetCampaignList get campaings names and parameters}
+\title{Get Campaigns List}
+\description{Returns the parameters of campaigns that meet the specified criteria.}
 \usage{
 yadirGetCampaignList(Logins = NULL, States = c("OFF", "ON", "SUSPENDED",
+                   "ENDED", "CONVERTED", "ARCHIVED"), Types =
+                   c("TEXT_CAMPAIGN", "MOBILE_APP_CAMPAIGN",
+                   "DYNAMIC_TEXT_CAMPAIGN", "CPM_BANNER_CAMPAIGN"),
+                   Statuses = c("ACCEPTED", "DRAFT", "MODERATION",
+                   "REJECTED"), StatusesPayment = c("DISALLOWED",
+                   "ALLOWED"), Token = NULL, AgencyAccount = NULL,
+                   TokenPath = getwd())
+				   
+yadirGetCampaign(Logins = NULL, States = c("OFF", "ON", "SUSPENDED",
                    "ENDED", "CONVERTED", "ARCHIVED"), Types =
                    c("TEXT_CAMPAIGN", "MOBILE_APP_CAMPAIGN",
                    "DYNAMIC_TEXT_CAMPAIGN", "CPM_BANNER_CAMPAIGN"),
@@ -31,16 +40,16 @@ yadirGetCampaignList(Logins = NULL, States = c("OFF", "ON", "SUSPENDED",
 \examples{
 \dontrun{
 #Get data from client accounts
-library(ryandexdirect)
-my_ad_group <- yadirGetCampaignList(Login = "login")
+my_ad_group <- yadirGetCampaign(Login = "login")
 
 #Get data from agency account
-library(ryandexdirect)
 # Auth
-aut <- yadirAuth(Login = "agency_login", NewUser = TRUE, TokenPath = "token_yandex")
+aut <- yadirAuth(Login = "agency_login", 
+                 NewUser = TRUE, 
+				 TokenPath = "token_yandex")
 
 # Load Ad Group List
-my_ad_group <- yadirGetCampaignList(Login = "client_login",
+my_ad_group <- yadirGetCampaign(Login = "client_login",
                                     Token = aut)
 }
 }

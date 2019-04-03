@@ -1,7 +1,7 @@
 \name{yadirCurrencyRates}
 \alias{yadirCurrencyRates}
-\title{Get campaign list from yandex direct account}
-\description{yadirCurrencyRates get currency rates from Yandex Direct}
+\title{Get currencies}
+\description{Exchange rates, currency parameters and restrictions.}
 \usage{
 yadirCurrencyRates(Login = NULL, AgencyAccount = NULL, Token = NULL,
                  TokenPath = getwd())

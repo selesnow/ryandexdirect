@@ -1,7 +1,7 @@
 \name{yadirGetBalance}
 \alias{yadirGetBalance}
-\title{Get yandex direct balance}
-\description{yadirGetBalance get data frame with information about you account.}
+\title{Get 'Yandex Direct' account balance}
+\description{Returns settings for shared accounts.}
 \usage{
 yadirGetBalance(Logins        = NULL, 
                 Token         = NULL,     
@@ -16,7 +16,7 @@ yadirGetBalance(Logins        = NULL,
   \item{TokenPath}{Path to directory where you save credential data}
 }
 
-\value{data frame with campaings names and parameters}
+\value{Data frame}
 \author{Alexey Seleznev}
 
 \examples{

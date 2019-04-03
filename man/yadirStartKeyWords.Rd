@@ -1,7 +1,7 @@
 \name{yadirStartKeyWords}
 \alias{yadirStartKeyWords}
-\title{Resume impressions by KeyWords}
-\description{yadirStartKeyWords resume impressions by keywords in Yandex Direct account}
+\title{Resume KeyWords}
+\description{Resumes impressions on previously stopped keyword phrases and auto-targeting.}
 \usage{
 yadirStartKeyWords(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
                  = NULL, TokenPath = getwd())

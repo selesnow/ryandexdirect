@@ -1,7 +1,7 @@
 \name{yadirGetToken}
 \alias{yadirGetToken}
-\title{get api yandex developer token}
-\description{This function open web browser for get api yandex direct token}
+\title{Auth in 'Yandex Direct API'}
+\description{Simplified, one-step API authorization.}
 \usage{
 yadirGetToken(Login = NULL, TokenPath = getwd())
 }

@@ -1,7 +1,7 @@
 \name{yadirGetClientParam}
 \alias{yadirGetClientParam}
-\title{Get params list from yandex direct account}
-\description{yadirGetClientParam get clients parameters names and parameters}
+\title{Get params list from 'Yandex Direct' agency clients}
+\description{Returns the parameters of the advertiser and the settings of the user - the representative of the advertiser or the parameters of the agency and the settings of the user - the representative of the agency.}
 \usage{
 yadirGetClientParam(Language = "ru", 
                     Logins = NULL, 

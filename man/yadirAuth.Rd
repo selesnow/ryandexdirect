@@ -1,7 +1,7 @@
 \name{yadirAuth}
 \alias{yadirAuth}
-\title{Authentication in Yandex Direct API}
-\description{Get API Token for Yandex Direct account}
+\title{Authentication in 'Yandex Direct API'}
+\description{Get API Token for 'Yandex Direct' account}
 \usage{
 yadirAuth(Login = NULL, NewUser = FALSE, TokenPath = getwd())
 }

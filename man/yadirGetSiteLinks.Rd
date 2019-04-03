@@ -1,7 +1,7 @@
 \name{yadirGetSiteLinks}
 \alias{yadirGetSiteLinks}
-\title{Get fast links from yandex direct}
-\description{Returns sets of quick links that meet the specified criteria..}
+\title{Get Fast Links}
+\description{Returns sets of quick links that meet the specified criteria.}
 \usage{
 yadirGetSiteLinks(Login = NULL,
                   Token = NULL,

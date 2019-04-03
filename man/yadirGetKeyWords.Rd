@@ -1,7 +1,7 @@
 \name{yadirGetKeyWords}
 \alias{yadirGetKeyWords}
-\title{Get keywords list from yandex direct account}
-\description{Get keywords list with id and other parameters from Yandex Direct account}
+\title{Get Keywords}
+\description{Returns the parameters of key phrases or autotargets that match the specified criteria: the values of the placeholder variables, status and status, statistics of impressions and clicks, rates and priorities.}
 \usage{
 yadirGetKeyWords(CampaignIds = NULL, AdGroupIds = NA, Ids = NA, States
                  = c("OFF", "ON", "SUSPENDED"), WithStats = T, Login =

@@ -1,7 +1,7 @@
 \name{yadirGetAdGroups}
 \alias{yadirGetAdGroups}
-\title{Get adgroups list from yandex direct account}
-\description{yadirGetCampaignList get adgroups id and parameters from Yandex Direct account}
+\title{Get AdGroups List}
+\description{Returns parameters of adgroups that meet specified criteria.}
 \usage{
 yadirGetAdGroups(CampaignIds   = NULL, 
                  Ids           = NA, 
@@ -30,7 +30,7 @@ yadirGetAdGroups(CampaignIds   = NULL,
   \item{TokenPath}{Path to directory where you save credential data}
 }
 
-\value{data frame with campaings names and parameters}
+\value{data frame with adgroups names and parameters}
 \author{Alexey Seleznev}
 
 \examples{
