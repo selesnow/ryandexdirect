@@ -5,7 +5,7 @@ yadirAuth <- function(Login = NULL, NewUser = FALSE, TokenPath = getwd()) {
   if (!dir.exists(TokenPath)) {
     dir.create(TokenPath)
   }
-    
+  
   # find file with auth data
   
   if (NewUser == FALSE && file.exists(paste0(paste0(TokenPath, "/", Login, ".yadirAuth.RData")))) {
@@ -23,36 +23,36 @@ yadirAuth <- function(Login = NULL, NewUser = FALSE, TokenPath = getwd()) {
         stop(paste0(token$error, ": ", token$error_description))
       }
       # get token
-      new_token <- content(token_raw)
+      token <- content(token_raw)
       # add expire time
-      new_token$expire_at <- Sys.time() + as.numeric(token$expires_in, units = "secs")
+      token$expire_at <- Sys.time() + as.numeric(token$expires_in, units = "secs")
       
       # update auth file
-      save(new_token, file = paste0(TokenPath, "/", Login, ".yadirAuth.RData"))
+      save(token, file = paste0(TokenPath, "/", Login, ".yadirAuth.RData"))
       message("Token saved in file ", paste0(TokenPath, "/", Login, ".yadirAuth.RData"))
       
-      return(new_token)
+      return(token)
     } else {
       message("Token expire in ", round(as.numeric(token$expire_at - Sys.time(), units = "days"), 0), " days")
       
       return(token)
+    }
   }
-}
   
   # check session mode
   if ( ! interactive() ) {
     stop(paste0("Function yadirAuth does not find the ", Login, ".yadirAuth.RData file in ",TokenPath,". You must run this script in interactive mode in RStudio or RGui and go through the authorization process for create ", Login,".yadirAuth.RData file, and using him between R session in batch mode. For more details see realise https://github.com/selesnow/ryandexdirect/releases/tag/3.0.0. For more details about R modes see https://www.r-bloggers.com/batch-processing-vs-interactive-sessions/") )
   } else {
-  # if file not find
-  browseURL(paste0("https://oauth.yandex.ru/authorize?response_type=code&client_id=365a2d0a675c462d90ac145d4f5948cc&redirect_uri=https://selesnow.github.io/ryandexdirect/getToken/get_code.html&force_confirm=", as.integer(NewUser), ifelse(is.null(Login), "", paste0("&login_hint=", Login))))
-  # enter code
-  temp_code <- readline(prompt = "Enter authorize code:")
-  
-  # check code simbol number
-  while(nchar(temp_code) != 7) {
-    message("The verification code entered by you is not 7-digit, try to enter the code again.")
+    # if file not find
+    browseURL(paste0("https://oauth.yandex.ru/authorize?response_type=code&client_id=365a2d0a675c462d90ac145d4f5948cc&redirect_uri=https://selesnow.github.io/ryandexdirect/getToken/get_code.html&force_confirm=", as.integer(NewUser), ifelse(is.null(Login), "", paste0("&login_hint=", Login))))
+    # enter code
     temp_code <- readline(prompt = "Enter authorize code:")
-   }
+    
+    # check code simbol number
+    while(nchar(temp_code) != 7) {
+      message("The verification code entered by you is not 7-digit, try to enter the code again.")
+      temp_code <- readline(prompt = "Enter authorize code:")
+    }
   }
   
   token_raw <- httr::POST("https://oauth.yandex.ru/token", body = list(grant_type="authorization_code", 
@@ -70,11 +70,11 @@ yadirAuth <- function(Login = NULL, NewUser = FALSE, TokenPath = getwd()) {
   # save token in file
   message("Do you want save API credential in local file (",paste0(TokenPath, "/", Login, ".rymAuth.RData"),"), for use it between R sessions?")
   ans <- readline("y / n (recomedation - y): ")
-
+  
   if ( tolower(ans) %in% c("y", "yes", "ok", "save") ) {
-  # save into local file
-      save(token, file = paste0(TokenPath, "/", Login, ".yadirAuth.RData"))
-      message("Token saved in file ", paste0(TokenPath, "/", Login, ".yadirAuth.RData"))
+    # save into local file
+    save(token, file = paste0(TokenPath, "/", Login, ".yadirAuth.RData"))
+    message("Token saved in file ", paste0(TokenPath, "/", Login, ".yadirAuth.RData"))
   }
   return(token)
 }
