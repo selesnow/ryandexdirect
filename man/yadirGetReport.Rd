@@ -62,6 +62,7 @@ If several attribution models are specified, the data will be displayed for each
 
 \examples{
 \dontrun{
+### Please choose another TokenPath to save the Login permanently.
 # For get Report from client account
 statAgency <- yadirGetReport(ReportType       = "ACCOUNT_PERFORMANCE_REPORT", 
                              DateRangeType    = "CUSTOM_DATE", 
@@ -78,7 +79,7 @@ statAgency <- yadirGetReport(ReportType       = "ACCOUNT_PERFORMANCE_REPORT",
                              IncludeVAT        = "YES", 
                              IncludeDiscount   = "NO", 
                              Login             = "client_login", 
-                             TokenPath         = "C:/token_yandex")
+                             TokenPath         = tempdir())
 							 
 # For get data from agency client account
 statAgency <- yadirGetReport(ReportType = "ACCOUNT_PERFORMANCE_REPORT", 
@@ -93,6 +94,6 @@ statAgency <- yadirGetReport(ReportType = "ACCOUNT_PERFORMANCE_REPORT",
                              IncludeDiscount = "NO", 
                              Login = "client_login", 
                              AgencyAccount = "aguncy_login",
-                             TokenPath = "C:/token_yandex")
+                             TokenPath = tempdir())
 }
 }

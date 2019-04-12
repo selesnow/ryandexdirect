@@ -27,8 +27,9 @@ For more details go \href{https://tech.yandex.ru/direct/doc/ref-v5/dictionaries/
 
 \examples{
 \dontrun{
-geo <- yadirGetDictionary(Login     = "login", 
+### Please choose another TokenPath to save the Login permanently.
+geo <- yadirGetDictionary(Login = "login", 
                           DictionaryName = "GeoRegions",
-                          TokenPath = "token_yandex")
+                          TokenPath = tempdir())
 }
 }

@@ -23,14 +23,13 @@ yadirGetSiteLinks(Login = NULL,
 
 \examples{
 \dontrun{
-# Get sitelinks
-sl <- yadirGetSiteLinks(AgencyAccount = "my.agency", 
-                        Login         = "my.client.login",
+#  Recomendation, please choose another TokenPath to save the Login permanently.
+sl <- yadirGetSiteLinks(Login         = "your.yandex.login",
 						Ids           = c(5276537, 
 						                  8927897239, 
 						         	      252627, 
 								          33123)
-                         TokenPath     = "C:\\tokens")
+                         TokenPath    = tempdir())
  }
 }
 

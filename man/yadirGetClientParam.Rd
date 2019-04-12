@@ -23,9 +23,10 @@ yadirGetClientParam(Language = "ru",
 
 \examples{
 \dontrun{
+### Please choose another TokenPath to save the Login permanently.
 #Get client param from agency account
 client_param <- yadirGetClientParam(AgencyAccount = "agency_login", 
-                                    TokenPath     = "token_yandex")
+                                    TokenPath     = tempdir())
 }
 }
 

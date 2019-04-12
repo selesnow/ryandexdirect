@@ -18,14 +18,16 @@ yadirCurrencyRates(Login = NULL, AgencyAccount = NULL, Token = NULL,
 
 \examples{
 \dontrun{
+### Please choose another TokenPath to save the Login permanently.
 # from storage tokrn
 library(ryandexdirect)
-cur <- yadirCurrencyRates(Login         = "login" ,
-                          TokenPath     = "token_yandex")
+cur <- yadirCurrencyRates(Login = "login" ,
+                          TokenPath = tempdir())
 
 # from auth object
-library(ryandexdirect)
-aut <- yadirAuth(Login = "login", NewUser = TRUE, TokenPath = "token_yandex")
+
+aut <- yadirAuth(Login = "login", NewUser = TRUE, 
+        TokenPath = tempdir())
 cur2 <- yadirCurrencyRates(Login =  "login" ,
                            Token = aut)
 }

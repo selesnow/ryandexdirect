@@ -39,14 +39,16 @@ yadirGetCampaign(Logins = NULL, States = c("OFF", "ON", "SUSPENDED",
 
 \examples{
 \dontrun{
+### Please choose another TokenPath to save the Login permanently.
 #Get data from client accounts
-my_ad_group <- yadirGetCampaign(Login = "login")
+my_ad_group <- yadirGetCampaign(Login = "login",
+                                TokenPath = tempdir())
 
 #Get data from agency account
 # Auth
 aut <- yadirAuth(Login = "agency_login", 
                  NewUser = TRUE, 
-				 TokenPath = "token_yandex")
+				 TokenPath = tempdir())
 
 # Load Ad Group List
 my_ad_group <- yadirGetCampaign(Login = "client_login",

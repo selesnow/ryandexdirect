@@ -1,6 +1,6 @@
 \name{yadirGetToken}
 \alias{yadirGetToken}
-\title{Auth in 'Yandex Direct API'}
+\title{Auth in 'Yandex Direct' API}
 \description{Simplified, one-step API authorization.}
 \usage{
 yadirGetToken(Login = NULL, TokenPath = getwd())
@@ -14,6 +14,7 @@ yadirGetToken(Login = NULL, TokenPath = getwd())
 
 \examples{
 \dontrun{
-myToken <- yadirGetToken()
+### Please choose another TokenPath to save the Login permanently.
+myToken <- yadirGetToken(TokenPath = tempdir())
 }
 }

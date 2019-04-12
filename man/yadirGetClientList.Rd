@@ -19,7 +19,8 @@ yadirGetClientList(AgencyAccount = NULL,
 
 \examples{
 \dontrun{
+### Please choose another TokenPath to save the Login permanently.
 my_client <- yadirGetClientList(AgencyAccount = "agency_login", 
-                      TokenPath = "token_yandex")
+                                TokenPath = tempdir())
 }
 }

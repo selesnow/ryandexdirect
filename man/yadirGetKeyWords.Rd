@@ -28,8 +28,9 @@ yadirGetKeyWords(CampaignIds = NULL, AdGroupIds = NA, Ids = NA, States
 \dontrun{
 
 # get data from agency account
+### Please choose another TokenPath to save the Login permanently.
 my_keywords <- yadirGetKeyWords(Login = "client_login",
                                 AgencyAccount = "agency_login",
-                                TokenPath     = "token_yandex")
+                                TokenPath     = tempdir())
 }
 }

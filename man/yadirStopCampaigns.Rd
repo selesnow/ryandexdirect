@@ -22,8 +22,9 @@ Function suspend impressions and return vector with Campaigns Ids with error.
 
 \examples{
 \dontrun{
+### Please choose another TokenPath to save the Login permanently.
 # Get API token
-tok <- yadirGetToken()
+tok <- yadirGetToken(TokenPath = tempdir())
 
 # Get camp dictionary
 my_camp <- yadirGetCampaignList(Login = "Login", Token = tok)

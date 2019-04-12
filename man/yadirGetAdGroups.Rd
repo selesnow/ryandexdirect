@@ -37,14 +37,13 @@ yadirGetAdGroups(CampaignIds   = NULL,
 \dontrun{
 #For get adgroups data frame
 # Get data from clients account
-library(ryandexdirect)
 my_ad_group <- yadirGetAdGroups(Login = "login")
 
 # Get data from agency account
-library(ryandexdirect)
+### !!!Please choose another TokenPath to save the Login permanently.
 my_ad_group <- yadirGetAdGroups(Login         = "client_login",
                                 AgencyAccount = "agency_login",
-								TokenPath     = "token_yandex")
+								TokenPath     =  tempdir())
 
 }
 }

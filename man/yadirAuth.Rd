@@ -1,6 +1,6 @@
 \name{yadirAuth}
 \alias{yadirAuth}
-\title{Authentication in 'Yandex Direct API'}
+\title{Authentication in 'Yandex Direct' API}
 \description{Get API Token for 'Yandex Direct' account}
 \usage{
 yadirAuth(Login = NULL, NewUser = FALSE, TokenPath = getwd())
@@ -15,7 +15,9 @@ yadirAuth(Login = NULL, NewUser = FALSE, TokenPath = getwd())
 
 \examples{
 \dontrun{
+### Please choose another TokenPath to save the Login permanently.
 library(ryandexdirect)
-yadirAuth(Login = "login", NewUser = TRUE)
+yadirAuth(Login = "login", NewUser = TRUE,
+          TokenPath = tempdir())
 }
 }

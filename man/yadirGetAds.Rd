@@ -29,14 +29,17 @@ yadirGetAds(CampaignIds   = NULL,
 
 \examples{
 \dontrun{
+### Please choose another TokenPath to save the Login permanently.
 #For get ads data frame
 # Get ads from client account
-aut <- yadirAuth(Login = "login", NewUser = TRUE)
+aut <- yadirAuth(Login = "login", NewUser = TRUE,
+                 TokenPath = tempdir())
 my_ads  <- yadirGetAds(Login = "login",
                        Token = aut)
 					   
 # Get data from agency account
-aut <- yadirAuth(Login = "agency_login", NewUser = TRUE)
+aut <- yadirAuth(Login = "agency_login", NewUser = TRUE,
+                 TokenPath = tempdir())
 
 my_ads  <- yadirGetAds(Login = "client_login",
 					   AgencyAccount = "agency_login",

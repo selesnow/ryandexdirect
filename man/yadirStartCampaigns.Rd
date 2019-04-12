@@ -23,12 +23,15 @@ Function resume impressions and return vector with Campaigns Ids with error.
 \examples{
 \dontrun{
 # Get API token
-tok <- yadirGetToken()
+### !!!Please choose another TokenPath to save the Login permanently.
+tok <- yadirGetToken(TokenPath = tempdir())
 
 # Get camp dictionary
-my_camp <- yadirGetCampaignList(Login = "Login", Token = tok)
+my_camp <- yadirGetCampaignList(Login = "Login", Token = tok,
+                                TokenPath = tempdir())
 
 # Resume impressions
-err <- yadirStartCampaigns(Login = "LOGIN", Token =  tok, Ids = my_camp$Id) 
+err <- yadirStartCampaigns(Login = "LOGIN", Token =  tok, Ids = my_camp$Id,
+                           TokenPath = tempdir()) 
 }
 }

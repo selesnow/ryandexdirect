@@ -21,12 +21,17 @@ yadirGetBalance(Logins        = NULL,
 
 \examples{
 \dontrun{
+### Please choose another TokenPath to save the Login permanently.
+aut <- yadirAuth(Login = "login", NewUser = TRUE, 
+        TokenPath = tempdir())
 #For get accounts from client account use
-my_balance <- yadirGetBalance(Logins = "vasya",  Token = "abcdef123456")
+my_balance <- yadirGetBalance(Logins = "login",
+                              Token = aut)
 
 #For get accounts from agancy account use
 library(ryandexdirect)
-aut <- yadirAuth(Login = "agency_login", NewUser = TRUE, TokenPath = "token_yandex")
+aut <- yadirAuth(Login = "agency_login", NewUser = TRUE, 
+                 TokenPath = tempdir())
 client <- yadirGetClientList(Token = aut)
 client_balance <- yadirGetBalance(Logins = client$Login,
                                   AgencyAccount = "agency_login",
