@@ -8,7 +8,7 @@ function(Login = NULL, TokenPath = getwd()){
                 access_token  = readline(prompt = "Enter your token: "),
                 expires_in    = 26715505,
                 refresh_token = NA,
-                expire_at     = Sys.time() + as.numeric(token$expires_in, units = "secs"))
+                expire_at     = Sys.time() + as.numeric(26715505, units = "secs"))
   # set class
   class(token) <- "yadir_token"
   
