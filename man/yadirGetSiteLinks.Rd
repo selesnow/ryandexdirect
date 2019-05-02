@@ -28,8 +28,8 @@ sl <- yadirGetSiteLinks(Login         = "your.yandex.login",
 						Ids           = c(5276537, 
 						                  8927897239, 
 						         	      252627, 
-								          33123)
-                         TokenPath    = tempdir())
+								          33123),
+                        TokenPath     = tempdir())
  }
 }
 

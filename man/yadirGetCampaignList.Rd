@@ -52,6 +52,7 @@ aut <- yadirAuth(Login = "agency_login",
 
 # Load Ad Group List
 my_ad_group <- yadirGetCampaign(Login = "client_login",
-                                    Token = aut)
+                                Token = aut,
+								TokenPath     = tempdir())
 }
 }
