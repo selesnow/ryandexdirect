@@ -6,6 +6,15 @@
 <p align="center">
 <img src="https://raw.githubusercontent.com/selesnow/selesnow.github.io/master/img_logo/ryandexdirect.png" height="200">
 </p>
+
+## CRAN
+[Ссылка на страницу пакета на CRAN](https://CRAN.R-project.org/package=ryandexdirect)
+
+### Бейджи
+[![Rdoc](http://www.rdocumentation.org/badges/version/ryandexdirect)](http://www.rdocumentation.org/packages/ryandexdirect)
+[![rpackages.io rank](http://www.rpackages.io/badge/ryandexdirect.svg)](http://www.rpackages.io/package/ryandexdirect)
+[![](https://cranlogs.r-pkg.org/badges/ryandexdirect)](https://cran.r-project.org/package=ryandexdirect)
+
 ## Краткое описание.
 
 Пакет ryandexdirect предназначен для загрузки данных из Яндекс Директ в R, с помощью функций данного пакета вы можете работать с перечисленными ниже сервисами и службами API Яндекса с помощью готовых функций, не углубляясь при этом в документацию по работе с этими API сервисами.
@@ -23,6 +32,7 @@
 
 ## Установка пакета ryandexdirect.
 
+Для установки из CRAN воспользуйтесь стандартной командой: `install.packages("ryandexdirect")`
 Установка пакета осуществляется из репозитория GitHub, для этого сначала требуется установить и подключить пакет devtools.
 
 `install.packages("devtools")`
