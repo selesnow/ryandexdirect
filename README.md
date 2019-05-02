@@ -33,19 +33,13 @@
 ## Установка пакета ryandexdirect.
 
 Для установки из CRAN воспользуйтесь стандартной командой: `install.packages("ryandexdirect")`
-Установка пакета осуществляется из репозитория GitHub, для этого сначала требуется установить и подключить пакет devtools.
 
-`install.packages("devtools")`
+Установить dev версию можно из репозитория GitHub, для этого сначала требуется установить и подключить пакет devtools.
 
-`library(devtools)`
-
-После чего можно устанавливать пакет ryandexdirect.
-
-### Установка на Windows осуществляется с помощью следующей команды
-`install_github('selesnow/ryandexdirect')`
-
-### Установка на iOS, Linux, Ubuntu осуществляется с помощью следующей команды
-`install_github('selesnow/ryandexdirect', subdir = "utf8")`
+```r
+install.packages("devtools")
+devtools::install_github('selesnow/ryandexdirect')
+```
 
 ### Ссылки
 1. [Документация по работе с пакетом ryandexdirect](https://selesnow.github.io/ryandexdirect/).
