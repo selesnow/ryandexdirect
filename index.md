@@ -430,7 +430,7 @@ filtring_report <- yadirGetReport(DateRangeType = "LAST_30_DAYS",
  + LAST_BUSINESS_WEEK — прошлая рабочая неделя с понедельника по пятницу;
 На схеме:
 <p align="center">
-<img src="https://yastatic.net/doccenter/images/tech-ru/direct/freeze/LJkDkhq2zaeFuKLmxkjfCg5wEjc.png" data-canonical-src="https://yastatic.net/doccenter/images/tech-ru/direct/freeze/LJkDkhq2zaeFuKLmxkjfCg5wEjc.png" style="max-width:100%;">
+<img src="http://img.netpeak.ua/alsey/155730503284_kiss_10kb.png" data-canonical-src="http://img.netpeak.ua/alsey/155730503284_kiss_10kb.png" style="max-width:100%;">
 </p>
 
  + LAST_WEEK_SUN_SAT — прошлая неделя с воскресенья по субботу;
