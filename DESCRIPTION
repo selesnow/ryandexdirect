@@ -1,7 +1,7 @@
 Package: ryandexdirect
 Type: Package
 Title: Load Data From Yandex Direct
-Version: 3.1.5
+Version: 3.1.5.9000
 Date: 2019-04-30
 Description: Load data from 'Yandex Direct' API V5 <https://tech.yandex.ru/direct/doc/dg/concepts/about-docpage/> into R. Provide function for load lists of campaings, ads, keywords and other objects from 'Yandex Direct' account. Also you can load statistic from API 'Reports Service' <https://tech.yandex.ru/direct/doc/reports/reports-docpage/>.
 License: GPL-2
