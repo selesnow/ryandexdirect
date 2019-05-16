@@ -114,7 +114,7 @@ yadirGetAds <- function(CampaignIds   = NULL,
       answer <- POST("https://api.direct.yandex.com/json/v5/ads", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru",'Client-Login' = Login))
       stop_for_status(answer)
       dataRaw <- content(answer, "parsed", "application/json")
-      dataRaw$result$Ads[[5]]
+
       # check erroe
       if(length(dataRaw$error) > 0){
         stop(paste0(dataRaw$error$error_string, " - ", dataRaw$error$error_detail))
