@@ -26,7 +26,7 @@ yadirAuth <- function(Login = NULL, NewUser = FALSE, TokenPath = getwd()) {
       token <- content(token_raw)
       # add expire time
       token$expire_at <- Sys.time() + as.numeric(token$expires_in, units = "secs")
-      
+      class(token) <- "yadir_token"
       # update auth file
       save(token, file = paste0(TokenPath, "/", Login, ".yadirAuth.RData"))
       message("Token saved in file ", paste0(TokenPath, "/", Login, ".yadirAuth.RData"))
@@ -62,13 +62,14 @@ yadirAuth <- function(Login = NULL, NewUser = FALSE, TokenPath = getwd()) {
   # parse token
   token <- content(token_raw)
   token$expire_at <- Sys.time() + as.numeric(token$expires_in, units = "secs")
+  class(token) <- "yadir_token"
   # check for error
   if (!is.null(token$error_description)) {
     stop(paste0(token$error, ": ", token$error_description))
   }
   
   # save token in file
-  message("Do you want save API credential in local file (",paste0(TokenPath, "/", Login, ".rymAuth.RData"),"), for use it between R sessions?")
+  message("Do you want save API credential in local file (",paste0(TokenPath, "/", Login, ".yadirAuth.RData"),"), for use it between R sessions?")
   ans <- readline("y / n (recomedation - y): ")
   
   if ( tolower(ans) %in% c("y", "yes", "ok", "save") ) {

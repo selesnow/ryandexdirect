@@ -14,7 +14,7 @@ function(Login = NULL, TokenPath = getwd()){
   
   # ask for save credential
   # save token in file
-  message("Do you want save API credential in local file (",paste0(TokenPath, "/", Login, ".rymAuth.RData"),"), for use it between R sessions?")
+  message("Do you want save API credential in local file (",paste0(TokenPath, "/", Login, ".yadirAuth.RData"),"), for use it between R sessions?")
   ans <- readline("y / n (recomedation - y): ")
   
   if ( tolower(ans) %in% c("y", "yes", "ok", "save") ) {
