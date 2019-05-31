@@ -12,6 +12,7 @@ Depends: R (>= 3.5.0)
 BugReports: https://github.com/selesnow/ryandexdirect/issues
 URL: https://selesnow.github.io/ryandexdirect
 Imports: utils, httr, bitops, jsonlite, xml2, data.table, readr, magrittr, dplyr
-Suggests: knitr, rmarkdown
+Suggests: knitr, rmarkdown, kableExtra
+VignetteBuilder: knitr
 Encoding: UTF-8
 Language: ru
