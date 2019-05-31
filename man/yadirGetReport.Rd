@@ -9,8 +9,8 @@ yadirGetReport(ReportType = "CUSTOM_REPORT", DateRangeType =
                  "Clicks", "Cost"), FilterList = NULL, Goals = NULL,
                  AttributionModels = NULL, IncludeVAT = "YES",
                  IncludeDiscount = "NO", Login = NULL, AgencyAccount =
-                 NULL, Token = NULL, TokenPath = getwd(), SkipErrors =
-                 TRUE)
+                 NULL, FetchBy = NULL, Token = NULL, TokenPath = getwd(), 
+				 SkipErrors = TRUE)
 }
 
 \arguments{
@@ -26,6 +26,7 @@ yadirGetReport(ReportType = "CUSTOM_REPORT", DateRangeType =
   \item{IncludeDiscount}{Include or exclude Discount, one of "NO" or "YES"}
   \item{Login}{Your Yandex Login}
   \item{AgencyAccount}{Your agency account login, if you get statistic from client account}
+  \item{FetchBy}{Split the query by date range. Allowed values: "DAY", "WEEK", "MONTH", "QUARTER", "YEAR".}
   \item{TokenPath}{Path to directory where you save credential data}
   \item{Token}{character or list object, your Yandex API Token, you can get this by function yadirGetToken or yadirAuth}
   \item{SkipErrors}{Logical, if TRUE function skip all errors of API answer}
@@ -45,6 +46,9 @@ The AttributionModels parameter can be specified only if the Goals parameter is 
 
 If several attribution models are specified, the data will be displayed for each model separately.
 
+}
+\seealso{
+For get more ditails see vignett \code{vignette("yandex-direct-get-stat", package = "ryandexdirect")}
 }
 \references{
 \href{https://tech.yandex.ru/direct/doc/reports/reports-docpage/}{Official docs of 'Service Reports'}
