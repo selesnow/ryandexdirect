@@ -1,3 +1,9 @@
+# ryandexdirect 3.2.0
+* В пакет добавлены функции для управления ставками ключевых слов
+    * yadirGetKeyWordsBids
+	* yadirSetKeyWordsBids
+	* yadirSetAutoKeyWordsBids
+
 # ryandexdirect 3.1.6
 * В пакет добавлены виньетки
     * Подробная виньетка о загрузке статистики из рекламных аккаунтов Яндекс Директ: `vignette("yandex-direct-get-statistic", package = "ryandexdirect")`
