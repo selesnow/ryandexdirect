@@ -143,6 +143,11 @@ li.nm_li {
 [![rpackages.io rank](http://www.rpackages.io/badge/ryandexdirect.svg)](http://www.rpackages.io/package/ryandexdirect)
 [![](https://cranlogs.r-pkg.org/badges/ryandexdirect)](https://cran.r-project.org/package=ryandexdirect)
 
+## Стикер
+<p align="center">
+<img src="https://raw.githubusercontent.com/selesnow/ryandexdirect/master/inst/ryandexdirect.png" height="200">
+</p>
+
 ## Содержание
 + [Краткое описание](#краткое-описание)
 + [Установка пакета ryandexdirect](#установка-пакета-ryandexdirect)
