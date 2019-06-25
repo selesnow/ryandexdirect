@@ -2,6 +2,8 @@
 <a href="https://selesnow.github.io/"><img src="https://alexeyseleznev.files.wordpress.com/2017/03/as.png" height="80"></a>
 </p>
 
+# ryandexdirect <a href='https:/selesnow/github.io/ryandexdirect'><img src='https://raw.githubusercontent.com/selesnow/ryandexdirect/master/inst/ryandexdirect.png' align="right" height="139" /></a>
+
 # ryandexdirect - пакет для работы с API Яндекс.Директ версии 4, Live 4 и 5 на языке R.
 <p align="center">
 <img src="https://raw.githubusercontent.com/selesnow/ryandexdirect/master/inst/ryandexdirect.png" height="200">
