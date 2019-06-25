@@ -4,7 +4,7 @@
 
 # ryandexdirect - пакет для работы с API Яндекс.Директ версии 4, Live 4 и 5 на языке R.
 <p align="center">
-<img src="https://raw.githubusercontent.com/selesnow/selesnow.github.io/master/img_logo/ryandexdirect.png" height="200">
+<img src="https://raw.githubusercontent.com/selesnow/ryandexdirect/master/inst/ryandexdirect.png" height="200">
 </p>
 
 ## CRAN
