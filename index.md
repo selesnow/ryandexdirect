@@ -83,14 +83,15 @@ li.nm_li {
     <li class="nm_li"><a href="/" class="nm_a">Main</a></li>
     <li class="nm_li"><a href="/" class="nm_a">R Packages</a>
         <ul class="nm_ul">
+            <li class="nm_li"><a href="/galigor" class="nm_a">galigor</a></li>
             <li class="nm_li"><a href="/ryandexdirect" class="nm_a">ryandexdirect</a></li>
             <li class="nm_li"><a href="/rym" class="nm_a">rym</a></li>
             <li class="nm_li"><a href="/rfacebookstat" class="nm_a">rfacebookstat</a></li>
-			<li class="nm_li"><a href="/rvkstat" class="nm_a">rvkstat</a></li>
-			<li class="nm_li"><a href="/rmytarget" class="nm_a">rmytarget</a></li>
-			<li class="nm_li"><a href="/rmixpanel" class="nm_a">rmixpanel</a></li>
-			<li class="nm_li"><a href="/rGitHub" class="nm_a">rGitHub</a></li>
-			<li class="nm_li"><a href="/getProxy" class="nm_a">getProxy</a></li>
+            <li class="nm_li"><a href="/rvkstat" class="nm_a">rvkstat</a></li>
+	    <li class="nm_li"><a href="/rmytarget" class="nm_a">rmytarget</a></li>
+	    <li class="nm_li"><a href="/rmixpanel" class="nm_a">rmixpanel</a></li>
+	    <li class="nm_li"><a href="/rGitHub" class="nm_a">rGitHub</a></li>
+	    <li class="nm_li"><a href="/getProxy" class="nm_a">getProxy</a></li>
         </ul>
     </li>
 	<li class="nm_li"><a href="#" class="nm_a">Онлайн Книги</a>
@@ -110,20 +111,6 @@ li.nm_li {
     <li class="nm_li"><a href="/publications" class="nm_a">Архив</a></li>
 </ul>
 </center>
-<Br>
-<h2>Search:</h2>
-<script>
-  (function() {
-    var cx = '002735389418227325972:fdikniadyig';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  })();
-</script>
-<gcse:search></gcse:search>
 <Br>
 
 # ryandexdirect - пакет для работы с API Яндекс.Директ версии 4, Live 4 и 5 на языке R. <a href='https:/selesnow/github.io/ryandexdirect'><img src='https://raw.githubusercontent.com/selesnow/ryandexdirect/master/inst/ryandexdirect.png' align="right" height="139" /></a>
