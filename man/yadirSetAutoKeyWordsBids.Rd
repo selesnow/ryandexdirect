@@ -47,9 +47,6 @@ The rate corresponding to the display frequency \code{TargetCoverage × (1 + Net
 
 Over time, the activity of competitors can raise the bid for the desired frequency of display, and it will exceed the advertiser's bid. The higher the surcharge, the higher the frequency of display, but the higher the possible costs.
 }
-\seealso{
-See for get and set keyword bids \code{\link[ryandexdirect:yadirGetKeyWordsBids]{yadirGetKeyWordsBids()}} and \code{\link[ryandexdirect:yadirSetKeyWordsBids]{yadirSetKeyWordsBids()}}
-}
 \value{List with result data, object ids, warnings and errors.}
 \author{Alexey Seleznev}
 \references{

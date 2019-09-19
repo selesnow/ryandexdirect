@@ -29,9 +29,6 @@ yadirGetKeyWordsBids(KeywordIds    = NULL,
 Use AuctionBids = "search" when you need traffic volume, bid on the search corresponding to the specified amount of traffi and charged price corresponding to the specified amount of traffic.
 Use AuctionBids = "search" when you need get frequency of the show (audience share) in networks (specified in percent from 0 to 100) and network bid that matches the frequency shown.
 }
-\seealso{
-See for set keyword bids \code{\link[ryandexdirect:yadirSetKeyWordsBids]{yadirSetKeyWordsBids()}} and \code{\link[ryandexdirect:yadirSetAutoKeyWordsBids]{yadirSetAutoKeyWordsBids()}}
-}
 \value{Data Frame with keyword bids and auction data}
 \author{Alexey Seleznev}
 \references{
