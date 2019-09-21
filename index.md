@@ -89,6 +89,7 @@ li.nm_li {
             <li class="nm_li"><a href="/rfacebookstat" class="nm_a">rfacebookstat</a></li>
             <li class="nm_li"><a href="/rvkstat" class="nm_a">rvkstat</a></li>
 	    <li class="nm_li"><a href="/rmytarget" class="nm_a">rmytarget</a></li>
+            <li class="nm_li"><a href="/timeperiodsR" class="nm_a">timeperiodsR</a></li>
 	    <li class="nm_li"><a href="/rmixpanel" class="nm_a">rmixpanel</a></li>
 	    <li class="nm_li"><a href="/rGitHub" class="nm_a">rGitHub</a></li>
 	    <li class="nm_li"><a href="/getProxy" class="nm_a">getProxy</a></li>
