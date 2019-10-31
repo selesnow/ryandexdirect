@@ -8,6 +8,11 @@ yadirGetCampaignList <-
             AgencyAccount = NULL,
             TokenPath     = getwd()) {
     
+	# depricating
+    .Deprecated(new = "yadirGetCampaign()", 
+                package = "ryandexdirect", 
+                old = "yadirGetCampaignList()")
+				
     # start time
     start_time  <- Sys.time()
     

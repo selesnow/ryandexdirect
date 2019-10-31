@@ -151,58 +151,70 @@ yadirSetKeyWordsBids <- function(KeywordIds       = NULL,
     }
     
     out     <- append(out, list(list(request_id = headers(answer)$requestid,
-                                data       = list(dataRaw)))) 
+                                     data       = list(dataRaw)))) 
     
     # set names
     names(out)  <- c(names(out), headers(answer)$requestid)
   }
   
-    
+  # copy for 
+  out_ew <- out
+  
   # get out data
   out <-
     lapply(out,
            function(x) {
-             lapply(x$data$result$SetResults,
-                    function(y) y)
-           })
+             lapply(x$data,
+                    function(y) 
+                      sapply(y$result$SetResults,
+                             function(z) 
+                               z$KeywordId)
+             )
+     })
   
   # check errors
-  Errors <- lapply(out,
-                   function(x) {
-                     lapply(x,
-                            function(y) {
-                              lapply(y$Errors,
-                                     function(z) {
-                                       if ( !is.null(z$Details) ) {
-                                         message("!..Error: ", unlist(z$Details))
-                                         warning(z$Details)
-                                         z$Details
-                                         }
-                                     })
-                            })
-                   })
-  
+  Errors <- lapply(out_ew,
+                      function(x) {
+                        sapply( x$data,
+                                function(y) {
+                                  sapply(y$result$SetResults,
+                                         function(z) {
+                                           sapply(z$Errors,
+                                                  function(errors) {
+                                                    message("!..Error: ", unlist(errors$Details))
+                                                    errors$Details
+                                                  })})
+                                } )
+                      }
+  )
+
   # check warnings
-  Warnings <- lapply(out, 
+  Warnings <- lapply(out_ew,
                      function(x) {
-                       lapply(x, 
-                              function(y){
-                                lapply(y$Warnings,
-                                       function(z) {
-                                         if ( !is.null(z$Details) ) {
-                                           message("...Warning: ", unlist(z$Details))
-                                           warning(z$Details)
-                                           z$Details
-                                           }
-                                       })
-                              })
-                     })
+                       sapply( x$data,
+                               function(y) {
+                                 sapply(y$result$SetResults,
+                                        function(z) {
+                                          sapply(z$Warnings,
+                                                 function(warnings) {
+                                                   message("...Warning: ", unlist(warnings$Details))
+                                                   warnings$Details
+                                                 })})
+                               } )
+                     }
+  )
   
   end_time <- Sys.time()
   
   message("Duration: ", round(difftime(end_time, start_time, units = "secs"), 0), " secs")
   message("Total requests send: ", length(req_ids))
   message("RequestIDs: ", paste(req_ids, collapse = ", "))
+  
+  message("Ditails ----------------->")
+  for ( om in req_ids ) {
+    message("RequestID: ", om)
+    message("ResultIds: ", paste(unlist(out[[om]]), collapse = ", "))
+  }
   
   return(out)
 }
