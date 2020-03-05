@@ -1,8 +1,8 @@
 Package: ryandexdirect
 Type: Package
 Title: Load Data From 'Yandex Direct'
-Version: 3.2.2
-Date: 2019-10-31
+Version: 3.2.3
+Date: 2020-03-05
 Description: Load data from 'Yandex Direct' API V5 
     <https://tech.yandex.ru/direct/doc/dg/concepts/about-docpage/> into R.
 	Provide function for load lists of campaings, ads, keywords and other 
@@ -28,7 +28,8 @@ Imports: utils,
 		 data.table, 
 		 readr, 
 		 magrittr, 
-		 dplyr
+		 dplyr,
+		 purrr
 Suggests: knitr, 
           rmarkdown,
 		  kableExtra

@@ -41,10 +41,10 @@ yadirGetAdGroups <- function(CampaignIds   = NULL,
   
   # check ids
   if (is.null(CampaignIds)) {
-    CampaignIds <-  yadirGetCampaignList(Logins        = Login,
-                                         AgencyAccount = AgencyAccount,
-                                         Token         = Token,
-                                         TokenPath     = TokenPath)$Id
+    CampaignIds <-  yadirGetCampaign(Logins        = Login,
+                                     AgencyAccount = AgencyAccount,
+                                     Token         = Token,
+                                     TokenPath     = TokenPath)$Id
   }
   
   # convert filters to JSON

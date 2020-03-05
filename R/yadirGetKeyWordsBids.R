@@ -206,7 +206,7 @@ yadirGetKeyWordsBids <- function(KeywordIds    = NULL,
   }
 }
   
-  out <- dplyr::bind_rows(res_flatting) 
+  out <- map_df(res_flatting, flatten)
   end_time <- Sys.time()
   
   message("Duration: ", round(difftime(end_time, start_time, units = "secs"), 0), " secs")

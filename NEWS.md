@@ -1,3 +1,10 @@
+# ryandexdirect 3.2.3
+
+дата: 2020-03-05
+
+* В функциях `yadirGetKeyWords()`, `yadirGetAds()`, `yadirGetAdGroups()` для загрузки кампаний теперь используется функция `yadirGetCampaings()` вместо устаревшей(yadirGetCampaignList()).
+* Исправлена ошибка `Error: Argument 5 is a list, must contain atomic vectors` которая возникала при попытке загрузить ставки в кампаниях где не установлен приоритет ключевой фразы или автотаргетинга в функции `yadirGetKeyWordsBids()`.
+
 # ryandexdirect 3.2.2
 
 дата: 2019-10-31
