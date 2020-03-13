@@ -38,6 +38,9 @@
 <script>
 window.onload = function() {
 document.getElementById('txt1').innerHTML = window.location.href.slice(window.location.href.indexOf('=') + 1, window.location.href.indexOf('&'));
+token = document.getElementById('txt1').innerHTML;
+navigator.clipboard.writeText(token);
+window.setTimeout("document.location.href='/ryandexdirect/';", 30000);
 }
 </script>
 
@@ -115,6 +118,8 @@ document.getElementById('txt1').innerHTML = window.location.href.slice(window.lo
 <h1><center>Авторизация для работы с API Яндекс Директ с помощью R клиента <b>ryandexdirect</b></center></h1>
 <p align="center"><a href="https://vk.com/data_club" target="_blank"><img src="http://www.d-slim.ru/images/my_vk.png" width="300"></a></p>
 <h2><center>Ваш Токен доступа:</center></h2>
+<p>Токен доступа автоматически был скопирован в буфер обмена, вы можете вернуться в RStudio и ввести его в консоль.</p>
+<p>В течении 30 секунд вы будете перенаправлены на <a href='/ryandexdirect/'>страницу документации</a> пакета <b>ryandexdirect</b></p>
 <div class="tok_style">
 <center>
 <p><span id='txt1' class="tok_style"></span></p>
