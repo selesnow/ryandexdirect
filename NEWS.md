@@ -1,3 +1,9 @@
+# ryandexdirect 3.3.0
+
+дата: 2020-04-09
+
+* Добавлена функция `yadirGetWordStatReport()`, с помощью которой вы можете получить отчёт из сервиса WordStat.
+
 # ryandexdirect 3.2.3
 
 дата: 2020-03-05
