@@ -30,5 +30,8 @@ yadirGetWordStatReport( Phrases,
 wsrep <- yadirGetWordStatReport(
             Phrases = 'samsung smartphone',
             Login = "abekker.ru.2017")
+
+wsrep[['SearchedAlso']]
+wsrep[['SearchedWith']]
 }
 }
