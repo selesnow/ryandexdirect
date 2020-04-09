@@ -17,9 +17,10 @@ yadirGetWordStatReport <- function(
   #start time
   start_time  <- Sys.time()
   
-  Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
+  Token <- ryandexdirect:::tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
   
-  # send query
+  # отправляем отчёт
+  message('.Send report')
   send_query <- list(method = "CreateNewWordstatReport",
                      param = list(Phrases = list(Phrases),
                                   GeoID   = list(GeoID)),
@@ -32,7 +33,7 @@ yadirGetWordStatReport <- function(
   rep_id = content(ans, 'parsed')
   
   
-  # get query status
+  # проверка статуса отчёта
   rep_status <- 'New'
   
   while ( rep_status != 'Done' ) {
@@ -52,10 +53,11 @@ yadirGetWordStatReport <- function(
                     unlist()
     
     Sys.sleep(1)
-    message("Report status: ", rep_status)
+    message(".Report status: ", rep_status)
   }
   
   # get query
+  message('.Get report')
   get_query <- list(method = "GetWordstatReport",
                     param  = unlist(rep_id),
                     locale = "ru",
@@ -65,25 +67,48 @@ yadirGetWordStatReport <- function(
   raw_data <- POST("https://api.direct.yandex.ru/v4/json/", body = get_query )
   
   # unnesting_report
-  report <- content(raw_data, 'parsed') %>% 
-              tibble(ws_data = .$data) %>%
-              unnest_wider(ws_data) %>%
-              unnest_longer(GeoID) %>%
-              unnest_longer(SearchedAlso) %>%
-              hoist(SearchedAlso,
-                    SearchedAlsoPhrase = c("Phrase"),
-                    SearchedAlsoShows  = c("Shows")) %>%
-              unnest_longer(SearchedWith) %>%
-              hoist(SearchedWith,
-                    SearchedWithPhrase = c("Phrase"),
-                    SearchedWithShows  = c("Shows")) %>% 
-              select(-".")
+  message('.Parse report')
+  SearchedAlso <- content(raw_data, 'parsed') %>% 
+                    tibble(ws_data = .$data) %>%
+                    unnest_wider(ws_data) %>%
+                    unnest_longer(GeoID) %>%
+                    select(-SearchedWith, -".") %>%
+                    unnest_longer(SearchedAlso) %>%
+                    hoist(SearchedAlso,
+                          Phrase     = c("Phrase"),
+                          AlsoShows  = c("Shows"))
   
+  SearchedWith <- content(raw_data, 'parsed') %>% 
+                    tibble(ws_data = .$data) %>%
+                    unnest_wider(ws_data) %>%
+                    unnest_longer(GeoID) %>%
+                    select(-SearchedAlso, -".") %>%
+                    unnest_longer(SearchedWith) %>%
+                    hoist(SearchedWith,
+                          Phrase     = c("Phrase"),
+                          AlsoShows  = c("Shows"))
+  
+  # create object
+  report <- list(SearchedWith = SearchedWith,
+                 SearchedAlso = SearchedAlso)
+  
+  # delete report
+  message('.Delete report')
+  get_query <- list(method = "GetWordstatReport",
+                    param  = unlist(rep_id),
+                    locale = "ru",
+                    token = Token) %>%
+    toJSON(auto_unbox = TRUE)
+  
+  raw_data <- POST("https://api.direct.yandex.ru/v4/json/", body = get_query )
   
   message("Success!")
   stop_time <- Sys.time()
   message(paste0("Duration: ", round(difftime(stop_time, start_time , units ="secs"),0), " sec."))
   message("Request ID: ", ans$headers$requestid)
   message("WordStat Report ID: ", rep_id)
+  message("Report SearchedAlso has ", nrow(SearchedAlso), " rows")
+  message("Report SearchedWith has ", nrow(SearchedWith), " rows")
+  message("For get report data x[['ReportName']]")
   return(report) 
 }
