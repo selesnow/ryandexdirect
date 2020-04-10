@@ -80,7 +80,7 @@ yadirGetWordStatReport <- function(
                     unnest_longer(SearchedAlso) %>%
                     hoist(SearchedAlso,
                           Phrase     = c("Phrase"),
-                          AlsoShows  = c("Shows"))
+                          Shows      = c("Shows"))
   
   SearchedWith <- content(raw_data, 'parsed') %>% 
                     tibble(ws_data = .$data) %>%
@@ -90,7 +90,7 @@ yadirGetWordStatReport <- function(
                     unnest_longer(SearchedWith) %>%
                     hoist(SearchedWith,
                           Phrase     = c("Phrase"),
-                          AlsoShows  = c("Shows"))
+                          Shows      = c("Shows"))
   
   # create object
   report <- list(SearchedWith = SearchedWith,
