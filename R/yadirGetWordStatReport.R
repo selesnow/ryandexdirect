@@ -36,6 +36,12 @@ yadirGetWordStatReport <- function(
   
   rep_id = content(ans, 'parsed')
   
+  # check for error
+  if ( ! is.null( rep_id$error_str ) ) {
+    
+    message(rep_id$error_detail)
+    stop(rep_id$error_str)
+  }
   
   # проверка статуса отчёта
   rep_status <- 'New'
