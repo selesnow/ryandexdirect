@@ -27,7 +27,7 @@ yadirGetWordStatReport <- function(
   message('.Send report')
   send_query <- list(method = "CreateNewWordstatReport",
                      param = list(Phrases = list(paste0(Phrases, collapse = " ")),
-                                  GeoID   = list(paste0(GeoID, collapse = " "))),
+                                  GeoID   = list(paste0(GeoID, collapse = ","))),
                      locale = "ru",
                      token = Token) %>%
                 toJSON(auto_unbox = TRUE)
