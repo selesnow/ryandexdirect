@@ -5,10 +5,6 @@ SearchedAlso <- NULL
 SearchedWith <- NULL
 . <- NULL
 
-library(httr)
-library(tidyr)
-library(jsonlite)
-
 yadirGetWordStatReport <- function(
                              Phrases,
                              GeoID         = 0,
@@ -23,11 +19,15 @@ yadirGetWordStatReport <- function(
   
   Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
   
+  # check length
+  Phrases <- yadirToList(Phrases)
+  GeoID   <- yadirToList(GeoID)
+  
   # отправляем отчёт
   message('.Send report')
   send_query <- list(method = "CreateNewWordstatReport",
-                     param = list(Phrases = list(paste0(Phrases, collapse = " ")),
-                                  GeoID   = list(paste0(GeoID, collapse = ","))),
+                     param = list(Phrases = Phrases,
+                                  GeoID   = GeoID),
                      locale = "ru",
                      token = Token) %>%
                 toJSON(auto_unbox = TRUE)
