@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Alexey Seleznev" />
 
-<meta name="date" content="2019-06-14" />
+<meta name="date" content="2020-04-26" />
 
 <title>Управление ставками ключевых слов с помощью API Яндекс Директ.</title>
 
@@ -96,7 +96,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -117,9 +117,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -288,7 +285,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -303,7 +301,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">Управление ставками ключевых слов с помощью API Яндекс Директ.</h1>
 <h4 class="author">Alexey Seleznev</h4>
-<h4 class="date">2019-06-14</h4>
+<h4 class="date">2020-04-26</h4>
 
 
 
@@ -314,15 +312,15 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <li><code>yadirSetKeyWordsBids</code> - Назначает фиксированные ставки и приоритеты для ключевых фраз и автотаргетингов.</li>
 <li><code>yadirSetAutoKeyWordsBids</code> - Назначает для фраз ставки на поиске в зависимости от желаемого объема трафика или ставки в сетях в зависимости от желаемой частоты показа (доли аудитории).</li>
 </ul>
-<div id="yadirgetkeywordbids" class="section level2">
+<div id="загрузка-ставок-и-данных-торгов-функция-yadirgetkeywordbids" class="section level2">
 <h2>Загрузка ставок и данных торгов, функция yadirGetKeyWordBids</h2>
-<div id="section" class="section level3">
+<div id="аргументы" class="section level3">
 <h3>Аргументы</h3>
 <ul>
 <li>KeywordIds - Идентификатор ключевой фразы или автотаргетинга;</li>
 <li>AdGroupIds - Идентификатор группы объявлений, к которой относится ключевая фраза или автотаргетинг;</li>
 <li>CampaignIds - Идентификатор кампании, к которой относится ключевая фраза или автотаргетинг;</li>
-<li>AuctionBids - Тип аукционов данные о торгах на которым вы хотите получить, возможные значение: <code>NA</code>, <code>search</code>, <code>network</code>.
+<li>AuctionBids - Тип аукционов данные о торгах на которым вы хотите получить, возможные значения:
 <ul>
 <li><code>NA</code> - Не загружать данные торгов;</li>
 <li><code>search</code> - Получить данные ставок и списываемых цен на поиске, соответствующих различным объемам трафика;</li>
@@ -330,7 +328,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </ul></li>
 </ul>
 </div>
-<div id="yadirgetkeywordbids-1" class="section level3">
+<div id="описание-данных-возвращаемых-функцией-yadirgetkeywordbids" class="section level3">
 <h3>Описание данных возвращаемых функцией yadirGetKeyWordBids</h3>
 <ul>
 <li>CampaignId - Идентификатор кампании, к которой относится ключевая фраза или автотаргетинг;</li>
@@ -345,7 +343,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <li>SearchBib - Ставка на поиске, назначенная рекламодателем;</li>
 <li>NetworkBid - Ставка в сетях, назначенная рекламодателем.</li>
 </ul>
-<div id="auctionbids-search" class="section level4">
+<div id="дополнительные-поля-при-запросе-данных-торгов-на-поиске-auctionbids-search" class="section level4">
 <h4>Дополнительные поля при запросе данных торгов на поиске <code>AuctionBids = &quot;search&quot;</code></h4>
 <ul>
 <li>AuctionTrafficVolume - Объем трафика;</li>
@@ -353,7 +351,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <li>AuctionPrice - Списываемая цена, соответствующая указанному объему трафика.</li>
 </ul>
 </div>
-<div id="auctionbids-network" class="section level4">
+<div id="дополнительные-поля-при-запросе-данных-торгов-на-поиске-auctionbids-network" class="section level4">
 <h4>Дополнительные поля при запросе данных торгов на поиске <code>AuctionBids = &quot;network&quot;</code></h4>
 <ul>
 <li>Probability - Частота показа (доля аудитории) в сетях. Указывается в процентах от 0 до 100;</li>
@@ -361,7 +359,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </ul>
 </div>
 </div>
-<div id="section-1" class="section level3">
+<div id="пример-кода-для-запроса-ставок" class="section level3">
 <h3>Пример кода для запроса ставок</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># подключаем пакет</span></a>
 <a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(ryandexdirect)</a>
@@ -381,9 +379,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb1-16" title="16">                                     <span class="dt">AuctionBids =</span> <span class="st">&quot;network&quot;</span>)</a></code></pre></div>
 </div>
 </div>
-<div id="yadirsetkeywordsbids" class="section level2">
+<div id="назначение-фиксированных-ставок-и-приоритетов-для-ключевых-фраз-и-автотаргетингов-функция-yadirsetkeywordsbids" class="section level2">
 <h2>Назначение фиксированных ставок и приоритетов для ключевых фраз и автотаргетингов, функция yadirSetKeyWordsBids</h2>
-<div id="section-2" class="section level3">
+<div id="аргументы-1" class="section level3">
 <h3>Аргументы</h3>
 <ul>
 <li>KeywordIds - Идентификатор ключевой фразы или автотаргетинга;</li>
@@ -408,7 +406,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>Если элемент входного массива содержит одновременно и параметры, соответствующие стратегии, и параметры, не соответствующие стратегии (например, и ставку, и приоритет), то в результате операции будут изменены значения только параметров, соответствующих стратегии, и выдано предупреждение.</p>
 <p>Если элемент входного массива содержит только параметры, не соответствующие стратегии (например, только приоритет при ручной стратегии), то операция не будет выполнена и будет возвращена ошибка.</p>
 </div>
-<div id="section-3" class="section level3">
+<div id="возвращаемый-результат" class="section level3">
 <h3>Возвращаемый результат</h3>
 <p>В результате работы функции будет возвращён объект класса <code>list</code>. Данный объект будет состоять из ответов полученных на каждый запрос, название узла списка соттветвует ID вашего запроса.</p>
 <p>Внутри лист с ответом на каждый запрос может содержать следующие данные:</p>
@@ -493,7 +491,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb4-3" title="3">...Warning<span class="op">:</span><span class="st"> </span>Ставки на сети не будут изменены, так как отключены показы на сети</a>
 <a class="sourceLine" id="cb4-4" title="4">...Warning<span class="op">:</span><span class="st"> </span>Ставки на сети не будут изменены, так как отключены показы на сети</a></code></pre></div>
 </div>
-<div id="section-4" class="section level3">
+<div id="пример-кода-установки-ставок" class="section level3">
 <h3>Пример кода установки ставок</h3>
 <p>Если вы хотите установить ставку в поиске на уровне 9 рублей на все ключевые слова в одной рекламной кампании можете воспользоваться следующим кодом:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># подключаем пакет</span></a>
@@ -507,9 +505,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb5-9" title="9">                                   <span class="dt">SearchBid   =</span> <span class="dv">9</span>)</a></code></pre></div>
 </div>
 </div>
-<div id="yadirsetkeywordsbids-1" class="section level2">
+<div id="назначить-для-фраз-ставки-на-поиске-в-зависимости-от-желаемого-объема-трафика-или-ставки-в-сетях-в-зависимости-от-желаемой-частоты-показа-доли-аудитории.-функция-yadirsetkeywordsbids" class="section level2">
 <h2>Назначить для фраз ставки на поиске в зависимости от желаемого объема трафика или ставки в сетях в зависимости от желаемой частоты показа (доли аудитории)., функция yadirSetKeyWordsBids</h2>
-<div id="section-5" class="section level3">
+<div id="аргументы-2" class="section level3">
 <h3>Аргументы</h3>
 <ul>
 <li>KeywordIds - Идентификатор ключевой фразы или автотаргетинга;</li>
@@ -522,7 +520,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <li>NetworkIncreasePercent - Процент надбавки от 0 до 1000. Если не задан, надбавка не рассчитывается.</li>
 <li>NetworkBidCeiling - Ограничение на ставку, умноженное на 1 000 000. Целое число. Указывается в валюте рекламодателя.</li>
 </ul>
-<div id="section-6" class="section level4">
+<div id="наборы-аргументов" class="section level4">
 <h4>Наборы аргументов</h4>
 <p>Все аргументы функции <code>yadirSetKeyWordsBids</code> можно объединить в блоки.</p>
 <ul>
@@ -545,7 +543,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </ul>
 </div>
 </div>
-<div id="section-7" class="section level3">
+<div id="формула-расчета-ставки" class="section level3">
 <h3>Формула расчета ставки</h3>
 <p><strong>Расчёт ставки на поиске:</strong></p>
 <p>Ставка, соответствующая объему трафика <code>TargetTrafficVolume × (1 + SearchIncreasePercent / 100)</code>, но не более <code>SearchBidCeiling</code>.</p>
@@ -553,7 +551,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p><strong>Расчёт ставки в сетях:</strong></p>
 <p>Ставка, соответствующая частоте показа <code>TargetCoverage × (1 + NetworkIncreasePercent / 100)</code>, но не более <code>NetworkBidCeiling</code>.</p>
 <p>Со временем активность конкурентов может поднять ставку за желаемую частоту показа, и она превысит ставку рекламодателя. Чем выше надбавка, тем выше частота показа, но и выше возможные расходы.</p>
-<div id="section-8" class="section level4">
+<div id="ограничения" class="section level4">
 <h4>Ограничения</h4>
 <p>Ставку на поиске можно назначить, только если в кампании выбрана стратегия показа на поиске HIGHEST_POSITION. В противном случае возвращается ошибка.</p>
 <p>Ставку в сетях можно назначить, только если в кампании выбрана стратегия показа в сетях MAXIMUM_COVERAGE или MANUAL_CPM. В противном случае возвращается ошибка.</p>
@@ -561,7 +559,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <p>Функция не поддерживает назначение ставки отдельному автотаргетингу. Обновление ставок на поиске для всех фраз группы объявлений или кампании может повлиять на ставку для автотаргетинга.</p>
 </div>
 </div>
-<div id="section-9" class="section level3">
+<div id="пример-кода-автоматической-установки-ставок" class="section level3">
 <h3>Пример кода автоматической установки ставок</h3>
 <p>Если вы хотите поднять ставку по всем ключевым словам в аккаунте до уровня, при котором ваши объявления гарантированно будут показаны в 50% соответвующих поисковых запросах воспользуйтесь кодом.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co"># подключаем пакет</span></a>
@@ -575,10 +573,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb6-9" title="9">                                        <span class="dt">TargetTrafficVolume =</span> <span class="dv">50</span>)</a></code></pre></div>
 </div>
 </div>
-<div id="section-10" class="section level2">
+<div id="работа-с-пайпланами" class="section level2">
 <h2>Работа с пайпланами %&gt;%</h2>
 <p>Все функции, предназначенные для работы со ставками (<code>yadirGetKeyWordsBids</code>, <code>yadirSetKeyWordsBids</code>, <code>yadirSetAutoKeyWordsBids</code>) поддерживают работу с пайплайнами <code>%&gt;%</code> из пакета <code>magrittr</code>. Данный функционал широко известен всем, кто привык использовать пакеты входящие в состав библиотеки <code>tidyverse</code>.</p>
-<div id="section-11" class="section level3">
+<div id="пример-кода-загрузки-ставок-с-использованием-пайплана." class="section level3">
 <h3>Пример кода загрузки ставок с использованием пайплана.</h3>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># подключаем пакет</span></a>
 <a class="sourceLine" id="cb7-2" title="2"><span class="kw">library</span>(ryandexdirect)</a>
@@ -593,7 +591,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb7-11" title="11"><span class="st">                </span><span class="kw">yadirGetyadirGetKeyWordsBids</span>(<span class="dt">AdGroupIds =</span> .)</a></code></pre></div>
 </div>
 </div>
-<div id="section-12" class="section level2">
+<div id="ссылки" class="section level2">
 <h2>Ссылки</h2>
 <ul>
 <li><a href="https://tech.yandex.ru/direct/doc/ref-v5/keywordbids/keywordbids-docpage/">Справка Яндекс.Директ по сервису KeywordBids.</a></li>
@@ -604,6 +602,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </ul>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

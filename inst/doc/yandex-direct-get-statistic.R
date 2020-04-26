@@ -1,14 +1,14 @@
-## ---- include = FALSE----------------------------------------------------
+## ---- include = FALSE---------------------------------------------------------
 knitr::opts_chunk$set(
   eval = FALSE,
   collapse = TRUE,
   comment = "#>"
 )
 
-## ----setup---------------------------------------------------------------
+## ----setup--------------------------------------------------------------------
 #  library(ryandexdirect)
 
-## ---- eval = TRUE, results = "asis", echo=FALSE--------------------------
+## ---- eval = TRUE, results = "asis", echo=FALSE-------------------------------
 library(magrittr)
 table_report_types <- data.frame(reptype = c("ACCOUNT_PERFORMANCE_REPORT", 
                                              "CAMPAIGN_PERFORMANCE_REPORT", 
@@ -39,7 +39,7 @@ names(table_report_types) <- c("Тип отчёта", "Описание", "До�
 table_report_types <- kableExtra::kable(table_report_types)
 kableExtra::kable_styling(table_report_types, bootstrap_options = c("striped", "hover"))
 
-## ---- eval = TRUE, results = "asis", echo=FALSE--------------------------
+## ---- eval = TRUE, results = "asis", echo=FALSE-------------------------------
 library(magrittr)
 table_report_types <- data.frame(field = c("AdNetworkType, CampaignId, CampaignType", 
                                              "AdFormat, AdGroupId, AdId, Age, AudienceTargetId, CarrierType, ClickType, CriteriaType, CriterionType, Device, DynamicTextAdTargetId, ExternalNetworkName, Gender, LocationOfPresenceId, MatchType, MobilePlatform, Placement, RlAdjustmentId, Slot, SmartBannerFilterId, TargetingLocationId", 
@@ -56,7 +56,7 @@ names(table_report_types) <- c("Имя поля", "Доступные опера
 table_report_types <- kableExtra::kable(table_report_types)
 kableExtra::kable_styling(table_report_types, bootstrap_options = c("striped", "hover"))
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 #  library(ryandexdirect)
 #  
 #  # создаём результирующий фрейм

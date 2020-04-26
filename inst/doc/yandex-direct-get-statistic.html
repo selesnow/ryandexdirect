@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta name="author" content="Alexey Seleznev" />
 
-<meta name="date" content="2019-06-14" />
+<meta name="date" content="2020-04-26" />
 
 <title>Загрузка статистики из рекламного аккаунта Яндекс Директ</title>
 
@@ -105,7 +105,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -126,9 +126,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -297,7 +294,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -312,14 +310,14 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 <h1 class="title toc-ignore">Загрузка статистики из рекламного аккаунта Яндекс Директ</h1>
 <h4 class="author">Alexey Seleznev</h4>
-<h4 class="date">2019-06-14</h4>
+<h4 class="date">2020-04-26</h4>
 
 
 
 <p>Для начала работы с пакетом предварительно его требуется подключить.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(ryandexdirect)</a></code></pre></div>
 <p>Для загрузки статистики =в пакете <code>ryandexdirect</code> предназначена функция <code>yadirGetReport</code>. Данная функция взаимодействует с API ‘Сервис Reports’, подробно о нём можно узнав в офйициальной <a href="https://tech.yandex.ru/direct/doc/reports/reports-docpage/">документации</a>, в текущей виньетке так же используется материал официальной спавки по работе с API сервиса ‘Reports’.</p>
-<div id="yadirgetreports" class="section level2">
+<div id="аргументы-функции-yadirgetreports" class="section level2">
 <h2>Аргументы функции yadirGetReports</h2>
 <ul>
 <li>ReportType - Текстовое значение, тип отчёта. Возможные значения: ACCOUNT_PERFORMANCE_REPORT, CAMPAIGN_PERFORMANCE_REPORT, ADGROUP_PERFORMANCE_REPORT, AD_PERFORMANCE_REPORT, CRITERIA_PERFORMANCE_REPORT, CUSTOM_REPORT, SEARCH_QUERY_PERFORMANCE_REPORT. Более подробно о типах отчёта будет рассказано ниже.</li>
@@ -340,7 +338,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <li>SkipErrors - Логическое значение, используется как правило при загрузке статистики из множества аккаунтов, и позволяет игнорировать ошибки полученные в ходе загрузки данных из некоторых аккаунтов из списка. При этом в консоль будут выводиться сообщения об ошибках.</li>
 </ul>
 </div>
-<div id="section" class="section level2">
+<div id="тип-отчета" class="section level2">
 <h2>Тип отчета</h2>
 <p>В параметре ReportType укажите тип отчета. Тип отчета влияет на набор доступных полей и группировку данных.</p>
 <p>Например, если выбран тип отчета SEARCH_QUERY_PERFORMANCE_REPORT, то данные в отчете будут сгруппированы по идентификатору группы AdGroupId и поисковому запросу Query. Обратите внимание, что добавление группировок данных не приводит к автоматическому добавлению соответствующих полей в отчет: отчет содержит только поля, явным образом перечисленные в параметре FieldNames.</p>
@@ -453,7 +451,7 @@ AdGroupId, Query
 </table>
 <p>Во всех типах отчетов применяется единичная атрибуция (single attribution): каждый показ и клик относится только к одному условию показа, региону, возрасту пользователя и т.д.</p>
 </div>
-<div id="section-1" class="section level2">
+<div id="период-отчёта" class="section level2">
 <h2>Период отчёта</h2>
 <ul>
 <li>TODAY — текущий день;</li>
@@ -477,7 +475,7 @@ AdGroupId, Query
 <li>AUTO — период, за который статистика показов и кликов могла измениться. Период выбирается автоматически в зависимости от того, произошла ли в предыдущий день корректировка статистики.</li>
 </ul>
 </div>
-<div id="section-2" class="section level2">
+<div id="поля-отчёта" class="section level2">
 <h2>Поля отчёта</h2>
 <p>Полный список допустимых полей можно найти в официальной <a href="https://tech.yandex.ru/direct/doc/reports/fields-list-docpage/">документации</a>.</p>
 <p>Поля указываются в следующих параметрах отчета:</p>
@@ -497,7 +495,7 @@ AdGroupId, Query
 </ul>
 <p>Например, поле <em>CampaignId</em> для типа отчета <em>CUSTOM_REPORT</em> является сегментом: если его добавить в отчет, данные будут сгруппированы по кампаниям. А для типа отчета <em>ADGROUP_PERFORMANCE_REPORT</em> поле <em>CampaignId</em> является атрибутом: данные уже сгруппированы по <em>AdGroupId</em>, а идентификатор кампании является для каждой группы фиксированным значением.</p>
 </div>
-<div id="section-3" class="section level2">
+<div id="фильтрация-данных" class="section level2">
 <h2>Фильтрация данных</h2>
 <p>Для фильтрации данных в отчете используйте аргумент <code>FilterList</code>. Каждый фильтр представляет собой критерий отбора данных. Фильтры объединяются по условию AND: в отчет попадают данные, для которых выполнены все фильтры. Фильтр состоит из трех параметров:</p>
 <ul>
@@ -563,7 +561,7 @@ EQUALS, IN, NOT_EQUALS, NOT_IN, STARTS_WITH_IGNORE_CASE, STARTS_WITH_ANY_IGNORE_
 </table>
 <p>Все денежные значения в фильтрах следует указывать в виде целых чисел: сумм в валюте, умноженных на 1 000 000.</p>
 </div>
-<div id="section-4" class="section level2">
+<div id="цели" class="section level2">
 <h2>Цели</h2>
 <p>Вы можете запрашивать количество достижений каждой отдельно взятой цели с помощью аргумента <em>Goals</em>.</p>
 <p>Данный аргумент принимает вектор из набора идентификаторов целей, при этом в одном запросе можно запрашивать данные не более чем по 10 целям. Получить идентификаторы цели можно несколькими способами:</p>
@@ -573,18 +571,19 @@ EQUALS, IN, NOT_EQUALS, NOT_IN, STARTS_WITH_IGNORE_CASE, STARTS_WITH_ANY_IGNORE_
 </ul>
 <p>Если параметр указан, то в отчете вместо полей <em>ConversionRate</em>, <em>Conversions</em>, <em>CostPerConversion</em>, <em>GoalsRoi</em> и <em>Revenue</em> с агрегированными данными по всем целям будут выведены аналогичные поля с именами вида <em><поле><em><id_цели></em><модель_атрибуции></em> и данными по каждой цели в отдельности.</p>
 </div>
-<div id="section-5" class="section level2">
+<div id="модели-атрибуции" class="section level2">
 <h2>Модели атрибуции</h2>
 <p>Модель атрибуции — это правило, какой переход считать источником визита:</p>
 <ul>
 <li><strong>Первый переход</strong> (FC) — источником любых визитов посетителя считается его первый переход на сайт за последние 180 дней. Эта модель позволяет отследить источник рекламы, который впервые привел клиента и тем самым повлиял на все последующие взаимодействия с сайтом.</li>
 <li><strong>Последний переход</strong> (LC) — источником визита считается переход, в результате которого посетитель в данный момент пришел на сайт, без учета истории визитов. Эта модель может использоваться при техническом анализе сайта. Для оценки эффективности работы рекламных кампании используйте модель Последний значимый переход.</li>
 <li><strong>Последний значимый переход</strong> (LSC) — все источники переходов за последние 90 дней условно разделяются на значимые (ваши объявления) и незначимые (переходы с сохраненных страниц, внутренние переходы или прямые заходы на сайт). Источником визита считается переход по объявлению. Если визит произошел после незначимого перехода, то его источником считается последний переход по объявлению. Эта модель позволяет учитывать конверсии, которые теряются в модели Последний переход из-за технического ограничения продолжительности визита.</li>
+<li><strong>Последний переход из Директа</strong> (LYDC) - из всех последних значимых переходов учитывается только Директ. Если пользователь хотя бы раз перешел на сайт по объявлению в Директе, то именно этот переход считается источником всех последующих визитов — пока пользователь не перейдет по объявлению еще раз. Эта модель помогает увидеть все визиты, связанные с Директом, в том числе те, которые в других моделях атрибуции были бы отнесены к другим источникам.</li>
 </ul>
 <p>Модели атрибуции, используемые при расчете данных по целям Яндекс.Метрики. Аргумент <em>AttributionModels</em> можно указать, только если указан параметр Goals. Если параметр Goals указан, а параметр AttributionModels — нет, по умолчанию используется значение LSC.</p>
 <p>Если указано несколько моделей атрибуции, данные будут выведены по каждой модели в отдельности.</p>
 </div>
-<div id="fetchby----" class="section level2">
+<div id="fetchby-разбивка-запросов-по-времени" class="section level2">
 <h2>FetchBy разбивка запросов по времени</h2>
 <p>В сервисе ‘API Reports’ есть недокументированное ограничение на максимальное количество строк которое можно получить в ответе. По умолчанию оно равняется 1 000 000 строк. В большинстве случаев это незначительное ограничение, но при загрузке отчётов из больших аккаунтов с глубокой детализацией, за длительный период скорее всего вы столкнётесь с этой проблемой, и даже её не заметите.</p>
 <p>Функция <code>yadirGetReports</code> столкнувшись с этим ограничением выведет уведомление <code>&#39;You have reached the limits of Yandex.Direct API. Try to use &quot;FetchBy&quot; parameter with DateRangeType = &quot;CUSTOM_DATE&quot;, &quot;DateFrom&quot; and &quot;DateTo&quot;. If you are already using it, try to choose a smaller value.&#39;</code>.</p>
@@ -674,11 +673,14 @@ EQUALS, IN, NOT_EQUALS, NOT_IN, STARTS_WITH_IGNORE_CASE, STARTS_WITH_ANY_IGNORE_
 <a class="sourceLine" id="cb2-64" title="64">  }</a>
 <a class="sourceLine" id="cb2-65" title="65">}</a></code></pre></div>
 </div>
-<div id="api-login-agencyaccount-token-tokenpath" class="section level2">
+<div id="аргументы-доступа-к-api-login-agencyaccount-token-tokenpath" class="section level2">
 <h2>Аргументы доступа к API Login, AgencyAccount, Token, TokenPath</h2>
 <p>Все перечисленные в заголовке аргументы используются для авторизации в API, хранении и использовании учётных данных. Более подробно о них можно узнать из виньетке посвящённой процессу авторизации, с помощью <code>vignette(&quot;yandex-direct-auth&quot;, package = &quot;ryandexdirect&quot;)</code>.</p>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
