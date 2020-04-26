@@ -1,7 +1,7 @@
 Package: ryandexdirect
 Type: Package
 Title: Load Data From 'Yandex Direct'
-Version: 3.4.0
+Version: 3.4.0.9000
 Date: 2020-04-26
 Description: Load data from 'Yandex Direct' API V5 
     <https://tech.yandex.ru/direct/doc/dg/concepts/about-docpage/> into R.
