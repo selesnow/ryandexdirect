@@ -32,7 +32,22 @@ yadirGetForecast <- function(
   #start time
   start_time  <- Sys.time()
   
+  # auth
   Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)
+  
+  # AuctionBids
+  if ( is.logical(AuctionBids) ) {
+    
+    if ( isTRUE(AuctionBids) ) {
+      
+      AuctionBids <- "Yes"
+    
+    } else {
+      
+      AuctionBids <- "No"
+      
+    }
+  }
   
   # check length
   Phrases <- yadirToList(Phrases)
@@ -105,6 +120,16 @@ yadirGetForecast <- function(
                         select(-Common) %>%
                         unnest_longer(Phrases) %>% 
                         unnest_wider(Phrases)
+  
+  # if report with AuctionBids unnesting
+  if ( tolower(AuctionBids) == 'yes' ) {
+    
+    PhrasesForecast <-
+      PhrasesForecast %>%
+        unnest_longer(AuctionBids) %>%
+        unnest_wider(AuctionBids)
+    
+  }
   
   CommonForecast <- content(raw_data, 'parsed') %>% 
                         tibble(ws_data = list(.$data)) %>% 
