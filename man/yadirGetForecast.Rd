@@ -7,10 +7,10 @@ yadirGetForecast(Phrases,
                  GeoID         = 0,
                  Currency      = "RUB",
                  AuctionBids   = "No",
-                 Login         = NULL,
+                 Login         = getOption("ryandexdirect.user"),
                  Token         = NULL,
-                 AgencyAccount = NULL,
-                 TokenPath     = getwd())
+                 AgencyAccount = getOption("ryandexdirect.agency_account"),
+                 TokenPath     = yadirTokenPath())
                         }
 
 \arguments{

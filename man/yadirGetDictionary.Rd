@@ -4,11 +4,11 @@
 \description{Returns reference data: regions, time zones, exchange rates, list of metro stations, restrictions on parameter values, external networks (SSP), Crypt segments for targeting by user profile, etc.}
 \usage{
 yadirGetDictionary(DictionaryName = "GeoRegions", 
-                               Language      = "ru", 
-                               Login         = NULL,
-                               Token         = NULL,
-                               AgencyAccount = NULL,
-                               TokenPath     = getwd())
+                   Language      = "ru", 
+                   Login         = getOption("ryandexdirect.user"),
+                   Token         = NULL,
+                   AgencyAccount = getOption("ryandexdirect.agency_account"),
+                   TokenPath     = yadirTokenPath())
 }
 
 \arguments{

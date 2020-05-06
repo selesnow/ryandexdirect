@@ -3,8 +3,10 @@
 \title{Start Ads}
 \description{Resumes ad impressions previously stopped by the owner.}
 \usage{
-yadirStartAds(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
-                 = NULL, TokenPath = getwd())
+yadirStartAds(Login = getOption("ryandexdirect.user"), Ids = NULL,
+           Token = NULL, 
+           AgencyAccount = getOption("ryandexdirect.agency_account"), 
+           TokenPath = yadirTokenPath())
 }
 
 \arguments{

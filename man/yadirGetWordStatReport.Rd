@@ -3,12 +3,13 @@
 \title{Get WordStat Report}
 \description{Returns a search query statistics report from 'Wordstat'.}
 \usage{
-yadirGetWordStatReport( Phrases,
-                        GeoID         = 0,
-                        Login         = NULL,
-                        Token         = NULL,
-                        AgencyAccount = NULL,
-                        TokenPath     = getwd())
+yadirGetWordStatReport( 
+                 Phrases,
+                 GeoID         = 0,
+                 Login         = getOption("ryandexdirect.user"),
+                 Token         = NULL,
+                 AgencyAccount = getOption("ryandexdirect.agency_account"),
+                 TokenPath     = yadirTokenPath())
 }
 
 \arguments{

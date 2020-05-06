@@ -3,8 +3,10 @@
 \title{Start Campaigns}
 \description{Resumes impressions at the campaign level.}
 \usage{
-yadirStartCampaigns(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
-                 = NULL, TokenPath = getwd())
+yadirStartCampaigns(Login = getOption("ryandexdirect.user"), 
+           Ids = NULL, Token = NULL, 
+           AgencyAccount = getOption("ryandexdirect.agency_account"), 
+           TokenPath = yadirTokenPath())
 }
 
 \arguments{

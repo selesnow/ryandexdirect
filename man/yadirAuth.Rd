@@ -3,7 +3,9 @@
 \title{Authentication in 'Yandex Direct' API}
 \description{Get API Token for 'Yandex Direct' account}
 \usage{
-yadirAuth(Login = NULL, NewUser = FALSE, TokenPath = getwd())
+yadirAuth(Login = getOption("ryandexdirect.user"), 
+          NewUser = FALSE, 
+          TokenPath = yadirTokenPath())
 }
 \arguments{
   \item{Login}{character, your login at Yandex, require}

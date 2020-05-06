@@ -13,10 +13,10 @@ yadirGetAdGroups(CampaignIds   = NULL,
 			                       "MODERATION", 
 								   "PREACCEPTED", 
 								   "REJECTED"), 
-                 Login         = NULL,
-                 AgencyAccount = NULL,
+                 Login         = getOption("ryandexdirect.user"),
+                 AgencyAccount = getOption("ryandexdirect.agency_account"),
                  Token         = NULL,
-                 TokenPath     = getwd())
+                 TokenPath     = yadirTokenPath())
 }
 
 \arguments{

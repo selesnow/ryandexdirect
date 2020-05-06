@@ -3,9 +3,10 @@
 \title{Get Client List From Agency Account}
 \description{Returns a list of advertisers - agency clients, their parameters and settings of the main representatives of the advertiser.}
 \usage{
-yadirGetClientList(AgencyAccount = NULL,
+yadirGetClientList(
+         AgencyAccount = getOption("ryandexdirect.agency_account"),
          Token         = NULL,
-         TokenPath     = getwd())
+         TokenPath     = yadirTokenPath())
 }
 
 \arguments{

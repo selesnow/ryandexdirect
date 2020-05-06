@@ -3,8 +3,10 @@
 \title{Resume KeyWords}
 \description{Resumes impressions on previously stopped keyword phrases and auto-targeting.}
 \usage{
-yadirStartKeyWords(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
-                 = NULL, TokenPath = getwd())
+yadirStartKeyWords(Login = getOption("ryandexdirect.user"), Ids = NULL, 
+        Token = NULL, 
+        AgencyAccount = getOption("ryandexdirect.agency_account"), 
+        TokenPath = yadirTokenPath())
 }
 
 \arguments{

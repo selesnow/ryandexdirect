@@ -3,8 +3,11 @@
 \title{Get currencies}
 \description{Exchange rates, currency parameters and restrictions.}
 \usage{
-yadirCurrencyRates(Login = NULL, AgencyAccount = NULL, Token = NULL,
-                 TokenPath = getwd())
+yadirCurrencyRates(
+     Login = getOption("ryandexdirect.user"), 
+     AgencyAccount = getOption("ryandexdirect.agency_account"), 
+     Token = NULL,
+     TokenPath = yadirTokenPath())
 }
 
 \arguments{

@@ -8,8 +8,9 @@ yadirGetReport(ReportType = "CUSTOM_REPORT", DateRangeType =
                  FieldNames = c("CampaignName", "Impressions",
                  "Clicks", "Cost"), FilterList = NULL, Goals = NULL,
                  AttributionModels = NULL, IncludeVAT = "YES",
-                 IncludeDiscount = "NO", Login = NULL, AgencyAccount =
-                 NULL, FetchBy = NULL, Token = NULL, TokenPath = getwd(), 
+                 IncludeDiscount = "NO", Login = getOption("ryandexdirect.user"), 
+                 AgencyAccount = getOption("ryandexdirect.agency_account"), 
+                 FetchBy = NULL, Token = NULL, TokenPath = yadirTokenPath(), 
 				 SkipErrors = TRUE)
 }
 

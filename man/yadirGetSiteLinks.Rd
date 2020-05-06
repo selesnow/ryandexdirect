@@ -3,11 +3,12 @@
 \title{Get Fast Links}
 \description{Returns sets of quick links that meet the specified criteria.}
 \usage{
-yadirGetSiteLinks(Login = NULL,
-                  Token = NULL,
-                  Ids   = NULL,
-                  AgencyAccount = NULL,
-                  TokenPath     = getwd())
+yadirGetSiteLinks(
+     Login = getOption("ryandexdirect.user"),
+     Token = NULL,
+     Ids   = NULL,
+     AgencyAccount = getOption("ryandexdirect.agency_account"),
+     TokenPath     = yadirTokenPath())
 }
 
 \arguments{

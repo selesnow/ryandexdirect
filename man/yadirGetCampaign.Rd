@@ -4,23 +4,27 @@
 \title{Get Campaigns List}
 \description{Returns the parameters of campaigns that meet the specified criteria.}
 \usage{
-yadirGetCampaignList(Logins = NULL, States = c("OFF", "ON", "SUSPENDED",
+yadirGetCampaignList(Logins = getOption("ryandexdirect.user"), 
+                   States = c("OFF", "ON", "SUSPENDED",
                    "ENDED", "CONVERTED", "ARCHIVED"), Types =
                    c("TEXT_CAMPAIGN", "MOBILE_APP_CAMPAIGN",
                    "DYNAMIC_TEXT_CAMPAIGN", "CPM_BANNER_CAMPAIGN"),
                    Statuses = c("ACCEPTED", "DRAFT", "MODERATION",
                    "REJECTED"), StatusesPayment = c("DISALLOWED",
-                   "ALLOWED"), Token = NULL, AgencyAccount = NULL,
-                   TokenPath = getwd())
+                   "ALLOWED"), Token = NULL, 
+                   AgencyAccount = getOption("ryandexdirect.agency_account"),
+                   TokenPath = yadirTokenPath())
 				   
-yadirGetCampaign(Logins = NULL, States = c("OFF", "ON", "SUSPENDED",
+yadirGetCampaign(Logins = getOption("ryandexdirect.user"), 
+                  States = c("OFF", "ON", "SUSPENDED",
                    "ENDED", "CONVERTED", "ARCHIVED"), Types =
                    c("TEXT_CAMPAIGN", "MOBILE_APP_CAMPAIGN",
                    "DYNAMIC_TEXT_CAMPAIGN", "CPM_BANNER_CAMPAIGN"),
                    Statuses = c("ACCEPTED", "DRAFT", "MODERATION",
                    "REJECTED"), StatusesPayment = c("DISALLOWED",
-                   "ALLOWED"), Token = NULL, AgencyAccount = NULL,
-                   TokenPath = getwd())
+                   "ALLOWED"), Token = NULL, 
+                   AgencyAccount = getOption("ryandexdirect.agency_account"),
+                   TokenPath = yadirTokenPath())
 }
 
 \arguments{

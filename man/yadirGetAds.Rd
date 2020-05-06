@@ -7,10 +7,10 @@ yadirGetAds(CampaignIds   = NULL,
             AdGroupIds    = NA, 
             Ids           = NA, 
             States        = c("OFF","ON","SUSPENDED","OFF_BY_MONITORING","ARCHIVED"), 
-            Login         = NULL,
+            Login         = getOption("ryandexdirect.user"),
             Token         = NULL,
-            AgencyAccount = NULL,
-            TokenPath     = getwd())
+            AgencyAccount = getOption("ryandexdirect.agency_account"),
+            TokenPath     = yadirTokenPath())
 }
 
 \arguments{

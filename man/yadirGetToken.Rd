@@ -3,7 +3,7 @@
 \title{Auth in 'Yandex Direct' API}
 \description{Simplified, one-step API authorization.}
 \usage{
-yadirGetToken(Login = NULL, TokenPath = getwd())
+yadirGetToken(Login = NULL, TokenPath = yadirTokenPath())
 }
 \arguments{
   \item{Login}{character, your login at Yandex, require}

@@ -13,10 +13,10 @@ yadirSetAutoKeyWordsBids(
     TargetCoverage         = NULL,
     NetworkIncreasePercent = NULL,
     NetworkBidCeiling      = NULL,
-    Login                  = NULL,
+    Login                  = getOption("ryandexdirect.user"),
     Token                  = NULL,
-    AgencyAccount          = NULL,
-    TokenPath              = getwd())
+    AgencyAccount          = getOption("ryandexdirect.agency_account"),
+    TokenPath              = yadirTokenPath())
 }
 
 \arguments{

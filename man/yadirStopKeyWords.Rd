@@ -3,8 +3,10 @@
 \title{Suspend impressions by KeyWords}
 \description{Stops impressions by keyword phrases and autotargeting.}
 \usage{
-yadirStopKeyWords(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
-                 = NULL, TokenPath = getwd())
+yadirStopKeyWords(Login = getOption("ryandexdirect.user"), Ids = NULL, 
+                 Token = NULL, AgencyAccount
+                 = getOption("ryandexdirect.agency_account"), 
+                 TokenPath = yadirTokenPath())
 }
 
 \arguments{

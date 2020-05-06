@@ -4,9 +4,10 @@
 \description{Returns the parameters of key phrases or autotargets that match the specified criteria: the values of the placeholder variables, status and status, statistics of impressions and clicks, rates and priorities.}
 \usage{
 yadirGetKeyWords(CampaignIds = NULL, AdGroupIds = NA, Ids = NA, States
-                 = c("OFF", "ON", "SUSPENDED"), WithStats = T, Login =
-                 NULL, Token = NULL, AgencyAccount = NULL, TokenPath =
-                 getwd())
+                 = c("OFF", "ON", "SUSPENDED"), WithStats = TRUE, 
+                 Login = getOption("ryandexdirect.user"), Token = NULL, 
+                 AgencyAccount = getOption("ryandexdirect.agency_account"), 
+                 TokenPath = yadirTokenPath())
 }
 
 \arguments{

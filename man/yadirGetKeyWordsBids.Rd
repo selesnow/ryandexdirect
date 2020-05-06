@@ -3,16 +3,17 @@
 \title{Get KeyWords Bids}
 \description{Returns bids and priorities for key phrases and auto-targeting that meet specified criteria, as well as bidding data: bids and write-off prices for different traffic volumes on a search and bids to reach different audience shares in networks.}
 \usage{
-yadirGetKeyWordsBids(KeywordIds    = NULL,
-                     AdGroupIds    = NULL,
-                     CampaignIds   = NULL,
-                     AuctionBids   = c(NA, 
-					                  "search", 
-				         			  "network"),
-                     Login         = NULL,
-                     Token         = NULL,
-                     AgencyAccount = NULL,
-                     TokenPath     = getwd())
+yadirGetKeyWordsBids(
+    KeywordIds    = NULL,
+    AdGroupIds    = NULL,
+    CampaignIds   = NULL,
+    AuctionBids   = c(NA, 
+		                  "search", 
+		          			  "network"),
+    Login         = getOption("ryandexdirect.user"),
+    Token         = NULL,
+    AgencyAccount = getOption("ryandexdirect.agency_account"),
+    TokenPath     = yadirTokenPath())
 }
 
 \arguments{

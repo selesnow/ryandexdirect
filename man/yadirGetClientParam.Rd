@@ -4,10 +4,10 @@
 \description{Returns the parameters of the advertiser and the settings of the user - the representative of the advertiser or the parameters of the agency and the settings of the user - the representative of the agency.}
 \usage{
 yadirGetClientParam(Language = "ru", 
-                    Logins = NULL, 
+                    Logins = getOption("ryandexdirect.user"), 
                     Token = NULL,
-                    AgencyAccount = NULL,
-                    TokenPath     = getwd())
+                    AgencyAccount = getOption("ryandexdirect.agency_account"),
+                    TokenPath     = yadirTokenPath())
 }
 
 \arguments{

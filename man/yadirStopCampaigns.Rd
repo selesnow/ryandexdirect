@@ -3,8 +3,11 @@
 \title{Suspend impressions by Campaigns}
 \description{Suspend impressions by campaings in 'Yandex Direct' account}
 \usage{
-yadirStopCampaigns(Login = NULL, Ids = NULL, Token = NULL, AgencyAccount
-                 = NULL, TokenPath = getwd())
+yadirStopCampaigns(
+ Login = getOption("ryandexdirect.user"), Ids = NULL, 
+ Token = NULL, 
+ AgencyAccount = getOption("ryandexdirect.agency_account"),
+ TokenPath = yadirTokenPath())
 }
 
 \arguments{
