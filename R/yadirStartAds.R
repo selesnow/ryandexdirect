@@ -1,8 +1,8 @@
-yadirStartAds <-  function(Login = NULL, 
+yadirStartAds <-  function(Login = getOption("ryandexdirect.user"), 
                            Ids   = NULL,
                            Token = NULL,
-                           AgencyAccount = NULL,
-                           TokenPath     = getwd()){
+                           AgencyAccount = getOption("ryandexdirect.agency_account"),
+                           TokenPath     = yadirTokenPath()){
   
   # auth
   Token <- tech_auth(login = Login, token = Token, AgencyAccount = AgencyAccount, TokenPath = TokenPath)

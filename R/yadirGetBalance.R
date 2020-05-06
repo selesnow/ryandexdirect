@@ -1,7 +1,7 @@
-yadirGetBalance <- function(Logins        = NULL, 
+yadirGetBalance <- function(Logins        = getOption("ryandexdirect.user"), 
                             Token         = NULL,     
-                            AgencyAccount = NULL,
-                            TokenPath     = getwd()){
+                            AgencyAccount = getOption("ryandexdirect.agency_account"),
+                            TokenPath     = yadirTokenPath()){
 
   # result frame
   result <- data.table()

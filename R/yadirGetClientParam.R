@@ -1,8 +1,8 @@
 yadirGetClientParam <- function(Language      = "ru", 
-                                Logins        = NULL, 
+                                Logins        = getOption("ryandexdirect.user"), 
                                 Token         = NULL,
-                                AgencyAccount = NULL,
-                                TokenPath     = getwd()){
+                                AgencyAccount = getOption("ryandexdirect.agency_account"),
+                                TokenPath     = yadirTokenPath()){
   
   
   # auth

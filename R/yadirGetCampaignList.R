@@ -1,12 +1,12 @@
 yadirGetCampaignList <-
-  function (Logins          = NULL, 
+  function (Logins          = getOption("ryandexdirect.user"), 
             States          = c("OFF","ON","SUSPENDED","ENDED","CONVERTED","ARCHIVED"),
             Types           = c("TEXT_CAMPAIGN","MOBILE_APP_CAMPAIGN","DYNAMIC_TEXT_CAMPAIGN","CPM_BANNER_CAMPAIGN"),
             Statuses        = c("ACCEPTED","DRAFT","MODERATION","REJECTED"),
             StatusesPayment = c("DISALLOWED","ALLOWED"),
             Token           = NULL,
-            AgencyAccount = NULL,
-            TokenPath     = getwd()) {
+            AgencyAccount = getOption("ryandexdirect.agency_account"),
+            TokenPath     = yadirTokenPath()) {
     
 	# depricating
     .Deprecated(new = "yadirGetCampaign()", 

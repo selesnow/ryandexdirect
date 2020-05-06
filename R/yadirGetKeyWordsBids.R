@@ -2,10 +2,10 @@ yadirGetKeyWordsBids <- function(KeywordIds    = NULL,
                                  AdGroupIds    = NULL,
                                  CampaignIds   = NULL,
                                  AuctionBids   = c(NA, "search", "network"),
-                                 Login         = NULL,
+                                 Login         = getOption("ryandexdirect.user"),
                                  Token         = NULL,
-                                 AgencyAccount = NULL,
-                                 TokenPath     = getwd()) {
+                                 AgencyAccount = getOption("ryandexdirect.agency_account"),
+                                 TokenPath     = yadirTokenPath()) {
   # start time
   start_time  <- Sys.time()
   

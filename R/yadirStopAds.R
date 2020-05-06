@@ -1,8 +1,8 @@
-yadirStopAds <-  function(Login = NULL, 
+yadirStopAds <-  function(Login = getOption("ryandexdirect.user"), 
                           Ids   = NULL,
                           Token = NULL,
-                          AgencyAccount = NULL,
-                          TokenPath     = getwd()){
+                          AgencyAccount = getOption("ryandexdirect.agency_account"),
+                          TokenPath     = yadirTokenPath()){
   
 
   # auth

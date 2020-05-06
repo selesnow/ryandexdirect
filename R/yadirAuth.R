@@ -1,4 +1,4 @@
-yadirAuth <- function(Login = NULL, NewUser = FALSE, TokenPath = getwd()) {
+yadirAuth <- function(Login = getOption("ryandexdirect.user"), NewUser = FALSE, TokenPath = yadirTokenPath()) {
   
   # check dir
   
@@ -6,7 +6,18 @@ yadirAuth <- function(Login = NULL, NewUser = FALSE, TokenPath = getwd()) {
     dir.create(TokenPath)
   }
   
+  ## login
+  if ( is.null(Login) && ! is.null(getOption("ryandexdirect.user") ) ) {
+
+      Login <- getOption("ryandexdirect.user")
+
+  }
+    
+  
   # find file with auth data
+  TokenPath <- gsub(pattern = '\\\\', 
+                    replacement = '/', 
+                    x = TokenPath)
   
   if (NewUser == FALSE && file.exists(paste0(paste0(TokenPath, "/", Login, ".yadirAuth.RData")))) {
     message("Load token from ", paste0(paste0(TokenPath, "/", Login, ".yadirAuth.RData")))

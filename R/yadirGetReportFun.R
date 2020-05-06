@@ -9,10 +9,10 @@ yadirGetReportFun <-
               AttributionModels = NULL,
               IncludeVAT        = "YES",
               IncludeDiscount   = "NO",
-              Login             = NULL,
-              AgencyAccount     = NULL,
+              Login             = getOption("ryandexdirect.user"),
+              AgencyAccount     = getOption("ryandexdirect.agency_account"),
               Token             = NULL,
-              TokenPath         = getwd(),
+              TokenPath         = yadirTokenPath(),
 			  SkipErrors        = TRUE){
   
   # start time

@@ -8,11 +8,11 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
                            AttributionModels = NULL,
                            IncludeVAT        = "YES",
                            IncludeDiscount   = "NO",
-                           Login             = NULL,
-                           AgencyAccount     = NULL,
+                           Login             = getOption("ryandexdirect.user"),
+                           AgencyAccount     = getOption("ryandexdirect.agency_account"),
                            FetchBy           = NULL,
                            Token             = NULL,
-                           TokenPath         = getwd(),
+                           TokenPath         = yadirTokenPath(),
 						   SkipErrors        = TRUE) {
   st <- Sys.time()
   

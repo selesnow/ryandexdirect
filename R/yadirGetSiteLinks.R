@@ -1,8 +1,8 @@
-yadirGetSiteLinks <- function(Login = NULL,
+yadirGetSiteLinks <- function(Login = getOption("ryandexdirect.user"),
                               Token = NULL,
                               Ids   = NULL,
-                              AgencyAccount = NULL,
-                              TokenPath     = getwd()) {
+                              AgencyAccount = getOption("ryandexdirect.agency_account"),
+                              TokenPath     = yadirTokenPath()) {
   
   # result frame
   result <- data.frame()

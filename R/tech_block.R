@@ -1,5 +1,23 @@
 # tech block auth
 tech_auth <-  function(login = NULL, token = NULL, AgencyAccount = NULL, TokenPath = NULL) {
+  
+  # check options
+  if ( is.null(token) ) {
+    ## login
+    if ( is.null(login) && ! is.null(getOption("ryandexdirect.user") ) ) {
+      
+      login <- getOption("ryandexdirect.user")
+      
+    }
+    
+    ## agency
+    if ( is.null(AgencyAccount) && ! is.null(getOption("ryandexdirect.agency_account") ) ) {
+      
+      AgencyAccount <- getOption("ryandexdirect.agency_account")
+      
+    }
+    
+  }
 
   # if token not null skip auth
   if (! is.null(token) ) {
@@ -19,4 +37,18 @@ tech_auth <-  function(login = NULL, token = NULL, AgencyAccount = NULL, TokenPa
   
   # return token obj
   return(Token)
+}
+
+yadirTokenPath <- function() {
+  
+  if ( ! is.null(getOption("ryandexdirect.token_path")) ) {
+    
+    return(getOption("ryandexdirect.token_path"))
+    
+  } else {
+    
+    return(yadirTokenPath())
+    
+  }
+  
 }

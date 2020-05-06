@@ -7,10 +7,10 @@ yadirSetAutoKeyWordsBids <- function(KeywordIds             = NULL,
                                      TargetCoverage         = NULL,
                                      NetworkIncreasePercent = NULL,
                                      NetworkBidCeiling      = NULL,
-                                     Login                  = NULL,
+                                     Login                  = getOption("ryandexdirect.user"),
                                      Token                  = NULL,
-                                     AgencyAccount          = NULL,
-                                     TokenPath              = getwd()) {
+                                     AgencyAccount          = getOption("ryandexdirect.agency_account"),
+                                     TokenPath              = yadirTokenPath()) {
   
   # check bidding rule
   if ( all(is.null(TargetTrafficVolume), 

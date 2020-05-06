@@ -1,7 +1,7 @@
 yadirGetClientList <-
-function(AgencyAccount = NULL,
+function(AgencyAccount = getOption("ryandexdirect.agency_account"),
          Token         = NULL,
-         TokenPath     = getwd()){
+         TokenPath     = yadirTokenPath()){
    
    # authorize
    Token <- tech_auth(token = Token, AgencyAccount = AgencyAccount, 

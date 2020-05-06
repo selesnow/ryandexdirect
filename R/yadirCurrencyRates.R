@@ -1,8 +1,8 @@
 yadirCurrencyRates <- 
-function(Login           = NULL,
-         AgencyAccount   = NULL,
+function(Login           = getOption("ryandexdirect.user"),
+         AgencyAccount   = getOption("ryandexdirect.agency_account"),
          Token           = NULL,
-         TokenPath       = getwd()){
+         TokenPath       = yadirTokenPath()){
   
   queryBody <- "{
   \"method\": \"get\",
