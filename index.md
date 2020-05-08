@@ -81,7 +81,7 @@ li.nm_li {
 <center>
 <ul class="nm_ul">
     <li class="nm_li"><a href="/" class="nm_a">Main</a></li>
-    <li class="nm_li"><a href="/" class="nm_a">R Packages</a>
+    <li class="nm_li"><a href="/" class="nm_a">Пакеты</a>
         <ul class="nm_ul">
             <li class="nm_li"><a href="/galigor" class="nm_a">galigor</a></li>
             <li class="nm_li"><a href="/ryandexdirect" class="nm_a">ryandexdirect</a></li>
@@ -104,12 +104,20 @@ li.nm_li {
 	<li class="nm_li"><a href="#" class="nm_a">Онлайн Курсы</a>
 	    <ul class="nm_ul">
             <li class="nm_li"><a href="https://learn.needfordata.ru/r" class="nm_a">Язык R в Интернет Маркетинге</a></li>
+	    <li class="nm_li"><a href="/r4excel_users" class="nm_a">Язык R для пользователей Excel</a></li>
         </ul>
     </li>
     <li class="nm_li"><a href="/library" class="nm_a">Статьи</a></li>
-    <li class="nm_li"><a href="https://alexeyseleznev.wordpress.com/" class="nm_a">Блог</a></li>
+    <li class="nm_li"><a href="https://alexeyseleznev.wordpress.com/" class="nm_a">Ресурсы</a>
+    	<ul class="nm_ul">
+            <li class="nm_li"><a href="https://www.youtube.com/R4marketing/?sub_confirmation=1" class="nm_a" target="_blank">YouTube канал</a></li>
+	    <li class="nm_li"><a href="https://t.me/R4marketing/" class="nm_a" target="_blank">Telegram канал</a></li>
+            <li class="nm_li"><a href="https://alexeyseleznev.wordpress.com/" class="nm_a" target="_blank">Блог</a></li>
+        </ul>
+    </li>
     <li class="nm_li"><a href="/news" class="nm_a">Новости</a></li>
     <li class="nm_li"><a href="/publications" class="nm_a">Архив</a></li>
+    <li class="nm_li"><a href="https://secure.wayforpay.com/button/b6dd4a7083fe0" class="nm_a">Поддержать</a></li>
 </ul>
 </center>
 <Br>
