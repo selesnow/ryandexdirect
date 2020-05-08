@@ -43,7 +43,7 @@ a.nm_a {
   text-decoration: none; /*убираем подчеркивание текста ссылок*/
   background:#696969; /*добавляем фон к пункту меню*/
   color:#fff; /*меняем цвет ссылок*/
-  padding:0px 7px; /*добавляем отступ*/
+  padding:0px 5px; /*добавляем отступ*/
   font-family: arial; /*меняем шрифт*/
   line-height:30px; /*ровняем меню по вертикали*/
   display: block; 
