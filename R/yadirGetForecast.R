@@ -57,7 +57,7 @@ yadirGetForecast <- function(
   message('.Send Query')
   send_query <- list(method = "CreateNewForecast",
                      param = list(Phrases     = Phrases,
-                                  GeoID       = list(GeoID),
+                                  GeoID       = GeoID,
                                   Currency    = Currency,
                                   AuctionBids = AuctionBids),
                      locale = "ru",
