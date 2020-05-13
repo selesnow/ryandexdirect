@@ -47,7 +47,7 @@ yadirTokenPath <- function() {
     
   } else {
     
-    return(yadirTokenPath())
+    return(getwd())
     
   }
   
