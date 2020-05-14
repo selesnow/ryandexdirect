@@ -109,24 +109,32 @@ yadirGetReportFun <-
           xml_text() %>%
           message(" > Error Detail")
 		  
-	  if ( SkipErrors == FALSE ) stop(content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
-									  xml_find_all(xpath = ".//reports:ApiError//reports:errorDetail") %>%
-									  xml_text() %>%
-									  message(" > Error Detail"))
-      
+	  if ( SkipErrors == FALSE ) {
+                    
+	                  err_detail <- content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
+              	                    xml_find_all(xpath = ".//reports:ApiError//reports:errorDetail") %>%
+              	                    xml_text()
+	                  
+	                  stop(err_detail)
+	  } else { 
       next
+	  }
     }
     
     if(answer$status_code == 500){
       packageStartupMessage(paste0(current_login," - ",xml_text(content(answer, "parsed","text/xml",encoding = "UTF-8"))))
       packageStartupMessage("While generating the report an error occurred on the server. If for this report the error on the server occurred for the first time, try to generate a report again. If the error persists, contact support.")
 	  
-	  if ( SkipErrors == FALSE ) stop(content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
-		      						  xml_find_all(xpath = ".//reports:ApiError//reports:errorDetail") %>%
-									  xml_text() %>%
-									  message(" > Error Detail"))
-	  
+	  if ( SkipErrors == FALSE ) {
+	                 
+	                  err_detail <- content(answer, "parsed","text/xml",encoding = "UTF-8") %>%
+                  	                    xml_find_all(xpath = ".//reports:ApiError//reports:errorDetail") %>%
+                  	                    xml_text()
+	                  
+	                  stop(err_detail)
+	  } else {
       next
+	    }
     }
     
     if(answer$status_code == 201){
