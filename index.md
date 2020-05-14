@@ -135,7 +135,7 @@ li.nm_li {
 * [Документация](https://selesnow.github.io/ryandexdirect/)
 * [Поддержка пользователей, отчёты об ошибках и доработках](https://github.com/selesnow/ryandexdirect/issues)
 * [Список релизов](https://github.com/selesnow/ryandexdirect/releases)
-* [YouTube канал](https://www.youtube.com/R4marketing/?sub_confirmation=1)
+* [YouTube канал R4marketing](https://www.youtube.com/R4marketing/?sub_confirmation=1)
 * [Телеграм канал R4marketing](http://t.me/R4marketing)
 * [Группа в Вконтакте](https://vk.com/data_club)
 
