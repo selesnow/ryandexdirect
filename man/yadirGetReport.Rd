@@ -4,7 +4,8 @@
 \description{The 'Service Report' is designed to get statistics on the advertiser's account. You must set period, choose report type and needed fields, and get statistic.}
 \usage{
 yadirGetReport(ReportType = "CUSTOM_REPORT", DateRangeType =
-                 "LAST_30_DAYS", DateFrom = NULL, DateTo = NULL,
+                 "CUSTOM_DATE", DateFrom = Sys.Date() - 31, 
+                 DateTo = Sys.Date() - 1,
                  FieldNames = c("CampaignName", "Impressions",
                  "Clicks", "Cost"), FilterList = NULL, Goals = NULL,
                  AttributionModels = NULL, IncludeVAT = "YES",
