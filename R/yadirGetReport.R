@@ -1,7 +1,7 @@
 yadirGetReport <- function(ReportType        = "CUSTOM_REPORT", 
-                           DateRangeType     = "LAST_30_DAYS", 
-                           DateFrom          = NULL, 
-                           DateTo            = NULL, 
+                           DateRangeType     = "CUSTOM_DATE", 
+                           DateFrom          = Sys.Date() - 31, 
+                           DateTo            = Sys.Date() - 1, 
                            FieldNames        = c("CampaignName","Impressions","Clicks","Cost"), 
                            FilterList        = NULL,
                            Goals             = NULL,
@@ -13,7 +13,7 @@ yadirGetReport <- function(ReportType        = "CUSTOM_REPORT",
                            FetchBy           = NULL,
                            Token             = NULL,
                            TokenPath         = yadirTokenPath(),
-						   SkipErrors        = TRUE) {
+						               SkipErrors        = TRUE) {
   st <- Sys.time()
   
   # for limited accounts

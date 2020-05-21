@@ -1,23 +1,32 @@
 yadirSetAgencyAccount <- function(AgencyAccount, TokenPath = yadirTokenPath()) {
   
-  file_name   <- file.path(TokenPath, str_glue("{AgencyAccount}.yadirAuth.RData")) 
-
-if ( file.exists(file_name) ) {
+  if ( is.null(AgencyAccount) || is.na(AgencyAccount) ) {
+    
+    message("Unset AgencyAccount")
+    options(ryandexdirect.agency_account = NULL)
+    
+  } else  {
   
-  options(ryandexdirect.agency_account = AgencyAccount)
+    file_name   <- file.path(TokenPath, str_glue("{AgencyAccount}.yadirAuth.RData")) 
   
-} else if ( interactive() ) {
+    if ( file.exists(file_name) ) {
+      
+      options(ryandexdirect.agency_account = AgencyAccount)
+      
+    } else if ( interactive() ) {
+      
+      yadirAuth(Login = AgencyAccount, NewUser = TRUE, TokenPath)
+      
+      options(ryandexdirect.user = AgencyAccount)
+      
+    } else {
+      
+      stop(str_glue("Your login not found in {TokenPath}, and you using batch mode. Run R in interactive mode and repeat this action."))
+      
+    }
   
-  yadirAuth(Login = AgencyAccount, NewUser = TRUE, TokenPath)
+  }
   
-  options(ryandexdirect.user = AgencyAccount)
-  
-} else {
-  
-  stop(str_glue("Your login not found in {TokenPath}, and you using batch mode. Run R in interactive mode and repeat this action."))
-  
-}
-
-return(TRUE)
+  return(TRUE)
 
 }

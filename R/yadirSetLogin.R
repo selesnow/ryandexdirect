@@ -5,6 +5,21 @@ yadirSetLogin <- function(Login, TokenPath = yadirTokenPath()) {
   if ( file.exists(file_name) ) {
 
     options(ryandexdirect.user = Login)
+    
+  } else if ( ! is.null(getOption('ryandexdirect.agency_account')) ) {
+    
+    clients <- yadirGetClientList()
+    client_logins <- clients$Login
+    
+    # search in agency account
+    if ( tolower(Login) %in% tolower(client_logins) ) {
+      
+      options(ryandexdirect.user = Login)
+      message("AgencyAccount: ", getOption('ryandexdirect.agency_account'), "\n",
+              "Login: ", Login)
+      
+    }
+  
 
   } else if ( interactive() ) {
     
