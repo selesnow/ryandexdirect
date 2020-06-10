@@ -1,0 +1,94 @@
+---
+title: "Загрузка данных о расходах на рекламу из Яндекс Директ в Google Analytics"
+author: "Алексей Селезнёв"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{ryandexdirect: Загрузка данных о расходах на рекламу из Яндекс Директ в Google Analytics}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  eval=FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+Начиная с версии `ryandexdirect 3.6.0` в пакет была добавлена функция `yadirGetCostData()`, которая позволяет вам получить данные о расходах для дальнейшей их загрузки в Google Analytics.
+
+## Видео уроки
+Вы можете посмотреть видео урок по данной теме, перейдя по [этой ссылке](https://youtu.be/T9y0Iuh5EWk).
+
+## Создаём набор данных в Google Analytics
+Изначально вам необходимо создать набор данных в Google Analytics.
+
+1. Заходим в панель администратора
+2. В области ресурс выбираем пункт "Импорт данных"
+
+![Панель администратора](http://img.netpeak.ua/alsey/159056878065_kiss_43kb.png)
+
+3. Нажимае **Создать / Create**
+4. Среды предложенных вариантов выбираем **Данные о расходах / Cost Data**
+
+![Выбираем тип набора данных](http://img.netpeak.ua/alsey/159056895184_kiss_45kb.png)
+
+5. Задаём имя набора данных
+6. Выбираем из выпадающего списка представления, в которые будут импортироваться данные о расодах
+
+![Выбираем представления](http://img.netpeak.ua/alsey/159171156636_kiss_26kb.png)
+
+7. Настраиваем схему данных и выбираем перезаписывать данные если они соответвуют уже существующим строкам *Owerwrite*
+
+![Настраиваем схему данных](http://img.netpeak.ua/alsey/159056941892_kiss_43kb.png)
+
+8. Жмём сохранить.
+
+Далее в интерфейсе появится созданный набор данных.
+
+![Созданный набор данных](http://img.netpeak.ua/alsey/159171162087_kiss_25kb.png)
+
+В дальнейшем нам понадобится его идентификаторв.
+
+## Запрашиваем данные о расхода из рекламного кабинета Facebook
+Далее мы можем запросить данные о расходах из любого аккаунта к которому у нас есть доступ, и с помощью пакета `googleAnalyticsR` загрузить их в созданный источник данных.
+
+```{r}
+library(rfacebookstat)
+library(googleAnalyticsR)
+
+# fb options
+options(ryandexdirect.username = 'your_yandex_username')
+
+# auth
+fbAuth()
+ga_auth(email = "google_analytics@gmail.com")
+
+# read data from facebook
+cost_data <- yadirGetCostData(DateFrom        = '2020-03-01',
+                              DateTo          = '2020-03-10',
+                              Source          = 'yandex', 
+                              Medium          = 'cpc',
+                              IncludeVAT      = "YES",
+                              IncludeDiscount = "NO")
+
+# upload into GA source
+ga_custom_upload_file(accountId          = 2222222, 
+                      webPropertyId      = "UA-2222222-1", 
+                      customDataSourceId = 'M_XXXXX_Qudk-8g', 
+                      cost_data)
+```
+
+Если вы всё сделали правильно в разделе "Manage Uploads" вы увидите загруженные данные, и сообщение о статусе загрузке.
+
+![Раздел "Manage Uploads"](http://img.netpeak.ua/alsey/159171178055_kiss_29kb.png)
+
+![Статус загрузки](https://img.netpeak.ua/alsey/159057047222_kiss_16kb.png)
+
+## Где искать данные о расходах на Яндекс Директ в Google Analytics
+После загрузки в Google Analytics данные появляются не сразу, как правило должно пройти 1 - 1.5 часа.
+Найти данные о расходах можно в отчёте Анализ расходов:
+
+![Данные о расходах в Google Analytics](http://img.netpeak.ua/alsey/159178300398_kiss_26kb.png)

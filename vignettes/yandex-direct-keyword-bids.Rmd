@@ -1,10 +1,10 @@
 ---
-title: "Управление ставками ключевых слов с помощью API Яндекс Директ."
+title: "Управление ставками ключевых слов с помощью API Яндекс Директ"
 author: "Alexey Seleznev"
 output: rmarkdown::html_vignette
 date: "`r Sys.Date()`"
 vignette: >
-  %\VignetteIndexEntry{Keyword Bids Managment by 'Yandex Direct' API RUS}
+  %\VignetteIndexEntry{ryandexdirect: Управление ставками ключевых слов с помощью API Яндекс Директ}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

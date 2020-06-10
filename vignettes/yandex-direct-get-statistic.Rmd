@@ -4,7 +4,7 @@ author: "Alexey Seleznev"
 output: rmarkdown::html_vignette
 date: "`r Sys.Date()`"
 vignette: >
-  %\VignetteIndexEntry{Load Statistic From 'Yandex Direct' RUS}
+  %\VignetteIndexEntry{ryandexdirect: Загрузка статистики из рекламного аккаунта Яндекс Директ}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

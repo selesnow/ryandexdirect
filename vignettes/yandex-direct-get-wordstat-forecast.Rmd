@@ -4,7 +4,7 @@ author: "Alexey Seleznev"
 output: rmarkdown::html_vignette
 date: "`r Sys.Date()`"
 vignette: >
-  %\VignetteIndexEntry{WordStat reports and budget forecast}
+  %\VignetteIndexEntry{ryandexdirect: Прогноз бюджета и отчёты сервиса WordStat}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -27,6 +27,9 @@ WordStat — это бесплатный сервис Яндекса, предн
 Для того, что бы получить отчёты из данного сервиса с помощью пакета `ryandexdirect` необходимо использовать функцию `ydirGetWordStatReport()`.
 
 Функция `ydirGetWordStatReport()` возвращает те же сведения, которые доступны в сервисе [Подбор слов](https://wordstat.yandex.ru/). Статистика рассчитывается за прошедший месяц.
+
+## Видео урок
+Помимо данной виньетки данная тема рассмотренна в видео уроке, который доступен по [ссылке](https://youtu.be/g9lwjsgAhyY).
 
 ## Аргументы функции ydirGetWordStatReport
 * Phrases - Вектор ключевых фраз, по которым требуется получить статистику поисковых запросов (не более 10 фраз в кодировке UTF-8). Ключевые фразы могут содержать минус-фразы. Минус-фразу из нескольких слов следует заключить в скобки, например: `холодильник -морозильник -(морозильная камера) -ремонт`.
