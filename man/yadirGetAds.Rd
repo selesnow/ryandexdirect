@@ -6,6 +6,9 @@
 yadirGetAds(CampaignIds   = NULL, 
             AdGroupIds    = NA, 
             Ids           = NA, 
+            Types         = c("TEXT_AD", "MOBILE_APP_AD", "DYNAMIC_TEXT_AD", 
+                              "IMAGE_AD", "CPC_VIDEO_AD", "CPM_BANNER_AD", 
+                              "CPM_VIDEO_AD", "SMART_AD"),
             States        = c("OFF","ON","SUSPENDED","OFF_BY_MONITORING","ARCHIVED"), 
             Login         = getOption("ryandexdirect.user"),
             Token         = NULL,
@@ -17,6 +20,7 @@ yadirGetAds(CampaignIds   = NULL,
   \item{CampaignIds}{character vector with yandex direct campaign ID, require}
   \item{AdGroupIds}{character vector with yandex direct adgroup ID}
   \item{Ids}{character vector with yandex direct ad ID}
+  \item{Types}{character vector, types of ads: TEXT_AD, MOBILE_APP_AD, DYNAMIC_TEXT_AD, IMAGE_AD, CPC_VIDEO_AD, CPM_BANNER_AD, CPM_VIDEO_AD, SMART_AD}
   \item{States}{character vector with ad states}
   \item{Login}{character, your login at Yandex, require}
   \item{Token}{character, your Yandex Direct API Token, require}
