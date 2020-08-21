@@ -1,6 +1,8 @@
 yadirGetAds <- function(CampaignIds   = NULL,
                         AdGroupIds    = NA,
                         Ids           = NA,
+                        Types         = c("TEXT_AD", "MOBILE_APP_AD", "DYNAMIC_TEXT_AD", "IMAGE_AD",
+                                          "CPC_VIDEO_AD", "CPM_BANNER_AD", "CPM_VIDEO_AD", "SMART_AD"),
                         States        = c("OFF","ON","SUSPENDED","OFF_BY_MONITORING","ARCHIVED"),
                         Login         = getOption("ryandexdirect.user"),
                         Token         = NULL,
@@ -23,28 +25,39 @@ yadirGetAds <- function(CampaignIds   = NULL,
   start_time  <- Sys.time()
 
   # result frame
-  result      <- data.frame(Id                         = integer(0),
-                            AdGroupId                  = integer(0),
-                            CampaignId                 = integer(0),
-                            Type                       = character(0),
-                            Subtype                    = character(0),
-                            Status                     = character(0),
-                            AgeLabel                   = character(0),
-                            State                      = character(0),
-                            TextAdTitle                = character(0),
-                            TextAdTitle2               = character(0),
-                            TextAdText                 = character(0),
-                            TextAdHref                 = character(0),
-                            TextAdDisplayDomain        = character(0),
-                            TextAdMobile               = character(0),
-                            TextImageAdHref            = character(0),
-                            TextMediaAdHref            = character(0),
-                            TextAdSitelinkSetId        = integer(0),
-                            DynamicTextAdText          = character(0),
-                            DynamicTextAdSitelinkSetId = integer(0))
+  result      <- data.frame(Id                            = integer(0),
+                            AdGroupId                     = integer(0),
+                            CampaignId                    = integer(0),
+                            Type                          = character(0),
+                            Subtype                       = character(0),
+                            Status                        = character(0),
+                            AgeLabel                      = character(0),
+                            State                         = character(0),
+                            TextAdTitle                   = character(0),
+                            TextAdTitle2                  = character(0),
+                            TextAdText                    = character(0),
+                            TextAdHref                    = character(0),
+                            TextAdDisplayDomain           = character(0),
+                            TextAdMobile                  = character(0),
+                            TextImageAdHref               = character(0),
+                            TextImageAdTurboPageId         = character(0),
+                            TextMediaAdHref               = character(0),
+                            TextAdSitelinkSetId           = integer(0),
+                            DynamicTextAdText             = character(0),
+                            DynamicTextAdSitelinkSetId    = integer(0),
+                            SmartAdBuilderAdCreative      = character(0),
+                            SmartAdBuilderThumbnailUrl    = character(0),
+                            SmartAdBuilderPreviewUrl      = character(0),
+                            CpmBannerAdBuilderHref        = character(0),
+                            CpmBannerAdBuilderTurboPageId = character(0),
+                            CpcVideoAdBuilderHref         = character(0),
+                            CpcVideoAdBuilderTurboPageId  = character(0),
+                            CpmVideoAdBuilderHref         = character(0),
+                            CpmVideoAdBuilderTurboPageId  = character(0))
 
   # states to json for query
   States          <- paste("\"",States,"\"",collapse=", ",sep="")
+  Types           <- paste("\"",Types,"\"",collapse=", ",sep="")
 
   # camp queue
   camp_num     <- as.integer(length(CampaignIds))
@@ -76,7 +89,8 @@ yadirGetAds <- function(CampaignIds   = NULL,
                           \"CampaignIds\": [", CampaignIdsTmp, "],
                           ", ifelse(is.na(Ids), "", paste0("\"Ids\": [",Ids, "],")), "
                           ",ifelse(is.na(AdGroupIds), "", paste0("\"AdGroupIds\": [", AdGroupIds, "],")),"
-                          \"States\": [",States, "]
+                          \"States\": [",States, "],
+                          \"Types\": [",Types,"]
     },
                           \"FieldNames\": [
                               \"Id\",
@@ -101,9 +115,19 @@ yadirGetAds <- function(CampaignIds   = NULL,
                               \"Text\",
                               \"SitelinkSetId\"],
                           \"CpcVideoAdBuilderAdFieldNames\": [
-                              \"Href\"],
+                              \"Creative\",
+                              \"Href\",
+                              \"TurboPageId\"],
                           \"CpmBannerAdBuilderAdFieldNames\": [
-                              \"Href\"],
+                              \"Creative\",
+                              \"Href\",
+                              \"TurboPageId\"],
+                          \"CpmVideoAdBuilderAdFieldNames\": [
+                              \"Creative\",
+                              \"Href\",
+                              \"TurboPageId\"],
+                          \"SmartAdBuilderAdFieldNames\": [
+                              \"Creative\"],
                           \"Page\": {
                           \"Limit\": 10000,
                           \"Offset\": ",
@@ -111,8 +135,12 @@ yadirGetAds <- function(CampaignIds   = NULL,
     }
     }")
 
-      answer <- POST("https://api.direct.yandex.com/json/v5/ads", body = queryBody, add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru",'Client-Login' = Login))
+      answer <- POST("https://api.direct.yandex.com/json/v5/ads", 
+                     body = queryBody, 
+                     add_headers(Authorization = paste0("Bearer ",Token), 'Accept-Language' = "ru",'Client-Login' = Login))
+      
       stop_for_status(answer)
+      
       dataRaw <- content(answer, "parsed", "application/json")
 
       # check erroe
@@ -124,25 +152,36 @@ yadirGetAds <- function(CampaignIds   = NULL,
       if (length(dataRaw$result$Ads) > 0){
         for(ads_i in seq_along(1:length(dataRaw$result$Ads))){
           result      <- rbind(result,
-                               data.frame(Id                          = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$Id), NA,dataRaw$result$Ads[[ads_i]]$Id),
-                                          AdGroupId                   = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$AdGroupId), NA,dataRaw$result$Ads[[ads_i]]$AdGroupId),
-                                          CampaignId                  = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$CampaignId), NA,dataRaw$result$Ads[[ads_i]]$CampaignId),
-                                          Type                        = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$Type), NA,dataRaw$result$Ads[[ads_i]]$Type),
-                                          Subtype                     = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$Subtype), NA,dataRaw$result$Ads[[ads_i]]$Subtype),
-                                          Status                      = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$Status), NA,dataRaw$result$Ads[[ads_i]]$Status),
-                                          AgeLabel                    = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$AgeLabel), NA,dataRaw$result$Ads[[ads_i]]$AgeLabel),
-                                          State                       = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$State), NA,dataRaw$result$Ads[[ads_i]]$State),
-                                          TextAdTitle                 = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextAd$Title), NA,dataRaw$result$Ads[[ads_i]]$TextAd$Title),
-                                          TextAdTitle2                = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextAd$Title2), NA,dataRaw$result$Ads[[ads_i]]$TextAd$Title2),
-                                          TextAdText                  = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextAd$Text), NA,dataRaw$result$Ads[[ads_i]]$TextAd$Text),
-                                          TextAdHref                  = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextAd$Href), NA,dataRaw$result$Ads[[ads_i]]$TextAd$Href),
-                                          TextAdDisplayDomain         = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextAd$DisplayDomain), NA,dataRaw$result$Ads[[ads_i]]$TextAd$DisplayDomain),
-                                          TextAdMobile                = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextAd$Mobile), NA,dataRaw$result$Ads[[ads_i]]$TextAd$Mobile),
-                                          TextImageAdHref             = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextImageAd$Href), NA,dataRaw$result$Ads[[ads_i]]$TextImageAd$Href),
-                                          TextMediaAdHref             = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$CpmBannerAdBuilderAd$Href), NA, dataRaw$result$Ads[[ads_i]]$CpmBannerAdBuilderAd$Href),
-                                          TextAdSitelinkSetId         = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextAd$SitelinkSetId), NA, dataRaw$result$Ads[[ads_i]]$TextAd$SitelinkSetId),
-                                          DynamicTextAdText           = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$DynamicTextAd$Text), NA, dataRaw$result$Ads[[ads_i]]$DynamicTextAd$Text),
-                                          DynamicTextAdSitelinkSetId = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$DynamicTextAd$SitelinkSetId), NA, dataRaw$result$Ads[[ads_i]]$DynamicTextAd$SitelinkSetId)))
+                               data.frame(Id                            = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$Id), NA,dataRaw$result$Ads[[ads_i]]$Id),
+                                          AdGroupId                     = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$AdGroupId), NA,dataRaw$result$Ads[[ads_i]]$AdGroupId),
+                                          CampaignId                    = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$CampaignId), NA,dataRaw$result$Ads[[ads_i]]$CampaignId),
+                                          Type                          = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$Type), NA,dataRaw$result$Ads[[ads_i]]$Type),
+                                          Subtype                       = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$Subtype), NA,dataRaw$result$Ads[[ads_i]]$Subtype),
+                                          Status                        = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$Status), NA,dataRaw$result$Ads[[ads_i]]$Status),
+                                          AgeLabel                      = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$AgeLabel), NA,dataRaw$result$Ads[[ads_i]]$AgeLabel),
+                                          State                         = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$State), NA,dataRaw$result$Ads[[ads_i]]$State),
+                                          TextAdTitle                   = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextAd$Title), NA,dataRaw$result$Ads[[ads_i]]$TextAd$Title),
+                                          TextAdTitle2                  = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextAd$Title2), NA,dataRaw$result$Ads[[ads_i]]$TextAd$Title2),
+                                          TextAdText                    = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextAd$Text), NA,dataRaw$result$Ads[[ads_i]]$TextAd$Text),
+                                          TextAdHref                    = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextAd$Href), NA,dataRaw$result$Ads[[ads_i]]$TextAd$Href),
+                                          TextAdDisplayDomain           = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextAd$DisplayDomain), NA,dataRaw$result$Ads[[ads_i]]$TextAd$DisplayDomain),
+                                          TextAdMobile                  = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextAd$Mobile), NA,dataRaw$result$Ads[[ads_i]]$TextAd$Mobile),
+                                          TextImageAdHref               = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextImageAd$Href), NA,dataRaw$result$Ads[[ads_i]]$TextImageAd$Href),
+                                          TextImageAdTurboPageId        = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextImageAd$TurboPageId), NA,dataRaw$result$Ads[[ads_i]]$TextImageAd$TurboPageId),
+                                          TextMediaAdHref               = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$CpmBannerAdBuilderAd$Href), NA, dataRaw$result$Ads[[ads_i]]$CpmBannerAdBuilderAd$Href),
+                                          TextAdSitelinkSetId           = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$TextAd$SitelinkSetId), NA, dataRaw$result$Ads[[ads_i]]$TextAd$SitelinkSetId),
+                                          DynamicTextAdText             = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$DynamicTextAd$Text), NA, dataRaw$result$Ads[[ads_i]]$DynamicTextAd$Text),
+                                          DynamicTextAdSitelinkSetId    = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$DynamicTextAd$SitelinkSetId), NA, dataRaw$result$Ads[[ads_i]]$DynamicTextAd$SitelinkSetId),
+                                          SmartAdBuilderAdCreativeId    = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$SmartAdBuilderAd$Creative$CreativeId), NA, dataRaw$result$Ads[[ads_i]]$SmartAdBuilderAd$Creative$CreativeId),
+                                          SmartAdBuilderThumbnailUrl    = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$SmartAdBuilderAd$Creative$ThumbnailUrl), NA, dataRaw$result$Ads[[ads_i]]$SmartAdBuilderAd$Creative$ThumbnailUrl),
+                                          SmartAdBuilderPreviewUrl      = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$SmartAdBuilderAd$Creative$PreviewUrl), NA, dataRaw$result$Ads[[ads_i]]$SmartAdBuilderAd$Creative$PreviewUrl),
+                                          CpmBannerAdBuilderHref        = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$CpmBannerAdBuilderAd$Href), NA, dataRaw$result$Ads[[ads_i]]$CpmBannerAdBuilderAd$Href),
+                                          CpmBannerAdBuilderTurboPageId = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$CpmBannerAdBuilderAd$TurboPageId), NA, dataRaw$result$Ads[[ads_i]]$CpmBannerAdBuilderAd$TurboPageId),
+                                          CpcVideoAdBuilderHref         = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$CpcVideoAdBuilderAd$Href), NA, dataRaw$result$Ads[[ads_i]]$CpcVideoAdBuilderAd$Href),
+                                          CpcVideoAdBuilderTurboPageId  = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$CpcVideoAdBuilderAd$TurboPageId), NA, dataRaw$result$Ads[[ads_i]]$CpcVideoAdBuilderAd$TurboPageId),
+                                          CpmVideoAdBuilderHref         = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$CpmVideoAdBuilderAd$Href), NA, dataRaw$result$Ads[[ads_i]]$CpmVideoAdBuilderAd$Href),
+                                          CpmVideoAdBuilderTurboPageId  = ifelse(is.null(dataRaw$result$Ads[[ads_i]]$CpmVideoAdBuilderAd$TurboPageId), NA, dataRaw$result$Ads[[ads_i]]$CpmVideoAdBuilderAd$TurboPageId))
+                                          )
         }
         # add point to progress bar
         packageStartupMessage(".", appendLF = F)

@@ -1,6 +1,7 @@
 yadirGetAdGroups <- function(CampaignIds   = NULL, 
                              Ids           = NA, 
-                             Types         = c("TEXT_AD_GROUP" ,"MOBILE_APP_AD_GROUP" ,"DYNAMIC_TEXT_AD_GROUP"),
+                             Types         = c("TEXT_AD_GROUP", "MOBILE_APP_AD_GROUP", "DYNAMIC_TEXT_AD_GROUP",
+                                               "CPM_BANNER_AD_GROUP", "CPM_VIDEO_AD_GROUP", "SMART_AD_GROUP"),
                              Statuses      = c( "ACCEPTED", "DRAFT", "MODERATION", "PREACCEPTED", "REJECTED"), 
                              Login         = getOption("ryandexdirect.user"),
                              AgencyAccount = getOption("ryandexdirect.agency_account"),
@@ -37,7 +38,10 @@ yadirGetAdGroups <- function(CampaignIds   = NULL,
                             DynamicTextAdGroupDomainUrlProcessingStatus          = character(0),
                             DynamicTextFeedAdGroupSource                         = character(0),
                             DynamicTextFeedAdGroupSourceType                     = character(0),
-                            DynamicTextFeedAdGroupSourceProcessingStatus         = character(0))
+                            DynamicTextFeedAdGroupSourceProcessingStatus         = character(0),
+                            SmartAdGroupFeedId                                   = character(0),
+                            SmartAdGroupAdTitleSource                            = character(0),
+                            SmartAdGroupAdBodySource                             = character(0))                 
   
   # check ids
   if (is.null(CampaignIds)) {
@@ -64,7 +68,7 @@ yadirGetAdGroups <- function(CampaignIds   = NULL,
     camp_step   <-  if(camp_num - camp_start >= 10) camp_step else camp_num - camp_start + 1
     
     
-    Ids             <- ifelse(is.na(Ids), NA,paste0(Ids, collapse = ","))
+    Ids             <- ifelse(is.na(Ids), NA, paste0(Ids, collapse = ","))
     CampaignIdsTmp  <- paste("\"",CampaignIds[camp_start:(camp_start + camp_step - 1)],"\"",collapse=", ",sep="")
     
     # set offset
@@ -107,6 +111,10 @@ yadirGetAdGroups <- function(CampaignIds   = NULL,
                               \"Source\",
                               \"SourceType\",
                               \"SourceProcessingStatus\"],
+                         \"SmartAdGroupFieldNames\":[
+                              \"FeedId\",
+                              \"AdTitleSource\",
+                              \"AdBodySource\"],
                           \"Page\": {  
                           \"Limit\": 10000,
                           \"Offset\": ",lim,"}
@@ -148,7 +156,12 @@ yadirGetAdGroups <- function(CampaignIds   = NULL,
                                         DynamicTextAdGroupDomainUrlProcessingStatus          = ifelse(is.null(dataRaw$result$AdGroups[[adgroups_i]]$DynamicTextAdGroup$DomainUrlProcessingStatus), NA,dataRaw$result$AdGroups[[adgroups_i]]$DynamicTextAdGroup$DomainUrlProcessingStatus),
                                         DynamicTextFeedAdGroupSource                         = ifelse(is.null(dataRaw$result$AdGroups[[adgroups_i]]$DynamicTextFeedAdGroup$Source), NA,dataRaw$result$AdGroups[[adgroups_i]]$DynamicTextFeedAdGroup$Source),
                                         DynamicTextFeedAdGroupSourceType                     = ifelse(is.null(dataRaw$result$AdGroups[[adgroups_i]]$DynamicTextFeedAdGroup$SourceType), NA,dataRaw$result$AdGroups[[adgroups_i]]$DynamicTextFeedAdGroup$SourceType),
-                                        DynamicTextFeedAdGroupSourceProcessingStatus         = ifelse(is.null(dataRaw$result$AdGroups[[adgroups_i]]$DynamicTextFeedAdGroup$SourceProcessingStatus), NA,dataRaw$result$AdGroups[[adgroups_i]]$DynamicTextFeedAdGroup$SourceProcessingStatus)))
+                                        DynamicTextFeedAdGroupSourceProcessingStatus         = ifelse(is.null(dataRaw$result$AdGroups[[adgroups_i]]$DynamicTextFeedAdGroup$SourceProcessingStatus), NA,dataRaw$result$AdGroups[[adgroups_i]]$DynamicTextFeedAdGroup$SourceProcessingStatus),
+                                        SmartAdGroupFeedId                                   = ifelse(is.null(dataRaw$result$AdGroups[[adgroups_i]]$SmartAdGroup$FeedId), NA,dataRaw$result$AdGroups[[adgroups_i]]$SmartAdGroup$FeedId),
+                                        SmartAdGroupAdTitleSource                            = ifelse(is.null(dataRaw$result$AdGroups[[adgroups_i]]$SmartAdGroup$AdTitleSource), NA,dataRaw$result$AdGroups[[adgroups_i]]$SmartAdGroup$AdTitleSource),
+                                        SmartAdGroupAdBodySource                             = ifelse(is.null(dataRaw$result$AdGroups[[adgroups_i]]$SmartAdGroup$AdBodySource), NA,dataRaw$result$AdGroups[[adgroups_i]]$SmartAdGroup$AdBodySource)
+                                        )
+                             )
       }
       # progressbar
       packageStartupMessage(".", appendLF = F)
