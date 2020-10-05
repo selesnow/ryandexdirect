@@ -43,6 +43,7 @@ devtools::install_github('selesnow/ryandexdirect')
 
 ### Ссылки
 1. [Документация по работе с пакетом ryandexdirect](https://selesnow.github.io/ryandexdirect/).
+2. [Видео уроки по работе с ryandexdirect](https://www.youtube.com/playlist?list=PLD2LDq8edf4oUo0L9Kw77ZXf0KcV1hu67)
 2. Баг репорты, предложения по доработке и улучшению функционала ryandexdirect оставлять [тут](https://github.com/selesnow/ryandexdirect/issues). 
 3. [Список релизов](https://github.com/selesnow/ryandexdirect/releases).
 4. [Телеграмм канал R4marketing](https://t.me/R4marketing).
