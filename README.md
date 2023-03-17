@@ -3,7 +3,7 @@
 </p>
 
 
-# ryandexdirect - пакет для работы с API Яндекс.Директ версии 4, Live 4 и 5 на языке R.<a href='https:/selesnow.github.io/ryandexdirect'><img src='https://raw.githubusercontent.com/selesnow/ryandexdirect/master/inst/ryandexdirect.png' align="right" height="139" /></a>
+# ryandexdirect - пакет для работы с API Яндекс.Директ версии 4, Live 4 и 5 на языке R.<a href='https://selesnow.github.io/ryandexdirect'><img src='https://raw.githubusercontent.com/selesnow/ryandexdirect/master/inst/ryandexdirect.png' align="right" height="139" /></a>
 
 ## CRAN
 [Ссылка на страницу пакета на CRAN](https://CRAN.R-project.org/package=ryandexdirect)

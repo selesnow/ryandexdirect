@@ -2,4 +2,4 @@
 
 0 errors | 0 warnings | 0 note
 
-* Remove getOption("stringsAsFactors").
+* Fix links.
