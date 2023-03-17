@@ -6,3 +6,5 @@
 ^ga\.html$
 ^getToken$
 ^index\.md$
+^CRAN-SUBMISSION$
+^cran-comments\.md$

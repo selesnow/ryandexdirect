@@ -50,8 +50,8 @@ Over time, the activity of competitors can raise the bid for the desired frequen
 \value{List with result data, object ids, warnings and errors.}
 \author{Alexey Seleznev}
 \references{
-\href{https://tech.yandex.ru/direct/doc/ref-v5/keywordbids/keywordbids-docpage/}{KeyWord Bids API documentation}
-\href{https://tech.yandex.ru/direct/doc/ref-v5/keywordbids/setAuto-docpage/}{KeyWord Bids setAuto method API documentation}
+\href{https://yandex.ru/dev/direct/doc/ref-v5/keywordbids/keywordbids-docpage}{KeyWord Bids API documentation}
+\href{https://yandex.ru/dev/direct/doc/ref-v5/keywordbids/setAuto-docpage}{KeyWord Bids setAuto method API documentation}
 }
 \examples{
 \dontrun{

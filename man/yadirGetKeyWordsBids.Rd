@@ -33,8 +33,8 @@ Use AuctionBids = "search" when you need get frequency of the show (audience sha
 \value{Data Frame with keyword bids and auction data}
 \author{Alexey Seleznev}
 \references{
-\href{https://tech.yandex.ru/direct/doc/ref-v5/keywordbids/keywordbids-docpage/}{KeyWord Bids API documentation}
-\href{https://tech.yandex.ru/direct/doc/ref-v5/keywordbids/get-docpage/}{KeyWord Bids get method API documentation}
+\href{https://yandex.ru/dev/direct/doc/ref-v5/keywordbids/keywordbids-docpage}{KeyWord Bids API documentation}
+\href{https://yandex.ru/dev/direct/doc/ref-v5/keywordbids/get-docpage}{KeyWord Bids get method API documentation}
 }
 \examples{
 \dontrun{

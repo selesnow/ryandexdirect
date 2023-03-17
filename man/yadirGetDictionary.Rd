@@ -20,7 +20,7 @@ yadirGetDictionary(DictionaryName = "GeoRegions",
   \item{Token}{character or list object, your Yandex API Token, you can get this by function yadirGetToken or yadirAuth}
 }
 \references{
-For more details go \href{https://tech.yandex.ru/direct/doc/ref-v5/dictionaries/get-docpage/}{link}
+For more details go \href{https://yandex.ru/dev/direct/doc/ref-v5/dictionaries/get-docpage}{link}
 }
 \value{Data Frame}
 \author{Alexey Seleznev}

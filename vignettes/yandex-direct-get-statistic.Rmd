@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 library(ryandexdirect)
 ```
 
-Для загрузки статистики  =в пакете `ryandexdirect` предназначена функция `yadirGetReport`. Данная функция взаимодействует с API 'Сервис Reports', подробно о нём можно узнав в офйициальной [документации](https://tech.yandex.ru/direct/doc/reports/reports-docpage/), в текущей виньетке так же используется материал официальной спавки по работе с API сервиса 'Reports'.
+Для загрузки статистики  =в пакете `ryandexdirect` предназначена функция `yadirGetReport`. Данная функция взаимодействует с API 'Сервис Reports', подробно о нём можно узнав в офйициальной [документации](https://yandex.ru/dev/direct/doc/reports/reports-docpage), в текущей виньетке так же используется материал официальной спавки по работе с API сервиса 'Reports'.
 
 ## Аргументы функции yadirGetReports
 

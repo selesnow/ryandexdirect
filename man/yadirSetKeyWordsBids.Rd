@@ -67,8 +67,8 @@ See for get and autoset keyword bids \code{\link[ryandexdirect:yadirGetKeyWordsB
 \author{Alexey Seleznev}
 \references{
 \itemize{
-  \item \href{https://tech.yandex.ru/direct/doc/ref-v5/keywordbids/keywordbids-docpage/}{KeyWord Bids API documentation}
-  \item \href{https://tech.yandex.ru/direct/doc/ref-v5/keywordbids/set-docpage/}{KeyWord Bids set method API documentation}
+  \item \href{https://yandex.ru/dev/direct/doc/ref-v5/keywordbids/keywordbids-docpage}{KeyWord Bids API documentation}
+  \item \href{https://yandex.ru/dev/direct/doc/ref-v5/keywordbids/set-docpage}{KeyWord Bids set method API documentation}
 }
 }
 \examples{

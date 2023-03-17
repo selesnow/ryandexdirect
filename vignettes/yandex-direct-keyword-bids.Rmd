@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
-Значительная часть представленной в этой виньетке информации взаимствована из [официальной документации](https://tech.yandex.ru/direct/doc/ref-v5/bids/bids-docpage/) к API ЯндексюДирект версии 5.
+Значительная часть представленной в этой виньетке информации взаимствована из [официальной документации](https://yandex.ru/dev/direct/doc/ref-v5/bids/bids-docpage) к API ЯндексюДирект версии 5.
 
 Для управления ставками в пакете `ryandexdirect` существуют 3 функции:
 
@@ -315,8 +315,8 @@ autosetbids <-  yadirGetAdGroups(Types = "TEXT_AD_GROUP")  %>%
 
 ## Ссылки
 
-* [Справка Яндекс.Директ по сервису KeywordBids.](https://tech.yandex.ru/direct/doc/ref-v5/keywordbids/keywordbids-docpage/)
-* [Справка Яндекс.Директ по методу get сервиса KeywordBids.](https://tech.yandex.ru/direct/doc/ref-v5/keywordbids/get-docpage/)
-* [Справка Яндекс.Директ по методу set сервиса KeywordBids.](https://tech.yandex.ru/direct/doc/ref-v5/keywordbids/set-docpage/)
-* [Справка Яндекс.Директ по методу setAuto сервиса KeywordBids.](https://tech.yandex.ru/direct/doc/ref-v5/keywordbids/setAuto-docpage/)
-* [Руководство разработчика Яндекс.Директ по ставкам и приоритетам.](https://tech.yandex.ru/direct/doc/dg/objects/bid-priority-docpage/)
+* [Справка Яндекс.Директ по сервису KeywordBids.](https://yandex.ru/dev/direct/doc/ref-v5/keywordbids/keywordbids-docpage)
+* [Справка Яндекс.Директ по методу get сервиса KeywordBids.](https://yandex.ru/dev/direct/doc/ref-v5/keywordbids/get-docpage)
+* [Справка Яндекс.Директ по методу set сервиса KeywordBids.](https://yandex.ru/dev/direct/doc/ref-v5/keywordbids/set-docpage)
+* [Справка Яндекс.Директ по методу setAuto сервиса KeywordBids.](https://yandex.ru/dev/direct/doc/ref-v5/keywordbids/setAuto-docpage)
+* [Руководство разработчика Яндекс.Директ по ставкам и приоритетам.](https://yandex.ru/dev/direct/doc/dg/objects/bid-priority-docpage)

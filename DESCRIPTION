@@ -4,10 +4,10 @@ Title: Load Data From 'Yandex Direct'
 Version: 3.6.2
 Date: 2020-08-20
 Description: Load data from 'Yandex Direct' API V5 
-    <https://tech.yandex.ru/direct/doc/dg/concepts/about-docpage/> into R.
+    <https://yandex.ru/dev/direct/doc/dg/concepts/about-docpage> into R.
 	Provide function for load lists of campaings, ads, keywords and other 
 	objects from 'Yandex Direct' account. Also you can load statistic from
-	API 'Reports Service' <https://tech.yandex.ru/direct/doc/reports/reports-docpage/>.
+	API 'Reports Service' <https://yandex.ru/dev/direct/doc/reports/reports-docpage>.
 	And allows keyword bids management.
 License: GPL-2
 Authors@R: 
@@ -20,7 +20,7 @@ Author: Alexey Seleznev [aut, cre] (<https://orcid.org/0000-0003-0410-7385>)
 Maintainer: Alexey Seleznev <selesnow@gmail.com>
 Depends: R (>= 3.5.0)
 BugReports: https://github.com/selesnow/ryandexdirect/issues
-URL: https://selesnow.github.io/ryandexdirect, https://t.me/R4marketing, https://www.youtube.com/playlist?list=PLD2LDq8edf4oUo0L9Kw77ZXf0KcV1hu67
+URL: https://selesnow.github.io/ryandexdirect/, https://t.me/R4marketing, https://www.youtube.com/playlist?list=PLD2LDq8edf4oUo0L9Kw77ZXf0KcV1hu67
 Imports: utils, 
          httr, 
     		 bitops, 

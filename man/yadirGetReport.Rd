@@ -20,7 +20,7 @@ yadirGetReport(ReportType = "CUSTOM_REPORT", DateRangeType =
   \item{DateRangeType}{Reporting period, one from  TODAY, YESTERDAY, LAST_3_DAYS, LAST_5_DAYS, LAST_7_DAYS, LAST_14_DAYS, LAST_30_DAYS, LAST_90_DAYS, LAST_365_DAYS, THIS_WEEK_MON_TODAY ,THIS_WEEK_SUN_TODAY, LAST_WEEK, LAST_BUSINESS_WEEK, LAST_WEEK_SUN_SAT, THIS_MONTH, LAST_MONTH, ALL_TIME, CUSTOM_DATE, AUTO. For detail go https://tech.yandex.ru/direct/doc/reports/period-docpage/}
   \item{DateFrom}{If your select CUSTOM_DATE in DateRangeType you must enter start date in this argument in YYYY-MM-DD format else you can not used this argument}
   \item{DateTo}{If your select CUSTOM_DATE in DateRangeType you must enter end date in this argument in YYYY-MM-DD format else you can not used this argument}
-  \item{FieldNames}{Character vector with field names list, for example c("Date","CampaignName","Impressions","Clicks"), for more ditails go https://tech.yandex.ru/direct/doc/reports/fields-list-docpage/}
+  \item{FieldNames}{Character vector with field names list, for example c("Date","CampaignName","Impressions","Clicks"), for more ditails go https://yandex.ru/dev/direct/doc/reports/fields-list-docpage}
   \item{FilterList}{Character vector with rows filters, for example c("Clicks GREATER_THAN 99","Impressions LESS_THAN 1000"), for more details go https://tech.yandex.ru/direct/doc/reports/filters-docpage/}
   \item{Goals}{integer vector, id of the Yandex.Metric goals for which you want to get statistics. No more than 10 elements in the array. For example c(182453, 182452, 23458860).}
   \item{AttributionModels}{Attribution models used in the calculation of data on Yandex.Metrica goals. For example c("LSC", "LC", "FC"), see detail for more information.}
@@ -54,7 +54,7 @@ If several attribution models are specified, the data will be displayed for each
 For get more ditails see vignett \code{vignette("yandex-direct-get-stat", package = "ryandexdirect")}
 }
 \references{
-\href{https://tech.yandex.ru/direct/doc/reports/reports-docpage/}{Official docs of 'Service Reports'}
+\href{https://yandex.ru/dev/direct/doc/reports/reports-docpage}{Official docs of 'Service Reports'}
 
 \href{https://yandex.ru/support/metrika/general/goals.html}{What are goals?}
 
