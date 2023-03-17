@@ -22,7 +22,7 @@ tech_auth <-  function(login = NULL, token = NULL, AgencyAccount = NULL, TokenPa
   # if token not null skip auth
   if (! is.null(token) ) {
     # detect class of token object
-    if(class(token) == "list") {
+    if(inherits(token, "list")) {
       Token <- token$access_token 
     } else {
       Token <- token
