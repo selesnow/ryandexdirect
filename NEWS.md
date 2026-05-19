@@ -1,4 +1,8 @@
+# ryandexdirect 3.6.6
+
 # ryandexdirect 3.6.5
+
+Fix URLs for CRAN require
 
 # ryandexdirect 3.6.4
 
