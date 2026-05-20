@@ -145,7 +145,7 @@ li.nm_li {
 
 ### Бейджи
 [![Rdoc](http://www.rdocumentation.org/badges/version/ryandexdirect)](http://www.rdocumentation.org/packages/ryandexdirect)
-[![rpackages.io rank](http://www.rpackages.io/badge/ryandexdirect.svg)](http://www.rpackages.io/package/ryandexdirect)
+[![rpackages.io rank](https://www.rpackages.io/badge/ryandexdirect.svg)](https://www.rpackages.io/package/ryandexdirect)
 [![](https://cranlogs.r-pkg.org/badges/ryandexdirect)](https://cran.r-project.org/package=ryandexdirect)
 
 ## Содержание

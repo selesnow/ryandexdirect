@@ -19,7 +19,7 @@ yadirGetCampaign(Logins = getOption("ryandexdirect.user"),
                   States = c("OFF", "ON", "SUSPENDED",
                    "ENDED", "CONVERTED", "ARCHIVED"), Types =
                    c("TEXT_CAMPAIGN", "MOBILE_APP_CAMPAIGN", "DYNAMIC_TEXT_CAMPAIGN", 
-                   "CPM_BANNER_CAMPAIGN", "SMART_CAMPAIGN"),
+                   "CPM_BANNER_CAMPAIGN", "SMART_CAMPAIGN", "UNIFIED_CAMPAIGN"),
                    Statuses = c("ACCEPTED", "DRAFT", "MODERATION",
                    "REJECTED"), StatusesPayment = c("DISALLOWED",
                    "ALLOWED"), Token = NULL, 

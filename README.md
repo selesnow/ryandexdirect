@@ -10,7 +10,6 @@
 
 ### Бейджи
 [![Rdoc](http://www.rdocumentation.org/badges/version/ryandexdirect)](https://www.rdocumentation.org/packages/ryandexdirect)
-[![rpackages.io rank](http://www.rpackages.io/badge/ryandexdirect.svg)](http://www.rpackages.io/package/ryandexdirect)
 [![](https://cranlogs.r-pkg.org/badges/ryandexdirect)](https://cran.r-project.org/package=ryandexdirect)
 
 ## Краткое описание.
@@ -49,7 +48,7 @@ devtools::install_github('selesnow/ryandexdirect')
 4. [Телеграмм канал R4marketing](https://t.me/R4marketing).
 
 ### Автор пакета
-Алексей Селезнёв, Head of analytics dept. at [Netpeak](https://netpeak.net/en/gb/)
+Alexey Seleznev
 <Br>Telegram канал автора: [R4marketing](https://t.me/R4marketing)
 <Br>Сайт с документацией к пакетам: [selesnow.github.io](https://selesnow.github.io)
 <Br>email: selesnow@gmail.com

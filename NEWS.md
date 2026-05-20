@@ -1,5 +1,7 @@
 # ryandexdirect 3.6.6
 
+Cran fix
+
 # ryandexdirect 3.6.5
 
 Fix URLs for CRAN require
